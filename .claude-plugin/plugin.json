@@ -21,21 +21,6 @@
     "mobile-first"
   ],
   "skills": "./skills/",
-  "agents": [
-    "agents/research-scout.md",
-    "agents/source-librarian.md",
-    "agents/learning-architect.md",
-    "agents/visual-story-designer.md",
-    "agents/frontend-builder.md",
-    "agents/repo-session-analyst.md",
-    "agents/fact-checker.md",
-    "agents/beginner-reviewer.md",
-    "agents/accessibility-reviewer.md",
-    "agents/ux-design-reviewer.md",
-    "agents/performance-reviewer.md",
-    "agents/security-privacy-reviewer.md",
-    "agents/skeptical-reviewer.md"
-  ],
   "hooks": "./hooks/hooks.json",
   "mcpServers": {
     "recap-studio-tools": {
