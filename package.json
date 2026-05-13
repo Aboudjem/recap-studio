@@ -1,0 +1,36 @@
+{
+  "name": "recap-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Claude Code plugin: generate mobile-first, ADHD-friendly one-page educational websites from a topic or a coding session.",
+  "license": "MIT",
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "pnpm -r --if-present run lint",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "test": "pnpm -r --if-present run test",
+    "build": "pnpm -r --if-present run build",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md}\"",
+    "demo:latest-ai-models": "node scripts/demo-latest-ai-models.mjs",
+    "validate:demo": "node scripts/validate.mjs apps/recap-web/src/content/latest-ai-models.json",
+    "validate": "node scripts/validate.mjs",
+    "history": "node scripts/history.mjs",
+    "auto-refresh": "node scripts/auto-refresh.mjs",
+    "deploy:preview": "bash scripts/deploy-preview.sh",
+    "deploy:prod": "bash scripts/deploy-prod.sh",
+    "clean": "rimraf node_modules apps/*/node_modules packages/*/node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "prettier": "^3.3.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.5.0"
+  }
+}

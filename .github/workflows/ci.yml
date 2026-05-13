@@ -1,0 +1,50 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile=false
+      - name: Lint
+        run: pnpm -r --if-present run lint
+      - name: Typecheck
+        run: pnpm -r --if-present run typecheck
+      - name: Build packages
+        run: pnpm -r --if-present run build
+      - name: Test
+        run: pnpm -r --if-present run test
+      - name: Demo + validation
+        run: |
+          node scripts/demo-latest-ai-models.mjs
+          node scripts/validate.mjs
+
+  hooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Smoke-test hooks
+        run: |
+          echo '{"tool_input":{"file_path":".env.local"}}' | node hooks/block-secret-writes.mjs && exit 1 || echo "ok: refused .env"
+          echo '{"tool_input":{"command":"git push origin main"}}' | node hooks/block-destructive-git.mjs && exit 1 || echo "ok: refused push"
+          echo '{}' | node hooks/validate-before-deploy.mjs && exit 1 || echo "ok: refused deploy with no config"

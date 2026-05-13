@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-05-13T06:03:47.265Z",
+  "rows": [
+    {
+      "slug": "latest-ai-models",
+      "topic": "Latest AI models",
+      "overall": 9.7,
+      "passedThresholds": true,
+      "generatedAt": "2026-05-13T06:03:47.219Z",
+      "blockers": 0,
+      "dimensions": [
+        {
+          "name": "facts",
+          "score": 10,
+          "status": "pass"
+        },
+        {
+          "name": "beginner",
+          "score": 10,
+          "status": "pass"
+        },
+        {
+          "name": "adhd-a11y",
+          "score": 10,
+          "status": "pass"
+        },
+        {
+          "name": "ux",
+          "score": 10,
+          "status": "pass"
+        },
+        {
+          "name": "performance",
+          "score": 8,
+          "status": "pass"
+        },
+        {
+          "name": "security-privacy",
+          "score": 10,
+          "status": "pass"
+        },
+        {
+          "name": "simplicity",
+          "score": 10,
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

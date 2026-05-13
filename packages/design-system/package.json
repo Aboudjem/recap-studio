@@ -1,0 +1,28 @@
+{
+  "name": "@recap-studio/design-system",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./tailwind-preset": "./tailwind-preset.cjs"
+  },
+  "files": ["dist", "tailwind-preset.cjs"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "echo 'design-system: no tests (consumed by recap-web)'",
+    "lint": "echo 'design-system: no lint configured yet'"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

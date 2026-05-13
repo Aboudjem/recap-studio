@@ -1,0 +1,31 @@
+node_modules/
+.next/
+dist/
+build/
+out/
+coverage/
+.turbo/
+.cache/
+*.log
+*.tsbuildinfo
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Recap Studio runtime
+.recap-studio/
+artifacts/
+!artifacts/.gitkeep
+.omc/
+artifacts/
+.recap-studio/

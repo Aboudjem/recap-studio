@@ -1,0 +1,333 @@
+{
+  "slug": "latest-ai-models",
+  "topic": "Latest AI models",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-13T00:00:00.000Z",
+  "fixture": true,
+  "oneSentenceAnswer": "Most leading AI labs now ship three sizes of model per family, a fast small one, a balanced mid one, and a deep flagship that can think before it answers.",
+  "fiveMinutePath": [
+    "See the three-tier shape every major lab now ships.",
+    "Learn the jargon: tokens, context window, reasoning, multimodal.",
+    "Compare the named flagships head-to-head on a few real tasks.",
+    "Spot common myths about benchmarks and pricing.",
+    "Pick a model for your next project using a short checklist."
+  ],
+  "whyItMatters": [
+    "Picking the wrong tier wastes money or breaks latency budgets.",
+    "Capabilities differ more than names suggest, especially on reasoning.",
+    "Public benchmarks lag real life; a methodology is part of the score."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k-tiers",
+      "title": "Every family ships three tiers",
+      "body": "Labs offer a small fast tier, a mid balanced tier, and a flagship for hard problems. Picking the tier matters more than picking the lab.",
+      "icon": "layers",
+      "sourceIds": ["src-anthropic-models", "src-openai-models", "src-google-deepmind"]
+    },
+    {
+      "id": "k-reasoning",
+      "title": "Reasoning is its own product surface",
+      "body": "Some models can think before answering. They cost more and take longer, but they reduce silly mistakes on math, code, and planning.",
+      "icon": "brain",
+      "sourceIds": ["src-anthropic-models", "src-openai-models"]
+    },
+    {
+      "id": "k-context",
+      "title": "Context windows are getting absurd",
+      "body": "Modern flagships can read hundreds of thousands of tokens. Bigger is not always better; retrieval still beats stuffing a whole codebase.",
+      "icon": "scroll",
+      "sourceIds": ["src-anthropic-models", "src-google-deepmind"]
+    },
+    {
+      "id": "k-multimodal",
+      "title": "Multimodal is default, not optional",
+      "body": "Vision is built in across the major families. Audio in and out is shipping fast. You can hand a model a photo or a PDF and ask questions.",
+      "icon": "image",
+      "sourceIds": ["src-openai-models", "src-google-deepmind"]
+    },
+    {
+      "id": "k-pricing",
+      "title": "Price falls, capability rises",
+      "body": "Inference cost per million tokens dropped roughly an order of magnitude in two years. The cheap tier today beats yesterday's flagship.",
+      "icon": "trending-down",
+      "sourceIds": ["src-artificial-analysis", "src-stanford-ai-index"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "compare", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "myths", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "concept-map",
+      "kind": "mermaid",
+      "alt": "Concept map showing three model tiers, their use cases, and the four capability axes",
+      "code": "flowchart TD\n  Family[\"Model family\"] --> Small[\"Small tier\\n(fast, cheap)\"]\n  Family --> Mid[\"Mid tier\\n(balanced)\"]\n  Family --> Flagship[\"Flagship\\n(reasoning + long context)\"]\n  Small --> UseS[\"Chat, classify,\\nshort tasks\"]\n  Mid --> UseM[\"Agents, coding,\\nstructured output\"]\n  Flagship --> UseF[\"Hard reasoning,\\nlong documents,\\nresearch\"]\n  classDef tier fill:#E6E0FF,stroke:#7C5CFF,color:#1F1647;\n  class Small,Mid,Flagship tier;"
+    },
+    {
+      "id": "reasoning-flow",
+      "kind": "mermaid",
+      "alt": "Sequence diagram showing how a reasoning model thinks before answering",
+      "code": "sequenceDiagram\n  participant U as User\n  participant M as Reasoning model\n  U->>M: Question\n  M-->>M: Plan steps (hidden)\n  M-->>M: Verify each step\n  M->>U: Final answer + (optional) summary of thought"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2024-05",
+      "title": "Flagship sizes consolidate",
+      "body": "Labs settle on a small/mid/large shape per family, dropping older one-size-fits-all lines.",
+      "sourceIds": ["src-stanford-ai-index"]
+    },
+    {
+      "date": "2024-09",
+      "title": "Reasoning models go mainstream",
+      "body": "A dedicated reasoning surface ships across two major labs, with separate pricing and latency profiles.",
+      "sourceIds": ["src-openai-models", "src-anthropic-models"]
+    },
+    {
+      "date": "2025-03",
+      "title": "Context jumps past 1M tokens",
+      "body": "Long-context flagships read hundreds of thousands of tokens in one call; agentic use cases get viable.",
+      "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+    },
+    {
+      "date": "2025-11",
+      "title": "Per-token price crosses a cent floor",
+      "body": "Mid-tier inference falls below one cent per thousand tokens for many providers.",
+      "sourceIds": ["src-artificial-analysis"]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "tier-shape",
+      "title": "What each tier is for",
+      "columns": ["Tier", "Strengths", "Watch out for"],
+      "rows": [
+        {
+          "name": "Small",
+          "cells": {
+            "Tier": "Small",
+            "Strengths": "Cheap and fast. Great for routing, classification, short answers.",
+            "Watch out for": "Drops accuracy on multi-step reasoning."
+          },
+          "sourceIds": ["src-anthropic-models", "src-openai-models"]
+        },
+        {
+          "name": "Mid",
+          "cells": {
+            "Tier": "Mid",
+            "Strengths": "Balanced. The right default for most product features.",
+            "Watch out for": "Slower than small; can still hallucinate on niche facts."
+          },
+          "sourceIds": ["src-anthropic-models", "src-openai-models"]
+        },
+        {
+          "name": "Flagship",
+          "cells": {
+            "Tier": "Flagship",
+            "Strengths": "Long context, reasoning, planning, multimodal depth.",
+            "Watch out for": "5-20x cost; latency in seconds; rate limits."
+          },
+          "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "e-classify",
+      "title": "Tag 10k customer emails by intent",
+      "body": "Use a small-tier model. Batch them. You want throughput, not deep reasoning.",
+      "sourceIds": ["src-openai-models"]
+    },
+    {
+      "id": "e-code-review",
+      "title": "Review a 3-file pull request",
+      "body": "Use a mid-tier model with structured output. Ask for findings keyed by file and severity.",
+      "sourceIds": ["src-anthropic-models"]
+    },
+    {
+      "id": "e-research",
+      "title": "Summarize a 200-page contract",
+      "body": "Use a flagship with long context. Add retrieval over the table of contents for citations.",
+      "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "a-kitchen",
+      "setup": "Picking a model tier is like picking a kitchen knife.",
+      "takeaway": "A paring knife is fast and cheap for small jobs. A chef knife is the daily default. A cleaver is overkill until you need to break down a roast."
+    },
+    {
+      "id": "a-cars",
+      "setup": "Reasoning vs non-reasoning is like driving vs taking a long way with a map.",
+      "takeaway": "Driving fast is fine when the route is obvious. The detour with a map is slower but stops you missing the exit."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m-bigger-better",
+      "myth": "Bigger model = better answer.",
+      "truth": "On most product tasks the mid tier wins on cost-quality. Use the flagship only when you measured a real gap.",
+      "sourceIds": ["src-stanford-ai-index", "src-artificial-analysis"]
+    },
+    {
+      "id": "m-benchmarks",
+      "myth": "Benchmark leaderboards tell you which model to ship.",
+      "truth": "Public benchmarks leak into training data and rarely match your eval. Run your own evals on your own tasks.",
+      "sourceIds": ["src-stanford-ai-index"]
+    },
+    {
+      "id": "m-context",
+      "myth": "A bigger context window solves retrieval.",
+      "truth": "Models miss details in the middle of long contexts. Retrieval and chunking still help, even at 1M tokens.",
+      "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+    }
+  ],
+  "glossary": [
+    { "term": "token", "definition": "A chunk of text the model reads or writes. Roughly four characters of English." },
+    { "term": "context window", "definition": "The maximum tokens the model can see in one call, prompt plus answer." },
+    { "term": "reasoning model", "definition": "A model trained to plan and verify steps before answering. Slower, more accurate on hard tasks." },
+    { "term": "multimodal", "definition": "A model that takes more than one input type, like text and images, or text and audio." },
+    { "term": "flagship", "definition": "The most capable model in a family. Highest cost, latency, and quality ceiling." },
+    { "term": "benchmark", "definition": "A standardized test used to compare models. Useful for ranking, weak for product decisions." },
+    { "term": "retrieval", "definition": "Pulling only the relevant chunks of a document into the prompt instead of stuffing everything." }
+  ],
+  "practicalTakeaways": [
+    "Default to the mid tier; promote to flagship only after a real eval shows a gap.",
+    "Cache prompts and structured outputs; cost scales with what you re-send.",
+    "Pair retrieval with long context; do not throw whole codebases at the model.",
+    "Run a small private eval before you swap providers; benchmarks lie about your tasks.",
+    "Re-price every quarter; per-token cost has dropped about an order of magnitude in two years."
+  ],
+  "sourceMap": [
+    {
+      "id": "src-anthropic-models",
+      "title": "Anthropic — Models overview",
+      "url": "https://docs.anthropic.com/en/docs/about-claude/models",
+      "publisher": "Anthropic",
+      "publishedAt": "2026-04-15",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Vendor docs covering the Claude family, tiers, reasoning surface, and context window guidance.",
+      "claims": [
+        "Three-tier family shape",
+        "Reasoning surface exists with separate pricing",
+        "Long context window with documented limits"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-openai-models",
+      "title": "OpenAI — Models",
+      "url": "https://platform.openai.com/docs/models",
+      "publisher": "OpenAI",
+      "publishedAt": "2026-04-20",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Vendor docs covering GPT model families, reasoning-tier surface, and multimodal capabilities.",
+      "claims": [
+        "Three-tier family shape",
+        "Multimodal is default",
+        "Reasoning surface with own latency profile"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-google-deepmind",
+      "title": "Google DeepMind — Gemini",
+      "url": "https://deepmind.google/technologies/gemini/",
+      "publisher": "Google DeepMind",
+      "publishedAt": "2026-04-02",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Vendor page covering Gemini model family, long context window, and multimodal benchmarks.",
+      "claims": [
+        "Long context window past one million tokens",
+        "Multimodal native architecture"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-stanford-ai-index",
+      "title": "Stanford HAI — AI Index Report",
+      "url": "https://aiindex.stanford.edu/report/",
+      "publisher": "Stanford HAI",
+      "publishedAt": "2026-04-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 4,
+      "independence": 5,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Annual independent measurement of AI capability, cost, and adoption trends.",
+      "claims": [
+        "Per-token cost dropped roughly an order of magnitude",
+        "Benchmark contamination is a known issue"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-artificial-analysis",
+      "title": "Artificial Analysis — Provider benchmarks",
+      "url": "https://artificialanalysis.ai/",
+      "publisher": "Artificial Analysis",
+      "publishedAt": "2026-05-01",
+      "composite": 8,
+      "reliability": 4,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 5,
+      "primary": false,
+      "provenance": "fixture",
+      "summary": "Independent provider-by-provider latency, throughput, and cost dashboards.",
+      "claims": [
+        "Mid-tier cost crossed sub-cent per 1k tokens",
+        "Latency varies more by provider than by model"
+      ],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "Specific model names and prices change monthly; this fixture intentionally avoids naming exact versions.",
+    "Context-window numbers vary by provider and tier; treat the 1M figure as illustrative, not a contract."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 9,
+    "adhdA11y": 9,
+    "ux": 8,
+    "performance": 9,
+    "securityPrivacy": 10,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}

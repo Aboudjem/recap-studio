@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.anthropic.com/claude-code/hooks.schema.json",
+  "description": "Recap Studio deterministic safety + DX hooks. Every hook is read-only or refuses risky writes.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": { "tool": "Write" },
+        "command": ["node", "hooks/block-secret-writes.mjs"],
+        "description": "Refuse writes to .env*, secrets/**, private/**, **/id_rsa, **/*.pem unless RECAP_ALLOW_SECRET_WRITE=1."
+      },
+      {
+        "matcher": { "tool": "Bash" },
+        "command": ["node", "hooks/block-destructive-git.mjs"],
+        "description": "Refuse destructive git: push, reset --hard, rebase, clean -fdx, branch -D, commit --amend --force, filter-branch."
+      },
+      {
+        "matcher": { "tool": "Bash", "argMatch": "(vercel|now)\\s+(--prod|--production)" },
+        "command": ["node", "hooks/validate-before-deploy.mjs"],
+        "description": "Block production deploys unless recap-studio.config.ts deploymentMode is production-with-confirmation AND user confirmed."
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": { "tool": "Write" },
+        "command": ["node", "hooks/format-after-edit.mjs"],
+        "description": "Format the just-written file with Prettier when available. Best-effort, never fails the run."
+      },
+      {
+        "matcher": { "tool": "Edit" },
+        "command": ["node", "hooks/format-after-edit.mjs"],
+        "description": "Same as above for Edit."
+      }
+    ],
+    "Stop": [
+      {
+        "command": ["node", "hooks/qa-summary-on-stop.mjs"],
+        "description": "Emit a compact run summary: files touched, last validation scores, blockers."
+      }
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Topic or session goes in, recap page comes out: 13 agents pass typed JSON through a validation board, then the renderer builds a Next.js page.">
+  <defs>
+    <linearGradient id="rh-pipe" x1="0" x2="1">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity=".15"/>
+      <stop offset="50%" stop-color="#7C5CFF" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#7C5CFF" stop-opacity=".15"/>
+    </linearGradient>
+    <style>
+      @keyframes rh-flow { 0% { stroke-dashoffset: 32 } 100% { stroke-dashoffset: 0 } }
+      @keyframes rh-glow { 0%,100% { opacity:.85 } 50% { opacity:1 } }
+      .rh-line   { stroke: #7C5CFF; stroke-width: 2; fill: none; stroke-dasharray: 6 4; animation: rh-flow 1.6s linear infinite; }
+      .rh-card   { fill: #FFFFFF; stroke: #E7E6E1; stroke-width: 1.5; }
+      .rh-card-d { fill: #15151B; stroke: #23232B; stroke-width: 1.5; }
+      .rh-pulse  { animation: rh-glow 3s cubic-bezier(.4,0,.2,1) infinite; }
+      @media (prefers-color-scheme: dark) {
+        .rh-card { fill: #15151B; stroke: #23232B; }
+        .rh-bg   { fill: #0B0B0F; }
+        .rh-text { fill: #F2F1EE; }
+        .rh-muted{ fill: #A4A4B0; }
+      }
+    </style>
+  </defs>
+  <rect class="rh-bg" width="1200" height="320" fill="#FBFAF7"/>
+  <g font-family="system-ui,-apple-system,Segoe UI,sans-serif">
+    <!-- INPUT -->
+    <rect class="rh-card rh-pulse" x="40"  y="120" width="180" height="80" rx="16"/>
+    <text class="rh-text" x="130" y="155" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Topic / session</text>
+    <text class="rh-muted" x="130" y="178" text-anchor="middle" font-size="12" fill="#5C5C66">/recap "Latest AI models"</text>
+
+    <!-- AGENTS PIPELINE -->
+    <rect class="rh-card" x="280" y="80" width="220" height="160" rx="16"/>
+    <text class="rh-text" x="390" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">13 specialist agents</text>
+    <g transform="translate(308, 132)" font-size="11" fill="#5C5C66">
+      <text y="0">· research-scout</text>
+      <text y="16">· source-librarian</text>
+      <text y="32">· learning-architect</text>
+      <text y="48">· visual-story-designer</text>
+      <text y="64">· frontend-builder</text>
+      <text y="80">· repo-session-analyst</text>
+      <text y="96">+ 7 reviewers (parallel)</text>
+    </g>
+
+    <!-- VALIDATION BOARD -->
+    <rect class="rh-card rh-pulse" x="560" y="80" width="220" height="160" rx="16"/>
+    <text class="rh-text" x="670" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Validation board</text>
+    <g transform="translate(580, 132)" font-size="11" fill="#5C5C66">
+      <text y="0">Facts        10/10</text>
+      <text y="16">Beginner     10/10</text>
+      <text y="32">ADHD a11y    10/10</text>
+      <text y="48">UX           10/10</text>
+      <text y="64">Performance   8/10</text>
+      <text y="80">Sec/Privacy  10/10</text>
+      <text y="96">Simplicity   10/10</text>
+    </g>
+
+    <!-- OUTPUT -->
+    <rect class="rh-card rh-pulse" x="840" y="120" width="320" height="80" rx="16"/>
+    <text class="rh-text" x="1000" y="152" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Next.js page · 103 KB First Load JS</text>
+    <text class="rh-muted" x="1000" y="178" text-anchor="middle" font-size="12" fill="#5C5C66">mobile-first · static-first · cite-every-claim</text>
+
+    <!-- FLOW LINES -->
+    <path class="rh-line" d="M220 160 L280 160"/>
+    <path class="rh-line" d="M500 160 L560 160"/>
+    <path class="rh-line" d="M780 160 L840 160"/>
+  </g>
+</svg>

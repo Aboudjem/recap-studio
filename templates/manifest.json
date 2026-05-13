@@ -1,0 +1,22 @@
+{
+  "$schema": "https://recap.studio/schemas/templates.json",
+  "version": "0.1.0",
+  "templates": [
+    {
+      "id": "tech-explainer",
+      "title": "Tech explainer (default)",
+      "description": "Hero, what matters, concept map, 5 key idea cards, timeline, comparison, examples, analogies, misconceptions, glossary, takeaways, sources. The shape the demo page ships with.",
+      "audience": "beginner",
+      "fits": ["frameworks", "protocols", "models", "products"],
+      "file": "templates/tech-explainer/template.json"
+    },
+    {
+      "id": "coding-session",
+      "title": "Coding session recap",
+      "description": "Built around SessionDelta inputs (git diff, commits, before/after architecture). Adds a per-file deep-dive accordion in --deep mode.",
+      "audience": "intermediate",
+      "fits": ["pull requests", "sprint wraps", "incident reports"],
+      "file": "templates/coding-session/template.json"
+    }
+  ]
+}

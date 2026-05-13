@@ -1,0 +1,26 @@
+{
+  "id": "tech-explainer",
+  "schemaVersion": "1.0",
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "compare", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "myths", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "limits": {
+    "keyIdeas": { "min": 4, "max": 7 },
+    "examples": { "min": 2, "max": 4 },
+    "analogies": { "min": 1, "max": 3 },
+    "misconceptions": { "min": 2, "max": 5 },
+    "glossary": { "min": 4, "max": 18 },
+    "practicalTakeaways": { "min": 3, "max": 6 }
+  }
+}

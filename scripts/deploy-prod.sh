@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Recap Studio — Vercel PRODUCTION deploy.
+# Off by default. Requires:
+#   1. recap-studio.config.ts -> deploymentMode = "production-with-confirmation"
+#   2. RECAP_USER_CONFIRMED_PROD_DEPLOY=1
+#   3. The Claude Code hook `validate-before-deploy` will block otherwise.
+
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+if [[ ! -f recap-studio.config.ts ]]; then
+  echo "recap-studio: recap-studio.config.ts not found — run /recap setup first." >&2
+  exit 2
+fi
+
+if ! grep -Eq 'deploymentMode\s*:\s*"production-with-confirmation"' recap-studio.config.ts; then
+  echo "recap-studio: deploymentMode must be 'production-with-confirmation'." >&2
+  exit 2
+fi
+
+if [[ "${RECAP_USER_CONFIRMED_PROD_DEPLOY:-0}" != "1" ]]; then
+  echo "recap-studio: set RECAP_USER_CONFIRMED_PROD_DEPLOY=1 only after explicit human confirmation." >&2
+  exit 2
+fi
+
+if ! command -v vercel >/dev/null 2>&1; then
+  echo "recap-studio: vercel CLI not installed. See docs/vercel-deployment.md." >&2
+  exit 2
+fi
+
+echo "recap-studio: deploying recap-web to production..."
+exec vercel deploy apps/recap-web --prod --yes

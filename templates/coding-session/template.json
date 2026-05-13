@@ -1,0 +1,24 @@
+{
+  "id": "coding-session",
+  "schemaVersion": "1.0",
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept-before-after", "enabled": true },
+    { "kind": "ideas", "id": "what-changed", "enabled": true },
+    { "kind": "comparison", "id": "before-after", "enabled": true },
+    { "kind": "examples", "id": "impacted-flows", "enabled": true },
+    { "kind": "misconceptions", "id": "risks", "enabled": true },
+    { "kind": "takeaways", "id": "next-steps", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true },
+    { "kind": "deep-dive", "id": "deep-dive", "enabled": false }
+  ],
+  "limits": {
+    "keyIdeas": { "min": 3, "max": 6 },
+    "examples": { "min": 1, "max": 4 },
+    "analogies": { "min": 0, "max": 2 },
+    "misconceptions": { "min": 1, "max": 4 },
+    "glossary": { "min": 3, "max": 18 },
+    "practicalTakeaways": { "min": 3, "max": 6 }
+  }
+}
