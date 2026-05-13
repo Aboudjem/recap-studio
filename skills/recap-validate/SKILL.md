@@ -27,7 +27,7 @@ You run the validation board and emit a structured quality report.
 1. `fact-checker` — every claim must reference a `sourceMap` id and the
    source must support the claim. Unsupported claims drop the score.
 2. `beginner-reviewer` — read time ≤ 5 min for a smart 18-year-old.
-3. `adhd-accessibility-reviewer` — chunking, motion, focus, density.
+3. `accessibility-reviewer` — chunking, motion, focus, density.
 4. `ux-design-reviewer` — hierarchy, polish, storytelling, responsiveness.
 5. `performance-reviewer` — bundle, lazy-load, static-first, CWV risk.
 6. `security-privacy-reviewer` — secrets, PII, prompt-injection cues,
@@ -40,7 +40,7 @@ Each reviewer emits `{ score: 1..10, findings: Finding[], blockers: string[] }`.
 
 ## Thresholds (must pass)
 
-| Facts | Beginner | ADHD | UX | Perf | Sec | Simplicity |
+| Facts | Beginner | A11y | UX | Perf | Sec | Simplicity |
 | ----- | -------- | ---- | -- | ---- | --- | ---------- |
 | 9     | 9        | 9    | 8  | 8    | 9   | 9          |
 

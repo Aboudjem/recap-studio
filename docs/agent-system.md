@@ -14,7 +14,7 @@ they pass JSON, never raw context dumps.
 | 5 | frontend-builder               | sonnet | Implement page                    | content file + components |
 | 6a | fact-checker                  | sonnet | Claim ↔ source audit              | `DimensionResult` |
 | 6b | beginner-reviewer             | haiku  | Smart-18yo POV                    | `DimensionResult` |
-| 6c | adhd-accessibility-reviewer   | haiku  | Chunking, motion, landmarks       | `DimensionResult` |
+| 6c | accessibility-reviewer   | haiku  | Chunking, motion, landmarks       | `DimensionResult` |
 | 6d | ux-design-reviewer            | sonnet | Hierarchy, polish, storytelling   | `DimensionResult` |
 | 6e | performance-reviewer          | haiku  | Bundle, lazy-load, CWV risk       | `DimensionResult` |
 | 6f | security-privacy-reviewer     | sonnet | Secrets, injection, side effects  | `DimensionResult` |
@@ -60,7 +60,7 @@ Each agent declares the smallest tool set it needs:
 | repo-session-analyst     | Read, Grep, Glob, Bash               |
 | fact-checker             | Read, WebFetch                       |
 | beginner-reviewer        | Read                                 |
-| adhd-accessibility       | Read, Grep                           |
+| accessibility-reviewer    | Read, Grep                           |
 | ux-design-reviewer       | Read                                 |
 | performance-reviewer     | Read, Bash, Grep                     |
 | security-privacy         | Read, Grep                           |

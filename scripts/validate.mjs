@@ -57,7 +57,7 @@ const content = JSON.parse(readFileSync(inputPath, "utf8"));
 const TARGETS = {
   facts: 9,
   beginner: 9,
-  "adhd-a11y": 9,
+  "accessibility": 9,
   ux: 8,
   performance: 8,
   "security-privacy": 9,
@@ -149,7 +149,7 @@ function checkBeginner() {
   return { name: "beginner", score, findings };
 }
 
-function checkAdhd() {
+function checkA11y() {
   const findings = [];
   if (content.keyIdeas.length > 7) findings.push({ severity: "medium", msg: "> 7 key ideas" });
   if (!content.visualSections.find((s) => s.kind === "matters" && s.enabled))
@@ -157,7 +157,7 @@ function checkAdhd() {
   if (!content.visualSections.find((s) => s.kind === "takeaways" && s.enabled))
     findings.push({ severity: "medium", msg: "missing 'takeaways' end-state" });
   const score = Math.max(1, Math.min(10, 10 - findings.length));
-  return { name: "adhd-a11y", score, findings };
+  return { name: "accessibility", score, findings };
 }
 
 function checkUx() {
@@ -204,7 +204,7 @@ function checkSimp() {
   return { name: "simplicity", score, findings };
 }
 
-const dims = [checkFacts(), checkBeginner(), checkAdhd(), checkUx(), checkPerf(), checkSec(), checkSimp()].map(
+const dims = [checkFacts(), checkBeginner(), checkA11y(), checkUx(), checkPerf(), checkSec(), checkSimp()].map(
   (d) => ({
     ...d,
     target: TARGETS[d.name],

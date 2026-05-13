@@ -3,7 +3,7 @@
   "name": "recap-studio",
   "displayName": "Recap Studio",
   "version": "0.1.0",
-  "description": "Autonomously turn a topic or a long coding session into a beautiful, mobile-first, ADHD-friendly one-page educational website.",
+  "description": "Autonomously turn a topic or a long coding session into a beautiful, mobile-first one-page educational website.",
   "author": {
     "name": "Adam Boudjemaa",
     "email": "boudjemaa.adam@gmail.com",
@@ -18,7 +18,7 @@
     "recap",
     "nextjs",
     "accessibility",
-    "adhd",
+    
     "mobile-first"
   ],
   "skills": [
@@ -57,7 +57,7 @@
     { "name": "repo-session-analyst", "path": "agents/repo-session-analyst.md" },
     { "name": "fact-checker", "path": "agents/fact-checker.md" },
     { "name": "beginner-reviewer", "path": "agents/beginner-reviewer.md" },
-    { "name": "adhd-accessibility-reviewer", "path": "agents/adhd-accessibility-reviewer.md" },
+    { "name": "accessibility-reviewer", "path": "agents/accessibility-reviewer.md" },
     { "name": "ux-design-reviewer", "path": "agents/ux-design-reviewer.md" },
     { "name": "performance-reviewer", "path": "agents/performance-reviewer.md" },
     { "name": "security-privacy-reviewer", "path": "agents/security-privacy-reviewer.md" },

@@ -15,7 +15,7 @@ optional tooling, not the product.
 │        ▼                ▼                  ▼                 │
 │  Subagents (research-scout, librarian, learning-architect,   │
 │  visual-story-designer, frontend-builder, repo-session-      │
-│  analyst, fact-checker, beginner-reviewer, adhd-a11y,        │
+│  analyst, fact-checker, beginner-reviewer, accessibility,        │
 │  ux, performance, security-privacy, skeptical)               │
 └──────────────────────────────────────────────────────────────┘
                        │

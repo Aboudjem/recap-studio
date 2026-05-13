@@ -8,19 +8,19 @@ export const metadata: Metadata = {
     template: "%s — Recap Studio",
   },
   description:
-    "A visual, mobile-first, ADHD-friendly one-page explainer for any topic or coding session.",
+    "A visual, mobile-first one-page explainer for any topic or coding session.",
   openGraph: {
     type: "website",
     title: "Recap Studio",
     description:
-      "A visual, mobile-first, ADHD-friendly one-page explainer for any topic or coding session.",
+      "A visual, mobile-first one-page explainer for any topic or coding session.",
     images: ["/og.svg"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Recap Studio",
     description:
-      "A visual, mobile-first, ADHD-friendly one-page explainer for any topic or coding session.",
+      "A visual, mobile-first one-page explainer for any topic or coding session.",
   },
   robots: { index: true, follow: true },
 };

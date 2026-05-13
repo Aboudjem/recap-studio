@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Preview of a Recap Studio one-page explainer: hero one-sentence answer, three takeaway cards, a concept map, key idea grid, timeline, comparison, glossary, takeaways, and sources.">
+  <defs>
+    <linearGradient id="pp-bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FBFAF7"/>
+      <stop offset="100%" stop-color="#F2EEFF"/>
+    </linearGradient>
+    <linearGradient id="pp-violet" x1="0" x2="1">
+      <stop offset="0%" stop-color="#7C5CFF"/>
+      <stop offset="100%" stop-color="#A98BFF"/>
+    </linearGradient>
+    <style>
+      @keyframes pp-pulse { 0%,100% { opacity:.92 } 50% { opacity:1 } }
+      @keyframes pp-rise  { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
+      .pp-frame { animation: pp-pulse 5s cubic-bezier(.4,0,.2,1) infinite; }
+      .pp-card  { fill: #FFFFFF; stroke: #E7E6E1; stroke-width: 1; }
+      .pp-rise  { animation: pp-rise 3.4s cubic-bezier(.4,0,.2,1) infinite; }
+      .pp-d2    { animation-delay: .3s }
+      .pp-d3    { animation-delay: .6s }
+      .pp-d4    { animation-delay: .9s }
+    </style>
+  </defs>
+
+  <!-- canvas -->
+  <rect class="pp-frame" width="1200" height="720" rx="24" fill="url(#pp-bg)"/>
+
+  <!-- browser chrome -->
+  <rect x="40" y="40" width="1120" height="40" rx="8" fill="#FFFFFF" stroke="#E7E6E1"/>
+  <circle cx="64" cy="60" r="6" fill="#FF5F57"/>
+  <circle cx="86" cy="60" r="6" fill="#FEBC2E"/>
+  <circle cx="108" cy="60" r="6" fill="#28C840"/>
+  <rect x="160" y="48" width="800" height="24" rx="6" fill="#F4F1FF"/>
+  <text x="200" y="65" font-family="system-ui,sans-serif" font-size="13" fill="#5C5C66">recap.studio/latest-ai-models</text>
+
+  <!-- page -->
+  <g font-family="system-ui,-apple-system,Segoe UI,sans-serif">
+
+    <!-- HERO -->
+    <text x="80"  y="140" font-size="13" font-weight="600" fill="#7C5CFF" letter-spacing="2">RECAP STUDIO · BEGINNER</text>
+    <text x="80"  y="200" font-size="46" font-weight="700" fill="#16161D">Latest AI models</text>
+    <text x="80"  y="245" font-size="17" fill="#5C5C66">Three sizes per family: small for speed, mid for default,</text>
+    <text x="80"  y="270" font-size="17" fill="#5C5C66">flagship for hard problems that need real reasoning.</text>
+
+    <!-- WHAT MATTERS -->
+    <g transform="translate(80, 320)">
+      <text x="0" y="0" font-size="11" font-weight="600" fill="#7C5CFF" letter-spacing="2">WHAT ACTUALLY MATTERS</text>
+      <rect class="pp-card" x="0"   y="14" width="330" height="92" rx="10"/>
+      <circle cx="22" cy="40" r="11" fill="#E6E0FF"/>
+      <text x="22" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#1F1647">1</text>
+      <text x="46" y="46" font-size="14" font-weight="600" fill="#16161D">Wrong tier wastes money</text>
+      <text x="22" y="78" font-size="12" fill="#5C5C66">or breaks latency budgets.</text>
+
+      <rect class="pp-card" x="350" y="14" width="330" height="92" rx="10"/>
+      <circle cx="372" cy="40" r="11" fill="#E6E0FF"/>
+      <text x="372" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#1F1647">2</text>
+      <text x="396" y="46" font-size="14" font-weight="600" fill="#16161D">Names hide differences</text>
+      <text x="372" y="78" font-size="12" fill="#5C5C66">especially on reasoning depth.</text>
+
+      <rect class="pp-card" x="700" y="14" width="330" height="92" rx="10"/>
+      <circle cx="722" cy="40" r="11" fill="#E6E0FF"/>
+      <text x="722" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#1F1647">3</text>
+      <text x="746" y="46" font-size="14" font-weight="600" fill="#16161D">Run your own evals</text>
+      <text x="722" y="78" font-size="12" fill="#5C5C66">benchmarks leak; products lag.</text>
+    </g>
+
+    <!-- CONCEPT MAP placeholder -->
+    <g transform="translate(80, 460)">
+      <text x="0" y="0" font-size="11" font-weight="600" fill="#7C5CFF" letter-spacing="2">CONCEPT MAP</text>
+      <rect class="pp-card" x="0" y="14" width="540" height="200" rx="10"/>
+      <!-- mini flowchart -->
+      <rect class="pp-rise"        x="40"  y="80"  width="120" height="40" rx="8" fill="#E6E0FF"/>
+      <text x="100" y="105" text-anchor="middle" font-size="13" fill="#1F1647">Family</text>
+      <rect class="pp-rise pp-d2" x="220" y="40"  width="120" height="40" rx="8" fill="#E6E0FF"/>
+      <text x="280" y="65"  text-anchor="middle" font-size="13" fill="#1F1647">Small</text>
+      <rect class="pp-rise pp-d3" x="220" y="100" width="120" height="40" rx="8" fill="#E6E0FF"/>
+      <text x="280" y="125" text-anchor="middle" font-size="13" fill="#1F1647">Mid</text>
+      <rect class="pp-rise pp-d4" x="220" y="160" width="120" height="40" rx="8" fill="#E6E0FF"/>
+      <text x="280" y="185" text-anchor="middle" font-size="13" fill="#1F1647">Flagship</text>
+      <line x1="160" y1="100" x2="220" y2="60"  stroke="#7C5CFF" stroke-width="2"/>
+      <line x1="160" y1="100" x2="220" y2="120" stroke="#7C5CFF" stroke-width="2"/>
+      <line x1="160" y1="100" x2="220" y2="180" stroke="#7C5CFF" stroke-width="2"/>
+      <text x="380" y="65"  font-size="11" fill="#5C5C66">fast · cheap</text>
+      <text x="380" y="125" font-size="11" fill="#5C5C66">default · balanced</text>
+      <text x="380" y="185" font-size="11" fill="#5C5C66">deep reasoning</text>
+    </g>
+
+    <!-- TIMELINE preview -->
+    <g transform="translate(640, 460)">
+      <text x="0" y="0" font-size="11" font-weight="600" fill="#7C5CFF" letter-spacing="2">TIMELINE</text>
+      <rect class="pp-card" x="0" y="14" width="380" height="200" rx="10"/>
+      <line x1="32" y1="40" x2="32" y2="200" stroke="#E6E0FF" stroke-width="2"/>
+      <circle cx="32" cy="60" r="6" fill="#7C5CFF"/>
+      <text x="50" y="55"  font-size="11" font-weight="600" fill="#7C5CFF">2024.05</text>
+      <text x="50" y="70"  font-size="12" fill="#16161D">Three tiers consolidate</text>
+      <circle cx="32" cy="100" r="6" fill="#7C5CFF"/>
+      <text x="50" y="95"  font-size="11" font-weight="600" fill="#7C5CFF">2024.09</text>
+      <text x="50" y="110" font-size="12" fill="#16161D">Reasoning ships mainstream</text>
+      <circle cx="32" cy="140" r="6" fill="#7C5CFF"/>
+      <text x="50" y="135" font-size="11" font-weight="600" fill="#7C5CFF">2025.03</text>
+      <text x="50" y="150" font-size="12" fill="#16161D">Context crosses 1M tokens</text>
+      <circle cx="32" cy="180" r="6" fill="#7C5CFF"/>
+      <text x="50" y="175" font-size="11" font-weight="600" fill="#7C5CFF">2025.11</text>
+      <text x="50" y="190" font-size="12" fill="#16161D">Price drops below 1c / 1k</text>
+    </g>
+
+    <!-- score chip -->
+    <g transform="translate(1030, 100)">
+      <rect width="130" height="80" rx="12" fill="url(#pp-violet)"/>
+      <text x="65" y="32" text-anchor="middle" font-size="11" font-weight="600" fill="#F2F1EE">VALIDATION</text>
+      <text x="65" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">9.7 / 10</text>
+    </g>
+  </g>
+</svg>

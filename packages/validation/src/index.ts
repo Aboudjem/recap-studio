@@ -10,7 +10,7 @@ export * from "./types.js";
 export * from "./run.js";
 export * from "./checks/facts.js";
 export * from "./checks/beginner.js";
-export * from "./checks/adhd-a11y.js";
+export * from "./checks/accessibility.js";
 export * from "./checks/ux.js";
 export * from "./checks/performance.js";
 export * from "./checks/security-privacy.js";

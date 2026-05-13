@@ -126,7 +126,7 @@ export type Diagram = z.infer<typeof Diagram>;
 export const ReviewScores = z.object({
   facts: z.number().min(0).max(10).default(0),
   beginner: z.number().min(0).max(10).default(0),
-  adhdA11y: z.number().min(0).max(10).default(0),
+  a11y: z.number().min(0).max(10).default(0),
   ux: z.number().min(0).max(10).default(0),
   performance: z.number().min(0).max(10).default(0),
   securityPrivacy: z.number().min(0).max(10).default(0),

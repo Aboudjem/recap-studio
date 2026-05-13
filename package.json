@@ -2,7 +2,7 @@
   "name": "recap-studio",
   "version": "0.1.0",
   "private": true,
-  "description": "Claude Code plugin: generate mobile-first, ADHD-friendly one-page educational websites from a topic or a coding session.",
+  "description": "Claude Code plugin: generate mobile-first one-page educational websites from a topic or a coding session.",
   "license": "MIT",
   "packageManager": "pnpm@10.0.0",
   "engines": {

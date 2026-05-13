@@ -2,7 +2,7 @@ import type { RecapPageContent } from "@recap-studio/content-pipeline";
 import { TARGETS, type DimensionResult, type ValidationReport } from "./types.js";
 import { checkFacts } from "./checks/facts.js";
 import { checkBeginner } from "./checks/beginner.js";
-import { checkAdhdA11y } from "./checks/adhd-a11y.js";
+import { checkAccessibility } from "./checks/accessibility.js";
 import { checkUx } from "./checks/ux.js";
 import { checkPerformance } from "./checks/performance.js";
 import { checkSecurityPrivacy } from "./checks/security-privacy.js";
@@ -29,7 +29,7 @@ export function runValidation(
   const results: DimensionResult[] = [
     checkFacts(content),
     checkBeginner(content),
-    checkAdhdA11y(content, opts),
+    checkAccessibility(content, opts),
     checkUx(content),
     checkPerformance(content, opts),
     checkSecurityPrivacy(content),

@@ -323,7 +323,7 @@
   "reviewScores": {
     "facts": 9,
     "beginner": 9,
-    "adhdA11y": 9,
+    "a11y": 9,
     "ux": 8,
     "performance": 9,
     "securityPrivacy": 10,

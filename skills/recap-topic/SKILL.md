@@ -32,7 +32,7 @@ production one-page educational website backed by a typed
   has confirmed, and the relevant API key is in env.
 - Never write `.env`, secrets, or any path matching `**/secrets/**`.
 - Honor `RECAP_STUDIO_FIXTURE_ONLY=1` — force fixture mode even if keys exist.
-- Mobile-first, ADHD-friendly, reduced-motion safe.
+- Mobile-first, reduced-motion safe.
 
 ## Routing
 
@@ -60,7 +60,7 @@ between steps, not raw dumps.
 7. **frontend-builder** — emit `apps/recap-web/src/content/<slug>.json` and
    make sure `apps/recap-web/src/app/page.tsx` reads it via `loadContent()`.
 8. **Validation board (parallel):** fact-checker, beginner-reviewer,
-   adhd-accessibility-reviewer, ux-design-reviewer, performance-reviewer,
+   accessibility-reviewer, ux-design-reviewer, performance-reviewer,
    security-privacy-reviewer, skeptical-reviewer.
 9. **Aggregate scores.** If any dimension is under target (see below),
    patch and re-run only the failing reviewers. Cap at 3 iterations and
@@ -71,7 +71,7 @@ between steps, not raw dumps.
 
 ## Targets
 
-| Facts | Beginner | ADHD | UX | Perf | Sec | Simplicity |
+| Facts | Beginner | A11y | UX | Perf | Sec | Simplicity |
 | ----- | -------- | ---- | -- | ---- | --- | ---------- |
 | 9     | 9        | 9    | 8  | 8    | 9   | 9          |
 

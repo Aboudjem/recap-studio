@@ -24,7 +24,7 @@ pnpm --filter recap-web dev   # http://localhost:3000
 
 Every change must keep the validation report at or above target:
 
-| Facts | Beginner | ADHD | UX | Perf | Security | Simplicity |
+| Facts | Beginner | A11y | UX | Perf | Security | Simplicity |
 | ----- | -------- | ---- | -- | ---- | -------- | ---------- |
 | 9     | 9        | 9    | 8  | 8    | 9        | 9          |
 
@@ -34,7 +34,7 @@ If a dimension drops, document why in the PR body, or fix it before merging.
 
 - TypeScript strict mode. No `any`.
 - Prettier-formatted (root config).
-- Mobile-first, ADHD-friendly, reduced-motion-safe.
+- Mobile-first, reduced-motion-safe.
 - Server Components by default; client components only for real interactivity.
 - Semantic HTML. Real headings. Real landmarks.
 

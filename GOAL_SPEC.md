@@ -6,7 +6,7 @@
 ## Mission
 
 Build a production-grade Claude Code plugin/system named **Recap Studio** that
-autonomously generates beautiful, mobile-first, ADHD-friendly educational
+autonomously generates beautiful, mobile-first educational
 one-page websites that help users understand a topic in under 5 minutes.
 
 It supports two core modes:
@@ -33,7 +33,7 @@ MCP tools, validation workflow, and a generated Next.js website template.
 - A typed config system (`recap-studio.config.ts` schema) loads with
   documented safe defaults; `recap setup` writes the config.
 - A source/citation pipeline maps every claim to one or more sources.
-- A multi-agent validation loop scores fact, beginner-clarity, ADHD-a11y,
+- A multi-agent validation loop scores fact, beginner-clarity, Accessibility,
   UX, performance, security, and simplicity from 1–10 and refines until
   the threshold passes or blockers are documented.
 - A demo command, `pnpm demo:latest-ai-models`, produces the page from an
@@ -75,7 +75,7 @@ pnpm-workspace.yaml
 | ---------------------- | ------ |
 | Facts                  | ≥ 9    |
 | Beginner clarity       | ≥ 9    |
-| ADHD accessibility     | ≥ 9    |
+| accessibility     | ≥ 9    |
 | UX / design            | ≥ 8    |
 | Performance            | ≥ 8    |
 | Security / privacy     | ≥ 9    |

@@ -8,179 +8,191 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-7C5CFF?style=flat-square" alt="License"></a>
   <a href="https://github.com/Aboudjem/recap-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Aboudjem/recap-studio/ci.yml?style=flat-square&label=CI" alt="CI"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%E2%89%A520-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
+  <a href="https://github.com/Aboudjem/10x"><img src="https://img.shields.io/badge/10x-marketplace-7C5CFF?style=flat-square" alt="10x marketplace"></a>
   <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=7C5CFF" alt="Stars"></a>
 </p>
 
-<p align="center"><b>Visual, mobile-first, ADHD-friendly one-page explainers in under 5 minutes.</b></p>
+<p align="center"><b>One-page explainers in five minutes. Visual. Cited. Calm.</b></p>
 
 <p align="center">
-  <a href="#get-started">Get started</a> ·
-  <a href="#what-it-does">What it does</a> ·
+  <a href="#install">Install</a> ·
+  <a href="#see-it-in-action">See it</a> ·
+  <a href="#what-you-get">What you get</a> ·
   <a href="#how-it-works">How it works</a> ·
-  <a href="#quality-bar">Quality bar</a> ·
+  <a href="#commands">Commands</a> ·
   <a href="docs/architecture.md">Docs</a>
 </p>
 
 <picture>
-  <img alt="Topic or session goes in, a recap page comes out. 13 agents pass typed JSON through a validation board, then the renderer builds a static Next.js page." src=".github/assets/hero-diagram.svg" width="100%">
+  <img alt="Sample recap page preview showing hero, three takeaway cards, a concept map with three model tiers, and a timeline. A score chip in the corner reads 9.7 of 10." src=".github/assets/page-preview.svg" width="100%">
 </picture>
 
 ---
 
-## Get started
+## Install
 
-```bash
-git clone https://github.com/Aboudjem/recap-studio
-cd recap-studio
-pnpm install
-pnpm -w demo:latest-ai-models
-pnpm -w validate:demo
-pnpm --filter recap-web dev   # http://localhost:3000
-```
+> [!TIP]
+> The fastest path is the marketplace install. The clone path lets you customize the renderer.
 
-That regenerates the offline fixture, validates it across 7 dimensions, and
-serves the page locally. Zero network calls. Zero paid API hits.
-
-### Install as a Claude Code plugin
-
-<details>
-<summary><b>Claude Code (via the 10x marketplace)</b></summary>
+**From the 10x marketplace (recommended):**
 
 ```bash
 claude plugin marketplace add Aboudjem/10x
 claude plugin install recap-studio@10x
 ```
 
-Then in any session:
+Then in any Claude Code session:
 
 ```
 /recap "Latest AI models"
-/recap session
-/recap setup
-/recap validate
 ```
-</details>
 
-<details>
-<summary><b>Cursor / Codex / Windsurf / Continue.dev</b></summary>
-
-Recap Studio is a Claude Code plugin. The renderer and validator still work
-in any editor — clone the repo, run `pnpm install`, and call:
+**From source (for tweaking the renderer or running the demo locally):**
 
 ```bash
-node scripts/demo-latest-ai-models.mjs
-node scripts/validate.mjs
-node scripts/history.mjs
+git clone https://github.com/Aboudjem/recap-studio
+cd recap-studio
+pnpm install
+pnpm -w demo:latest-ai-models    # generate the offline demo page
+pnpm -w validate:demo            # 7-dimension quality report
+pnpm --filter recap-web dev      # http://localhost:3000
 ```
 
-The Next.js page is fully static-first and editor-agnostic.
-</details>
+> [!NOTE]
+> Recap Studio runs fully offline by default. The demo never makes a network call. No paid API key is required to try it.
 
 ---
 
-## Usage
+## See it in action
 
-| Command                              | What it does                                            |
-| ------------------------------------ | ------------------------------------------------------- |
-| `pnpm -w demo:latest-ai-models`      | Generate the offline demo page                          |
-| `pnpm -w validate:demo`              | Score the active page across 7 dimensions               |
-| `pnpm -w history`                    | List every recap in `artifacts/` with scores            |
-| `pnpm -w auto-refresh -- <slug>`     | Re-validate a stored recap (cron-friendly)              |
-| `pnpm --filter recap-web dev`        | Preview the page on localhost:3000                      |
-| `pnpm --filter recap-web build`      | Build the static site                                   |
-| `pnpm deploy:preview`                | Vercel preview deploy (gated by config + env)           |
-| `pnpm deploy:prod`                   | Vercel production deploy (double-gated)                 |
+The repo ships with a real, validated demo page for **"Latest AI models"** that you can open in 30 seconds:
+
+```bash
+pnpm -w demo:latest-ai-models && pnpm --filter recap-web dev
+```
+
+You get a one-page site with a hero one-sentence answer, three takeaway cards, a concept map, a key-ideas grid, a timeline, a comparison table, misconceptions, a glossary, takeaways, and source citations. Every claim links to a `sourceMap` entry.
+
+> [!IMPORTANT]
+> The demo page is generated from a fixture and is clearly labeled as such. Replace the fixture with a live research run by setting an API key and unsetting `RECAP_STUDIO_FIXTURE_ONLY`.
+
+---
+
+## What you get
+
+| Section              | What it is for                                         |
+| -------------------- | ------------------------------------------------------ |
+| Hero                 | A one-sentence answer, not a marketing intro           |
+| What matters         | Three takeaways, large type, above the fold            |
+| Concept map          | A real diagram, never decoration                       |
+| Key ideas            | Four to seven short cards, never paragraphs            |
+| Timeline             | Only when there is real chronology to show             |
+| Comparison           | Table on desktop, stacked cards on mobile              |
+| Examples + analogies | Concrete first, abstractions second                    |
+| Misconceptions       | Myth on the left, truth on the right                   |
+| Glossary             | Plain-English definitions, collapsed by default        |
+| Takeaways            | Things a reader can act on today                       |
+| Sources              | Every important claim cites at least one entry         |
+| Confidence notes     | Marks uncertainty instead of papering over it          |
+
+> [!TIP]
+> The page is mobile-first. It works at 360 px. No horizontal scroll. No hidden critical content.
+
+---
+
+## How it works
+
+```mermaid
+flowchart LR
+  U["Topic or git diff"] --> R["research-scout"]
+  R --> L["source-librarian"]
+  L --> A["learning-architect"]
+  A --> V["visual-story-designer"]
+  V --> F["frontend-builder"]
+  F --> B{{"Validation board\n(7 reviewers in parallel)"}}
+  B --> P["Patch the weak spots"]
+  P --> F
+  F --> S["Static Next.js page\n103 KB First Load JS"]
+  classDef agent fill:#E6E0FF,stroke:#7C5CFF,color:#1F1647;
+  classDef board fill:#FFF,stroke:#7C5CFF,color:#1F1647;
+  class R,L,A,V,F,P agent;
+  class B board;
+```
+
+Thirteen specialist agents pass typed JSON. Each step is narrow. Reviewers run in parallel and only failing dimensions trigger another pass. The full architecture lives in [`docs/architecture.md`](docs/architecture.md).
+
+---
+
+## Quality bar
+
+Every page must clear these targets. The demo scores **9.7 of 10** overall.
+
+| Dimension        | Target | Demo  |
+| ---------------- | :----: | :---: |
+| Facts            |  ≥ 9   |  10   |
+| Beginner clarity |  ≥ 9   |  10   |
+| Accessibility    |  ≥ 9   |  10   |
+| UX / design      |  ≥ 8   |  10   |
+| Performance      |  ≥ 8   |   8   |
+| Security         |  ≥ 9   |  10   |
+| Simplicity       |  ≥ 9   |  10   |
+
+> [!CAUTION]
+> If a dimension drops, the validator marks it `WARN` or `FAIL`. The orchestrator runs a targeted patch pass before declaring done.
+
+---
+
+## Commands
+
+| Command                              | What it does                                        |
+| ------------------------------------ | --------------------------------------------------- |
+| `pnpm -w demo:latest-ai-models`      | Generate the offline demo page                      |
+| `pnpm -w validate:demo`              | Score the active page across 7 dimensions           |
+| `pnpm -w history`                    | List every recap in `artifacts/` with scores        |
+| `pnpm -w auto-refresh -- <slug>`     | Re-validate a stored recap (cron-friendly)          |
+| `pnpm --filter recap-web dev`        | Preview the page on localhost:3000                  |
+| `pnpm --filter recap-web build`      | Build the static site                               |
+| `pnpm deploy:preview`                | Vercel preview deploy (gated by config + env)       |
+| `pnpm deploy:prod`                   | Vercel production deploy (double-gated)             |
 
 In Claude Code:
 
 | Command                  | What it does                                          |
 | ------------------------ | ----------------------------------------------------- |
 | `/recap "<topic>"`       | Build a full explainer page from a topic              |
-| `/recap session`         | Explain a coding session from `git diff` + commits    |
+| `/recap session`         | Explain a coding session from `git diff` and commits  |
 | `/recap session --deep`  | Same, with a per-file deep-dive accordion             |
 | `/recap setup`           | Create `recap-studio.config.ts` with safe defaults    |
 | `/recap validate`        | Re-score the active page                              |
 
 ---
 
-## What it does
-
-Recap Studio turns a topic or a coding session into an opinionated one-page
-website that a smart 18-year-old can read in 5 minutes:
-
-| Section            | Why it exists                                                |
-| ------------------ | ------------------------------------------------------------ |
-| Hero               | One-sentence answer, not a wall of text                      |
-| What matters       | 3 takeaways before any deep dive                             |
-| Concept map        | A real diagram, not decoration                               |
-| Key ideas (cards)  | 4 to 7 short cards, never paragraphs                         |
-| Timeline           | Only if there is a real chronology                           |
-| Comparison         | Side-by-side, table on md+, stacked cards on mobile          |
-| Examples + analogies | Concrete first, abstractions second                        |
-| Misconceptions     | Myth vs truth split cards                                    |
-| Glossary           | Plain English, expandable                                    |
-| Practical takeaways | Things a reader can do today                                |
-| Sources            | Every important claim cites a source                         |
-| Confidence notes   | Marks uncertainty instead of papering over it                |
-
----
-
-## How it works
-
-```
-Claude Code plugin
-└─ skills (recap-topic, recap-session, recap-setup, recap-validate)
-   └─ 13 specialist subagents (research → synthesis → 7 parallel reviewers)
-      └─ packages/ (content-pipeline, design-system, validation, mcp-server)
-         └─ apps/recap-web (Next.js 15 App Router, RSC, force-static)
-```
-
-Each agent passes typed JSON, never raw context. Reviewers run in parallel
-and only failing dimensions trigger a patch pass. See
-[`docs/architecture.md`](docs/architecture.md) for the full picture.
-
-### v0.2 features
-
-| Feature                | What it adds                                                       |
-| ---------------------- | ------------------------------------------------------------------ |
-| Run history dashboard  | `pnpm -w history` lists every recap with score + blockers          |
-| Multi-language scaffold | 6 locales pre-wired (en/fr/es/de/pt/ja) for UI strings             |
-| RAG source vault       | Keyword search across the JSONL source cache                       |
-| Auto-refresh           | `pnpm -w auto-refresh -- <slug>` re-validates a recap (cron-ready) |
-| Template marketplace   | `templates/` directory with `tech-explainer` + `coding-session`    |
-| Human review mode      | `humanReviewMode: "off" \| "before-publish" \| "before-deploy"`    |
-| Reader analytics       | Privacy-friendly local-only counters, opt-in                       |
-
----
-
-## Quality bar
-
-Every generated page must hit these targets. The demo page scores **9.7/10**
-overall and passes every threshold.
-
-| Facts | Beginner | ADHD | UX | Performance | Security | Simplicity |
-| ----- | -------- | ---- | -- | ----------- | -------- | ---------- |
-| ≥ 9   | ≥ 9      | ≥ 9  | ≥ 8| ≥ 8         | ≥ 9      | ≥ 9        |
-
-If a dimension drops, the validator marks it `WARN` or `FAIL` and the
-orchestrator runs a targeted patch.
-
----
-
 ## Safety defaults
 
-Every side effect is **off by default** and gated by config + explicit
-confirmation:
+> [!WARNING]
+> Every side effect is off by default. Recap Studio refuses to deploy, email, or write secrets without explicit opt-in.
 
 - No network. `RECAP_STUDIO_FIXTURE_ONLY=1` is the canonical starting state.
 - No deploys. `deploymentMode: "disabled"`.
 - No emails. `emailMode: "disabled"`.
 - No secret writes. Hooks refuse `.env*`, PEMs, and key-shaped paths.
-- No destructive git. Hooks refuse `push`, `reset --hard`, `rebase`,
-  `clean -fdx`.
+- No destructive git. Hooks refuse `push`, `reset --hard`, `rebase`, `clean -fdx`.
 
-Hook overrides require human review. See
-[`docs/security-and-privacy.md`](docs/security-and-privacy.md).
+Hook overrides exist for human-review situations and are documented in [`hooks/README.md`](hooks/README.md). See [`docs/security-and-privacy.md`](docs/security-and-privacy.md) for the threat model.
+
+---
+
+## v0.2 features
+
+| Feature              | What it adds                                                       |
+| -------------------- | ------------------------------------------------------------------ |
+| History dashboard    | `pnpm -w history` lists every recap with score and blockers        |
+| Multi-language       | Six locales pre-wired (en, fr, es, de, pt, ja) for UI chrome       |
+| RAG source vault     | Keyword search across the JSONL source cache                       |
+| Auto-refresh         | `pnpm -w auto-refresh -- <slug>` re-validates a recap on demand    |
+| Template marketplace | `templates/` with `tech-explainer` and `coding-session`            |
+| Human review mode    | `humanReviewMode: "off" \| "before-publish" \| "before-deploy"`    |
+| Reader analytics     | Privacy-friendly local-only counters, opt-in                       |
 
 ---
 
@@ -194,14 +206,13 @@ Hook overrides require human review. See
 - [Configuration](docs/configuration.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
-- [GOAL_SPEC.md](GOAL_SPEC.md) — the canonical spec
+- [GOAL_SPEC.md](GOAL_SPEC.md)
 
 ---
 
 ## Contributing
 
-PRs welcome. The bar is high but the rules are short. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
+PRs welcome. The bar is high but the rules are short. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

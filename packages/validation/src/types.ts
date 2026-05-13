@@ -3,7 +3,7 @@ import { z } from "zod";
 export const Dimension = z.enum([
   "facts",
   "beginner",
-  "adhd-a11y",
+  "accessibility",
   "ux",
   "performance",
   "security-privacy",
@@ -47,7 +47,7 @@ export type ValidationReport = z.infer<typeof ValidationReport>;
 export const TARGETS: Record<Dimension, number> = {
   facts: 9,
   beginner: 9,
-  "adhd-a11y": 9,
+  "accessibility": 9,
   ux: 8,
   performance: 8,
   "security-privacy": 9,

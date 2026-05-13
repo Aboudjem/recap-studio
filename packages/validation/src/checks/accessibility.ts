@@ -4,7 +4,7 @@ import type { RunOpts } from "../run.js";
 
 const REQUIRED_LANDMARKS = ["<header", "<main", "<footer"] as const;
 
-export function checkAdhdA11y(
+export function checkAccessibility(
   content: RecapPageContent,
   opts: RunOpts,
 ): Omit<DimensionResult, "target" | "status"> {
@@ -30,7 +30,7 @@ export function checkAdhdA11y(
       severity: "high",
       message: "missing 'What actually matters' summary section",
       path: "visualSections",
-      hint: "ADHD-friendly pages need a skip-to-summary anchor",
+      hint: "pages need a skip-to-summary anchor",
     });
   }
 
@@ -65,5 +65,5 @@ export function checkAdhdA11y(
   const confidence = opts.htmlSnapshot ? "high" : "medium";
   const issues = findings.length;
   const score = Math.max(1, Math.min(10, 10 - issues));
-  return { name: "adhd-a11y", score, confidence, findings };
+  return { name: "accessibility", score, confidence, findings };
 }
