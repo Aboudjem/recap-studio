@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-label="Recap Studio — turn any topic or git diff into a cited one-page explainer in 5 minutes">
+  <defs>
+    <linearGradient id="rs-social-bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FBFAF7"/>
+      <stop offset="100%" stop-color="#EEEAFF"/>
+    </linearGradient>
+    <linearGradient id="rs-social-chip" x1="0" x2="1">
+      <stop offset="0%" stop-color="#7C5CFF"/>
+      <stop offset="100%" stop-color="#A98BFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#rs-social-bg)"/>
+  <g font-family="system-ui,-apple-system,Segoe UI,sans-serif" fill="#16161D">
+    <text x="80" y="180" font-size="13" font-weight="700" letter-spacing="4" fill="#7C5CFF">RECAP STUDIO · v0.2.0</text>
+    <text x="80" y="280" font-size="78" font-weight="800" letter-spacing="-2">One-page explainers</text>
+    <text x="80" y="360" font-size="78" font-weight="800" letter-spacing="-2">in five minutes.</text>
+    <text x="80" y="430" font-size="26" fill="#5C5C66">Topic or git diff in. Cited, mobile-first, calm</text>
+    <text x="80" y="465" font-size="26" fill="#5C5C66">Next.js page out. 13 agents, 7-dim validation.</text>
+  </g>
+  <g transform="translate(1050, 220)">
+    <rect width="150" height="100" rx="16" fill="url(#rs-social-chip)"/>
+    <text x="75" y="42" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#F2F1EE">VALIDATION</text>
+    <text x="75" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" font-weight="800" fill="#FFFFFF">9.7 / 10</text>
+  </g>
+  <g transform="translate(80, 540)" font-family="system-ui,sans-serif" font-size="14" fill="#5C5C66">
+    <text>claude plugin install recap-studio@10x</text>
+    <text x="0" y="28" fill="#9CA3AF">github.com/Aboudjem/recap-studio · MIT · 103 KB First Load JS</text>
+  </g>
+</svg>
