@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-13T06:03:47.265Z",
+  "generatedAt": "2026-05-13T07:11:02.180Z",
   "rows": [
     {
       "slug": "latest-ai-models",
       "topic": "Latest AI models",
       "overall": 9.7,
       "passedThresholds": true,
-      "generatedAt": "2026-05-13T06:03:47.219Z",
+      "generatedAt": "2026-05-13T07:10:58.971Z",
       "blockers": 0,
       "dimensions": [
         {

@@ -1,0 +1,43 @@
+{
+  "name": "recap-studio",
+  "version": "0.2.0",
+  "description": "Generate beautiful, calm, mobile-first one-page explainers in under 5 minutes. Claude Code plugin with 13 specialist agents, 7-dimension validation board, static Next.js output. This package redirects to the canonical install path.",
+  "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "mcp",
+    "explainer",
+    "nextjs",
+    "ai-agents",
+    "validation",
+    "education",
+    "accessibility",
+    "mobile-first"
+  ],
+  "homepage": "https://github.com/Aboudjem/recap-studio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aboudjem/recap-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aboudjem/recap-studio/issues"
+  },
+  "author": {
+    "name": "Adam Boudjemaa",
+    "email": "boudjemaa.adam@gmail.com",
+    "url": "https://github.com/Aboudjem"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./bin/recap-studio.mjs",
+  "bin": {
+    "recap-studio": "./bin/recap-studio.mjs"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

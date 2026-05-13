@@ -29,3 +29,5 @@ artifacts/
 .omc/
 artifacts/
 .recap-studio/
+
+npm-placeholder/node_modules/
