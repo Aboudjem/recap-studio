@@ -5,6 +5,7 @@
 </picture>
 
 <p align="center">
+  <a href="https://github.com/Aboudjem/recap-studio/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-v0.2.0-7C5CFF?style=flat-square" alt="v0.2.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-7C5CFF?style=flat-square" alt="License"></a>
   <a href="https://github.com/Aboudjem/recap-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Aboudjem/recap-studio/ci.yml?style=flat-square&label=CI" alt="CI"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%E2%89%A520-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
@@ -12,7 +13,11 @@
   <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=7C5CFF" alt="Stars"></a>
 </p>
 
-<p align="center"><b>One-page explainers in five minutes. Visual. Cited. Calm.</b></p>
+<p align="center"><b>Turn any topic or git diff into a cited, mobile-first one-page explainer in 5 minutes.</b></p>
+
+<p align="center">
+  <sub>13 specialist agents · 7-dimension validation · static Next.js output · 103 KB First Load JS · scored 9.7/10 on the demo</sub>
+</p>
 
 <p align="center">
   <a href="#install">Install</a> ·
@@ -119,7 +124,10 @@ flowchart LR
   class B board;
 ```
 
-Thirteen specialist agents pass typed JSON. Each step is narrow. Reviewers run in parallel and only failing dimensions trigger another pass. The full architecture lives in [`docs/architecture.md`](docs/architecture.md).
+Thirteen specialist agents pass typed JSON. Each step is narrow. Reviewers run in parallel and only failing dimensions trigger another pass.
+
+> [!NOTE]
+> The 13 agents: research-scout, source-librarian, learning-architect, visual-story-designer, frontend-builder, repo-session-analyst, fact-checker, beginner-reviewer, accessibility-reviewer, ux-design-reviewer, performance-reviewer, security-privacy-reviewer, skeptical-reviewer. Full prompts under [`agents/`](agents/), architecture in [`docs/architecture.md`](docs/architecture.md).
 
 ---
 
