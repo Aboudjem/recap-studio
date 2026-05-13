@@ -2,8 +2,8 @@
   "$schema": "https://schemas.anthropic.com/claude-code/plugin.schema.json",
   "name": "recap-studio",
   "displayName": "Recap Studio",
-  "version": "0.1.0",
-  "description": "Autonomously turn a topic or a long coding session into a beautiful, mobile-first one-page educational website.",
+  "version": "0.2.0",
+  "description": "Autonomously turn a topic or a long coding session into a beautiful, calm, mobile-first one-page educational website.",
   "author": {
     "name": "Adam Boudjemaa",
     "email": "boudjemaa.adam@gmail.com",

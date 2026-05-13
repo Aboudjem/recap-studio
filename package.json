@@ -1,8 +1,8 @@
 {
   "name": "recap-studio",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Claude Code plugin: generate mobile-first one-page educational websites from a topic or a coding session.",
+  "description": "Generate beautiful, calm, mobile-first one-page explainers in under 5 minutes. Claude Code plugin with 13 specialist agents, 7-dimension validation board, static Next.js output.",
   "license": "MIT",
   "packageManager": "pnpm@10.0.0",
   "engines": {
