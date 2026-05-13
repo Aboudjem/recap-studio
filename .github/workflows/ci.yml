@@ -21,12 +21,13 @@ jobs:
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile=false
+      - name: Build packages
+        # Downstream workspace packages need built dist/ for typecheck to resolve imports.
+        run: pnpm -r --if-present run build
       - name: Lint
         run: pnpm -r --if-present run lint
       - name: Typecheck
         run: pnpm -r --if-present run typecheck
-      - name: Build packages
-        run: pnpm -r --if-present run build
       - name: Test
         run: pnpm -r --if-present run test
       - name: Demo + validation
