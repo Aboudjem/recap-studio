@@ -5,7 +5,7 @@
 </picture>
 
 <p align="center">
-  <a href="https://github.com/Aboudjem/recap-studio/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-v0.2.0-7C5CFF?style=flat-square" alt="v0.2.0"></a>
+  <a href="https://www.npmjs.com/package/recap-studio"><img src="https://img.shields.io/npm/v/recap-studio?color=7C5CFF&logo=npm&label=npm&style=flat-square" alt="npm"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-7C5CFF?style=flat-square" alt="License"></a>
   <a href="https://github.com/Aboudjem/recap-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Aboudjem/recap-studio/ci.yml?style=flat-square&label=CI" alt="CI"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%E2%89%A520-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
