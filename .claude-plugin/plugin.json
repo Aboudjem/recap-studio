@@ -18,54 +18,11 @@
     "recap",
     "nextjs",
     "accessibility",
-    
     "mobile-first"
   ],
-  "skills": [
-    {
-      "name": "recap",
-      "path": "skills/recap-topic/SKILL.md",
-      "description": "Default /recap entrypoint. Routes to topic or session mode based on input."
-    },
-    {
-      "name": "recap-topic",
-      "path": "skills/recap-topic/SKILL.md",
-      "description": "Generate a visual one-page educational website from a topic."
-    },
-    {
-      "name": "recap-session",
-      "path": "skills/recap-session/SKILL.md",
-      "description": "Explain a large coding session or repository change in under 5 minutes."
-    },
-    {
-      "name": "recap-setup",
-      "path": "skills/recap-setup/SKILL.md",
-      "description": "Create or update the Recap Studio config with safe defaults."
-    },
-    {
-      "name": "recap-validate",
-      "path": "skills/recap-validate/SKILL.md",
-      "description": "Run all validation checks and emit a structured quality report."
-    }
-  ],
-  "agents": [
-    { "name": "research-scout", "path": "agents/research-scout.md" },
-    { "name": "source-librarian", "path": "agents/source-librarian.md" },
-    { "name": "learning-architect", "path": "agents/learning-architect.md" },
-    { "name": "visual-story-designer", "path": "agents/visual-story-designer.md" },
-    { "name": "frontend-builder", "path": "agents/frontend-builder.md" },
-    { "name": "repo-session-analyst", "path": "agents/repo-session-analyst.md" },
-    { "name": "fact-checker", "path": "agents/fact-checker.md" },
-    { "name": "beginner-reviewer", "path": "agents/beginner-reviewer.md" },
-    { "name": "accessibility-reviewer", "path": "agents/accessibility-reviewer.md" },
-    { "name": "ux-design-reviewer", "path": "agents/ux-design-reviewer.md" },
-    { "name": "performance-reviewer", "path": "agents/performance-reviewer.md" },
-    { "name": "security-privacy-reviewer", "path": "agents/security-privacy-reviewer.md" },
-    { "name": "skeptical-reviewer", "path": "agents/skeptical-reviewer.md" }
-  ],
-  "hooks": {
-    "config": "hooks/hooks.json"
-  },
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "hooks": "./hooks/hooks.json",
   "mcpServers": {
     "recap-studio-tools": {
       "command": "node",
@@ -73,12 +30,5 @@
       "description": "Optional local MCP server: artifact store, source cache, diagram render, screenshot, a11y/lighthouse summaries, Vercel preview helper, email draft helper. Side effects gated behind config + confirmation.",
       "optional": true
     }
-  },
-  "commands": {
-    "/recap": "skills/recap-topic/SKILL.md",
-    "/recap topic": "skills/recap-topic/SKILL.md",
-    "/recap session": "skills/recap-session/SKILL.md",
-    "/recap setup": "skills/recap-setup/SKILL.md",
-    "/recap validate": "skills/recap-validate/SKILL.md"
   }
 }
