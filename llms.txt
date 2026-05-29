@@ -10,9 +10,13 @@ claude plugin install recap-studio@10x
 ```
 
 ### CLI (any terminal, no Claude Code required)
+The `@recap-studio/cli` npm package ships with the 0.3.0 release; the `npx` form
+works after that publish. Today, run it from a built clone:
 ```
+node packages/cli/dist/index.js render content.json -o out.html
+node packages/cli/dist/index.js validate content.json
+# after 0.3.0 npm publish:
 npx @recap-studio/cli render content.json -o out.html
-npx @recap-studio/cli validate content.json
 ```
 
 ## Key files / packages

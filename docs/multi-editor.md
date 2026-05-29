@@ -7,8 +7,13 @@ One smoke test per editor confirms it is wired up correctly.
 
 ## Prerequisites
 
+> **Heads-up on `npx`/`npm`:** the `@recap-studio/*` packages publish to npm **with the 0.3.0
+> release**. Until then, every `npx @recap-studio/...` command below works only from a built
+> clone — use the `node packages/<pkg>/dist/index.js` form, or build first (below). The
+> Claude Code marketplace install (`recap-studio@10x`) works today.
+
 **All editors:** You need a local build of the MCP server before the `node` form of any config
-will work. The `npx` form skips this requirement.
+will work. The `npx` form additionally requires the published package (see heads-up above).
 
 ```bash
 # Clone the repo (if you haven't already)
@@ -33,10 +38,12 @@ The `recap` CLI is in `packages/cli`. It renders a `RecapPageContent` JSON to a 
 HTML file and validates content. No Claude, no API key, no server required.
 
 ```bash
-# Render a content JSON to a standalone dark-mode HTML page
-npx @recap-studio/cli render content.json -o out.html --theme dark
+# Works today (from a built clone):
+node packages/cli/dist/index.js render content.json -o out.html --theme dark
+node packages/cli/dist/index.js validate content.json
 
-# Score content with deterministic heuristic checks
+# After the 0.3.0 npm publish, the same commands become:
+npx @recap-studio/cli render content.json -o out.html --theme dark
 npx @recap-studio/cli validate content.json
 ```
 

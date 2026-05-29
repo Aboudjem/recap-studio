@@ -26,10 +26,16 @@ Recap Studio's `/recap` slash command lives in Claude Code. The CLI is the **cro
 ## Install
 
 ```bash
+# Published (ships with the recap-studio 0.3.0 release):
 npm i -g @recap-studio/cli   # then: recap render content.json
-# or zero-install:
 npx @recap-studio/cli render content.json
+
+# Until then, from a clone of the monorepo:
+pnpm install && pnpm -w build
+node packages/cli/dist/index.js render content.json
 ```
+
+> Note: the `npx`/`npm i -g` paths require `@recap-studio/cli` to be published to npm, which happens as part of the 0.3.0 release. The from-source path works today.
 
 ## License
 

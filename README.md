@@ -108,9 +108,13 @@ Use the CLI when you are outside Claude Code — in any terminal, any editor, CI
 **Install:**
 
 ```bash
-npx @recap-studio/cli render content.json
-# or install globally
-npm install -g @recap-studio/cli
+# Works today — from a clone of this repo:
+git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
+pnpm install && pnpm -w build
+node packages/cli/dist/index.js render content.json
+
+# The published package (ships with the 0.3.0 release) makes this a one-liner:
+npx @recap-studio/cli render content.json      # after publish
 ```
 
 **Commands:**
@@ -131,7 +135,7 @@ pnpm -w demo:latest-ai-models && pnpm --filter recap-web dev
 ```
 
 > [!NOTE]
-> `pnpm -w` means "run from the workspace root" — it is how monorepo scripts are invoked. You only need it if you cloned this repo. The `npx @recap-studio/cli` path works without cloning anything.
+> `pnpm -w` means "run from the workspace root" — it is how monorepo scripts are invoked. You only need it if you cloned this repo. Once `@recap-studio/cli` is published (with the 0.3.0 release), `npx @recap-studio/cli` runs it without cloning anything.
 
 **Other workspace scripts:**
 

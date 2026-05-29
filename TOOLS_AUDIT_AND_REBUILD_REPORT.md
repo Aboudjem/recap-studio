@@ -214,7 +214,7 @@ README and all docs now state: "9.7/10 from 7 deterministic heuristic checks (st
 
 1. **Topic explainer** — `fixtures/topics/latest-ai-models.json` → `recap render` → `artifacts/latest-ai-models/recap-latest-ai-models.html`. File passes validation and opens offline.
 
-2. **Session recap** — `apps/recap-web/src/content/session.json` (a recap of this rebuild, generated from the actual git diff) → rendered to self-contained HTML and passes validation. This is the first session-mode artifact in the repo.
+2. **Session recap** — `apps/recap-web/src/content/session.json` (a recap of this rebuild, **authored for this session** to describe the real git changes — not produced by an automated `/recap session` skill run) → rendered to self-contained HTML, passes validation 9.7/10, and a fresh non-technical agent understood it from the page alone (GREEN first-time-user sim). The render→validate→read pipeline is proven E2E; an automated skill invocation against a live repo was not exercised this session.
 
 **Screenshots:** `docs/audit/screens/` contains:
 - `after-desktop-hero.png` — desktop view, hero section
