@@ -5,9 +5,60 @@ All notable changes to Recap Studio are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.3.0] - 2026-05-29
+
+The "make it real" rebuild. Audited end-to-end (11 specialist passes), then
+rebuilt the output, opened it to every editor, and made the claims honest.
+
+### Added
+
+- **Self-contained HTML output** — new `@recap-studio/html-renderer`:
+  `renderToHtml()` produces ONE dark-mode HTML file with all CSS inlined and
+  **zero JavaScript** that opens with a double-click, offline. Fixes the
+  long-standing `file://` breakage where `out/index.html` referenced absolute
+  `/_next/` paths and rendered blank without a server.
+- **Reusable template** — the renderer is a shared, documented asset
+  (`packages/html-renderer/TEMPLATE.md`) other 10x tools can call with a
+  `RecapPageContent` and a `{theme}`.
+- **`recap` CLI** (`@recap-studio/cli`) — `recap render` / `recap validate`
+  work in any editor/terminal, no Claude Code required.
+- **MCP `render_recap_html` tool** — turn a stored content slug into a
+  self-contained page from Cursor, VS Code, Codex, Gemini, Continue, etc.
+- **`scripts/render-html.mjs`** (`pnpm render` / `pnpm render:demo`).
+- **`llms.txt`, `AGENTS.md`, `docs/multi-editor.md`, self-hosted
+  `.claude-plugin/marketplace.json`** (standalone install path).
+
+### Changed
+
+- **All-sans-serif** type system + tasteful violet→blue→teal gradients
+  (dark-first). `theme` default is now `dark`.
+- **Honest validation framing** — the score is deterministic heuristic checks
+  (structure, citations, word counts, secret/fluff scans); it does not fetch
+  sources or run an LLM. Full agent review runs only via `/recap` in Claude Code.
+- **MCP transport** is now MCP-spec compliant: tool results use `type: "text"`
+  (was `type: "json"`, which broke several clients); handles
+  `notifications/initialized` and `ping`.
+- **Skills** (`recap-topic`, `recap-session`) now render the self-contained
+  HTML, open it, THEN ask to deploy to Vercel only if configured — never
+  without explicit consent.
+- **CI** hardened: strict `--frozen-lockfile`, a self-contained-output
+  assertion, a `recap` CLI smoke test, and a secrets-scan job.
 
 ### Fixed
+
+- **`Critical dependency` build warning** — `load-config` is no longer in the
+  content-pipeline barrel (use `@recap-studio/content-pipeline/load-config`).
+- **`validate.mjs` crash on malformed input** — now guards required fields and
+  exits 2 with a helpful message instead of an unhandled `TypeError`.
+- **`recap-setup`** referenced a non-existent `config-template.ts`.
+
+### Security
+
+- **Reset shipped config to safe defaults.** `recap-studio.config.ts` had
+  shipped with `deploymentMode: "preview"` and
+  `emailMode: "send-with-confirmation"`. Both are now `disabled`; the live
+  config file is gitignored, with `recap-studio.config.example.ts` as the
+  copy-me template.
 
 - **Vercel deploy fails on pnpm workspace.** `scripts/deploy-preview.sh`
   and `scripts/deploy-prod.sh` now build locally with `vercel build` and

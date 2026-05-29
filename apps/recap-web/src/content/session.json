@@ -75,7 +75,7 @@
     }
   ],
   "timeline": [
-    { "date": "Step 1", "title": "Audited the whole tool", "body": "Eleven specialist passes mapped what worked and what didn't, with file-level evidence.", "sourceIds": ["audit"] },
+    { "date": "Step 1", "title": "Audited the whole tool", "body": "A detailed review — eleven focused checks, each looking at one thing like design, safety, or accuracy — mapped what worked and what didn't, with evidence.", "sourceIds": ["audit"] },
     { "date": "Step 2", "title": "Built the self-contained renderer", "body": "A new package turns content into one offline HTML file. Proven by a screenshot at phone and desktop sizes.", "sourceIds": ["html-renderer"] },
     { "date": "Step 3", "title": "Opened it to other editors", "body": "A command-line tool and a fixed plug-in interface make it work outside Claude Code.", "sourceIds": ["cli", "mcp"] },
     { "date": "Step 4", "title": "Fixed honesty and safety", "body": "Reframed the score, reset risky defaults, and hardened the validator against bad input.", "sourceIds": ["validate", "config"] }
@@ -120,9 +120,10 @@
   ],
   "glossary": [
     { "term": "self-contained HTML", "definition": "A web page whose styling and content are all inside one file, so it works with no server and no internet." },
-    { "term": "MCP", "definition": "A standard way for editors to talk to small tools. Fixing our messages to follow it is what lets other editors use Recap Studio." },
+    { "term": "MCP", "definition": "A shared rulebook for how code editors talk to small tools. Our replies didn't quite follow the rulebook, so other editors ignored them; matching it exactly is what unlocked Cursor, VS Code, and the rest." },
     { "term": "CLI", "definition": "A command you type in a terminal. Ours, `recap`, renders or scores a page anywhere." },
-    { "term": "fixture", "definition": "Saved example data used so the demo runs offline with no live research." }
+    { "term": "Vercel", "definition": "A popular service that hosts websites online. It's optional here — only used if you choose to publish your page to a public link instead of keeping the single file." },
+    { "term": "fixture", "definition": "Fake stand-in data the demo uses instead of real research, so it runs offline and for free." }
   ],
   "practicalTakeaways": [
     "Generate a recap, then just double-click the HTML — no server needed.",

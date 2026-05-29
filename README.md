@@ -31,7 +31,7 @@
 </p>
 
 <picture>
-  <img alt="Sample recap page preview showing hero, three takeaway cards, a concept map with three model tiers, and a timeline. A score chip in the corner reads 9.7 of 10." src=".github/assets/page-preview.svg" width="100%">
+  <img alt="A real Recap Studio page: dark-mode hero with a gradient headline 'Latest AI models', a one-sentence answer, and a numbered five-step reading path. Calm, premium, mobile-first." src=".github/assets/page-preview.png" width="100%">
 </picture>
 
 ---
@@ -159,7 +159,7 @@ For rendering: yes, completely offline. For the full LLM agent research pipeline
 `recap validate` runs a fast, deterministic heuristic check — it scans structure, citation presence, word counts, and known quality signals. It does NOT fetch sources or run LLMs. The full LLM agent review (13 agents, 7 dimensions) only runs when you use `/recap` inside Claude Code. This is stated clearly in the output.
 
 **Can I use it in VS Code, Cursor, or Codex?**
-Yes. The MCP server (`@recap-studio/mcp-server`) exposes a `render_recap_html` tool. The transport is spec-compliant (`content` type `"text"`) and has been tested in Cursor, VS Code, and Continue.
+Yes. The MCP server (`@recap-studio/mcp-server`) exposes a `render_recap_html` tool, and the `recap` CLI works in any terminal. The MCP transport is spec-compliant (`content` type `"text"`, with `notifications/initialized` + `ping`) and unit-tested. Copy-paste setup for Claude Code, Cursor, VS Code, Codex, Gemini, Windsurf, and Continue — plus a smoke test for each — is in [`docs/multi-editor.md`](docs/multi-editor.md).
 
 **Does it deploy anywhere automatically?**
 No. Deployment is `disabled` by default. It only deploys if you configure Vercel and give explicit consent when prompted.
