@@ -88,6 +88,25 @@ importers:
         specifier: ^1.6.0
         version: 1.6.1(@types/node@20.19.41)
 
+  packages/cli:
+    dependencies:
+      '@recap-studio/content-pipeline':
+        specifier: workspace:*
+        version: link:../content-pipeline
+      '@recap-studio/html-renderer':
+        specifier: workspace:*
+        version: link:../html-renderer
+      '@recap-studio/validation':
+        specifier: workspace:*
+        version: link:../validation
+    devDependencies:
+      tsx:
+        specifier: ^4.16.0
+        version: 4.21.0
+      typescript:
+        specifier: ^5.5.0
+        version: 5.9.3
+
   packages/content-pipeline:
     dependencies:
       zod:
@@ -128,6 +147,9 @@ importers:
       '@recap-studio/content-pipeline':
         specifier: workspace:*
         version: link:../content-pipeline
+      '@recap-studio/html-renderer':
+        specifier: workspace:*
+        version: link:../html-renderer
       '@recap-studio/validation':
         specifier: workspace:*
         version: link:../validation

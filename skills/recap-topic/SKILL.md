@@ -90,9 +90,21 @@ in the transcript. See `docs/known-issues.md#plugin-cache-write-target`.
 9. **Aggregate scores.** If any dimension is under target (see below),
    patch and re-run only the failing reviewers. Cap at 3 iterations and
    document any blocker honestly.
-10. **Build & report.** Run `pnpm --filter recap-web build` if available.
-    If not, mark the build step as "blocked: environment lacks dependencies"
-    and surface the JSON content + page source as proof.
+10. **Render the self-contained page.** Run `node scripts/render-html.mjs <slug>`
+    (or `pnpm render <slug>`). This writes `artifacts/<slug>/recap-<slug>.html` —
+    ONE dark-mode HTML file with all CSS inlined and zero JavaScript that opens
+    with a double-click, offline. Prefer diagrams with `kind: "svg"` (hand-authored
+    inline SVG) over `kind: "mermaid"` so the standalone file is fully visual.
+    Optionally also run `pnpm --filter recap-web build` for the hosted/Vercel track.
+11. **Open it, then ask about deploy.** Open the file for the user
+    (`open` on macOS, `xdg-open` on Linux, `start` on Windows). THEN check whether
+    Vercel is configured — a `vercel`/`.vercel` dir, a `VERCEL_TOKEN` in env, or
+    `deploymentMode !== "disabled"` in `recap-studio.config.ts`. If configured,
+    ask: **"Deploy to Vercel?"** — on an explicit yes, run `pnpm deploy:preview`;
+    otherwise skip cleanly. **Never deploy without an explicit yes.** If Vercel is
+    not configured, do not mention deploy.
+12. **Report.** Finish with the Final report block (below). State the HTML path,
+    the scores, and the deploy decision.
 
 ## Targets
 

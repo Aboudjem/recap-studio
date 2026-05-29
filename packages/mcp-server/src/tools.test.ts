@@ -1,9 +1,14 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { tools } from "./tools.js";
+import { handle } from "./index.js";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
 describe("MCP tool registry", () => {
-  it("exposes the nine documented tools", () => {
+  it("exposes the ten documented tools", () => {
     const names = tools.map((t) => t.name).sort();
     assert.deepEqual(names, [
       "cache_source",
@@ -12,6 +17,7 @@ describe("MCP tool registry", () => {
       "generate_mermaid_diagram",
       "read_run_artifact",
       "render_page_screenshot",
+      "render_recap_html",
       "run_accessibility_scan",
       "run_lighthouse_summary",
       "send_email_draft",
@@ -51,5 +57,56 @@ describe("MCP tool registry", () => {
       alt: "concept map",
     } as never)) as { ok: boolean };
     assert.equal(ok.ok, true);
+  });
+
+  it("render_recap_html produces a self-contained HTML file", async () => {
+    const tool = tools.find((t) => t.name === "render_recap_html")!;
+    const prev = process.cwd();
+    process.chdir(repoRoot); // content lookup is relative to cwd
+    try {
+      const res = (await tool.handler({ slug: "latest-ai-models", theme: "dark" } as never)) as {
+        ok: boolean;
+        path: string;
+        bytes: number;
+        selfContained: boolean;
+      };
+      assert.equal(res.ok, true);
+      assert.equal(res.selfContained, true);
+      assert.ok(res.bytes > 5000, "non-trivial HTML produced");
+      assert.match(res.path, /recap-latest-ai-models\.html$/);
+    } finally {
+      process.chdir(prev);
+    }
+  });
+});
+
+describe("MCP transport (JSON-RPC over stdio)", () => {
+  it("tools/call returns a text content block (MCP-compliant, not type:json)", async () => {
+    const res = await handle({
+      jsonrpc: "2.0",
+      id: 1,
+      method: "tools/call",
+      params: { name: "generate_mermaid_diagram", arguments: { code: "flowchart TD\nA-->B", alt: "a concept map" } },
+    });
+    const result = res?.result as { content: Array<{ type: string; text: string }> };
+    assert.equal(result.content[0]?.type, "text");
+    assert.match(result.content[0]?.text ?? "", /"ok": true/);
+  });
+
+  it("notifications get no response (null)", async () => {
+    const res = await handle({ jsonrpc: "2.0", method: "notifications/initialized" });
+    assert.equal(res, null);
+  });
+
+  it("responds to ping", async () => {
+    const res = await handle({ jsonrpc: "2.0", id: 7, method: "ping" });
+    assert.deepEqual(res?.result, {});
+  });
+
+  it("initialize advertises protocol + tools capability", async () => {
+    const res = await handle({ jsonrpc: "2.0", id: 0, method: "initialize" });
+    const result = res?.result as { protocolVersion: string; capabilities: { tools: unknown } };
+    assert.ok(result.protocolVersion, "has protocolVersion");
+    assert.ok(result.capabilities.tools, "advertises tools capability");
   });
 });

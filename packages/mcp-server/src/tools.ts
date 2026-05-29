@@ -8,6 +8,7 @@ import {
   parseRecapPageContent,
 } from "@recap-studio/content-pipeline";
 import { runValidation, reportMarkdown } from "@recap-studio/validation";
+import { renderFromJson } from "@recap-studio/html-renderer";
 
 export interface ToolCall {
   name: string;
@@ -81,6 +82,11 @@ const SendEmailDraft = z.object({
 
 const ValidateContent = z.object({
   slug: z.string().min(1),
+});
+
+const RenderRecapHtml = z.object({
+  slug: z.string().min(1),
+  theme: z.enum(["dark", "light", "auto"]).default("dark"),
 });
 
 export const tools: Array<ToolDef<z.ZodTypeAny>> = [
@@ -314,6 +320,36 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
       const content = parseRecapPageContent(JSON.parse(readFileSync(path, "utf8")));
       const report = runValidation(content);
       return { ok: true, report, markdown: reportMarkdown(report) };
+    },
+  },
+  {
+    name: "render_recap_html",
+    description:
+      "Render a stored RecapPageContent (by slug) into ONE self-contained, dark-mode HTML file: inlined CSS, zero JavaScript, opens with a double-click offline. Writes artifacts/<slug>/recap-<slug>.html. This is the cross-editor way to turn content into a shareable page — no Claude Code required.",
+    input: RenderRecapHtml,
+    inputSchema: {
+      type: "object",
+      properties: {
+        slug: { type: "string" },
+        theme: { type: "string", enum: ["dark", "light", "auto"] },
+      },
+      required: ["slug"],
+    },
+    handler: ({ slug, theme }) => {
+      const live = join(
+        resolve(process.cwd(), "apps", "recap-web", "src", "content"),
+        `${slug}.json`,
+      );
+      const fixture = join(resolve(process.cwd(), "fixtures", "topics"), `${slug}.json`);
+      const path = existsSync(live) ? live : fixture;
+      if (!existsSync(path)) {
+        throw new Error(`no content for slug "${slug}" (looked in apps/recap-web/src/content and fixtures/topics)`);
+      }
+      const html = renderFromJson(JSON.parse(readFileSync(path, "utf8")), { theme });
+      const outPath = join(artifactsRoot(), slug, `recap-${slug}.html`);
+      ensureDir(outPath);
+      writeFileSync(outPath, html, "utf8");
+      return { ok: true, path: outPath, bytes: Buffer.byteLength(html, "utf8"), selfContained: true };
     },
   },
 ];

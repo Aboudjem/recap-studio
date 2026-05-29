@@ -52,8 +52,15 @@ async function callTool(params: ToolCall): Promise<unknown> {
   return tool.handler(args as never);
 }
 
-async function handle(req: RpcRequest): Promise<RpcResponse> {
+/**
+ * Returns the RpcResponse, or `null` for notifications (requests with no `id`),
+ * which per JSON-RPC / MCP MUST NOT receive a response.
+ */
+async function handle(req: RpcRequest): Promise<RpcResponse | null> {
+  const isNotification = req.id === undefined || req.id === null;
   const id = req.id ?? null;
+  // Notifications (e.g. notifications/initialized) get no response.
+  if (isNotification && req.method.startsWith("notifications/")) return null;
   try {
     switch (req.method) {
       case "initialize":
@@ -62,18 +69,24 @@ async function handle(req: RpcRequest): Promise<RpcResponse> {
           id,
           result: {
             protocolVersion: "2025-06-18",
-            serverInfo: { name: "recap-studio-mcp", version: "0.1.0" },
-            capabilities: { tools: {} },
+            serverInfo: { name: "recap-studio-mcp", version: "0.3.0" },
+            capabilities: { tools: { listChanged: false } },
           },
         };
+      case "notifications/initialized":
+        return null;
+      case "ping":
+        return { jsonrpc: "2.0", id, result: {} };
       case "tools/list":
         return { jsonrpc: "2.0", id, result: listTools() };
-      case "tools/call":
-        return {
-          jsonrpc: "2.0",
-          id,
-          result: { content: [{ type: "json", json: await callTool(req.params as ToolCall) }] },
-        };
+      case "tools/call": {
+        const out = await callTool(req.params as ToolCall);
+        // MCP spec: tool results are content items of type "text" (not "json").
+        // We serialize structured results to a JSON string in a text block so
+        // every compliant client (Cursor, VS Code, Codex, Continue) can read it.
+        const text = typeof out === "string" ? out : JSON.stringify(out, null, 2);
+        return { jsonrpc: "2.0", id, result: { content: [{ type: "text", text }] } };
+      }
       default:
         return {
           jsonrpc: "2.0",
@@ -105,7 +118,7 @@ async function main() {
       continue;
     }
     const res = await handle(req);
-    process.stdout.write(JSON.stringify(res) + "\n");
+    if (res !== null) process.stdout.write(JSON.stringify(res) + "\n");
   }
 }
 

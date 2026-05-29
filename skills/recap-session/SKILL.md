@@ -49,7 +49,16 @@ stakeholder.
 5. **frontend-builder** — write `apps/recap-web/src/content/session.json`.
 6. **Validation board** — same parallel reviewers as topic mode, plus a
    privacy pass that flags any private path leaking into the page.
-7. **Final report.** Same format as topic mode.
+7. **Render the self-contained page.** Run `node scripts/render-html.mjs session`
+   → `artifacts/session/recap-session.html` (one dark-mode file, inlined CSS,
+   zero JS, opens with a double-click). Prefer `kind: "svg"` diagrams for the
+   before/after architecture so the standalone file is fully visual.
+8. **Open it, then ask about deploy.** Open the file for the user. THEN, only if
+   Vercel is configured (`vercel`/`.vercel`/`VERCEL_TOKEN` or
+   `deploymentMode !== "disabled"`), ask **"Deploy to Vercel?"** and deploy via
+   `pnpm deploy:preview` only on an explicit yes. Never deploy without consent.
+9. **Final report.** Same format as topic mode. Mention which paths were
+   redacted and why, and the HTML path.
 
 ## --deep mode
 
