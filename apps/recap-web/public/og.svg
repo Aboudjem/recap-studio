@@ -6,10 +6,10 @@
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <g font-family="ui-serif, Georgia, serif" fill="#16161D">
-    <text x="80" y="240" font-size="64" font-weight="650">Recap Studio</text>
-    <text x="80" y="320" font-size="32" fill="#5C5C66">Visual, mobile-first, calm</text>
-    <text x="80" y="362" font-size="32" fill="#5C5C66">explainers in under 5 minutes.</text>
+  <g font-family="system-ui,-apple-system,Segoe UI,sans-serif" fill="#16161D">
+    <text x="80" y="240" font-size="64" font-weight="700">Recap Studio</text>
+    <text x="80" y="320" font-size="32" fill="#5C5C66">Visual one-page explainers</text>
+    <text x="80" y="362" font-size="32" fill="#5C5C66">in under 5 minutes. Offline HTML out.</text>
   </g>
   <circle cx="1050" cy="120" r="28" fill="#7C5CFF"/>
   <circle cx="1102" cy="160" r="14" fill="#7C5CFF" opacity="0.55"/>

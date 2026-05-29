@@ -19,6 +19,7 @@
         .rh-text { fill: #F2F1EE; }
         .rh-muted{ fill: #A4A4B0; }
       }
+      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
     </style>
   </defs>
   <rect class="rh-bg" width="1200" height="320" fill="#FBFAF7"/>

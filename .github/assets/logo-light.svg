@@ -21,6 +21,7 @@
       .rs-spark  { animation: rs-fade 2.8s cubic-bezier(.4,0,.2,1) infinite; }
       .rs-spark-2{ animation-delay: .4s; }
       .rs-spark-3{ animation-delay: .8s; }
+      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
     </style>
   </defs>
   <rect class="rs-bg" width="720" height="200" rx="24" fill="url(#rs-light-bg)"/>

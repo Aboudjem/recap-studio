@@ -26,6 +26,6 @@
   </g>
   <g transform="translate(80, 540)" font-family="system-ui,sans-serif" font-size="14" fill="#5C5C66">
     <text>claude plugin install recap-studio@10x</text>
-    <text x="0" y="28" fill="#9CA3AF">github.com/Aboudjem/recap-studio · MIT · 103 KB First Load JS</text>
+    <text x="0" y="28" fill="#9CA3AF">github.com/Aboudjem/recap-studio · MIT · self-contained, zero-JS HTML</text>
   </g>
 </svg>

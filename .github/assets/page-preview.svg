@@ -18,6 +18,7 @@
       .pp-d2    { animation-delay: .3s }
       .pp-d3    { animation-delay: .6s }
       .pp-d4    { animation-delay: .9s }
+      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
     </style>
   </defs>
 
@@ -30,7 +31,7 @@
   <circle cx="86" cy="60" r="6" fill="#FEBC2E"/>
   <circle cx="108" cy="60" r="6" fill="#28C840"/>
   <rect x="160" y="48" width="800" height="24" rx="6" fill="#F4F1FF"/>
-  <text x="200" y="65" font-family="system-ui,sans-serif" font-size="13" fill="#5C5C66">recap.studio/latest-ai-models</text>
+  <text x="200" y="65" font-family="system-ui,sans-serif" font-size="13" fill="#5C5C66">recap-latest-ai-models.html</text>
 
   <!-- page -->
   <g font-family="system-ui,-apple-system,Segoe UI,sans-serif">
@@ -107,7 +108,7 @@
     <g transform="translate(1030, 100)">
       <rect width="130" height="80" rx="12" fill="url(#pp-violet)"/>
       <text x="65" y="32" text-anchor="middle" font-size="11" font-weight="600" fill="#F2F1EE">VALIDATION</text>
-      <text x="65" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">pass ✓</text>
+      <text x="65" y="60" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">pass</text>
     </g>
   </g>
 </svg>
