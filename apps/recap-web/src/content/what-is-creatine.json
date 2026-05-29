@@ -1,0 +1,150 @@
+{
+  "slug": "what-is-creatine",
+  "topic": "What is creatine",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-29T00:00:00.000Z",
+  "fixture": false,
+  "oneSentenceAnswer": "Creatine is a cheap, exceptionally well-studied supplement that helps muscles refuel energy for short, hard efforts — the monohydrate form at 3–5 g a day reliably builds strength and power, and it's safe for healthy people.",
+  "fiveMinutePath": [
+    "Learn what creatine does in one sentence.",
+    "See the simple energy mechanism (it refuels ATP).",
+    "Get the dose that works: 3–5 g/day of monohydrate.",
+    "Clear up the big myths: water weight, loading, kidneys.",
+    "Know what's solid vs still-emerging (e.g. brain effects)."
+  ],
+  "whyItMatters": [
+    "It's one of the few supplements with decades of strong evidence — so knowing the facts saves you money and skips the marketing for fancier, pricier forms that don't work better.",
+    "Most fears about it (kidney damage, it's 'just water') are misconceptions the research has directly addressed — being clear-eyed lets you decide on evidence, not gym folklore."
+  ],
+  "keyIdeas": [
+    {
+      "id": "form-dose",
+      "title": "Monohydrate, 3–5 g a day",
+      "body": "Creatine **monohydrate** is the most-studied and most effective form — citrate, HCl, 'ethyl ester', and buffered versions don't beat it. Once your muscles are topped up, 3–5 g a day keeps them there (larger athletes may need a bit more).",
+      "icon": "target",
+      "sourceIds": ["issn2017", "jissn2021misc"]
+    },
+    {
+      "id": "mechanism",
+      "title": "It refuels your energy battery",
+      "body": "Creatine is stored in muscle as **phosphocreatine**, which rapidly regenerates ATP — the cell's energy currency — during the first ~0–30 seconds of intense effort. More phosphocreatine means more reps, sprints, and power.",
+      "icon": "zap",
+      "sourceIds": ["issn2017", "nutrients2021"]
+    },
+    {
+      "id": "loading-optional",
+      "title": "Loading is optional",
+      "body": "A 'loading' phase (~20 g/day for 5–7 days) fills your stores fast. But it's not required: 3–5 g/day reaches the same level in about four weeks. Skipping the load just means the early benefits arrive a little later.",
+      "icon": "clock",
+      "sourceIds": ["issn2017", "jissn2021misc"]
+    },
+    {
+      "id": "real-gains",
+      "title": "Not 'just water weight'",
+      "body": "The first couple of pounds are mostly water drawn into the muscle. But over 5–12 weeks of training, studies show real gains in lean muscle and strength — the water claim is misleading, not the whole story.",
+      "icon": "trending-up",
+      "sourceIds": ["jissn2021misc", "scoping2022"]
+    },
+    {
+      "id": "safety",
+      "title": "Safe for healthy people",
+      "body": "At recommended doses — even up to 30 g/day for 5 years in studies — creatine is safe and doesn't harm kidneys in healthy people. If you already have kidney disease, check with a clinician first.",
+      "icon": "shield",
+      "sourceIds": ["issn2017", "jissn2021misc"]
+    },
+    {
+      "id": "brain",
+      "title": "Brain effects: promising, not settled",
+      "body": "Beyond muscle, creatine may help thinking under sleep deprivation and in older adults, and can raise brain creatine 5–15%. The research uses hedged language here — treat it as emerging, not proven like the strength benefits.",
+      "icon": "brain",
+      "sourceIds": ["issn2017"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept-map", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "comparison", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "concept-map",
+      "kind": "svg",
+      "alt": "Energy cycle: creatine in food or a supplement is stored in muscle as phosphocreatine; during a hard effort, phosphocreatine donates a phosphate to ADP to rapidly regenerate ATP, the muscle's energy, powering short bursts; ATP is used and becomes ADP again, repeating.",
+      "code": "<svg viewBox=\"0 0 760 360\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"Inter, system-ui, sans-serif\"><defs><linearGradient id=\"cg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#A78BFF\"/><stop offset=\"1\" stop-color=\"#4FA8FF\"/></linearGradient><linearGradient id=\"cg2\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#4FA8FF\"/><stop offset=\"1\" stop-color=\"#38E0C8\"/></linearGradient></defs><g stroke=\"#2E2E38\" stroke-width=\"2\" fill=\"none\"><path d=\"M180 86 H300\"/><path d=\"M560 120 V210\"/><path d=\"M460 250 H300\"/><path d=\"M180 210 V120\"/></g><rect x=\"40\" y=\"60\" width=\"140\" height=\"54\" rx=\"14\" fill=\"#15151B\" stroke=\"#2E2E38\"/><text x=\"110\" y=\"84\" text-anchor=\"middle\" fill=\"#F2F1EE\" font-size=\"13\">Creatine</text><text x=\"110\" y=\"102\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"11\">food or supplement</text><rect x=\"300\" y=\"58\" width=\"170\" height=\"58\" rx=\"16\" fill=\"url(#cg)\"/><text x=\"385\" y=\"83\" text-anchor=\"middle\" fill=\"#14101F\" font-size=\"14\" font-weight=\"700\">Phosphocreatine</text><text x=\"385\" y=\"102\" text-anchor=\"middle\" fill=\"#14101F\" font-size=\"11\">stored in muscle</text><rect x=\"500\" y=\"190\" width=\"170\" height=\"60\" rx=\"16\" fill=\"url(#cg2)\"/><text x=\"585\" y=\"216\" text-anchor=\"middle\" fill=\"#0C1016\" font-size=\"14\" font-weight=\"700\">ATP</text><text x=\"585\" y=\"234\" text-anchor=\"middle\" fill=\"#0C1016\" font-size=\"11\">energy for the effort</text><rect x=\"90\" y=\"190\" width=\"170\" height=\"60\" rx=\"16\" fill=\"#1B1B23\" stroke=\"#23232B\"/><text x=\"175\" y=\"216\" text-anchor=\"middle\" fill=\"#F2F1EE\" font-size=\"14\">ADP</text><text x=\"175\" y=\"234\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"11\">'spent' energy</text><text x=\"385\" y=\"150\" text-anchor=\"middle\" fill=\"#CFC4FF\" font-size=\"12\">donates a phosphate →</text><text x=\"385\" y=\"244\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"12\">← muscle uses ATP, it becomes ADP</text><text x=\"385\" y=\"320\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"12\">More phosphocreatine = faster ATP refuel = more power in the first ~30 seconds.</text></svg>"
+    }
+  ],
+  "timeline": [
+    { "date": "Day 0", "title": "You start", "body": "Pick creatine monohydrate. Decide: load fast, or go slow and steady.", "sourceIds": ["issn2017"] },
+    { "date": "Days 1–7", "title": "Optional loading", "body": "~20 g/day (split into 4 doses) saturates muscle stores in about a week.", "sourceIds": ["issn2017", "jissn2021misc"] },
+    { "date": "~4 weeks", "title": "No-load alternative", "body": "Just 3–5 g/day reaches the same stores in about four weeks — no loading needed.", "sourceIds": ["jissn2021misc"] },
+    { "date": "Ongoing", "title": "Maintain", "body": "3–5 g/day keeps stores topped up. Strength and lean-mass gains build over weeks of training.", "sourceIds": ["issn2017", "scoping2022"] }
+  ],
+  "comparisons": [
+    {
+      "id": "forms",
+      "title": "Monohydrate vs. the fancier forms",
+      "columns": ["Evidence", "Cost", "Beats monohydrate?"],
+      "rows": [
+        { "name": "Monohydrate", "cells": { "Evidence": "Decades, strongest", "Cost": "Cheapest", "Beats monohydrate?": "—" }, "sourceIds": ["issn2017"] },
+        { "name": "HCl / citrate / buffered", "cells": { "Evidence": "Limited", "Cost": "Higher", "Beats monohydrate?": "No" }, "sourceIds": ["issn2017"] },
+        { "name": "Ethyl ester", "cells": { "Evidence": "Limited", "Cost": "Higher", "Beats monohydrate?": "No" }, "sourceIds": ["issn2017"] }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ex-sprint",
+      "title": "Where it helps most",
+      "body": "Lifting, sprinting, jumping, repeated hard intervals — short, intense bursts. It does little for steady endurance like long-distance running.",
+      "sourceIds": ["nutrients2021", "nih2023"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "an-battery",
+      "setup": "Think of ATP as your phone battery and phosphocreatine as a small power bank clipped to it.",
+      "takeaway": "Creatine makes the power bank bigger, so you can recharge faster between hard, short efforts."
+    }
+  ],
+  "misconceptions": [
+    { "id": "mc-water", "myth": "It's just water weight.", "truth": "The first pound or two is water pulled into the muscle, but training studies show real lean-mass and strength gains over 5–12 weeks.", "sourceIds": ["jissn2021misc", "scoping2022"] },
+    { "id": "mc-load", "myth": "You must do a loading phase.", "truth": "Loading is optional. 3–5 g/day reaches the same stores in about four weeks.", "sourceIds": ["issn2017", "jissn2021misc"] },
+    { "id": "mc-kidney", "myth": "It damages your kidneys.", "truth": "No evidence of kidney harm in healthy people at recommended doses, even long-term. Those with kidney disease should ask a clinician.", "sourceIds": ["issn2017", "jissn2021misc"] }
+  ],
+  "glossary": [
+    { "term": "creatine", "definition": "A compound your body makes and gets from meat/fish; it helps muscles produce quick energy." },
+    { "term": "creatine monohydrate", "definition": "The cheapest, best-studied, most effective form — the one to buy." },
+    { "term": "phosphocreatine", "definition": "Creatine stored in muscle with a phosphate attached; it rapidly refuels ATP." },
+    { "term": "ATP", "definition": "Adenosine triphosphate — the molecule cells spend for energy. Refueling it faster means more power." },
+    { "term": "loading phase", "definition": "A short period (~5–7 days) of higher doses to fill muscle stores quickly. Optional." }
+  ],
+  "practicalTakeaways": [
+    "Buy plain creatine monohydrate — skip the pricier 'advanced' forms.",
+    "Take 3–5 g a day, any time; consistency matters more than timing.",
+    "Skip loading if you don't mind waiting ~4 weeks for full effect.",
+    "If you have kidney disease, talk to a clinician before starting."
+  ],
+  "sourceMap": [
+    { "id": "issn2017", "title": "ISSN position stand: safety and efficacy of creatine supplementation in exercise, sport, and medicine", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5469049/", "publisher": "J. Int. Society of Sports Nutrition", "publishedAt": "2017", "composite": 9.8, "primary": true, "provenance": "live", "summary": "Definitive consensus: monohydrate is the most effective form; 3–5 g/day maintains stores; safe long-term; no renal harm in healthy people.", "claims": ["form-dose", "mechanism", "loading-optional", "safety", "brain"] },
+    { "id": "jissn2021misc", "title": "Common questions and misconceptions about creatine supplementation", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7871530/", "publisher": "J. Int. Society of Sports Nutrition", "publishedAt": "2021", "composite": 9.0, "primary": true, "provenance": "live", "summary": "Rebuts the water-weight, kidney, and mandatory-loading myths; monohydrate is optimal; 3–5 g/day for ≥4 weeks without loading.", "claims": ["form-dose", "loading-optional", "real-gains", "safety"] },
+    { "id": "issn2025", "title": "Creatine supplementation is safe, beneficial throughout the lifespan, and should not be restricted", "url": "https://pubmed.ncbi.nlm.nih.gov/40331098/", "publisher": "Frontiers in Nutrition", "publishedAt": "2025", "composite": 9.2, "primary": true, "provenance": "live", "summary": "2025 consensus: safety and efficacy across all life stages.", "claims": ["safety"] },
+    { "id": "nutrients2021", "title": "Creatine for Exercise and Sports Performance, with Recovery Considerations for Healthy Populations", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8228369/", "publisher": "Nutrients", "publishedAt": "2021", "composite": 8.8, "primary": true, "provenance": "live", "summary": "Ergogenic for short, high-intensity bouts; limited endurance benefit; explains the phosphocreatine→ATP mechanism.", "claims": ["mechanism", "ex-sprint"] },
+    { "id": "scoping2022", "title": "Creatine Supplementation for Muscle Growth: A Scoping Review of RCTs 2012–2021", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8949037/", "publisher": "Nutrients", "publishedAt": "2022", "composite": 8.5, "primary": true, "provenance": "live", "summary": "RCT review: effective for strength, mass, and performance in trained healthy young people.", "claims": ["real-gains"] },
+    { "id": "nih2023", "title": "Dietary Supplements for Exercise and Athletic Performance (Health Professional Fact Sheet)", "url": "https://ods.od.nih.gov/factsheets/ExerciseAndAthleticPerformance-HealthProfessional/", "publisher": "NIH Office of Dietary Supplements", "publishedAt": "2023", "composite": 9.5, "primary": true, "provenance": "live", "summary": "US government fact sheet: evidence supports creatine for repeated short bursts of high-intensity exercise.", "claims": ["ex-sprint"] },
+    { "id": "examine2024", "title": "Creatine — Research Breakdown", "url": "https://examine.com/supplements/creatine/research/", "publisher": "Examine.com", "publishedAt": "2024", "composite": 7.8, "primary": false, "provenance": "live", "summary": "Independent evidence synthesis: improves high-intensity performance in ~70% of studies; safe at 3–5 g/day.", "claims": ["form-dose"] }
+  ],
+  "uncertaintyNotes": [
+    "Without a loading phase, primary sources (ISSN 2017; JISSN 2021) cite about 4 weeks of 3–5 g/day to reach full muscle stores — a little longer than some popular '3-week' claims.",
+    "Cognitive/brain benefits (e.g. under sleep deprivation, in older adults) are promising but described in hedged language by the sources — less settled than the muscle and strength effects.",
+    "These are general-population findings, not medical advice. People with kidney disease or who are pregnant should consult a clinician."
+  ],
+  "reviewScores": {}
+}
