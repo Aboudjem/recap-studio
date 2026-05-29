@@ -22,7 +22,6 @@ npx @recap-studio/cli render content.json -o out.html
 ## Key files / packages
 
 - `README.md` — overview, install, commands, quality bar
-- `GOAL_SPEC.md` — authoritative product spec
 - `skills/` — `recap-topic`, `recap-session`, `recap-setup`, `recap-validate` (Claude Code skill orchestrators)
 - `packages/html-renderer/` (`@recap-studio/html-renderer`) — `renderToHtml(content, {theme})` → one self-contained dark-mode HTML string; all CSS inlined, zero JavaScript, opens offline via `file://`
 - `packages/cli/` (`@recap-studio/cli`) — `recap render` / `recap validate` commands; works in any editor or terminal

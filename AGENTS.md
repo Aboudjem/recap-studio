@@ -220,7 +220,6 @@ Every place that surfaces a score — README, generated HTML, skill output, any 
 | New agent prompts | `agents/<name>.md` |
 | New skill | `skills/<name>/SKILL.md` |
 | Architecture docs | `docs/` |
-| Audit reports | `docs/audit/` |
 | CI workflows | `.github/workflows/` |
 | SVG assets (logos, diagrams) | `.github/assets/` |
 
