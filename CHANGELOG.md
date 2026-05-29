@@ -9,32 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Honest framing in art assets and npm placeholder** — removed the
+- **Honest framing in art assets and npm placeholder:** removed the
   retired "13 agents / 7-dimension validation board / 9.7 / 10"
   phrasing from `social-preview.svg`, `hero-diagram.svg`, and the
   `npm-placeholder` package (version, description, help banner).
   Replaced with plain language: "self-contained HTML",
   "deterministic heuristic checks", "opens offline".
-- **SVG diagram labels** — `hero-diagram.svg` relabels "+ 7 reviewers
-  (parallel)" → "7 heuristic checks"; "Validation board" per-dimension
-  score table → named heuristic dimensions; OUTPUT card removes the
+- **SVG diagram labels:** `hero-diagram.svg` relabels "+ 7 reviewers
+  (parallel)" -> "7 heuristic checks"; "Validation board" per-dimension
+  score table -> named heuristic dimensions; OUTPUT card removes the
   stale "103 KB First Load JS" figure.
-- **social-preview.svg** — bumped version label v0.2.0 → v0.3.1;
+- **social-preview.svg:** bumped version label v0.2.0 -> v0.3.1;
   replaced 9.7/10 chip with "offline HTML" label.
-- **SECURITY.md** — supported-versions table updated: 0.3.x ✅,
-  0.2.x ❌, 0.1.x ❌ (was listing only 0.1.x as supported).
-- **README.md** — replaced `shields.io/npm/v` badge (rendered stale
+- **SECURITY.md:** supported-versions table updated: 0.3.x supported,
+  0.2.x and 0.1.x unsupported (was listing only 0.1.x as supported).
+- **README.md:** replaced `shields.io/npm/v` badge (rendered stale
   0.2.0) with `shields.io/github/v/tag` badge tracking the git tag.
-- **llms.txt** — added caveats to the npm Links section: the
+- **llms.txt:** added caveats to the npm Links section: the
   `@recap-studio/cli` and `@recap-studio/html-renderer` packages are
   not yet published; the `recap-studio` placeholder redirects to the
   10x marketplace.
-- **AGENTS.md** — corrected `design-system` test entry: "yes" → "no"
+- **AGENTS.md:** corrected `design-system` test entry: "yes" -> "no"
   (package.json test script is `echo no tests`).
-- **CHANGELOG.md** — fixed "third plugin" historical note (marketplace
+- **CHANGELOG.md:** fixed "third plugin" historical note (marketplace
   now ships four plugins); added Keep-a-Changelog footer comparison
   links.
-- **npm-placeholder version** bumped 0.2.0 → 0.3.1.
+- **npm-placeholder version** bumped 0.2.0 -> 0.3.1.
 
 ## [0.3.0] - 2026-05-29
 
@@ -43,17 +43,17 @@ rebuilt the output, opened it to every editor, and made the claims honest.
 
 ### Added
 
-- **Self-contained HTML output** — new `@recap-studio/html-renderer`:
+- **Self-contained HTML output:** new `@recap-studio/html-renderer`:
   `renderToHtml()` produces ONE dark-mode HTML file with all CSS inlined and
   **zero JavaScript** that opens with a double-click, offline. Fixes the
   long-standing `file://` breakage where `out/index.html` referenced absolute
   `/_next/` paths and rendered blank without a server.
-- **Reusable template** — the renderer is a shared, documented asset
+- **Reusable template:** the renderer is a shared, documented asset
   (`packages/html-renderer/TEMPLATE.md`) other 10x tools can call with a
   `RecapPageContent` and a `{theme}`.
-- **`recap` CLI** (`@recap-studio/cli`) — `recap render` / `recap validate`
+- **`recap` CLI** (`@recap-studio/cli`): `recap render` / `recap validate`
   work in any editor/terminal, no Claude Code required.
-- **MCP `render_recap_html` tool** — turn a stored content slug into a
+- **MCP `render_recap_html` tool:** turn a stored content slug into a
   self-contained page from Cursor, VS Code, Codex, Gemini, Continue, etc.
 - **`scripts/render-html.mjs`** (`pnpm render` / `pnpm render:demo`).
 - **`llms.txt`, `AGENTS.md`, `docs/multi-editor.md`, self-hosted
@@ -63,23 +63,23 @@ rebuilt the output, opened it to every editor, and made the claims honest.
 
 - **All-sans-serif** type system + tasteful violet→blue→teal gradients
   (dark-first). `theme` default is now `dark`.
-- **Honest validation framing** — the score is deterministic heuristic checks
+- **Honest validation framing:** the score is deterministic heuristic checks
   (structure, citations, word counts, secret/fluff scans); it does not fetch
   sources or run an LLM. Full agent review runs only via `/recap` in Claude Code.
 - **MCP transport** is now MCP-spec compliant: tool results use `type: "text"`
   (was `type: "json"`, which broke several clients); handles
   `notifications/initialized` and `ping`.
 - **Skills** (`recap-topic`, `recap-session`) now render the self-contained
-  HTML, open it, THEN ask to deploy to Vercel only if configured — never
+  HTML, open it, THEN ask to deploy to Vercel only if configured, never
   without explicit consent.
 - **CI** hardened: strict `--frozen-lockfile`, a self-contained-output
   assertion, a `recap` CLI smoke test, and a secrets-scan job.
 
 ### Fixed
 
-- **`Critical dependency` build warning** — `load-config` is no longer in the
+- **`Critical dependency` build warning:** `load-config` is no longer in the
   content-pipeline barrel (use `@recap-studio/content-pipeline/load-config`).
-- **`validate.mjs` crash on malformed input** — now guards required fields and
+- **`validate.mjs` crash on malformed input:** now guards required fields and
   exits 2 with a helpful message instead of an unhandled `TypeError`.
 - **`recap-setup`** referenced a non-existent `config-template.ts`.
 
@@ -103,13 +103,13 @@ rebuilt the output, opened it to every editor, and made the claims honest.
 
 ### Added
 
-- **`scripts/vercel-set-public.sh`** — opt-in helper to toggle Vercel's
+- **`scripts/vercel-set-public.sh`:** opt-in helper to toggle Vercel's
   project-level Deployment Protection (`ssoProtection`). Defaults to
   disabling SSO so `*.vercel.app` preview URLs are publicly readable.
   Requires `RECAP_USER_CONFIRMED_PUBLIC=1`. Documented in
   `docs/vercel-deployment.md#deployment-protection-sso-gate` and
   `docs/known-issues.md#vercel-sso-protection`.
-- **`docs/known-issues.md`** — living catalog of bugs and surprises with
+- **`docs/known-issues.md`:** living catalog of bugs and surprises with
   their guardrails. Single source of truth so future sessions don't
   re-debug the same things.
 - **Email FROM guidance.** `docs/configuration.md` now documents the

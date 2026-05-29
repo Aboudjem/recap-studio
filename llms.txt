@@ -10,29 +10,28 @@ claude plugin install recap-studio@10x
 ```
 
 ### CLI (any terminal, no Claude Code required)
-The `@recap-studio/cli` npm package ships with the 0.3.0 release; the `npx` form
-works after that publish. Today, run it from a built clone:
+The `@recap-studio/cli` npm package is NOT yet published. Today, run it from a
+built clone:
 ```
 node packages/cli/dist/index.js render content.json -o out.html
 node packages/cli/dist/index.js validate content.json
-# after 0.3.0 npm publish:
-npx @recap-studio/cli render content.json -o out.html
+# Planned (not yet on npm): npx @recap-studio/cli render content.json -o out.html
 ```
 
 ## Key files / packages
 
-- `README.md` — overview, install, commands, quality bar
-- `skills/` — `recap-topic`, `recap-session`, `recap-setup`, `recap-validate` (Claude Code skill orchestrators)
-- `packages/html-renderer/` (`@recap-studio/html-renderer`) — `renderToHtml(content, {theme})` → one self-contained dark-mode HTML string; all CSS inlined, zero JavaScript, opens offline via `file://`
-- `packages/cli/` (`@recap-studio/cli`) — `recap render` / `recap validate` commands; works in any editor or terminal
-- `packages/mcp-server/` (`@recap-studio/mcp-server`) — MCP server exposing `render_recap_html` tool; compatible with Cursor, VS Code, Codex, Continue
-- `packages/content-pipeline/` (`@recap-studio/content-pipeline`) — schema definitions, content loader, subpath `@recap-studio/content-pipeline/load-config` for safe imports
-- `packages/validation/` — deterministic heuristic scorer (see IMPORTANT note below)
-- `agents/` — 13 specialist agent prompt files (fact-checker, structure-reviewer, citation-validator, etc.); invoked at skill runtime, not during static validation
+- `README.md`: overview, install, commands, quality bar
+- `skills/`: `recap-topic`, `recap-session`, `recap-setup`, `recap-validate` (Claude Code skill orchestrators)
+- `packages/html-renderer/` (`@recap-studio/html-renderer`): `renderToHtml(content, {theme})` -> one self-contained dark-mode HTML string; all CSS inlined, zero JavaScript, opens offline via `file://`
+- `packages/cli/` (`@recap-studio/cli`): `recap render` / `recap validate` commands; works in any editor or terminal
+- `packages/mcp-server/` (`@recap-studio/mcp-server`): MCP server exposing `render_recap_html` tool; compatible with Cursor, VS Code, Codex, Continue
+- `packages/content-pipeline/` (`@recap-studio/content-pipeline`): schema definitions, content loader, subpath `@recap-studio/content-pipeline/load-config` for safe imports
+- `packages/validation/`: deterministic heuristic scorer (see IMPORTANT note below)
+- `agents/`: 13 specialist agent prompt files (fact-checker, structure-reviewer, citation-validator, etc.); invoked at skill runtime, not during static validation
 
 ## IMPORTANT: validation scores
 
-Scores produced by `pnpm validate:demo` (and displayed as "9.7 / 10") are **deterministic heuristics** — word counts, sourceId presence, secret-pattern regex — executed by `scripts/validate.mjs` in Node.js.
+Scores produced by `pnpm validate:demo` (and displayed as "9.7 / 10") are **deterministic heuristics** (word counts, sourceId presence, secret-pattern regex) executed by `scripts/validate.mjs` in Node.js.
 
 - They do **not** involve LLM calls.
 - They do **not** fetch or verify cited sources.
@@ -44,7 +43,7 @@ Any mention of "7 reviewers in parallel" refers to 7 heuristic dimensions runnin
 
 - Repository: https://github.com/Aboudjem/recap-studio
 - npm (plugin): https://www.npmjs.com/package/recap-studio (placeholder; canonical install is via 10x marketplace)
-- npm (CLI): https://www.npmjs.com/package/@recap-studio/cli (published with the 0.3.x release)
-- npm (html-renderer): https://www.npmjs.com/package/@recap-studio/html-renderer (published with the 0.3.x release)
+- npm (CLI): @recap-studio/cli (planned; not yet published)
+- npm (html-renderer): @recap-studio/html-renderer (planned; not yet published)
 - License: MIT
 - Author: Adam Boudjemaa (https://github.com/Aboudjem)

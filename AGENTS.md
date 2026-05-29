@@ -1,4 +1,4 @@
-# AGENTS.md — Recap Studio
+# AGENTS.md: Recap Studio
 
 Guidance for AI coding agents (Codex, GitHub Copilot Workspace, Claude Code, and similar) working in this repository.
 
@@ -8,11 +8,11 @@ Guidance for AI coding agents (Codex, GitHub Copilot Workspace, Claude Code, and
 
 **Recap Studio** is a Claude Code plugin (distributed via the Aboudjem/10x marketplace) that turns any topic query or git diff into a cited, dark-mode, mobile-first one-page explainer in under 5 minutes. It ships as a hybrid architecture:
 
-- **Skills** — the user-facing slash commands (`/recap`, `/recap-session`, `/recap-setup`, `/recap-validate`)
-- **Specialist agents** — 13 Markdown-defined agent prompts that the skill orchestrator dispatches
-- **Optional MCP server** — exposes a `render_recap_html` tool for editors that speak MCP (Cursor, VS Code, Codex, Continue)
-- **Packages** — shared TypeScript libraries used by all tracks
-- **Hosted Next.js track** — `apps/recap-web` renders the full page for browser/Vercel deployment
+- **Skills**: the user-facing slash commands (`/recap`, `/recap session`, `/recap setup`, `/recap validate`)
+- **Specialist agents**: 13 Markdown-defined agent prompts that the skill orchestrator dispatches
+- **Optional MCP server**: exposes a `render_recap_html` tool for editors that speak MCP (Cursor, VS Code, Codex, Continue)
+- **Packages**: shared TypeScript libraries used by all tracks
+- **Hosted Next.js track**: `apps/recap-web` renders the full page for browser/Vercel deployment
 
 ---
 
@@ -21,29 +21,29 @@ Guidance for AI coding agents (Codex, GitHub Copilot Workspace, Claude Code, and
 ```
 recap-studio/
 ├── apps/
-│   └── recap-web/          # Next.js 15 App Router — the hosted rendering track
+│   └── recap-web/          # Next.js 15 App Router, the hosted rendering track
 │       └── src/
 │           ├── app/         # Next.js pages and API routes
 │           ├── components/  # React components (Tailwind, shadcn-style)
 │           └── content/     # Generated JSON content (git-tracked demo; .gitignored for user content)
 ├── packages/
 │   ├── content-pipeline/   # RecapPageContent schema, loaders, transformers
-│   ├── design-system/      # Shared tokens (colors, spacing, typography — all sans-serif)
-│   ├── validation/         # Deterministic heuristic scorer (NOT LLM — see Honesty Rule below)
+│   ├── design-system/      # Shared tokens (colors, spacing, typography, all sans-serif)
+│   ├── validation/         # Deterministic heuristic scorer (NOT LLM; see Honesty Rule below)
 │   ├── html-renderer/      # renderToHtml(content, {theme}) → self-contained dark-mode HTML string
-│   ├── cli/                # `recap` CLI — render and validate without Claude Code
+│   ├── cli/                # `recap` CLI: render and validate without Claude Code
 │   └── mcp-server/         # MCP server exposing render_recap_html and validate tools
 ├── skills/
-│   ├── recap-topic/        # SKILL.md — /recap <topic>
-│   ├── recap-session/      # SKILL.md — /recap-session (git diff → session recap)
-│   ├── recap-setup/        # SKILL.md — one-time config wizard
-│   └── recap-validate/     # SKILL.md — validate a content JSON file
+│   ├── recap-topic/        # SKILL.md: /recap <topic>
+│   ├── recap-session/      # SKILL.md: /recap session (git diff -> session recap)
+│   ├── recap-setup/        # SKILL.md: one-time config wizard
+│   └── recap-validate/     # SKILL.md: validate a content JSON file
 ├── agents/                 # 13 specialist agent prompt files (Markdown frontmatter)
 ├── hooks/                  # Claude Code hooks (MJS) + hooks.json manifest
 ├── scripts/                # Dev scripts (render-html.mjs, validate.mjs, demo-*.mjs, etc.)
 ├── fixtures/               # Sample content JSON files for testing and demos
 ├── templates/              # Scaffold templates for new content types
-├── artifacts/              # Build output — generated HTML files (gitignored)
+├── artifacts/              # Build output: generated HTML files (gitignored)
 ├── docs/                   # Architecture docs, audit reports, design decisions
 └── .github/
     ├── assets/             # SVG logos, hero diagram, social preview
@@ -100,7 +100,7 @@ The validation gate must return a composite score of **9.7/10 or better** on the
 
 ## The 13 Specialist Agents
 
-Agents live in `agents/` as Markdown files with YAML frontmatter. Each declares its `name`, `description`, and preferred Claude `model`. The skill orchestrator (inside `skills/recap-topic/SKILL.md` and `skills/recap-session/SKILL.md`) dispatches them in the order below.
+Agents live in `agents/` as Markdown files with YAML frontmatter. Each declares its `name`, `description`, and preferred Claude `model`. The skill orchestrator (inside `skills/recap-topic/SKILL.md` and `skills/recap-session/SKILL.md`) dispatches them in the order below. The directory names stay hyphenated (`recap-session`); the user-facing invocation is the space form `/recap session`.
 
 | Agent file | Role | Model |
 |---|---|---|
@@ -109,10 +109,10 @@ Agents live in `agents/` as Markdown files with YAML frontmatter. Each declares 
 | `learning-architect.md` | Structures the 5-minute learning path from scored research | sonnet |
 | `visual-story-designer.md` | Designs visual concept, diagrams (Mermaid or SVG), section rhythm | sonnet |
 | `frontend-builder.md` | Builds/updates the Next.js page and reusable components | sonnet |
-| `repo-session-analyst.md` | Analyzes git diffs for /recap-session; produces SessionDelta | sonnet |
+| `repo-session-analyst.md` | Analyzes git diffs for /recap session; produces SessionDelta | sonnet |
 | `fact-checker.md` | Validates claims against the source map | sonnet |
 | `source-librarian.md` | (second pass) confirms citation completeness | haiku |
-| `skeptical-reviewer.md` | Adversarial pass — hunts overclaiming, missing caveats, fluff | sonnet |
+| `skeptical-reviewer.md` | Adversarial pass: hunts overclaiming, missing caveats, fluff | sonnet |
 | `ux-design-reviewer.md` | Reviews hierarchy, layout, readability, polish | sonnet |
 | `accessibility-reviewer.md` | WCAG checks, contrast, keyboard nav, motion safety | haiku |
 | `performance-reviewer.md` | Bundle size, Core Web Vitals risk, static-first audit | haiku |
@@ -140,22 +140,22 @@ Hooks run automatically inside Claude Code sessions. They are listed in `hooks/h
 | `block-secret-writes.mjs` | Before any file write | Writes containing API keys, tokens, or secret patterns |
 | `block-destructive-git.mjs` | Before any shell command | `git push --force`, `git reset --hard`, branch deletion on main |
 | `validate-before-deploy.mjs` | Before deploy scripts execute | Deployment if `pnpm validate:demo` returns below threshold |
-| `format-after-edit.mjs` | After any TypeScript/JS/JSON file edit | (runs `prettier` — does not block, reformats) |
-| `qa-summary-on-stop.mjs` | When the Claude Code session stops | (prints QA summary — does not block) |
+| `format-after-edit.mjs` | After any TypeScript/JS/JSON file edit | (runs `prettier`; does not block, reformats) |
+| `qa-summary-on-stop.mjs` | When the Claude Code session stops | (prints QA summary; does not block) |
 
 Do not remove or disable hooks without a documented reason. CI smoke-tests the first three.
 
 ---
 
-## Honesty Rule — The Validation Score
+## Honesty Rule: The Validation Score
 
 **The 9.7/10 composite score is produced by deterministic heuristics, not LLM agents.**
 
-`packages/validation/` contains word-count checks, `sourceId` presence checks, secret-pattern regex, and structure validators. `pnpm validate:demo` runs these checks — it does NOT call any LLM and does NOT fetch sources.
+`packages/validation/` contains word-count checks, `sourceId` presence checks, secret-pattern regex, and structure validators. `pnpm validate:demo` runs these checks; it does NOT call any LLM and does NOT fetch sources.
 
-The 13 specialist agents listed above are invoked at **skill runtime** (when a user runs `/recap` or `/recap-session` in Claude Code). They are not part of the static validation suite.
+The 13 specialist agents listed above are invoked at **skill runtime** (when a user runs `/recap` or `/recap session` in Claude Code). They are not part of the static validation suite.
 
-Every place that surfaces a score — README, generated HTML, skill output, any agent prompt — must include this clarification. Do not add new score displays without this caveat.
+Every place that surfaces a score (README, generated HTML, skill output, any agent prompt) must include this clarification. Do not add new score displays without this caveat.
 
 ---
 
@@ -164,7 +164,7 @@ Every place that surfaces a score — README, generated HTML, skill output, any 
 ### TypeScript
 - All packages use `TypeScript strict` mode (`"strict": true` in tsconfig).
 - Use `@recap-studio/*` workspace imports, not relative cross-package paths.
-- `content-pipeline` has a subpath `@recap-studio/content-pipeline/load-config` — use it instead of the barrel to avoid Next.js "Critical dependency" warnings.
+- `content-pipeline` has a subpath `@recap-studio/content-pipeline/load-config`; use it instead of the barrel to avoid Next.js "Critical dependency" warnings.
 
 ### Styling
 - **All fonts are sans-serif.** `Inter` is the primary face; system-ui stack as fallback. No serif or display faces anywhere.
@@ -183,7 +183,7 @@ Every place that surfaces a score — README, generated HTML, skill output, any 
 ### No Secrets
 - Never write API keys, tokens, or credentials to any file.
 - `block-secret-writes.mjs` will reject writes; respect it rather than working around it.
-- `recap-studio.config.ts` holds `VERCEL_TOKEN` by reference to env — keep it that way.
+- `recap-studio.config.ts` holds `VERCEL_TOKEN` by reference to env; keep it that way.
 
 ### Git Identity
 - All commits must be attributed to **Adam Boudjemaa** (`boudjemaa.adam@gmail.com`, GitHub: Aboudjem).
@@ -203,8 +203,8 @@ Every place that surfaces a score — README, generated HTML, skill output, any 
 |---|---|---|
 | Next.js "Critical dependency" warning | `load-config` imported from the content-pipeline barrel | Use `@recap-studio/content-pipeline/load-config` subpath |
 | `file://` broken when opening `apps/recap-web/out/` | Next.js static export uses absolute paths | Use `artifacts/` output from `pnpm render:demo` instead |
-| MCP tool results rejected by some editors | Old transport returned `"json"` content type | Fixed in v0.3 — content type is now `"text"` per MCP spec |
-| `validate.mjs` exits with TypeError on malformed input | Guard was missing | Fixed — script now exits cleanly with code 2 |
+| MCP tool results rejected by some editors | Old transport returned `"json"` content type | Fixed in v0.3; content type is now `"text"` per MCP spec |
+| `validate.mjs` exits with TypeError on malformed input | Guard was missing | Fixed; script now exits cleanly with code 2 |
 | Theme defaults to `"auto"` | Was `"auto"` in older config | Default is now `"dark"`; change in `recap-studio.config.ts` |
 | `recap` on npm is blocked (owned by a third party) | npm package `recap@0.3.2` is owned by another maintainer | The plugin is distributed as `recap-studio` via the 10x marketplace |
 
@@ -236,7 +236,7 @@ Every place that surfaces a score — README, generated HTML, skill output, any 
 | `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |
 | `@recap-studio/mcp-server` | MCP server with `render_recap_html` + `validate` tools | 9 tests |
 
-Total: 44 tests across 6 packages. Build output: First Load JS ~103 KB (hosted Next.js track).
+Total: 44 tests across 6 packages.
 
 ---
 

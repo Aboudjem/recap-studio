@@ -13,15 +13,15 @@
   <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=7C5CFF" alt="Stars"></a>
 </p>
 
-<p align="center"><b>Turn any topic or coding session into a beautiful, dark-mode, mobile-first explainer you can double-click to open — no server, no internet, no dependencies.</b></p>
+<p align="center"><b>Turn any topic or coding session into a beautiful, dark-mode, mobile-first explainer you can double-click to open. No server, no internet, no dependencies.</b></p>
 
 <p align="center">
-  <sub>Self-contained offline HTML · sans-serif Inter font · inline SVG diagrams · zero JavaScript · 103 KB First Load JS (hosted track)</sub>
+  <sub>Self-contained offline HTML · sans-serif Inter font · inline SVG diagrams · zero JavaScript</sub>
 </p>
 
 <p align="center">
   <a href="#what-is-this">What is this</a> ·
-  <a href="#get-started-3-steps">Get started</a> ·
+  <a href="#get-started-in-3-steps">Get started</a> ·
   <a href="#in-claude-code">In Claude Code</a> ·
   <a href="#anywhere-cli">Anywhere (CLI)</a> ·
   <a href="#faq">FAQ</a> ·
@@ -36,7 +36,7 @@
 
 ### See it in action
 
-A real run of `/recap "what is creatine"` — researched live, every claim fact-checked against primary sources (ISSN, NIH), then rendered to one self-contained page:
+A real run of `/recap "what is creatine"`, researched live, every claim fact-checked against primary sources (ISSN, NIH), then rendered to one self-contained page:
 
 <picture>
   <img alt="Animated walkthrough of a generated Recap Studio page about creatine: dark-mode hero, an inline-SVG energy-cycle diagram, icon key-idea cards, and a sources list citing NIH and ISSN." src=".github/assets/demo.gif" width="100%">
@@ -46,9 +46,9 @@ A real run of `/recap "what is creatine"` — researched live, every claim fact-
 
 ## What is this
 
-Recap Studio takes a topic (`"Latest AI models"`) or a coding session (`git diff` + commits) and produces a **single, self-contained HTML file** — dark-mode, mobile-first, with a hero answer, takeaway cards, an inline SVG concept map, a timeline, a comparison table, misconceptions, a glossary, and cited sources.
+Recap Studio takes a topic (`"Latest AI models"`) or a coding session (`git diff` + commits) and produces a **single, self-contained HTML file**: dark-mode, mobile-first, with a hero answer, takeaway cards, an inline SVG concept map, a timeline, a comparison table, misconceptions, a glossary, and cited sources.
 
-**The superpower no other tool has:** the output is one `.html` file with every style inlined, zero JavaScript, and zero external requests. Double-click it in Finder or Explorer and it opens perfectly — no Wi-Fi, no server, no `npm install`.
+**The superpower no other tool has:** the output is one `.html` file with every style inlined, zero JavaScript, and zero external requests. Double-click it in Finder or Explorer and it opens perfectly, with no Wi-Fi, no server, and no `npm install`.
 
 What you get on the page:
 
@@ -68,7 +68,7 @@ What you get on the page:
 
 ---
 
-## Get started — 3 steps
+## Get started in 3 steps
 
 **1. Install the plugin from the [10x marketplace](https://github.com/Aboudjem/10x):**
 
@@ -86,7 +86,7 @@ claude plugin install recap-studio@10x
 **3. A self-contained `recap-<slug>.html` opens in your browser. Done.**
 
 > [!NOTE]
-> Nothing phones home. No paid API key needed to try it. `RECAP_STUDIO_FIXTURE_ONLY=1` is the default — the demo runs entirely from fixtures.
+> Nothing phones home. No paid API key needed to try it. `RECAP_STUDIO_FIXTURE_ONLY=1` is the default, so the demo runs entirely from fixtures.
 
 ---
 
@@ -111,18 +111,19 @@ After each run, the skill renders the self-contained HTML, opens it, and asks "D
 
 ## Anywhere (CLI)
 
-Use the CLI when you are outside Claude Code — in any terminal, any editor, CI, or a cron job.
+Use the CLI when you are outside Claude Code: in any terminal, any editor, CI, or a cron job.
 
 **Install:**
 
 ```bash
-# Works today — from a clone of this repo:
+# Works today, from a clone of this repo:
 git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
 pnpm install && pnpm -w build
 node packages/cli/dist/index.js render content.json
 
-# The published package (ships with the 0.3.0 release) makes this a one-liner:
-npx @recap-studio/cli render content.json      # after publish
+# Planned: once @recap-studio/cli is published to npm, this becomes a one-liner.
+# It is NOT on npm yet, so use the clone path above for now:
+# npx @recap-studio/cli render content.json
 ```
 
 **Commands:**
@@ -143,7 +144,7 @@ pnpm -w demo:latest-ai-models && pnpm --filter recap-web dev
 ```
 
 > [!NOTE]
-> `pnpm -w` means "run from the workspace root" — it is how monorepo scripts are invoked. You only need it if you cloned this repo. Once `@recap-studio/cli` is published (with the 0.3.0 release), `npx @recap-studio/cli` runs it without cloning anything.
+> `pnpm -w` means "run from the workspace root"; it is how monorepo scripts are invoked. You only need it if you cloned this repo. `@recap-studio/cli` is not yet published to npm, so the clone path above is the way to run it today. Once it is published, `npx @recap-studio/cli` will run it without cloning anything.
 
 **Other workspace scripts:**
 
@@ -165,19 +166,19 @@ pnpm -w demo:latest-ai-models && pnpm --filter recap-web dev
 Yes. All CSS is inlined. There is zero JavaScript and zero `/_next/` or CDN references. Verified: 0 external refs, opens via `file://` on a plane.
 
 **Does it work without an internet connection?**
-For rendering: yes, completely offline. For the full LLM agent research pipeline (inside Claude Code), yes — it uses your local Claude Code session, not an external API you manage.
+For rendering: yes, completely offline. For the full LLM agent research pipeline (inside Claude Code), yes, it uses your local Claude Code session, not an external API you manage.
 
 **What is the "score"?**
-`recap validate` runs a fast, deterministic heuristic check — it scans structure, citation presence, word counts, and known quality signals. It does NOT fetch sources or run LLMs. The full LLM agent review (13 agents, 7 dimensions) only runs when you use `/recap` inside Claude Code. This is stated clearly in the output.
+`recap validate` runs a fast, deterministic heuristic check that scans structure, citation presence, word counts, and known quality signals. It does NOT fetch sources or run LLMs. The full LLM agent review (13 agents, 7 dimensions) only runs when you use `/recap` inside Claude Code. This is stated clearly in the output.
 
 **Can I use it in VS Code, Cursor, or Codex?**
-Yes. The MCP server (`@recap-studio/mcp-server`) exposes a `render_recap_html` tool, and the `recap` CLI works in any terminal. The MCP transport is spec-compliant (`content` type `"text"`, with `notifications/initialized` + `ping`) and unit-tested. Copy-paste setup for Claude Code, Cursor, VS Code, Codex, Gemini, Windsurf, and Continue — plus a smoke test for each — is in [`docs/multi-editor.md`](docs/multi-editor.md).
+Yes. The MCP server (`@recap-studio/mcp-server`) exposes a `render_recap_html` tool, and the `recap` CLI works in any terminal. The MCP transport is spec-compliant (`content` type `"text"`, with `notifications/initialized` + `ping`) and unit-tested. Copy-paste setup for Claude Code, Cursor, VS Code, Codex, Gemini, Windsurf, and Continue, plus a smoke test for each, is in [`docs/multi-editor.md`](docs/multi-editor.md).
 
 **Does it deploy anywhere automatically?**
 No. Deployment is `disabled` by default. It only deploys if you configure Vercel and give explicit consent when prompted.
 
 **Is there a hosted web version?**
-Yes, via the Next.js track (`pnpm --filter recap-web dev`). The hosted track and the offline single-file track produce the same content — different rendering surfaces.
+Yes, via the Next.js track (`pnpm --filter recap-web dev`). The hosted track and the offline single-file track produce the same content across different rendering surfaces.
 
 ---
 
@@ -192,7 +193,7 @@ Yes, via the Next.js track (`pnpm --filter recap-web dev`). The hosted track and
 | Works without a server | **YES** | No | No | No | Yes |
 | Cited sources in every claim | **YES** | No | No | No | No |
 | Session recap from git diff | **YES** | No | No | No | No |
-| CLI (`npx`) outside Claude Code | **YES** | No | No | No | — |
+| CLI (`npx`) outside Claude Code | **YES** | No | No | No | n/a |
 | Free to run locally | **YES** | Freemium | Freemium | Freemium | Yes |
 
 The row that matters: **self-contained offline HTML**. No other explainer or changelog tool produces a double-clickable file with all styles inlined and no external deps.
@@ -202,14 +203,14 @@ The row that matters: **self-contained offline HTML**. No other explainer or cha
 ## Why trust it
 
 - **44 tests pass** across 6 packages. Build is green. CI runs on every push.
-- **Two E2E use cases proven**: topic explainer (`fixtures/topics/latest-ai-models.json`) and session recap (`session.json` — a recap of this codebase rebuild). Both render to validated self-contained HTML.
-- **Honest scoring**: the heuristic score from `validate` is deterministic — same input always gives the same score. It is not an LLM opinion. No sources are fetched. The LLM review runs only inside Claude Code via `/recap`.
-- **Safe defaults**: no network calls, no deploys, no emails, no secret writes, no destructive git — all off until you explicitly opt in. See [`docs/security-and-privacy.md`](docs/security-and-privacy.md).
+- **Two E2E use cases proven**: topic explainer (`fixtures/topics/latest-ai-models.json`) and session recap (`session.json`, a recap of this codebase rebuild). Both render to validated self-contained HTML.
+- **Honest scoring**: the heuristic score from `validate` is deterministic, so the same input always gives the same score. It is not an LLM opinion. No sources are fetched. The LLM review runs only inside Claude Code via `/recap`.
+- **Safe defaults**: no network calls, no deploys, no emails, no secret writes, no destructive git, all off until you explicitly opt in. See [`docs/security-and-privacy.md`](docs/security-and-privacy.md).
 - **Open source, MIT**: read every line. No telemetry, no data collection.
 - **Architecture is stable**: hybrid plugin + skills + optional MCP. Reviewed and documented in [`docs/architecture.md`](docs/architecture.md).
 
 > [!CAUTION]
-> The "9.7 of 10" figure you may see in older docs came from the heuristic checker — not 7 LLM reviewers running in parallel. The checker is fast and deterministic; trust it as a structural signal, not a peer review.
+> The "9.7 of 10" figure you may see in older docs came from the heuristic checker, not 7 LLM reviewers running in parallel. The checker is fast and deterministic; trust it as a structural signal, not a peer review.
 
 ---
 
