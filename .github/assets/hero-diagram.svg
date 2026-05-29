@@ -41,7 +41,7 @@
       <text y="96">+ 7 heuristic checks</text>
     </g>
 
-    <!-- VALIDATION BOARD -->
+    <!-- HEURISTIC CHECKS -->
     <rect class="rh-card rh-pulse" x="560" y="80" width="220" height="160" rx="16"/>
     <text class="rh-text" x="670" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Heuristic checks</text>
     <g transform="translate(580, 132)" font-size="11" fill="#5C5C66">
