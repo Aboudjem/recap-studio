@@ -1,0 +1,32 @@
+{
+  "name": "@recap-studio/html-renderer",
+  "version": "0.3.0",
+  "description": "Render a RecapPageContent object to ONE self-contained, dark-mode, mobile-first HTML file. Zero runtime JS, all CSS inlined, opens with a double-click offline. The reusable visual template behind Recap Studio.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./css": {
+      "types": "./dist/css.d.ts",
+      "import": "./dist/css.js"
+    }
+  },
+  "files": ["dist", "README.md", "TEMPLATE.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test --import tsx src/*.test.ts",
+    "lint": "echo 'html-renderer: no lint configured yet'"
+  },
+  "dependencies": {
+    "@recap-studio/content-pipeline": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}

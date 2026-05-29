@@ -23,57 +23,121 @@
       "title": "Every family ships three tiers",
       "body": "Labs offer a small fast tier, a mid balanced tier, and a flagship for hard problems. Picking the tier matters more than picking the lab.",
       "icon": "layers",
-      "sourceIds": ["src-anthropic-models", "src-openai-models", "src-google-deepmind"]
+      "sourceIds": [
+        "src-anthropic-models",
+        "src-openai-models",
+        "src-google-deepmind"
+      ]
     },
     {
       "id": "k-reasoning",
       "title": "Reasoning is its own product surface",
       "body": "Some models can think before answering. They cost more and take longer, but they reduce silly mistakes on math, code, and planning.",
       "icon": "brain",
-      "sourceIds": ["src-anthropic-models", "src-openai-models"]
+      "sourceIds": [
+        "src-anthropic-models",
+        "src-openai-models"
+      ]
     },
     {
       "id": "k-context",
       "title": "Context windows are getting absurd",
       "body": "Modern flagships can read hundreds of thousands of tokens. Bigger is not always better; retrieval still beats stuffing a whole codebase.",
       "icon": "scroll",
-      "sourceIds": ["src-anthropic-models", "src-google-deepmind"]
+      "sourceIds": [
+        "src-anthropic-models",
+        "src-google-deepmind"
+      ]
     },
     {
       "id": "k-multimodal",
       "title": "Multimodal is default, not optional",
       "body": "Vision is built in across the major families. Audio in and out is shipping fast. You can hand a model a photo or a PDF and ask questions.",
       "icon": "image",
-      "sourceIds": ["src-openai-models", "src-google-deepmind"]
+      "sourceIds": [
+        "src-openai-models",
+        "src-google-deepmind"
+      ]
     },
     {
       "id": "k-pricing",
       "title": "Price falls, capability rises",
       "body": "Inference cost per million tokens dropped roughly an order of magnitude in two years. The cheap tier today beats yesterday's flagship.",
       "icon": "trending-down",
-      "sourceIds": ["src-artificial-analysis", "src-stanford-ai-index"]
+      "sourceIds": [
+        "src-artificial-analysis",
+        "src-stanford-ai-index"
+      ]
     }
   ],
   "visualSections": [
-    { "kind": "hero", "id": "hero", "enabled": true },
-    { "kind": "matters", "id": "matters", "enabled": true },
-    { "kind": "concept-map", "id": "concept", "enabled": true },
-    { "kind": "ideas", "id": "ideas", "enabled": true },
-    { "kind": "timeline", "id": "timeline", "enabled": true },
-    { "kind": "comparison", "id": "compare", "enabled": true },
-    { "kind": "examples", "id": "examples", "enabled": true },
-    { "kind": "analogies", "id": "analogies", "enabled": true },
-    { "kind": "misconceptions", "id": "myths", "enabled": true },
-    { "kind": "glossary", "id": "glossary", "enabled": true },
-    { "kind": "takeaways", "id": "takeaways", "enabled": true },
-    { "kind": "sources", "id": "sources", "enabled": true }
+    {
+      "kind": "hero",
+      "id": "hero",
+      "enabled": true
+    },
+    {
+      "kind": "matters",
+      "id": "matters",
+      "enabled": true
+    },
+    {
+      "kind": "concept-map",
+      "id": "concept",
+      "enabled": true
+    },
+    {
+      "kind": "ideas",
+      "id": "ideas",
+      "enabled": true
+    },
+    {
+      "kind": "timeline",
+      "id": "timeline",
+      "enabled": true
+    },
+    {
+      "kind": "comparison",
+      "id": "compare",
+      "enabled": true
+    },
+    {
+      "kind": "examples",
+      "id": "examples",
+      "enabled": true
+    },
+    {
+      "kind": "analogies",
+      "id": "analogies",
+      "enabled": true
+    },
+    {
+      "kind": "misconceptions",
+      "id": "myths",
+      "enabled": true
+    },
+    {
+      "kind": "glossary",
+      "id": "glossary",
+      "enabled": true
+    },
+    {
+      "kind": "takeaways",
+      "id": "takeaways",
+      "enabled": true
+    },
+    {
+      "kind": "sources",
+      "id": "sources",
+      "enabled": true
+    }
   ],
   "diagrams": [
     {
       "id": "concept-map",
-      "kind": "mermaid",
-      "alt": "Concept map showing three model tiers, their use cases, and the four capability axes",
-      "code": "flowchart TD\n  Family[\"Model family\"] --> Small[\"Small tier\\n(fast, cheap)\"]\n  Family --> Mid[\"Mid tier\\n(balanced)\"]\n  Family --> Flagship[\"Flagship\\n(reasoning + long context)\"]\n  Small --> UseS[\"Chat, classify,\\nshort tasks\"]\n  Mid --> UseM[\"Agents, coding,\\nstructured output\"]\n  Flagship --> UseF[\"Hard reasoning,\\nlong documents,\\nresearch\"]\n  classDef tier fill:#E6E0FF,stroke:#7C5CFF,color:#1F1647;\n  class Small,Mid,Flagship tier;"
+      "kind": "svg",
+      "alt": "Concept map: one model family splits into Small (fast, cheap), Mid (balanced), and Flagship (reasoning, long context) tiers, each with its best use, separated by four axes — speed, cost, reasoning, context length.",
+      "code": "<svg viewBox=\"0 0 760 470\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"Inter, system-ui, sans-serif\">\n  <defs>\n    <linearGradient id=\"rcAcc\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#8B6DFF\"/><stop offset=\"1\" stop-color=\"#6A45F0\"/>\n    </linearGradient>\n  </defs>\n  <!-- connectors -->\n  <g stroke=\"#2E2E38\" stroke-width=\"2\" fill=\"none\">\n    <path d=\"M380 70 V96 M380 96 H150 V126 M380 96 H380 V126 M380 96 H610 V126\"/>\n    <path d=\"M150 214 V250 M380 214 V250 M610 214 V250\"/>\n  </g>\n  <!-- root -->\n  <g>\n    <rect x=\"290\" y=\"26\" width=\"180\" height=\"44\" rx=\"14\" fill=\"url(#rcAcc)\"/>\n    <text x=\"380\" y=\"53\" text-anchor=\"middle\" fill=\"#0B0B0F\" font-size=\"16\" font-weight=\"700\">Model family</text>\n  </g>\n  <!-- tiers -->\n  <g>\n    <rect x=\"40\" y=\"126\" width=\"220\" height=\"88\" rx=\"16\" fill=\"#15151B\" stroke=\"#2E2E38\"/>\n    <rect x=\"40\" y=\"126\" width=\"6\" height=\"88\" rx=\"3\" fill=\"#8B6DFF\"/>\n    <text x=\"64\" y=\"158\" fill=\"#F2F1EE\" font-size=\"16\" font-weight=\"650\">Small</text>\n    <text x=\"64\" y=\"182\" fill=\"#A8A8B4\" font-size=\"13\">fast · cheap</text>\n    <text x=\"64\" y=\"200\" fill=\"#A8A8B4\" font-size=\"13\">runs on a phone</text>\n  </g>\n  <g>\n    <rect x=\"270\" y=\"126\" width=\"220\" height=\"88\" rx=\"16\" fill=\"#15151B\" stroke=\"#2E2E38\"/>\n    <rect x=\"270\" y=\"126\" width=\"6\" height=\"88\" rx=\"3\" fill=\"#8B6DFF\"/>\n    <text x=\"294\" y=\"158\" fill=\"#F2F1EE\" font-size=\"16\" font-weight=\"650\">Mid</text>\n    <text x=\"294\" y=\"182\" fill=\"#A8A8B4\" font-size=\"13\">balanced</text>\n    <text x=\"294\" y=\"200\" fill=\"#A8A8B4\" font-size=\"13\">the everyday default</text>\n  </g>\n  <g>\n    <rect x=\"500\" y=\"126\" width=\"220\" height=\"88\" rx=\"16\" fill=\"#15151B\" stroke=\"#2E2E38\"/>\n    <rect x=\"500\" y=\"126\" width=\"6\" height=\"88\" rx=\"3\" fill=\"#8B6DFF\"/>\n    <text x=\"524\" y=\"158\" fill=\"#F2F1EE\" font-size=\"16\" font-weight=\"650\">Flagship</text>\n    <text x=\"524\" y=\"182\" fill=\"#A8A8B4\" font-size=\"13\">reasoning</text>\n    <text x=\"524\" y=\"200\" fill=\"#A8A8B4\" font-size=\"13\">long context</text>\n  </g>\n  <!-- use cases -->\n  <g>\n    <rect x=\"40\" y=\"250\" width=\"220\" height=\"96\" rx=\"16\" fill=\"#1B1B23\" stroke=\"#23232B\"/>\n    <text x=\"64\" y=\"282\" fill=\"#C9BCFF\" font-size=\"11\" font-weight=\"700\" letter-spacing=\"1\">USE IT FOR</text>\n    <text x=\"64\" y=\"306\" fill=\"#F2F1EE\" font-size=\"13\">Chat, classify,</text>\n    <text x=\"64\" y=\"324\" fill=\"#F2F1EE\" font-size=\"13\">short tasks</text>\n  </g>\n  <g>\n    <rect x=\"270\" y=\"250\" width=\"220\" height=\"96\" rx=\"16\" fill=\"#1B1B23\" stroke=\"#23232B\"/>\n    <text x=\"294\" y=\"282\" fill=\"#C9BCFF\" font-size=\"11\" font-weight=\"700\" letter-spacing=\"1\">USE IT FOR</text>\n    <text x=\"294\" y=\"306\" fill=\"#F2F1EE\" font-size=\"13\">Agents, coding,</text>\n    <text x=\"294\" y=\"324\" fill=\"#F2F1EE\" font-size=\"13\">structured output</text>\n  </g>\n  <g>\n    <rect x=\"500\" y=\"250\" width=\"220\" height=\"96\" rx=\"16\" fill=\"#1B1B23\" stroke=\"#23232B\"/>\n    <text x=\"524\" y=\"282\" fill=\"#C9BCFF\" font-size=\"11\" font-weight=\"700\" letter-spacing=\"1\">USE IT FOR</text>\n    <text x=\"524\" y=\"306\" fill=\"#F2F1EE\" font-size=\"13\">Hard reasoning,</text>\n    <text x=\"524\" y=\"324\" fill=\"#F2F1EE\" font-size=\"13\">long documents</text>\n  </g>\n  <!-- capability axes legend -->\n  <g transform=\"translate(40,380)\">\n    <text x=\"0\" y=\"0\" fill=\"#A8A8B4\" font-size=\"12\">Four axes that separate them:</text>\n    <g font-size=\"12\" font-weight=\"600\">\n      <rect x=\"0\" y=\"14\" width=\"150\" height=\"26\" rx=\"13\" fill=\"#221C3F\"/><text x=\"14\" y=\"31\" fill=\"#C9BCFF\">speed</text>\n      <rect x=\"162\" y=\"14\" width=\"150\" height=\"26\" rx=\"13\" fill=\"#221C3F\"/><text x=\"176\" y=\"31\" fill=\"#C9BCFF\">cost</text>\n      <rect x=\"324\" y=\"14\" width=\"170\" height=\"26\" rx=\"13\" fill=\"#221C3F\"/><text x=\"338\" y=\"31\" fill=\"#C9BCFF\">reasoning</text>\n      <rect x=\"506\" y=\"14\" width=\"180\" height=\"26\" rx=\"13\" fill=\"#221C3F\"/><text x=\"520\" y=\"31\" fill=\"#C9BCFF\">context length</text>\n    </g>\n  </g>\n</svg>"
     },
     {
       "id": "reasoning-flow",
@@ -87,32 +151,46 @@
       "date": "2024-05",
       "title": "Flagship sizes consolidate",
       "body": "Labs settle on a small/mid/large shape per family, dropping older one-size-fits-all lines.",
-      "sourceIds": ["src-stanford-ai-index"]
+      "sourceIds": [
+        "src-stanford-ai-index"
+      ]
     },
     {
       "date": "2024-09",
       "title": "Reasoning models go mainstream",
       "body": "A dedicated reasoning surface ships across two major labs, with separate pricing and latency profiles.",
-      "sourceIds": ["src-openai-models", "src-anthropic-models"]
+      "sourceIds": [
+        "src-openai-models",
+        "src-anthropic-models"
+      ]
     },
     {
       "date": "2025-03",
       "title": "Context jumps past 1M tokens",
       "body": "Long-context flagships read hundreds of thousands of tokens in one call; agentic use cases get viable.",
-      "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+      "sourceIds": [
+        "src-google-deepmind",
+        "src-anthropic-models"
+      ]
     },
     {
       "date": "2025-11",
       "title": "Per-token price crosses a cent floor",
       "body": "Mid-tier inference falls below one cent per thousand tokens for many providers.",
-      "sourceIds": ["src-artificial-analysis"]
+      "sourceIds": [
+        "src-artificial-analysis"
+      ]
     }
   ],
   "comparisons": [
     {
       "id": "tier-shape",
       "title": "What each tier is for",
-      "columns": ["Tier", "Strengths", "Watch out for"],
+      "columns": [
+        "Tier",
+        "Strengths",
+        "Watch out for"
+      ],
       "rows": [
         {
           "name": "Small",
@@ -121,7 +199,10 @@
             "Strengths": "Cheap and fast. Great for routing, classification, short answers.",
             "Watch out for": "Drops accuracy on multi-step reasoning."
           },
-          "sourceIds": ["src-anthropic-models", "src-openai-models"]
+          "sourceIds": [
+            "src-anthropic-models",
+            "src-openai-models"
+          ]
         },
         {
           "name": "Mid",
@@ -130,7 +211,10 @@
             "Strengths": "Balanced. The right default for most product features.",
             "Watch out for": "Slower than small; can still hallucinate on niche facts."
           },
-          "sourceIds": ["src-anthropic-models", "src-openai-models"]
+          "sourceIds": [
+            "src-anthropic-models",
+            "src-openai-models"
+          ]
         },
         {
           "name": "Flagship",
@@ -139,7 +223,10 @@
             "Strengths": "Long context, reasoning, planning, multimodal depth.",
             "Watch out for": "5-20x cost; latency in seconds; rate limits."
           },
-          "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+          "sourceIds": [
+            "src-google-deepmind",
+            "src-anthropic-models"
+          ]
         }
       ]
     }
@@ -149,19 +236,26 @@
       "id": "e-classify",
       "title": "Tag 10k customer emails by intent",
       "body": "Use a small-tier model. Batch them. You want throughput, not deep reasoning.",
-      "sourceIds": ["src-openai-models"]
+      "sourceIds": [
+        "src-openai-models"
+      ]
     },
     {
       "id": "e-code-review",
       "title": "Review a 3-file pull request",
       "body": "Use a mid-tier model with structured output. Ask for findings keyed by file and severity.",
-      "sourceIds": ["src-anthropic-models"]
+      "sourceIds": [
+        "src-anthropic-models"
+      ]
     },
     {
       "id": "e-research",
       "title": "Summarize a 200-page contract",
       "body": "Use a flagship with long context. Add retrieval over the table of contents for citations.",
-      "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+      "sourceIds": [
+        "src-google-deepmind",
+        "src-anthropic-models"
+      ]
     }
   ],
   "analogies": [
@@ -181,29 +275,58 @@
       "id": "m-bigger-better",
       "myth": "Bigger model = better answer.",
       "truth": "On most product tasks the mid tier wins on cost-quality. Use the flagship only when you measured a real gap.",
-      "sourceIds": ["src-stanford-ai-index", "src-artificial-analysis"]
+      "sourceIds": [
+        "src-stanford-ai-index",
+        "src-artificial-analysis"
+      ]
     },
     {
       "id": "m-benchmarks",
       "myth": "Benchmark leaderboards tell you which model to ship.",
       "truth": "Public benchmarks leak into training data and rarely match your eval. Run your own evals on your own tasks.",
-      "sourceIds": ["src-stanford-ai-index"]
+      "sourceIds": [
+        "src-stanford-ai-index"
+      ]
     },
     {
       "id": "m-context",
       "myth": "A bigger context window solves retrieval.",
       "truth": "Models miss details in the middle of long contexts. Retrieval and chunking still help, even at 1M tokens.",
-      "sourceIds": ["src-google-deepmind", "src-anthropic-models"]
+      "sourceIds": [
+        "src-google-deepmind",
+        "src-anthropic-models"
+      ]
     }
   ],
   "glossary": [
-    { "term": "token", "definition": "A chunk of text the model reads or writes. Roughly four characters of English." },
-    { "term": "context window", "definition": "The maximum tokens the model can see in one call, prompt plus answer." },
-    { "term": "reasoning model", "definition": "A model trained to plan and verify steps before answering. Slower, more accurate on hard tasks." },
-    { "term": "multimodal", "definition": "A model that takes more than one input type, like text and images, or text and audio." },
-    { "term": "flagship", "definition": "The most capable model in a family. Highest cost, latency, and quality ceiling." },
-    { "term": "benchmark", "definition": "A standardized test used to compare models. Useful for ranking, weak for product decisions." },
-    { "term": "retrieval", "definition": "Pulling only the relevant chunks of a document into the prompt instead of stuffing everything." }
+    {
+      "term": "token",
+      "definition": "A chunk of text the model reads or writes. Roughly four characters of English."
+    },
+    {
+      "term": "context window",
+      "definition": "The maximum tokens the model can see in one call, prompt plus answer."
+    },
+    {
+      "term": "reasoning model",
+      "definition": "A model trained to plan and verify steps before answering. Slower, more accurate on hard tasks."
+    },
+    {
+      "term": "multimodal",
+      "definition": "A model that takes more than one input type, like text and images, or text and audio."
+    },
+    {
+      "term": "flagship",
+      "definition": "The most capable model in a family. Highest cost, latency, and quality ceiling."
+    },
+    {
+      "term": "benchmark",
+      "definition": "A standardized test used to compare models. Useful for ranking, weak for product decisions."
+    },
+    {
+      "term": "retrieval",
+      "definition": "Pulling only the relevant chunks of a document into the prompt instead of stuffing everything."
+    }
   ],
   "practicalTakeaways": [
     "Default to the mid tier; promote to flagship only after a real eval shows a gap.",

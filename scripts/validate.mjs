@@ -58,7 +58,29 @@ if (!existsSync(inputPath)) {
   process.exit(2);
 }
 
-const content = JSON.parse(readFileSync(inputPath, "utf8"));
+let content;
+try {
+  content = JSON.parse(readFileSync(inputPath, "utf8"));
+} catch (e) {
+  console.error(`recap-studio: ${inputPath} is not valid JSON — ${e.message}`);
+  process.exit(2);
+}
+
+// Guard required fields before running checks, so bad/partial input fails with a
+// helpful message instead of an unhandled TypeError ("Cannot read ... 'map'").
+const REQUIRED = ["slug", "topic", "sourceMap", "keyIdeas", "examples", "misconceptions", "visualSections", "diagrams", "glossary", "practicalTakeaways"];
+const missing = REQUIRED.filter((k) =>
+  k === "sourceMap" || k === "keyIdeas" || k === "examples" || k === "misconceptions" || k === "visualSections" || k === "diagrams" || k === "glossary" || k === "practicalTakeaways"
+    ? !Array.isArray(content?.[k])
+    : !content?.[k],
+);
+if (!content || typeof content !== "object" || missing.length) {
+  console.error(
+    `recap-studio: ${inputPath} is not a valid RecapPageContent — missing/invalid: ${missing.join(", ") || "(not an object)"}.\n` +
+      `Generate one with /recap "<topic>" (or pnpm demo:latest-ai-models), then validate.`,
+  );
+  process.exit(2);
+}
 
 // --- Embedded deterministic checks (subset of @recap-studio/validation). ----
 // Keeps `pnpm validate:demo` runnable before `pnpm install`.

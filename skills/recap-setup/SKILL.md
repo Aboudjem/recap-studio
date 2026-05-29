@@ -14,9 +14,11 @@ You configure Recap Studio. Safe defaults are picked so that side effects
 
 ## What you do
 
-1. If `recap-studio.config.ts` does not exist, create it from the template
-   in `packages/content-pipeline/src/config-template.ts` and write to repo
-   root.
+1. If `recap-studio.config.ts` does not exist, create it by copying
+   `recap-studio.config.example.ts` from the repo root (or call
+   `renderConfigSource(DEFAULT_CONFIG)` from `@recap-studio/content-pipeline/config`)
+   and write to the repo root. The file is gitignored, so local opt-ins never
+   ship.
 2. Validate the file with `RecapStudioConfig` (zod schema).
 3. Check env. List which optional keys are present without printing their
    values. Never log secrets.
@@ -37,7 +39,7 @@ export const config: RecapStudioConfig = {
   contentLength: "medium",
   explanationDepth: "beginner",
   researchIntensity: "balanced",
-  theme: "auto",
+  theme: "dark",
   animationIntensity: "low",
   visualDensity: "medium",
   deploymentMode: "disabled",

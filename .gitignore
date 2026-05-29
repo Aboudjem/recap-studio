@@ -27,7 +27,9 @@ Thumbs.db
 artifacts/
 !artifacts/.gitkeep
 .omc/
-artifacts/
-.recap-studio/
+
+# Local config (deploy/email opt-ins must never ship). Template:
+# recap-studio.config.example.ts
+recap-studio.config.ts
 
 npm-placeholder/node_modules/

@@ -19,6 +19,8 @@
     "build": "pnpm -r --if-present run build",
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md}\"",
     "demo:latest-ai-models": "node scripts/demo-latest-ai-models.mjs",
+    "render": "node scripts/render-html.mjs",
+    "render:demo": "node scripts/render-html.mjs latest-ai-models",
     "validate:demo": "node scripts/validate.mjs apps/recap-web/src/content/latest-ai-models.json",
     "validate": "node scripts/validate.mjs",
     "history": "node scripts/history.mjs",
@@ -28,6 +30,9 @@
     "clean": "rimraf node_modules apps/*/node_modules packages/*/node_modules"
   },
   "devDependencies": {
+    "@recap-studio/content-pipeline": "workspace:*",
+    "@recap-studio/html-renderer": "workspace:*",
+    "@recap-studio/validation": "workspace:*",
     "@types/node": "^20.14.0",
     "prettier": "^3.3.0",
     "rimraf": "^5.0.0",

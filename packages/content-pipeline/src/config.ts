@@ -10,7 +10,7 @@ export const RecapStudioConfig = z.object({
     .enum(["beginner", "intermediate", "expert"])
     .default("beginner"),
   researchIntensity: z.enum(["fast", "balanced", "deep"]).default("balanced"),
-  theme: z.enum(["light", "dark", "auto"]).default("auto"),
+  theme: z.enum(["light", "dark", "auto"]).default("dark"),
   animationIntensity: z
     .enum(["none", "low", "medium", "high"])
     .default("low"),
