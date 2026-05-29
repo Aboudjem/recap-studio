@@ -18,7 +18,7 @@ export interface ShellOptions {
 const FAVICON =
   "data:image/svg+xml," +
   encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#0B0B0F"/><text x="16" y="22" font-family="Georgia,serif" font-size="18" fill="#8B6DFF" text-anchor="middle">R</text></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFF"/><stop offset="1" stop-color="#4FA8FF"/></linearGradient></defs><rect width="32" height="32" rx="7" fill="#0B0B0F"/><text x="16" y="22" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="18" fill="url(#g)" text-anchor="middle">R</text></svg>',
   );
 
 export function documentShell(c: RecapPageContent, body: string, opts: ShellOptions = {}): string {

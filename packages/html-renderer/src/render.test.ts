@@ -54,6 +54,15 @@ test("renderFromJson validates and throws on bad input", () => {
   assert.throws(() => renderFromJson({}), /Invalid RecapPageContent/);
 });
 
+test("all fonts are sans-serif (no serif display face) and gradients are present", () => {
+  const css = getBaseStyles({ theme: "dark" });
+  assert.ok(!/serif(?<!sans-serif)/.test(css.replace(/sans-serif/g, "")), "no standalone serif font family");
+  assert.ok(!/Georgia|Times New Roman|ui-serif|Iowan|Garamond/i.test(css), "no named serif fonts");
+  assert.ok(css.includes("--font-display"), "display token exists");
+  assert.match(getBaseStyles({}), /--font-display: "Inter"/, "display font is Inter (sans)");
+  assert.ok((css.match(/linear-gradient/g) ?? []).length >= 4, "uses gradients for color");
+});
+
 test("getBaseStyles includes the dark token layer and reduced-motion guard", () => {
   const css = getBaseStyles({ theme: "dark" });
   assert.ok(css.includes("--canvas: #0B0B0F"), "dark canvas token");

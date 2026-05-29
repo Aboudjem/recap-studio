@@ -54,8 +54,9 @@ export const shadow = {
 } as const;
 
 export const fonts = {
+  // All sans-serif (house style). "display" is a heavier-weight sans for headings.
   display:
-    'ui-serif, "Iowan Old Style", "Apple Garamond", "Source Serif Pro", Georgia, serif',
+    '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   text:
     '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   mono:
