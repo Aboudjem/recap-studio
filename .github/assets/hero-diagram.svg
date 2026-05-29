@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Topic or session goes in, recap page comes out: 13 agents pass typed JSON through a validation board, then the renderer builds a Next.js page.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Topic or session goes in, recap page comes out: specialist agents draft the content, deterministic checks validate it, then the renderer builds a self-contained HTML page.">
   <defs>
     <linearGradient id="rh-pipe" x1="0" x2="1">
       <stop offset="0%" stop-color="#7C5CFF" stop-opacity=".15"/>
@@ -38,25 +38,25 @@
       <text y="48">· visual-story-designer</text>
       <text y="64">· frontend-builder</text>
       <text y="80">· repo-session-analyst</text>
-      <text y="96">+ 7 reviewers (parallel)</text>
+      <text y="96">+ 7 heuristic checks</text>
     </g>
 
     <!-- VALIDATION BOARD -->
     <rect class="rh-card rh-pulse" x="560" y="80" width="220" height="160" rx="16"/>
-    <text class="rh-text" x="670" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Validation board</text>
+    <text class="rh-text" x="670" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Heuristic checks</text>
     <g transform="translate(580, 132)" font-size="11" fill="#5C5C66">
-      <text y="0">Facts        10/10</text>
-      <text y="16">Beginner     10/10</text>
-      <text y="32">Accessibility    10/10</text>
-      <text y="48">UX           10/10</text>
-      <text y="64">Performance   8/10</text>
-      <text y="80">Sec/Privacy  10/10</text>
-      <text y="96">Simplicity   10/10</text>
+      <text y="0">facts (citations present)</text>
+      <text y="16">beginner (jargon scan)</text>
+      <text y="32">accessibility (structure)</text>
+      <text y="48">UX (section balance)</text>
+      <text y="64">performance (size)</text>
+      <text y="80">sec/privacy (secret regex)</text>
+      <text y="96">simplicity (word count)</text>
     </g>
 
     <!-- OUTPUT -->
     <rect class="rh-card rh-pulse" x="840" y="120" width="320" height="80" rx="16"/>
-    <text class="rh-text" x="1000" y="152" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Next.js page · 103 KB First Load JS</text>
+    <text class="rh-text" x="1000" y="152" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Self-contained HTML page</text>
     <text class="rh-muted" x="1000" y="178" text-anchor="middle" font-size="12" fill="#5C5C66">mobile-first · static-first · cite-every-claim</text>
 
     <!-- FLOW LINES -->
