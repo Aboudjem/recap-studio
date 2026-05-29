@@ -34,6 +34,14 @@
   <img alt="A real Recap Studio page: dark-mode hero with a gradient headline 'Latest AI models', a one-sentence answer, and a numbered five-step reading path. Calm, premium, mobile-first." src=".github/assets/page-preview.png" width="100%">
 </picture>
 
+### See it in action
+
+A real run of `/recap "what is creatine"` — researched live, every claim fact-checked against primary sources (ISSN, NIH), then rendered to one self-contained page:
+
+<picture>
+  <img alt="Animated walkthrough of a generated Recap Studio page about creatine: dark-mode hero, an inline-SVG energy-cycle diagram, icon key-idea cards, and a sources list citing NIH and ISSN." src=".github/assets/demo.gif" width="100%">
+</picture>
+
 ---
 
 ## What is this
