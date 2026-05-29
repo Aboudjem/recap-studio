@@ -13,7 +13,7 @@ export function ExamplesAndAnalogies({ content }: Props) {
         {content.examples.map((e) => (
           <Card key={e.id}>
             <p className="text-xs font-semibold uppercase tracking-wider text-accent">Example</p>
-            <h3 className="mt-1 font-display text-lg">{e.title}</h3>
+            <h3 className="mt-1 font-sans text-lg">{e.title}</h3>
             <p className="recap-prose mt-2 text-sm text-muted dark:text-muted-dark">{e.body}</p>
           </Card>
         ))}

@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
       <body className="bg-canvas text-ink antialiased dark:bg-canvas-dark dark:text-ink-dark">
         <a className="recap-skip-link" href="#summary">
           Skip to summary

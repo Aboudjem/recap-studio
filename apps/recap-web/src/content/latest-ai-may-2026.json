@@ -1,0 +1,514 @@
+{
+  "slug": "latest-ai-may-2026",
+  "topic": "Les IA et modèles à connaître au 13 mai 2026",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-13T00:00:00Z",
+  "fixture": false,
+  "oneSentenceAnswer": "En mai 2026, GPT-5.5, Claude Mythos, Gemini 3.1, Llama 4 et DeepSeek V4 dominent l'IA, avec un écart de prix de 35x entre eux.",
+  "fiveMinutePath": [
+    "Lis 'Pourquoi ça compte' pour saisir l'enjeu en 60 secondes.",
+    "Parcours les 6 idées-clés pour comprendre comment ces modèles fonctionnent vraiment.",
+    "Regarde le tableau comparatif pour situer chaque modèle en un coup d'oeil.",
+    "Consulte les exemples concrets pour traduire les chiffres en situations réelles.",
+    "Démêle les idées reçues pour ne plus te faire avoir par les titres de presse.",
+    "Retiens les conseils pratiques pour choisir le bon outil selon ce que tu veux faire.",
+    "Garde le glossaire sous la main pour tout terme que tu ne reconnais pas."
+  ],
+  "whyItMatters": [
+    "Ton travail : ces modèles automatisent des tâches d'analyse, de rédaction et de code que tu faisais à la main.",
+    "Ton argent : les prix ont chuté drastiquement, certains modèles coûtent 35 fois moins cher que d'autres pour un résultat comparable.",
+    "Ta vie privée : la loi européenne oblige les fournisseurs à déclarer leurs modèles dès août 2026, ce qui change tes droits.",
+    "La géopolitique : la Chine (DeepSeek, Qwen) et l'Europe (Mistral) pèsent désormais face aux acteurs américains.",
+    "Ton accès : les modèles open-weights comme Llama 4 et DeepSeek V4 peuvent tourner sur ton propre serveur, sans envoyer tes données ailleurs."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k1-benchmarks",
+      "title": "Les benchmarks ont changé de référence",
+      "body": "MMLU, le test historique, ne distingue plus les meilleurs modèles entre eux. Les évaluations qui comptent aujourd'hui sont GPQA Diamond, qui teste le raisonnement scientifique de niveau expert, et SWE-Bench, qui mesure la résolution de bugs réels en code. GPT-5.5 obtient 88,7 % sur SWE-Bench et Gemini 3.1 Pro 80,6 %.",
+      "sourceIds": ["s1", "s3", "s8"]
+    },
+    {
+      "id": "k2-mythos-ferme",
+      "title": "Le modèle le plus puissant reste hors de portée du grand public",
+      "body": "Claude Mythos d'Anthropic atteint 94,6 % sur GPQA Diamond et peut découvrir des failles de sécurité inconnues dans des logiciels réels. Anthropic le réserve à une quarantaine d'organisations sélectionnées, il n'est pas accessible depuis une interface grand public.",
+      "sourceIds": ["s2"]
+    },
+    {
+      "id": "k3-open-weights",
+      "title": "L'open-weights change la donne",
+      "body": "Un modèle open-weights publie ses paramètres librement. Llama 4 de Meta et DeepSeek V4 permettent à n'importe quelle entreprise de les héberger, modifier et intégrer dans ses produits, sans dépendre d'OpenAI ou d'Anthropic. C'est l'équivalent du logiciel libre pour l'IA.",
+      "sourceIds": ["s4", "s6"]
+    },
+    {
+      "id": "k4-contexte-long",
+      "title": "Le contexte long transforme l'utilisation",
+      "body": "Le contexte est la quantité de texte qu'un modèle peut lire en une seule fois. Llama 4 Scout accepte jusqu'à 10 millions de tokens, soit environ 7 500 romans de 200 pages. En pratique, tu peux lui soumettre toute la documentation d'une entreprise ou des années d'e-mails pour qu'il les analyse d'un coup.",
+      "sourceIds": ["s4", "s3"]
+    },
+    {
+      "id": "k5-prix",
+      "title": "Le prix n'est plus une barrière absolue",
+      "body": "Entre GPT-5.5 à 30 $ et Qwen 3.5 à 0,02 $ pour un million de tokens en sortie, l'écart atteint 1 500 fois. Pour la plupart des usages courants, des modèles très bon marché donnent des résultats largement suffisants.",
+      "sourceIds": ["s1", "s7", "s8"]
+    },
+    {
+      "id": "k6-ai-act",
+      "title": "La réglementation européenne entre en vigueur cet été",
+      "body": "L'AI Act impose aux fournisseurs opérant en Europe de déclarer leurs modèles à haut risque, d'apposer un marquage CE et de respecter des règles de transparence. Les sanctions montent jusqu'à 35 millions d'euros ou 7 % du chiffre d'affaires mondial. La date butoir pour les règles les plus contraignantes est le 2 août 2026.",
+      "sourceIds": ["s9"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "comparison", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "ai-landscape-mai-2026",
+      "kind": "mermaid",
+      "code": "flowchart LR\n  A[Fermes payants] --> A1[GPT-5.5 OpenAI]\n  A --> A2[Claude Mythos Anthropic]\n  A --> A3[Gemini 3.1 Pro Google]\n  B[Open-weights] --> B1[Llama 4 Meta]\n  B --> B2[DeepSeek V4 Chine]\n  B --> B3[Qwen 3.5 Alibaba]\n  C[Hybrides] --> C1[Mistral Medium 3.5]\n  A1 -.-> Z[Code et productivité]\n  A2 -.-> Y[Raisonnement et cybersécurité]\n  A3 -.-> X[Contexte long et multimodal]\n  B1 -.-> X\n  B2 -.-> W[Faible coût à grande échelle]\n  B3 -.-> W",
+      "alt": "Carte du paysage des modèles d'IA en mai 2026, regroupés en trois familles : modèles fermés payants (GPT-5.5, Claude Mythos, Gemini), modèles open-weights (Llama 4, DeepSeek V4, Qwen) et hybrides (Mistral). Chaque famille pointe vers son cas d'usage typique."
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-02-16",
+      "title": "Alibaba lance Qwen 3.5",
+      "body": "Famille open-weights de 0,8 à 397 milliards de paramètres, multimodal natif, prix à partir de 0,02 $ par million de tokens.",
+      "sourceIds": ["s7"]
+    },
+    {
+      "date": "2026-02-19",
+      "title": "Google DeepMind annonce Gemini 3.1 Pro",
+      "body": "Contexte d'un million de tokens, génération SVG et 3D native, 94,3 % sur GPQA Diamond.",
+      "sourceIds": ["s3"]
+    },
+    {
+      "date": "2026-04-07",
+      "title": "Anthropic révèle Claude Mythos en accès restreint",
+      "body": "Accès limité à plus de 40 organisations, 94,6 % sur GPQA Diamond, capacité à découvrir des failles de sécurité inconnues.",
+      "sourceIds": ["s2"]
+    },
+    {
+      "date": "2026-04-21",
+      "title": "Google lance Deep Research Max",
+      "body": "Agent autonome basé sur Gemini 3.1, capable de naviguer le web de façon indépendante via le protocole MCP.",
+      "sourceIds": ["s3"]
+    },
+    {
+      "date": "2026-04-23",
+      "title": "OpenAI lance GPT-5.5",
+      "body": "Moins 60 % d'hallucinations par rapport à GPT-4, 88,7 % sur SWE-Bench, score d'intelligence 60/100 selon Artificial Analysis.",
+      "sourceIds": ["s1", "s8"]
+    },
+    {
+      "date": "2026-04-24",
+      "title": "DeepSeek prévisualise V4 Pro",
+      "body": "Plus grand modèle open-weight du marché avec 1,6 trillion de paramètres totaux, prix 100 fois inférieurs à GPT-5.5.",
+      "sourceIds": ["s6"]
+    },
+    {
+      "date": "2026-05-01",
+      "title": "Mistral publie Medium 3.5 et ses agents distants",
+      "body": "Modèle dense de 128 milliards de paramètres sous licence MIT modifiée, 77,6 % sur SWE-Bench, agents cloud à 1,5 $/7,5 $ par million de tokens.",
+      "sourceIds": ["s5"]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "grands-modeles-mai-2026",
+      "title": "Les 5 grands modèles à connaître",
+      "columns": ["Modèle", "Sortie", "Force principale", "Coût (1M tokens sortie)", "Accès"],
+      "rows": [
+        {
+          "name": "GPT-5.5",
+          "cells": {
+            "Modèle": "GPT-5.5",
+            "Sortie": "Avril 2026",
+            "Force principale": "Meilleur sur le code (88,7 % SWE-Bench), -60 % hallucinations",
+            "Coût (1M tokens sortie)": "30 $",
+            "Accès": "API + ChatGPT"
+          },
+          "sourceIds": ["s1", "s8"]
+        },
+        {
+          "name": "Claude Mythos",
+          "cells": {
+            "Modèle": "Claude Mythos",
+            "Sortie": "Avril 2026",
+            "Force principale": "Meilleur raisonnement scientifique (94,6 % GPQA), cybersécurité avancée",
+            "Coût (1M tokens sortie)": "Non public",
+            "Accès": "40+ organisations sélectionnées uniquement"
+          },
+          "sourceIds": ["s2"]
+        },
+        {
+          "name": "Gemini 3.1 Pro",
+          "cells": {
+            "Modèle": "Gemini 3.1 Pro",
+            "Sortie": "Fév. 2026",
+            "Force principale": "Contexte 1M tokens, multimodal natif (vidéo, SVG, 3D)",
+            "Coût (1M tokens sortie)": "Non publié",
+            "Accès": "Google AI Studio + API"
+          },
+          "sourceIds": ["s3", "s10"]
+        },
+        {
+          "name": "Llama 4 Scout",
+          "cells": {
+            "Modèle": "Llama 4 Scout",
+            "Sortie": "Avril 2026",
+            "Force principale": "Open-weights, contexte 10M tokens, hébergeable sur tes serveurs",
+            "Coût (1M tokens sortie)": "Gratuit (auto-hébergé)",
+            "Accès": "Téléchargement libre (licence Meta)"
+          },
+          "sourceIds": ["s4"]
+        },
+        {
+          "name": "DeepSeek V4 Pro",
+          "cells": {
+            "Modèle": "DeepSeek V4 Pro",
+            "Sortie": "Avril 2026",
+            "Force principale": "Plus gros open-weight (1,6T paramètres), prix 100x moins cher que GPT-5.5",
+            "Coût (1M tokens sortie)": "0,28 $",
+            "Accès": "API + téléchargement open-weight"
+          },
+          "sourceIds": ["s6", "s8"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ex1-contrat-long",
+      "title": "Lire un contrat de 300 pages en une seule requête",
+      "body": "Gemini 3.1 Pro accepte jusqu'à 1 million de tokens de contexte, soit environ 750 000 mots. Tu peux coller l'intégralité d'un contrat d'assurance ou d'un rapport annuel et lui demander de résumer, comparer ou signaler les clauses problématiques, sans découper le document.",
+      "sourceIds": ["s3"]
+    },
+    {
+      "id": "ex2-debug-pas-cher",
+      "title": "Corriger du code pour moins de 0,01 euro",
+      "body": "DeepSeek V4 Flash facture 0,14 $ par million de tokens en entrée. Un échange typique de débogage représente environ 2 000 tokens, soit 0,00028 $ la requête. Pour des équipes qui lancent des centaines de requêtes par jour, l'économie par rapport à GPT-5.5 est très significative.",
+      "sourceIds": ["s6", "s1"]
+    },
+    {
+      "id": "ex3-serveur-local",
+      "title": "Faire tourner un modèle performant sur son propre serveur",
+      "body": "Llama 4 Scout utilise une architecture MoE qui n'active que 17 milliards de paramètres sur 109 milliards au total, ce qui réduit les besoins en calcul. Meta le distribue sous licence commerciale libre, sauf pour les plateformes dépassant 700 millions d'utilisateurs actifs par mois.",
+      "sourceIds": ["s4"]
+    },
+    {
+      "id": "ex4-multimodal",
+      "title": "Comparer visuellement des documents avec texte et images ensemble",
+      "body": "Gemini 3.1 Pro et Qwen 3.5 comprennent nativement texte, images et vidéo dans la même requête. Tu peux envoyer une facture scannée, une capture d'écran et un tableau, et leur demander de les réconcilier sans pipeline séparé.",
+      "sourceIds": ["s3", "s7", "s10"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "an1-stagiaire",
+      "setup": "Un LLM, c'est comme un stagiaire qui a lu l'intégralité d'internet mais qui n'a aucun souvenir d'une conversation à l'autre.",
+      "takeaway": "Il est très cultivé et très rapide, mais chaque fois que tu ouvres une nouvelle fenêtre il repart de zéro, d'où l'importance du contexte que tu lui fournis toi-même."
+    },
+    {
+      "id": "an2-bureau-avocat",
+      "setup": "Le contexte long, c'est comme le bureau d'un avocat, plus il est grand, plus il peut étaler de dossiers devant lui en même temps.",
+      "takeaway": "Un modèle avec 10 millions de tokens de contexte peut tenir des milliers de documents sur son bureau simultanément, là où un modèle limité doit ranger les anciens pour en sortir de nouveaux."
+    },
+    {
+      "id": "an3-recette-restaurant",
+      "setup": "La différence entre modèle fermé et open-weights, c'est comme la différence entre un restaurant étoilé et une recette publiée en libre accès.",
+      "takeaway": "Le restaurant contrôle tout, qualité, prix, accès, mais la recette publiée te laisse cuisiner chez toi, la modifier, et ne payer que les ingrédients."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m1-comprend",
+      "myth": "L'IA comprend ce que tu lui dis, comme un humain.",
+      "truth": "Un LLM prédit le mot le plus probable à chaque étape, il n'a pas de compréhension ni d'intention. Le résultat semble cohérent parce que les patterns statistiques du langage humain sont très réguliers.",
+      "sourceIds": ["s8"]
+    },
+    {
+      "id": "m2-cher-meilleur",
+      "myth": "Le modèle le plus cher est toujours le meilleur.",
+      "truth": "Sur des tâches courantes comme résumer ou traduire, des modèles à 0,02 $ par million de tokens donnent des résultats comparables aux modèles à 30 $. Le prix reflète les cas extrêmes, pas l'usage quotidien.",
+      "sourceIds": ["s7", "s8", "s1"]
+    },
+    {
+      "id": "m3-open-source-faible",
+      "myth": "Les IA open-weights sont moins bonnes que les modèles fermés.",
+      "truth": "DeepSeek V4 Pro et Llama 4 Maverick revendiquent la parité avec GPT-5.2 et Gemini 3.0 sur plusieurs benchmarks, et leurs poids sont téléchargeables librement.",
+      "sourceIds": ["s4", "s6"]
+    },
+    {
+      "id": "m4-ai-act-hors-ue",
+      "myth": "L'AI Act européen ne me concerne pas si je suis hors UE.",
+      "truth": "La réglementation s'applique à tout fournisseur dont le modèle est utilisé en Europe, qu'il soit basé aux États-Unis, en Chine ou ailleurs. OpenAI, Meta et Alibaba sont tous concernés.",
+      "sourceIds": ["s9"]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "LLM (Grand modèle de langage)",
+      "definition": "Système d'IA entraîné sur des milliards de textes pour prédire et générer du langage naturel. 'Grand' désigne la taille en paramètres, pas la qualité intrinsèque."
+    },
+    {
+      "term": "Modèle open-weights",
+      "definition": "Modèle dont les paramètres appris à l'entraînement sont publiés publiquement et téléchargeables, à la manière d'un logiciel open source."
+    },
+    {
+      "term": "Contexte",
+      "definition": "La quantité de texte mesurée en tokens qu'un modèle peut lire et utiliser en une seule requête. Plus le contexte est long, plus on peut lui soumettre de matière en une fois."
+    },
+    {
+      "term": "Hallucination",
+      "definition": "Quand un modèle génère une information fausse mais formulée avec assurance, pas un mensonge intentionnel, juste une prédiction statistiquement plausible mais incorrecte."
+    },
+    {
+      "term": "Benchmark",
+      "definition": "Test standardisé pour mesurer les capacités d'un modèle. GPQA Diamond teste le raisonnement scientifique expert, SWE-Bench mesure la résolution de bugs de code réel."
+    },
+    {
+      "term": "Multimodal",
+      "definition": "Se dit d'un modèle capable de traiter plusieurs types de données dans une seule requête, texte, images, audio, vidéo, sans pipeline séparé."
+    },
+    {
+      "term": "Inférence",
+      "definition": "L'acte d'interroger un modèle pour obtenir une réponse. C'est à ce moment que les calculs ont lieu et que les coûts sont facturés, calculés en tokens consommés."
+    },
+    {
+      "term": "MoE (Mixture of Experts)",
+      "definition": "Architecture où le modèle n'active qu'une fraction de ses paramètres pour chaque requête. Un modèle de 400 milliards de paramètres total peut n'en utiliser que 17 milliards à la fois, réduisant le coût de calcul."
+    },
+    {
+      "term": "Token",
+      "definition": "Unité de base du texte pour un LLM, environ trois quarts d'un mot en français. Un million de tokens représente environ 750 000 mots, soit 5 à 7 romans standard."
+    },
+    {
+      "term": "AI Act",
+      "definition": "Réglementation européenne sur l'intelligence artificielle entrée progressivement en vigueur depuis 2024, avec les règles les plus strictes s'appliquant dès le 2 août 2026, sanctions jusqu'à 35 millions d'euros."
+    }
+  ],
+  "practicalTakeaways": [
+    "Pour rédiger, résumer ou expliquer des textes au quotidien, GPT-5.5 ou Gemini 3.1 Pro sont les choix les plus polyvalents et accessibles sans compte spécial.",
+    "Pour analyser un long document (contrat, rapport, base de code), choisis un modèle avec au moins 200 000 tokens de contexte, Gemini 3.1 Pro ou Llama 4 Scout conviennent.",
+    "Pour des usages fréquents et un budget serré, teste DeepSeek V4 Flash ou Qwen 3.5, ils coûtent jusqu'à 100 fois moins cher que GPT-5.5 pour des résultats très proches sur les tâches simples.",
+    "Si tu traites des données confidentielles (RH, juridique, médical), préfère un modèle open-weights hébergé sur tes propres serveurs plutôt qu'un service cloud externe.",
+    "Avant d'utiliser un modèle dans un produit destiné à des Européens, vérifie sa conformité à l'AI Act, surtout si ton usage entre dans une catégorie haut risque comme le recrutement, le crédit ou la santé."
+  ],
+  "sourceMap": [
+    {
+      "id": "s1",
+      "title": "OpenAI — Introducing GPT-5.5",
+      "url": "https://openai.com/index/introducing-gpt-5-5/",
+      "publisher": "OpenAI",
+      "publishedAt": "2026-04-23",
+      "fetchedAt": "2026-05-13",
+      "composite": 10,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Lancement GPT-5.5 le 23 avril 2026",
+        "Réduction de 60 % des hallucinations par rapport à GPT-4",
+        "88,7 % sur SWE-Bench",
+        "Score d'intelligence 60/100 sur Artificial Analysis",
+        "Tarif 5 $/30 $ par million de tokens entrée/sortie"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s2",
+      "title": "Anthropic — Claude Mythos / Glasswing Preview",
+      "url": "https://red.anthropic.com/2026/mythos-preview/",
+      "publisher": "Anthropic",
+      "publishedAt": "2026-04-07",
+      "fetchedAt": "2026-05-13",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "94,6 % sur GPQA Diamond",
+        "Découverte de milliers de zero-days",
+        "Reproduction d'exploit à 83 % au premier essai",
+        "Accès restreint à plus de 40 organisations",
+        "Deal compute 300+ MW Colossus 1 avec SpaceX"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s3",
+      "title": "Google DeepMind — Gemini 3.1 Pro et Deep Research Max",
+      "url": "https://deepmind.google/models/gemini/",
+      "publisher": "Google DeepMind",
+      "publishedAt": "2026-04-21",
+      "fetchedAt": "2026-05-13",
+      "composite": 10,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "94,3 % sur GPQA Diamond",
+        "80,6 % sur SWE-Bench",
+        "Contexte d'un million de tokens",
+        "Génération SVG et 3D native",
+        "Agent autonome Deep Research Max avec protocole MCP"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s4",
+      "title": "Meta — Llama 4 Multimodal Intelligence",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "publisher": "Meta AI",
+      "publishedAt": "2026-04-01",
+      "fetchedAt": "2026-05-13",
+      "composite": 10,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Open-weights, variantes Scout (17B actifs / 109B total, contexte 10M tokens) et Maverick (17B / 400B, contexte 1M tokens)",
+        "Multimodal natif",
+        "Entraîné sur 30 trillions de tokens",
+        "Licence commerciale avec carve-out pour plateformes dépassant 700M MAU"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s5",
+      "title": "Mistral — Medium 3.5 et Vibe Remote Agents",
+      "url": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5",
+      "publisher": "Mistral AI",
+      "publishedAt": "2026-05-01",
+      "fetchedAt": "2026-05-13",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Modèle dense 128 milliards de paramètres",
+        "Contexte 256 000 tokens",
+        "77,6 % sur SWE-Bench",
+        "Prix 1,5 $/7,5 $ par million de tokens entrée/sortie",
+        "Licence MIT modifiée",
+        "Agents distants cloud"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s6",
+      "title": "TechCrunch — DeepSeek previews V4",
+      "url": "https://techcrunch.com/2026/04/24/deepseek-previews-new-ai-model-that-closes-the-gap-with-frontier-models",
+      "publisher": "TechCrunch",
+      "publishedAt": "2026-04-24",
+      "fetchedAt": "2026-05-13",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "V4 Flash (284B total / 13B actifs), V4 Pro (1,6T total / 49B actifs)",
+        "Contexte d'un million de tokens",
+        "Prix 0,14 $/0,28 $ par million de tokens entrée/sortie",
+        "Plus grand modèle open-weight du marché",
+        "Parité revendiquée avec GPT-5.2 et Gemini 3.0 sur certains benchmarks"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s7",
+      "title": "Alibaba Cloud — Qwen 3.5 / 3.6 Blog",
+      "url": "https://www.alibabacloud.com/blog/602894",
+      "publisher": "Alibaba Cloud",
+      "publishedAt": "2026-02-16",
+      "fetchedAt": "2026-05-13",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Open-weights de 0,8B à 397B paramètres",
+        "Multimodal natif (texte, image, vidéo)",
+        "Prix à partir de 0,02 $ par million de tokens sur la variante 0,8B",
+        "Rivalise avec Gemini 2.5 Pro sur le multimodal"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s8",
+      "title": "Artificial Analysis — Intelligence Index (snapshot mai 2026)",
+      "url": "https://artificialanalysis.ai/models",
+      "publisher": "Artificial Analysis",
+      "publishedAt": "2026-05-13",
+      "fetchedAt": "2026-05-13",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Tableau de bord de plus de 300 modèles",
+        "GPT-5.5 score 60 (maximum actuel)",
+        "Écart de coût de 30 à 35 fois entre le moins cher et le plus cher",
+        "SWE-Bench et GPQA remplacent MMLU comme benchmarks discriminants"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s9",
+      "title": "EU AI Act — Texte officiel et calendrier",
+      "url": "https://artificialintelligenceact.eu/",
+      "publisher": "Union européenne",
+      "publishedAt": "2026-05-01",
+      "fetchedAt": "2026-05-13",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Entrée en vigueur des règles haut-risque le 2 août 2026",
+        "Sanctions jusqu'à 35 millions d'euros ou 7 % du chiffre d'affaires mondial",
+        "Marquage CE et enregistrement obligatoires",
+        "S'applique aux fournisseurs hors UE qui opèrent en Europe"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s10",
+      "title": "BentoML — Guide des modèles multimodaux open source",
+      "url": "https://www.bentoml.com/blog/multimodal-ai-a-guide-to-open-source-vision-language-models",
+      "publisher": "BentoML",
+      "publishedAt": "2026-01-01",
+      "fetchedAt": "2026-05-13",
+      "composite": 6,
+      "primary": false,
+      "provenance": "live",
+      "claims": [
+        "87,6 % sur Video-MMMU pour Gemini 3 Pro",
+        "Vidéo de plusieurs heures désormais traitable",
+        "Fusion vision et audio désormais standard",
+        "FlexMem pour vidéo infinie"
+      ],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "Les prix des API changent fréquemment et peuvent avoir évolué entre la publication des sources et la date de lecture.",
+    "Les benchmarks (GPQA, SWE-Bench) mesurent des capacités précises et ne reflètent pas nécessairement l'expérience réelle d'un utilisateur non technique.",
+    "Claude Mythos n'est pas accessible au grand public, ses performances sur des usages courants restent difficiles à évaluer indépendamment.",
+    "Les revendications de parité de DeepSeek V4 avec GPT-5.2 et Gemini 3.0 sont auto-déclarées et n'ont pas toutes été vérifiées par des tiers indépendants.",
+    "L'application concrète de l'AI Act en dehors des cas tests est encore floue, les premières décisions de régulateurs nationaux clarifieront la portée réelle des sanctions."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 9,
+    "a11y": 8,
+    "ux": 8,
+    "performance": 8,
+    "securityPrivacy": 7,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}

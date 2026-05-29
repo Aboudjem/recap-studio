@@ -1,0 +1,716 @@
+{
+  "slug": "models-locaux-uncensored-mai-2026",
+  "topic": "Modèles locaux & uncensored pour ton bounty lab — comparatif mai 2026",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-28T00:00:00Z",
+  "fixture": false,
+  "oneSentenceAnswer": "Tes modèles Qwen3 ont une version 'sans filtre' exacte, et tu peux monter en puissance — mais aucun modèle local n'égale Claude Opus 4.7 sur les audits difficiles.",
+  "fiveMinutePath": [
+    "Lis 'Pourquoi ça compte' : ce que tu gagnes (et ce que tu perds) à passer en local.",
+    "Comprends les 6 idées-clés : c'est quoi 'uncensored', la quantization, MoE, et l'écart réel avec Claude.",
+    "Regarde les 3 tableaux : ce que tu as → version uncensored → upgrades, plus les modèles d'images.",
+    "Parcours les exemples concrets pour ton bounty lab (audit sans refus, image réaliste, finetune).",
+    "Démêle les idées reçues (plus gros ≠ mieux, Flux ≠ le meilleur pour le NSFW).",
+    "Retiens les conseils pratiques : quel modèle installer pour quoi.",
+    "Garde le glossaire pour tout terme inconnu (Q4, GGUF, LoRA, abliterated...)."
+  ],
+  "whyItMatters": [
+    "Tes audits : un modèle 'sans filtre' ne refuse pas d'écrire un PoC d'exploit ou d'analyser un contrat malveillant, là où Claude/ChatGPT bloquent parfois.",
+    "Ta confidentialité : en local, le code de tes clients ne quitte jamais ta machine — zéro fuite, zéro cloud.",
+    "Ton coût : une fois téléchargé, c'est gratuit et illimité, pas de facture API à chaque requête.",
+    "Ta vérité qui pique : même le meilleur modèle local tient ~72 % au SWE-bench contre 87,6 % pour Opus 4.7 — il rate les exploits subtils que Claude attrape.",
+    "Ta marge de manœuvre : tu peux finetuner ou brancher un RAG pour le spécialiser sur tes audits, ce que tu ne peux pas faire avec Claude."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k1-uncensored",
+      "title": "'Uncensored' / 'abliterated' = on a retiré le réflexe de refus",
+      "body": "Un modèle normal (aligned) refuse certains sujets. L'abliteration neutralise son 'circuit de refus' sans le réentraîner : il répond à tout. Utile en sécurité (PoC d'exploit, analyse de malware) où les refus te ralentissent. Petit coût : une légère perte de capacité, surtout en raisonnement.",
+      "sourceIds": ["s1", "s17"]
+    },
+    {
+      "id": "k2-quantization",
+      "title": "La quantization (Q4, Q8) = compresser le modèle pour qu'il rentre",
+      "body": "Un modèle est un gros paquet de nombres. La quantization réduit leur précision pour diviser la taille : Q8 ≈ quasi parfait mais lourd, Q4 ≈ moitié de taille (légère perte), Q2/Q3 ≈ très compressé et dégradé. Avec 128 Go, vise Q8 quand ça rentre, Q4 sinon.",
+      "sourceIds": ["s3", "s6"]
+    },
+    {
+      "id": "k3-moe",
+      "title": "MoE et 'paramètres actifs' : pourquoi un gros modèle peut être rapide",
+      "body": "Un MoE (Mixture of Experts) est une équipe d'experts : pour chaque mot, seuls quelques-uns 'parlent'. Qwen3-235B a 235 milliards de paramètres mais n'en active que 22 à la fois — lourd en RAM, mais rapide. D'où la règle : taille du fichier ≠ vitesse.",
+      "sourceIds": ["s4", "s6"]
+    },
+    {
+      "id": "k4-ce-que-tu-as",
+      "title": "Ce que tu as déjà : 4 modèles Qwen3",
+      "body": "Sur ta M5 : qwen3:30b (chat), qwen3-coder:30b (ton modèle code/audit), qwen3:235b-thinking (raisonnement lourd), nomic-embed-text (sert au RAG). Tous sont 'aligned' (censurés). Bonne nouvelle : chacun a un équivalent abliterated exact dans la même famille — tu gardes ce que tu connais, sans les refus.",
+      "sourceIds": ["s7", "s3"]
+    },
+    {
+      "id": "k5-ecart-claude",
+      "title": "L'écart réel avec Claude : triage, pas remplacement total",
+      "body": "Le meilleur qui tient dans 128 Go (Qwen3.5-122B) fait ~72 % au SWE-bench ; Opus 4.7 est à 87,6 %. Concrètement : le local gère 80 % du quotidien et le premier balayage, mais rate les exploits subtils qu'Opus attrape. Plan : local = première passe sans refus, Opus = la passe difficile.",
+      "sourceIds": ["s4", "s5", "s8"]
+    },
+    {
+      "id": "k6-finetune-rag",
+      "title": "Pour spécialiser : RAG d'abord, finetune ensuite",
+      "body": "Deux façons de spécialiser un modèle sur TES audits. Le RAG = lui donner une bibliothèque (rapports, CVE, détecteurs Slither) qu'il consulte à la volée : à jour, citable, pas cher. Le finetune (LoRA via MLX) = lui apprendre un STYLE de findings. Pour des faits qui changent, le RAG gagne. Commence par le RAG.",
+      "sourceIds": ["s14", "s15"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "concept-map", "id": "concept-map", "enabled": true },
+    { "kind": "comparison", "id": "comparison", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "arbre-decision",
+      "kind": "mermaid",
+      "code": "flowchart TD\n  Q{Ton besoin ?} --> CODE[Code / audit sans refus]\n  Q --> RAISON[Raisonnement lourd]\n  Q --> IMG[Images]\n  Q --> DUR[Audit vraiment difficile]\n  CODE --> C1[Qwen3-Coder-Next abliterated Q8 - 85 Go]\n  RAISON --> R1[Qwen3.5-122B abliterated - 81 Go]\n  IMG --> I1[Realiste + uncensored : Chroma1-HD]\n  IMG --> I2[Photo general : Z-Image Turbo]\n  DUR --> D1[Claude Opus 4.7 - reste le meilleur]\n  C1 -.local first pass.-> D1\n  R1 -.local first pass.-> D1",
+      "alt": "Arbre de décision : selon ton besoin (code/audit, raisonnement, images, ou audit difficile), quel modèle choisir. Le code va vers Qwen3-Coder-Next abliterated, le raisonnement vers Qwen3.5-122B abliterated, les images réalistes uncensored vers Chroma1-HD ou Z-Image Turbo, et les audits vraiment difficiles restent sur Claude Opus 4.7. Les modèles locaux servent de première passe avant d'escalader vers Opus."
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2025-11-25",
+      "title": "Black Forest Labs sort FLUX.2 [dev]",
+      "body": "Nouveau modèle d'images 32B, leader open-weights au lancement — mais entraîné avec un filtrage strict, conçu pour refuser le NSFW. Le plus puissant ET le plus censuré.",
+      "sourceIds": ["s11"]
+    },
+    {
+      "date": "2026-02-01",
+      "title": "Alibaba publie Qwen3-Coder-Next et Qwen3.5-122B-A10B",
+      "body": "Deux MoE qui tiennent dans 128 Go : Coder-Next (80B/3B actifs, SWE-bench 70,6) et le 122B/10B actifs (SWE-bench 72,0, le plus malin qui rentre).",
+      "sourceIds": ["s5", "s4"]
+    },
+    {
+      "date": "2026-02-15",
+      "title": "Versions abliterated dispo chez huihui-ai",
+      "body": "Les équivalents 'sans filtre' de toute la famille Qwen3 arrivent sur Ollama et Hugging Face, prêts à pull en une commande.",
+      "sourceIds": ["s1", "s3", "s7"]
+    },
+    {
+      "date": "2026-05-08",
+      "title": "HiDream-O1 prend la tête de l'arène images",
+      "body": "Modèle 8B open-weights, Elo 1191 sur l'arène Artificial Analysis — devant Qwen-Image (1159) et FLUX.2 (1158). Mais support Mac/Metal encore instable.",
+      "sourceIds": ["s12"]
+    },
+    {
+      "date": "2026-05-28",
+      "title": "Vérification live des tags (cette page)",
+      "body": "Tags et tailles confirmés sur Ollama/Hugging Face : qwen3-coder-next-abliterated (Q8 85 Go), qwen3.5-abliterated:122B (81 Go), Chroma1-HD pour les images uncensored.",
+      "sourceIds": ["s1", "s2", "s3", "s10"]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "actuel-vs-uncensored",
+      "title": "Ce que tu as → sa version uncensored (même famille)",
+      "columns": ["Modèle actuel", "Rôle", "Taille", "Version uncensored", "Taille", "Gain"],
+      "rows": [
+        {
+          "name": "qwen3-coder:30b",
+          "cells": {
+            "Modèle actuel": "qwen3-coder:30b",
+            "Rôle": "Code / audit (MoE 30B/3B)",
+            "Taille": "~19 Go (Q4)",
+            "Version uncensored": "huihui_ai/qwen3-coder-abliterated:30b-a3b-instruct-q8_0",
+            "Taille": "32 Go (Q8)",
+            "Gain": "Code sans refus, qualité Q8 quasi parfaite"
+          },
+          "sourceIds": ["s7"]
+        },
+        {
+          "name": "qwen3:30b",
+          "cells": {
+            "Modèle actuel": "qwen3:30b",
+            "Rôle": "Chat général (MoE 30B/3B)",
+            "Taille": "~19 Go (Q4)",
+            "Version uncensored": "huihui_ai/qwen3-abliterated:30b",
+            "Taille": "~19 Go",
+            "Gain": "Mêmes capacités, zéro refus"
+          },
+          "sourceIds": ["s3"]
+        },
+        {
+          "name": "qwen3:235b-thinking",
+          "cells": {
+            "Modèle actuel": "qwen3:235b-thinking",
+            "Rôle": "Raisonnement lourd (MoE 235B/22B)",
+            "Taille": "très serré",
+            "Version uncensored": "huihui_ai/qwen3-abliterated:235b",
+            "Taille": "112 Go (Q3)",
+            "Gain": "Raisonnement sans refus (tient juste, en Q3)"
+          },
+          "sourceIds": ["s3"]
+        },
+        {
+          "name": "nomic-embed-text",
+          "cells": {
+            "Modèle actuel": "nomic-embed-text",
+            "Rôle": "Embeddings (pour le RAG)",
+            "Taille": "~0,3 Go",
+            "Version uncensored": "— (pas concerné)",
+            "Taille": "—",
+            "Gain": "Les embeddings ne se censurent pas"
+          },
+          "sourceIds": ["s14"]
+        }
+      ]
+    },
+    {
+      "id": "upgrades-texte",
+      "title": "Upgrades texte qui tiennent dans 128 Go (vérifié mai 2026)",
+      "columns": ["Modèle", "Taille (fit 128 Go)", "SWE-bench", "Vitesse M5 Max", "Uncensored dispo"],
+      "rows": [
+        {
+          "name": "Qwen3.5-122B-A10B",
+          "cells": {
+            "Modèle": "Qwen3.5-122B-A10B",
+            "Taille (fit 128 Go)": "~70-81 Go ✅",
+            "SWE-bench": "72,0 (le + haut qui rentre)",
+            "Vitesse M5 Max": "55-66 tok/s",
+            "Uncensored dispo": "✅ huihui_ai/qwen3.5-abliterated:122B (81 Go)"
+          },
+          "sourceIds": ["s4", "s2", "s3"]
+        },
+        {
+          "name": "Qwen3-Coder-Next",
+          "cells": {
+            "Modèle": "Qwen3-Coder-Next",
+            "Taille (fit 128 Go)": "52 Go Q4 / 85 Go Q8 ✅",
+            "SWE-bench": "70,6",
+            "Vitesse M5 Max": "48-79 tok/s (le + rapide)",
+            "Uncensored dispo": "✅ huihui_ai/qwen3-coder-next-abliterated"
+          },
+          "sourceIds": ["s5", "s1", "s6"]
+        },
+        {
+          "name": "GLM-4.6",
+          "cells": {
+            "Modèle": "GLM-4.6",
+            "Taille (fit 128 Go)": "Q2/Q3 seulement, serré ⚠️",
+            "SWE-bench": "~68",
+            "Vitesse M5 Max": "lent",
+            "Uncensored dispo": "✅ Huihui-GLM-4.6-abliterated"
+          },
+          "sourceIds": ["s9"]
+        },
+        {
+          "name": "Claude Opus 4.7 (cloud, référence)",
+          "cells": {
+            "Modèle": "Claude Opus 4.7 (cloud, référence)",
+            "Taille (fit 128 Go)": "— (cloud)",
+            "SWE-bench": "87,6 (reste devant)",
+            "Vitesse M5 Max": "—",
+            "Uncensored dispo": "non — mais meilleur sur les audits durs"
+          },
+          "sourceIds": ["s8"]
+        }
+      ]
+    },
+    {
+      "id": "images",
+      "title": "Images : le meilleur réaliste & uncensored (tu n'en as aucun installé)",
+      "columns": ["Besoin", "Meilleur modèle (mai 2026)", "Uncensored ?", "Mac / Draw Things"],
+      "rows": [
+        {
+          "name": "Réaliste uncensored",
+          "cells": {
+            "Besoin": "Réaliste UNCENSORED (ton objectif)",
+            "Meilleur modèle (mai 2026)": "Chroma1-HD (8,9B, Flux dé-distillé)",
+            "Uncensored ?": "✅ totalement",
+            "Mac / Draw Things": "✅ supporté"
+          },
+          "sourceIds": ["s10", "s13"]
+        },
+        {
+          "name": "Réaliste léger",
+          "cells": {
+            "Besoin": "Réaliste uncensored léger/rapide",
+            "Meilleur modèle (mai 2026)": "Checkpoints SDXL (Lustify, Pony Realism, Juggernaut)",
+            "Uncensored ?": "✅",
+            "Mac / Draw Things": "✅ le + rapide"
+          },
+          "sourceIds": ["s13"]
+        },
+        {
+          "name": "Photo general",
+          "cells": {
+            "Besoin": "Photoréalisme général",
+            "Meilleur modèle (mai 2026)": "Z-Image Turbo (6B)",
+            "Uncensored ?": "limité",
+            "Mac / Draw Things": "✅ natif, ~2s/image"
+          },
+          "sourceIds": ["s13", "s12"]
+        },
+        {
+          "name": "A eviter NSFW",
+          "cells": {
+            "Besoin": "À ÉVITER pour le NSFW",
+            "Meilleur modèle (mai 2026)": "FLUX.2 [dev]",
+            "Uncensored ?": "❌ très censuré (filtré)",
+            "Mac / Draw Things": "✅ mais bloque"
+          },
+          "sourceIds": ["s11", "s12"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ex1-audit-sans-refus",
+      "title": "Auditer un contrat sans se faire refuser",
+      "body": "Tu demandes un PoC d'exploit de réentrance sur un contrat Solidity. Un modèle aligned peut répondre 'je ne peux pas aider à exploiter'. Avec qwen3-coder-next-abliterated (Q8, 85 Go), il écrit le PoC directement, en local, sans que ton code client sorte de la M5. Tu fais ta première passe vite, puis tu confirmes les cas tordus avec Opus.",
+      "sourceIds": ["s1", "s8"]
+    },
+    {
+      "id": "ex2-image-realiste",
+      "title": "Générer une image réaliste sans filtre",
+      "body": "Tu installes Draw Things et le modèle Chroma1-HD (8,9 Go, version dé-distillée de Flux, explicitement non censurée). Contrairement à FLUX.2 qui refuse, Chroma génère librement — dans le cadre légal : personnages fictifs uniquement, jamais de vraie personne, jamais de mineurs.",
+      "sourceIds": ["s10", "s11"]
+    },
+    {
+      "id": "ex3-rag-cve",
+      "title": "Donner à ton modèle une mémoire de failles (RAG)",
+      "body": "Tu indexes tes rapports d'audit, la base SWC/CVE et les détecteurs Slither dans une base vectorielle (avec nomic-embed-text que tu as déjà). Le modèle va y piocher des exemples réels à chaque question — citable et à jour, sans réentraînement. C'est le meilleur premier pas pour spécialiser, avant tout finetune.",
+      "sourceIds": ["s15", "s14"]
+    },
+    {
+      "id": "ex4-finetune-lora",
+      "title": "Finetuner le STYLE de tes findings (LoRA)",
+      "body": "Avec mlx-lm tu fais un LoRA sur un modèle 14-30B à partir de ~quelques centaines de paires question→finding au format Slither. Le modèle apprend ton format de rapport et tes scaffolds de PoC. Le full-finetune d'un gros modèle n'est pas réaliste sur 128 Go ; le LoRA/QLoRA, oui.",
+      "sourceIds": ["s14"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "an1-videur",
+      "setup": "L'abliteration, c'est comme retirer le videur à l'entrée d'un club.",
+      "takeaway": "Le club (le modèle) est le même à l'intérieur, mais plus personne ne te refuse l'entrée sur certains sujets. Petit effet de bord : sans videur, un peu de désordre — d'où la légère perte de qualité."
+    },
+    {
+      "id": "an2-mp3",
+      "setup": "La quantization, c'est comme compresser un WAV en MP3.",
+      "takeaway": "Q8 = MP3 320 kbps, tu n'entends presque pas la différence. Q4 = 128 kbps, correct. Q2 = 64 kbps, ça grésille. Avec 128 Go de RAM tu peux te permettre la haute qualité."
+    },
+    {
+      "id": "an3-equipe-experts",
+      "setup": "Un modèle MoE, c'est une salle pleine d'experts dont seuls 2-3 prennent la parole par question.",
+      "takeaway": "Tu paies la salle entière en RAM (235B), mais comme peu d'experts parlent à la fois (22B actifs), ça reste rapide. Gros à stocker, léger à faire tourner."
+    },
+    {
+      "id": "an4-mecano",
+      "setup": "Le local face à Claude, c'est le bon mécano du coin face au spécialiste moteur de course.",
+      "takeaway": "Le mécano du coin (local) règle 80 % des problèmes, vite et gratuitement chez toi. Pour la panne rare et vicieuse, tu emmènes la voiture au spécialiste (Opus 4.7)."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m1-plus-gros",
+      "myth": "Plus le modèle est gros, meilleur il est.",
+      "truth": "Faux si tu dois trop le compresser. Un 70-122B en Q8/Q6 bat souvent un 235B écrasé en Q3. Sur 128 Go, le bon compromis taille/quantization compte plus que le nombre brut de paramètres.",
+      "sourceIds": ["s4", "s6"]
+    },
+    {
+      "id": "m2-uncensored-aussi-bon",
+      "myth": "La version uncensored est exactement aussi bonne que l'originale.",
+      "truth": "Presque, mais pas tout à fait. L'abliteration coûte une petite perte mesurable, surtout en maths/raisonnement. Prends la version en haut quant (Q8/fp16) et valide sur tes propres cas d'audit.",
+      "sourceIds": ["s17"]
+    },
+    {
+      "id": "m3-remplace-claude",
+      "myth": "Un modèle local peut remplacer complètement Claude pour mes audits.",
+      "truth": "Pas pour le difficile. Le meilleur local fait ~72 % au SWE-bench contre 87,6 % pour Opus 4.7. Il sert de première passe rapide et sans refus ; garde Opus pour les exploits subtils.",
+      "sourceIds": ["s8", "s4"]
+    },
+    {
+      "id": "m4-flux-nsfw",
+      "myth": "Flux est le meilleur pour des images NSFW réalistes.",
+      "truth": "C'est l'inverse : FLUX.2 est le plus censuré (filtrage strict à l'entraînement, conçu pour refuser). Pour du réaliste uncensored, on utilise Chroma1-HD ou des checkpoints SDXL réalistes.",
+      "sourceIds": ["s11", "s10"]
+    },
+    {
+      "id": "m5-finetune-magique",
+      "myth": "Finetuner suffit à rendre le modèle expert de mes audits.",
+      "truth": "Le finetune apprend un STYLE, pas des faits qui changent. Pour les nouvelles failles/CVE, le RAG (récupération à la volée) est plus efficace et plus à jour. L'idéal est hybride : RAG pour les faits, LoRA léger pour le format.",
+      "sourceIds": ["s15", "s14"]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Aligned / censuré",
+      "definition": "Modèle entraîné à refuser certaines demandes (sujets sensibles, exploits). C'est l'état par défaut de la plupart des modèles, dont tes Qwen3 actuels."
+    },
+    {
+      "term": "Abliterated / uncensored",
+      "definition": "Modèle dont le 'circuit de refus' a été neutralisé après coup, sans réentraînement. Il répond à tout. Léger coût en qualité, surtout en raisonnement."
+    },
+    {
+      "term": "Quantization (Q4, Q8, fp16)",
+      "definition": "Compression du modèle en réduisant la précision des nombres. fp16 = pleine précision (lourd), Q8 = quasi parfait, Q4 = moitié de taille, Q2/Q3 = très compressé et dégradé."
+    },
+    {
+      "term": "GGUF",
+      "definition": "Format de fichier standard pour les modèles quantifiés tournant en local (Ollama, llama.cpp). C'est le 'conteneur' que tu télécharges et que tu pull."
+    },
+    {
+      "term": "MoE (Mixture of Experts)",
+      "definition": "Architecture où seule une fraction des paramètres ('actifs') travaille à chaque mot. Un MoE 235B/22B occupe la RAM d'un 235B mais a la vitesse d'un ~22B."
+    },
+    {
+      "term": "Paramètres actifs",
+      "definition": "Dans un MoE, le nombre de paramètres réellement utilisés par requête (ex : 22B sur 235B). C'est ce qui détermine la vitesse, pas le total."
+    },
+    {
+      "term": "Contexte (tokens)",
+      "definition": "La quantité de texte que le modèle lit d'un coup. Ces modèles gèrent jusqu'à 256 000 tokens, soit un gros dépôt de code ou des dizaines de fichiers."
+    },
+    {
+      "term": "SWE-bench Verified",
+      "definition": "Benchmark de référence qui mesure la capacité à résoudre de vrais bugs/tickets de code. Opus 4.7 ≈ 87,6 %, le meilleur local qui rentre ≈ 72 %."
+    },
+    {
+      "term": "tok/s (tokens par seconde)",
+      "definition": "Vitesse de génération. 48-79 tok/s (Qwen3-Coder-Next sur M5 Max) = très confortable, plus rapide que la lecture humaine."
+    },
+    {
+      "term": "RAG (Retrieval-Augmented Generation)",
+      "definition": "Donner au modèle une base de documents qu'il consulte à la volée (rapports, CVE). Idéal pour des faits à jour et citables, sans réentraîner le modèle."
+    },
+    {
+      "term": "LoRA / QLoRA (finetune)",
+      "definition": "Méthode légère pour ajuster un modèle sur tes données (style, format) sans tout réentraîner. Faisable en local via MLX sur des modèles jusqu'à ~30B (70B en QLoRA, lent)."
+    },
+    {
+      "term": "Embeddings",
+      "definition": "Transformation d'un texte en vecteur de nombres pour le RAG : permet de retrouver les documents proches d'une question. C'est le rôle de nomic-embed-text."
+    },
+    {
+      "term": "Draw Things",
+      "definition": "Application Mac gratuite pour générer des images en local sur le GPU Metal de l'Apple Silicon. Supporte Flux, Chroma, SDXL, Z-Image."
+    }
+  ],
+  "practicalTakeaways": [
+    "Pour ton daily driver d'audit : ollama pull huihui_ai/qwen3-coder-next-abliterated:q8_0 (85 Go) — rapide, sans refus, même famille que ce que tu connais.",
+    "Pour la qualité max qui tient : ollama pull huihui_ai/qwen3.5-abliterated:122B (81 Go) — le plus haut SWE-bench (72,0) qui rentre dans 128 Go.",
+    "Garde Claude Opus 4.7 pour la passe difficile : le local est ta première passe, pas ton remplaçant pour les exploits subtils.",
+    "Pour les images réalistes uncensored : Draw Things + Chroma1-HD (pas FLUX.2, qui est censuré). Cadre légal : adultes fictifs uniquement, jamais de vraie personne, jamais de mineurs.",
+    "Pour spécialiser sur tes audits : commence par un RAG (avec nomic-embed-text) sur tes rapports/CVE, ajoute un LoRA léger (mlx-lm) pour le format des findings ensuite.",
+    "Règle d'or quant : sur 128 Go, vise Q8 quand ça rentre, Q4 sinon — n'écrase en Q2/Q3 que pour faire entrer un géant comme le 235B."
+  ],
+  "sourceMap": [
+    {
+      "id": "s1",
+      "title": "Ollama — huihui_ai/qwen3-coder-next-abliterated (tags & tailles)",
+      "url": "https://ollama.com/huihui_ai/qwen3-coder-next-abliterated/tags",
+      "publisher": "Ollama / huihui-ai",
+      "publishedAt": "2026-02-15",
+      "fetchedAt": "2026-05-28",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Tags vérifiés : q4_K = 52 Go, q8_0 = 85 Go, fp16 = 159 Go",
+        "Contexte 256K",
+        "Version abliterated de Qwen3-Coder-Next"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s2",
+      "title": "Hugging Face — Huihui-Qwen3.5-122B-A10B-abliterated-GGUF",
+      "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.5-122B-A10B-abliterated-GGUF",
+      "publisher": "huihui-ai",
+      "publishedAt": "2026-02-20",
+      "fetchedAt": "2026-05-28",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Version abliterated de Qwen3.5-122B-A10B existe",
+        "GGUF splittés (à fusionner avec llama-gguf-split)"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s3",
+      "title": "Ollama — huihui_ai/qwen3.5-abliterated (122B = 81 Go)",
+      "url": "https://ollama.com/huihui_ai/qwen3.5-abliterated",
+      "publisher": "Ollama / huihui-ai",
+      "publishedAt": "2026-02-20",
+      "fetchedAt": "2026-05-28",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Tag 122B = 81 Go (tient dans 128 Go)",
+        "Famille Qwen3 abliterated dispo en pull direct"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s4",
+      "title": "Hugging Face — Qwen3.5-122B-A10B (carte officielle)",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B",
+      "publisher": "Alibaba / Qwen",
+      "publishedAt": "2026-02-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 10,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "MoE 122B total / 10B actifs",
+        "SWE-bench Verified 72,0",
+        "Licence Apache-2.0"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s5",
+      "title": "Hugging Face — Qwen3-Coder-Next (carte officielle)",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+      "publisher": "Alibaba / Qwen",
+      "publishedAt": "2026-02-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 10,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "MoE 80B total / 3B actifs",
+        "SWE-bench Verified 70,6",
+        "Compatible Claude Code / Cline / opencode"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s6",
+      "title": "The Byte Lab — benchmark local AI sur M5 Max (tok/s)",
+      "url": "https://thebytelab.com/m5-max-local-ai-benchmark-qwen/",
+      "publisher": "The Byte Lab",
+      "publishedAt": "2026-04-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 7,
+      "primary": false,
+      "provenance": "live",
+      "claims": [
+        "Qwen3-Coder-Next 8-bit : 48-79 tok/s génération sur M5 Max",
+        "Qwen3.5-122B 4-bit : 55-66 tok/s",
+        "MLX plus rapide que llama.cpp sur Apple Silicon"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s7",
+      "title": "Ollama — huihui_ai/qwen3-coder-abliterated (30B, tags)",
+      "url": "https://ollama.com/huihui_ai/qwen3-coder-abliterated/tags",
+      "publisher": "Ollama / huihui-ai",
+      "publishedAt": "2026-02-15",
+      "fetchedAt": "2026-05-28",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "30b-a3b-instruct-q8_0 = 32 Go (quasi-lossless)",
+        "Équivalent abliterated de qwen3-coder:30b"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s8",
+      "title": "TokenMix — SWE-bench 2026 : Claude Opus 4.7",
+      "url": "https://tokenmix.ai/blog/swe-bench-2026-claude-opus-4-7-wins",
+      "publisher": "TokenMix",
+      "publishedAt": "2026-05-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 7,
+      "primary": false,
+      "provenance": "live",
+      "claims": [
+        "Claude Opus 4.7 = 87,6 % SWE-bench Verified",
+        "Reste devant tout modèle exécutable en local sur 128 Go"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s9",
+      "title": "Hugging Face — Huihui-GLM-4.6-abliterated-GGUF",
+      "url": "https://huggingface.co/huihui-ai/Huihui-GLM-4.6-abliterated-GGUF",
+      "publisher": "huihui-ai",
+      "publishedAt": "2026-01-15",
+      "fetchedAt": "2026-05-28",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Version abliterated de GLM-4.6 (357B MoE)",
+        "Tient dans 128 Go seulement en Q2/Q3 (serré)"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s10",
+      "title": "Hugging Face — Chroma1-HD (Flux dé-distillé, uncensored)",
+      "url": "https://huggingface.co/lodestones/Chroma1-HD",
+      "publisher": "lodestones",
+      "publishedAt": "2026-03-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "8,9B, base FLUX.1-schnell dé-distillée",
+        "Explicitement non censurée, conçue comme base de finetune réaliste",
+        "Licence Apache, supportée par Draw Things"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s11",
+      "title": "Hugging Face — FLUX.2-dev (carte officielle)",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.2-dev",
+      "publisher": "Black Forest Labs",
+      "publishedAt": "2025-11-25",
+      "fetchedAt": "2026-05-28",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "32B, leader open-weights au lancement",
+        "Entraîné avec filtrage strict, conçu pour refuser le NSFW",
+        "Le plus puissant mais le plus censuré"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s12",
+      "title": "Artificial Analysis — Arène Text-to-Image (Elo)",
+      "url": "https://artificialanalysis.ai/image/leaderboard/text-to-image",
+      "publisher": "Artificial Analysis",
+      "publishedAt": "2026-05-14",
+      "fetchedAt": "2026-05-28",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "HiDream-O1 Elo 1191 (tête open-weights)",
+        "Qwen-Image 1159 > FLUX.2-dev 1158",
+        "L'arène mesure la préférence globale, pas le pur photoréalisme"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s13",
+      "title": "Draw Things — Z-Image Turbo & support Apple Silicon",
+      "url": "https://releases.drawthings.ai/p/quantify-z-image-turbo-efficiency",
+      "publisher": "Draw Things",
+      "publishedAt": "2026-01-10",
+      "fetchedAt": "2026-05-28",
+      "composite": 7,
+      "primary": false,
+      "provenance": "live",
+      "claims": [
+        "Z-Image Turbo (6B) : support natif Mac, ~2s/image",
+        "Draw Things tourne sur le GPU Metal de l'Apple Silicon",
+        "Supporte aussi Chroma et les checkpoints SDXL"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s14",
+      "title": "GitHub — mlx-lm LoRA (finetune sur Apple Silicon)",
+      "url": "https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md",
+      "publisher": "Apple / ml-explore",
+      "publishedAt": "2026-03-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 10,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "LoRA/QLoRA/full supportés ; familles Llama, Qwen2, Mistral, etc.",
+        "Données en JSONL (chat/completions), une ligne par exemple",
+        "Servir l'adaptateur via mlx_lm.fuse puis Ollama Modelfile"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s15",
+      "title": "IBM — RAG vs Fine-tuning",
+      "url": "https://www.ibm.com/think/topics/rag-vs-fine-tuning",
+      "publisher": "IBM",
+      "publishedAt": "2026-01-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 8,
+      "primary": false,
+      "provenance": "live",
+      "claims": [
+        "Le RAG est meilleur pour des faits à jour et citables",
+        "Le finetune embarque le style mais est fragile pour les faits changeants",
+        "L'approche hybride (RAG + LoRA léger) est recommandée"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s16",
+      "title": "Hugging Face Docs — exécuter un GGUF dans Ollama",
+      "url": "https://huggingface.co/docs/hub/ollama",
+      "publisher": "Hugging Face",
+      "publishedAt": "2026-01-01",
+      "fetchedAt": "2026-05-28",
+      "composite": 9,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "Syntaxe : ollama run hf.co/<repo>:<QUANT>",
+        "Permet de pull n'importe quel GGUF Hugging Face dans Ollama"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "s17",
+      "title": "arXiv — Analyse comparative des méthodes d'abliteration",
+      "url": "https://arxiv.org/pdf/2512.13655",
+      "publisher": "arXiv",
+      "publishedAt": "2026-01-20",
+      "fetchedAt": "2026-05-28",
+      "composite": 8,
+      "primary": true,
+      "provenance": "live",
+      "claims": [
+        "L'abliteration cause une dégradation petite mais réelle",
+        "Le raisonnement mathématique est le plus sensible (ex : GSM8K -7,81 pts)",
+        "Préférer les hauts quants et valider sur ses propres cas"
+      ],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "Les tags et tailles Ollama/Hugging Face bougent vite — re-vérifie sur la page du modèle avant chaque pull.",
+    "La version abliterated de Qwen3.5-122B existe en GGUF splittés sur Hugging Face (à fusionner) et en 81 Go sur Ollama ; confirme la variante avant de télécharger.",
+    "Les benchmarks SWE-bench des modèles Qwen sont issus des cartes officielles (auto-déclarés en partie) ; aucun benchmark spécifique 'audit smart-contract' n'existe — le local trône surtout sur le code général.",
+    "Les vitesses tok/s viennent d'un benchmark tiers sur M5 Max ; ton chiffre réel dépend du contexte et du quant.",
+    "Pour les images, le classement 'meilleur réaliste' est en partie subjectif : teste Chroma1-HD vs un checkpoint SDXL réaliste toi-même dans Draw Things.",
+    "Cadre légal des images : adultes fictifs uniquement — jamais de vraie personne identifiable sans consentement, jamais de mineurs."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 9,
+    "a11y": 8,
+    "ux": 8,
+    "performance": 8,
+    "securityPrivacy": 9,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}

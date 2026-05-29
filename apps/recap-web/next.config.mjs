@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  output: "standalone",
+  output: "export",
   transpilePackages: [
     "@recap-studio/content-pipeline",
     "@recap-studio/design-system",

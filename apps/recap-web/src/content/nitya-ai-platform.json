@@ -1,0 +1,351 @@
+{
+  "slug": "nitya-ai-platform",
+  "topic": "Nitya AI Platform — where we are, what's next",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-13T18:30:00.000Z",
+  "fixture": false,
+  "oneSentenceAnswer": "We are turning Nitya's 920 GB of property documents into eight AI agents that answer portfolio questions in seconds, and the data pipeline is now live and indexing every hour.",
+  "fiveMinutePath": [
+    "See the full data flow, from RealPage and OneDrive all the way to a question on a phone.",
+    "Know the eight agents and which are live, partial, or waiting on a third party.",
+    "Understand why this costs about $400 a month to run, not $40,000.",
+    "See the engineering tricks that kept the cost sane — dedup, text-first OCR, same-region compute.",
+    "Read the honest list of what works today and what is blocked on Karya, RealPage, and Juniper Square."
+  ],
+  "whyItMatters": [
+    "Right now, answering a portfolio question means a person opens spreadsheets and PDFs for hours. We are cutting that to seconds.",
+    "Every cost on this page is justified — the platform earns its keep by replacing analyst hours, not by impressing with tech.",
+    "The architecture keeps Nitya's raw data on Nitya infrastructure. Integra only sees the answers, never the source files."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k-pipeline",
+      "title": "One pipeline, four data sources",
+      "body": "RealPage gives us property data, OneDrive gives us the documents, Wells Fargo gives us the bank feed, and Juniper Square will give us investor data. Everything lands in one Postgres database that the agents query.",
+      "icon": "layers",
+      "sourceIds": [
+        "src-redesign-brief",
+        "src-claude-md"
+      ]
+    },
+    {
+      "id": "k-agents",
+      "title": "Eight agents, each owns one problem",
+      "body": "Reconciliation matches bank transactions to property records. Lease Analyzer reads leases. Compliance watches retention. They share the database but each has a specific job — no general-purpose AI doing everything.",
+      "icon": "brain",
+      "sourceIds": [
+        "src-claude-md",
+        "src-redesign-brief"
+      ]
+    },
+    {
+      "id": "k-dedup",
+      "title": "Dedup saved 25% of the work",
+      "body": "The same lease PDF was copied across 33 property folders. APTLEASE.pdf alone had 165 copies. We embed each unique file once, keyed by its hash. That saved roughly 3,875 redundant indexing runs.",
+      "icon": "trending-down",
+      "sourceIds": [
+        "src-redesign-brief"
+      ]
+    },
+    {
+      "id": "k-vision-fallback",
+      "title": "Text first, vision only if needed",
+      "body": "About two-thirds of PDFs have a text layer we read for free. Only one-third need Claude's vision model to OCR scanned pages. That is why the full T1 indexation costs about $5 instead of $50.",
+      "icon": "image",
+      "sourceIds": [
+        "src-redesign-brief"
+      ]
+    },
+    {
+      "id": "k-data-stays",
+      "title": "Data stays on Nitya's side",
+      "body": "The agent runs on Nitya infrastructure. PII is stripped before any data crosses to Integra. Each client gets a unique agent — non-replicable, audit-trailed, GDPR-friendly.",
+      "icon": "scroll",
+      "sourceIds": [
+        "src-claude-md"
+      ]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "compare", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "myths", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "concept-map",
+      "kind": "mermaid",
+      "alt": "Data flow from Karya RealPage and OneDrive into S3, then RDS Postgres with pgvector, then the eight AI agents, then a query from a phone.",
+      "code": "flowchart LR\n  RP[\"Karya RealPage\\n(SOAP API)\"] --> S3[\"S3 raw docs\\n920 GB, 1.1M files\"]\n  OD[\"OneDrive\\n(Nitya + Asset tenants)\"] --> S3\n  WF[\"Wells Fargo\\nbank feed\"] --> S3\n  JS[\"Juniper Square\\n(pending creds)\"] -.-> S3\n  S3 --> RDS[(\"Postgres + pgvector\\n33 properties, 9521 units,\\n6369 leases\")]\n  S3 --> EMB[\"Claude vision OCR\\n+ OpenAI embeddings\"]\n  EMB --> RDS\n  RDS --> A[\"8 AI agents\"]\n  A --> Q[\"Question on phone\\n(SSE answer in seconds)\"]\n  classDef live fill:#DCFCE7,stroke:#16A34A,color:#052E16;\n  classDef pending fill:#FEF3C7,stroke:#D97706,color:#451A03;\n  class RP,OD,WF,S3,RDS,EMB,A,Q live;\n  class JS pending;"
+    },
+    {
+      "id": "agent-query",
+      "kind": "mermaid",
+      "alt": "How a question on a phone reaches the right agent and returns an answer.",
+      "code": "sequenceDiagram\n  participant U as Exec on iPhone\n  participant API as FastAPI /api/query\n  participant R as Query Router\n  participant Ag as Lease Analyzer\n  participant DB as Postgres + pgvector\n  participant LLM as Claude Sonnet\n  U->>API: \"Find early-termination clauses at Caden\"\n  API->>R: Classify intent\n  R->>Ag: Route to lease agent\n  Ag->>DB: semantic_search() top-5 chunks\n  DB-->>Ag: Chunk text + file paths\n  Ag->>LLM: Synthesize with citations\n  LLM-->>U: Answer streamed back"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-03",
+      "title": "Approval to start",
+      "body": "Nitya approves the engagement after the interactive demo and the data architecture doc. 60-day clock starts.",
+      "sourceIds": ["src-claude-md"]
+    },
+    {
+      "date": "2026-04-16",
+      "title": "AWS cost cut from $5.5k to $2.2k a month",
+      "body": "Switched to t4g instances, single-AZ for non-prod, right-sized RDS. App Runner kept (not sunset). Cost story now defendable to the CFO.",
+      "sourceIds": ["src-redesign-brief"]
+    },
+    {
+      "date": "2026-04-28",
+      "title": "Systemd watchdog fix",
+      "body": "rclone sync worker SIGTERM'd silently and sat dormant for 19 hours. Restart=always added; no more gaps.",
+      "sourceIds": ["src-redesign-brief"]
+    },
+    {
+      "date": "2026-05-13",
+      "title": "T1 indexation at 6.1%",
+      "body": "713 of 11,773 unique PDFs embedded, 10,714 chunks vectorized, $5.36 spent. About 37 more hours to finish T1 at current rate.",
+      "sourceIds": ["src-redesign-brief"]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "agents-status",
+      "title": "Where each agent stands",
+      "columns": ["Agent", "What it does", "Status"],
+      "rows": [
+        {
+          "name": "Reconciliation",
+          "cells": {
+            "Agent": "Reconciliation",
+            "What it does": "Matches bank transactions to property records. Already measured 480 minutes manual → 23 minutes AI on the Establishment March 2026 run.",
+            "Status": "Live"
+          },
+          "sourceIds": ["src-claude-md"]
+        },
+        {
+          "name": "Lease Analyzer",
+          "cells": {
+            "Agent": "Lease Analyzer",
+            "What it does": "Renewal dates, escalation clauses, early-termination terms. Reads the lease PDFs directly.",
+            "Status": "Partial — waiting on RealPage RetrieveLeaseEndingInfo fix"
+          },
+          "sourceIds": ["src-redesign-brief"]
+        },
+        {
+          "name": "Compliance Monitor",
+          "cells": {
+            "Agent": "Compliance Monitor",
+            "What it does": "Watches W-9s, insurance certificates, document retention windows.",
+            "Status": "Live"
+          },
+          "sourceIds": ["src-claude-md"]
+        },
+        {
+          "name": "Occupancy Tracker",
+          "cells": {
+            "Agent": "Occupancy Tracker",
+            "What it does": "Unit status, vacancy prediction across 6,147 units.",
+            "Status": "Live"
+          },
+          "sourceIds": ["src-claude-md"]
+        },
+        {
+          "name": "Vendor Monitor",
+          "cells": {
+            "Agent": "Vendor Monitor",
+            "What it does": "Flags invoice rate variance against historical norms.",
+            "Status": "Partial"
+          },
+          "sourceIds": ["src-claude-md"]
+        },
+        {
+          "name": "Financial Reporter",
+          "cells": {
+            "Agent": "Financial Reporter",
+            "What it does": "NOI, budget variance, monthly close.",
+            "Status": "Stub — waiting on RealPage GL/AP endpoint"
+          },
+          "sourceIds": ["src-redesign-brief"]
+        },
+        {
+          "name": "Maintenance Predictor",
+          "cells": {
+            "Agent": "Maintenance Predictor",
+            "What it does": "Work-order analysis, preventive scheduling.",
+            "Status": "Partial — waiting on Facilities API migration"
+          },
+          "sourceIds": ["src-redesign-brief"]
+        },
+        {
+          "name": "Investor Reporter",
+          "cells": {
+            "Agent": "Investor Reporter",
+            "What it does": "Quarterly reports, distribution waterfall.",
+            "Status": "Stub — waiting on Juniper Square credentials"
+          },
+          "sourceIds": ["src-redesign-brief"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "e-recon",
+      "title": "Reconcile a month of Establishment bank statements",
+      "body": "Used to take roughly 8 hours of analyst time. The agent does it in 23 minutes with 95% match accuracy on the March 2026 run. Saved hours go straight to portfolio rollout potential.",
+      "sourceIds": ["src-claude-md"]
+    },
+    {
+      "id": "e-lease",
+      "title": "Find the early-termination clause at Caden",
+      "body": "The exec types it on their phone. The Lease Analyzer searches every lease at Caden semantically, returns the relevant chunks, and cites the source PDFs. Seconds, not hours.",
+      "sourceIds": ["src-redesign-brief"]
+    },
+    {
+      "id": "e-compliance",
+      "title": "Which insurance certificates expire this quarter?",
+      "body": "The Compliance Monitor watches the document corpus and flags anything coming due, with the file path so legal can pull it up directly.",
+      "sourceIds": ["src-claude-md"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "a-librarian",
+      "setup": "Picture a brilliant librarian who has read every document in Nitya's portfolio.",
+      "takeaway": "You ask a question in plain English. They walk to the right shelf, pull the right page, and read you the relevant paragraph. That is what the platform does, eight times over, one librarian per topic."
+    },
+    {
+      "id": "a-thermostat",
+      "setup": "The platform is not a chatbot — it is a thermostat.",
+      "takeaway": "It runs in the background, watches the data, and only speaks when something is off. Vacancy spike, missed reconciliation, expiring W-9 — those are the alerts. The chat is just one of the surfaces."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m-blackbox",
+      "myth": "AI is a black box; we will not know where the answer came from.",
+      "truth": "Every agent answer cites the chunks and the source PDFs by file path. You can click through to the original document for any number on the page.",
+      "sourceIds": ["src-redesign-brief"]
+    },
+    {
+      "id": "m-replaces-people",
+      "myth": "The agents replace the portfolio team.",
+      "truth": "They replace the manual parts. Asana, spreadsheet copy-paste, hunting through OneDrive. The team stays, but they spend their time on judgment calls instead of plumbing.",
+      "sourceIds": ["src-claude-md"]
+    },
+    {
+      "id": "m-data-leaves",
+      "myth": "Our data has to leave the building for AI to work.",
+      "truth": "It does not. The agent runs on Nitya's infrastructure. PII is stripped before anything crosses to Integra. Integra never stores raw client data.",
+      "sourceIds": ["src-claude-md"]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "agent",
+      "definition": "A focused program that uses an AI model plus database queries to do one job — like reconciliation or lease analysis."
+    },
+    {
+      "term": "embedding",
+      "definition": "A way to turn a paragraph of text into a list of numbers so the database can find paragraphs that mean the same thing, not just match the same words."
+    },
+    {
+      "term": "pgvector",
+      "definition": "A Postgres extension that stores embeddings and finds the closest matches fast. We use it instead of a separate vector database."
+    },
+    {
+      "term": "RAG",
+      "definition": "Retrieval-Augmented Generation — fetch the right chunks of a document first, then let the AI answer using only those chunks. Cuts hallucination."
+    },
+    {
+      "term": "T1",
+      "definition": "The first priority slice of documents — leases, compliance, regulatory, evictions. About 11,773 unique PDFs across the two Asset OneDrive tenants."
+    },
+    {
+      "term": "OCR",
+      "definition": "Optical character recognition — reading text out of scanned image pages. We only do it when a PDF has no text layer."
+    },
+    {
+      "term": "SSE",
+      "definition": "Server-sent events — the channel that streams an agent's answer back to the phone token by token so it feels instant."
+    }
+  ],
+  "practicalTakeaways": [
+    "Data pipeline is live and indexing at about 300 documents per hour. T1 finishes in roughly 37 more hours.",
+    "Reconciliation is the proof point: 480 minutes of analyst work compressed to 23 minutes on the March 2026 Establishment run.",
+    "Total infrastructure cost is about $400 a month, against service pricing of $5,000–$15,000 a month. Margin is 92–97%.",
+    "Blockers that are not on our side: Karya web-service user for GL/AP, RealPage RetrieveLeaseEndingInfo fix, Juniper Square credentials. Each is owned by a named contact.",
+    "The 60-day clock from the engagement approval ends late May. Reconciliation Agent demo is the contract close trigger."
+  ],
+  "sourceMap": [
+    {
+      "id": "src-redesign-brief",
+      "title": "Nitya Hub Redesign Brief",
+      "url": "internal://nitya-capital/docs/HUB_REDESIGN_BRIEF.md",
+      "publisher": "Adam Boudjemaa (Integra)",
+      "publishedAt": "2026-05-13",
+      "composite": 10,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "live",
+      "summary": "Internal brief with verified live numbers from AWS, RealPage, and the embed-status feed. Authoritative for current pipeline state.",
+      "claims": [
+        "920.7 GiB across 1.12M files synced",
+        "713 of 11,773 unique T1 PDFs embedded ($5.36 spent)",
+        "Systemd Restart=always added after the April 28 dormant-worker incident"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-claude-md",
+      "title": "Nitya Capital project CLAUDE.md",
+      "url": "internal://nitya-capital/CLAUDE.md",
+      "publisher": "Adam Boudjemaa (Integra)",
+      "publishedAt": "2026-03-31",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 4,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "live",
+      "summary": "Project context: client, agents, architecture decisions, pricing strategy, design system, retired metrics.",
+      "claims": [
+        "Reconciliation measured 480 min manual → 23 min AI on Establishment March 2026",
+        "Three-entity GDPR model — client DB → processing → AI",
+        "Infrastructure ~$400/mo, service pricing $5k–$15k/mo"
+      ],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "Indexation progress numbers (713 / 11,773, $5.36) are last-known from the May 13 brief. The live S3 embed-status feed is the source of truth and may have advanced.",
+    "Retired metrics ($1.4M/yr savings, 212 hours/month, 5,769 active leases) are explicitly NOT used here — they were superseded in ground-truth.json deltas_against_demo_v3."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 9,
+    "a11y": 9,
+    "ux": 8,
+    "performance": 9,
+    "securityPrivacy": 10,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}

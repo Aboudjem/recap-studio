@@ -38,7 +38,16 @@ function defaultContentPath() {
   }
   const live = resolve(repoRoot, "apps", "recap-web", "src", "content", `${slug}.json`);
   if (existsSync(live)) return live;
-  return resolve(repoRoot, "fixtures", "topics", `${slug}.json`);
+  // Active slug has no content file. The renderer silently falls back to
+  // the fixture, which masks the drift. Warn loudly so the user knows.
+  // See docs/known-issues.md#active-slug-silent-fallback.
+  const fixture = resolve(repoRoot, "fixtures", "topics", `${slug}.json`);
+  console.warn(
+    `recap-studio: active slug "${slug}" has no content file at ` +
+      `apps/recap-web/src/content/${slug}.json — falling back to ` +
+      `${existsSync(fixture) ? "fixture " + fixture : "(no fixture either)"}.`,
+  );
+  return fixture;
 }
 
 const argPath = process.argv[2];

@@ -57,8 +57,33 @@ between steps, not raw dumps.
    takeaways. Every important claim must reference at least one source id.
 6. **visual-story-designer** — define visual concept, section rhythm,
    diagrams (Mermaid or SVG), comparisons, timeline.
-7. **frontend-builder** — emit `apps/recap-web/src/content/<slug>.json` and
-   make sure `apps/recap-web/src/app/page.tsx` reads it via `loadContent()`.
+
+### Target repo resolution (do this BEFORE step 7)
+
+The skill must resolve a writable repo root before any file write.
+Resolution order:
+
+1. `$RECAP_STUDIO_ROOT` if set and contains a `package.json` named
+   `"recap-studio"`.
+2. `~/projects/recap-studio` if it is a git checkout of the recap-studio
+   repo.
+3. `process.cwd()` if it looks like a recap-studio checkout (has
+   `apps/recap-web/package.json`).
+4. **Fallback only:** the plugin cache at
+   `~/.claude/plugins/cache/10x/recap-studio/<version>/`. If this is
+   the chosen target, the final report MUST contain a one-line warning:
+   "wrote to plugin cache — content is ephemeral; clone the fork to
+   persist".
+
+Echo the resolved root in the final report so future drift is visible
+in the transcript. See `docs/known-issues.md#plugin-cache-write-target`.
+
+7. **frontend-builder** — emit `<root>/apps/recap-web/src/content/<slug>.json`
+   AND update `<root>/apps/recap-web/src/lib/active-content.json` so the
+   page renders the new slug. Both writes must happen in the same step;
+   writing only the content file leaves the renderer pointed at the
+   previous slug and the silent-fallback bug at
+   `docs/known-issues.md#active-slug-silent-fallback` reappears.
 8. **Validation board (parallel):** fact-checker, beginner-reviewer,
    accessibility-reviewer, ux-design-reviewer, performance-reviewer,
    security-privacy-reviewer, skeptical-reviewer.

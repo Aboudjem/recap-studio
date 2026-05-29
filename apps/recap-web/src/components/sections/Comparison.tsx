@@ -15,7 +15,7 @@ export function Comparison({ content }: Props) {
     <Section id="compare" eyebrow="Side by side" title="Compare the options">
       {blocks.map((c) => (
         <div key={c.id} className="space-y-6">
-          <h3 className="font-display text-lg">{c.title}</h3>
+          <h3 className="font-sans text-lg">{c.title}</h3>
 
           {/* Cards on small screens */}
           <div className="grid gap-3 md:hidden">

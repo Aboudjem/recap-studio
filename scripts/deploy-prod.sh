@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # Recap Studio — Vercel PRODUCTION deploy.
+#
 # Off by default. Requires:
 #   1. recap-studio.config.ts -> deploymentMode = "production-with-confirmation"
 #   2. RECAP_USER_CONFIRMED_PROD_DEPLOY=1
 #   3. The Claude Code hook `validate-before-deploy` will block otherwise.
+#
+# Strategy: same prebuilt flow as preview. See deploy-preview.sh for why.
 
 set -euo pipefail
 
@@ -30,5 +33,14 @@ if ! command -v vercel >/dev/null 2>&1; then
   exit 2
 fi
 
-echo "recap-studio: deploying recap-web to production..."
-exec vercel deploy apps/recap-web --prod --yes
+APP_DIR="$ROOT/apps/recap-web"
+if [[ ! -d "$APP_DIR" ]]; then
+  echo "recap-studio: apps/recap-web not found." >&2
+  exit 2
+fi
+
+echo "recap-studio: building locally for PRODUCTION (vercel build --prod)..."
+( cd "$APP_DIR" && vercel build --prod --yes )
+
+echo "recap-studio: uploading prebuilt output to Vercel (prod)..."
+exec sh -c "cd '$APP_DIR' && vercel deploy --prebuilt --prod --yes"

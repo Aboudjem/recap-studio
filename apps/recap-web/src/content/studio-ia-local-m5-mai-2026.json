@@ -1,0 +1,419 @@
+{
+  "slug": "studio-ia-local-m5-mai-2026",
+  "topic": "Meilleurs modèles IA locaux pour M5 Max 128 Go — confirmé mai 2026",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-28T00:00:00Z",
+  "fixture": false,
+  "oneSentenceAnswer": "Sur ta M5 Max 128 Go tu peux tout faire en local — texte, image, vidéo, musique, voix, logos — voici le meilleur modèle par catégorie, re-confirmé en mai 2026.",
+  "fiveMinutePath": [
+    "Lis 'Pourquoi ça compte' : ce que le local t'apporte (et ses limites).",
+    "Comprends les 6 idées-clés : runtime, uncensored, quantization, l'écart avec Claude.",
+    "Parcours les 6 tableaux : le meilleur modèle par catégorie (texte → logos).",
+    "Regarde les exemples concrets : audit sans refus, remix lofi, logo, vidéo.",
+    "Démêle les idées reçues (plus gros ≠ mieux, Flux ≠ meilleur NSFW).",
+    "Retiens les conseils pratiques : quoi installer pour quoi.",
+    "Garde le glossaire pour les termes (Q4, GGUF, MoE, abliterated...)."
+  ],
+  "whyItMatters": [
+    "Tes audits : un modèle uncensored ne refuse pas un PoC d'exploit ou l'analyse d'un contrat malveillant.",
+    "Ta confidentialité : tout tourne en local, le code de tes clients ne quitte jamais la machine.",
+    "Ton coût : une fois téléchargés, les modèles sont gratuits et illimités, zéro facture API.",
+    "Tes limites : même le meilleur local (~72 % SWE-bench) reste sous Claude Opus 4.7 (87,6 %) pour les audits durs.",
+    "Ta créativité : image, vidéo, musique, voix, logos — tout est faisable hors-ligne sur la M5 Max."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k1-runtime",
+      "title": "Le runtime compte autant que le modèle",
+      "body": "Chaque tâche a son moteur : Ollama pour le texte, Draw Things pour image ET vidéo (Metal natif), mlx-audio pour la voix, ACE-Step pour la musique. Un modèle d'image ne tourne pas dans Ollama, et sur Mac la vidéo n'est viable que dans Draw Things, pas ComfyUI.",
+      "sourceIds": ["s13", "s18"]
+    },
+    {
+      "id": "k2-uncensored",
+      "title": "Uncensored / abliterated = refus retirés",
+      "body": "L'abliteration neutralise le 'circuit de refus' d'un modèle sans le réentraîner : il répond à tout. Utile pour la sécurité (exploits, analyse de malware). Petit coût : une légère perte de capacité, surtout en raisonnement. Pour les images, on préfère un modèle dé-distillé comme Chroma.",
+      "sourceIds": ["s5", "s6"]
+    },
+    {
+      "id": "k3-quant",
+      "title": "Quantization : Q8 si ça rentre, Q4 sinon",
+      "body": "La quantization compresse le modèle. Q8 ≈ quasi parfait mais lourd, Q4 ≈ moitié de taille, Q2/Q3 ≈ dégradé. Avec 128 Go tu peux te permettre la haute qualité : vise Q8 quand le modèle rentre, Q4 sinon, et n'écrase en Q2/Q3 que pour un géant.",
+      "sourceIds": ["s3"]
+    },
+    {
+      "id": "k4-gap-claude",
+      "title": "Local ≠ Claude pour le difficile",
+      "body": "Le meilleur modèle qui tient (Qwen3-Coder-Next, SWE 70,6 ; Qwen3.5-122B, SWE 72,4) reste sous Opus 4.7 (87,6 %). Le local gère 80 % du quotidien et le premier balayage d'un audit, mais rate les exploits subtils. Plan : local = triage sans refus, Opus = adjudication.",
+      "sourceIds": ["s1", "s2", "s4"]
+    },
+    {
+      "id": "k5-video-lente",
+      "title": "La vidéo locale est lente — et Draw Things only",
+      "body": "Les meilleurs modèles vidéo (LTX, Wan, Hunyuan) sont CUDA-first ; sur Mac ils ne sont pratiques que via Draw Things (Metal), pas ComfyUI où MPS casse. Compte plusieurs minutes par clip court basse-déf. Le M5 est le meilleur cas Mac (~4,6x vs M4), mais ça reste lent.",
+      "sourceIds": ["s11", "s13"]
+    },
+    {
+      "id": "k6-cloud-vs-local",
+      "title": "Cloud vs local pour le créatif",
+      "body": "Pour la musique et les logos, le cloud (Suno/Udio, Recraft V4) est plus simple et souvent meilleur — mais payant et non privé. Le local (ACE-Step, Qwen-Image) est gratuit, hors-ligne et sans règles de contenu. Choisis selon que tu privilégies la simplicité ou la confidentialité.",
+      "sourceIds": ["s14", "s21"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "concept-map", "id": "concept-map", "enabled": true },
+    { "kind": "comparison", "id": "comparison", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "carte-studio-local",
+      "kind": "mermaid",
+      "code": "flowchart TD\n  M[M5 Max 128 Go] --> T[Texte/Audit]\n  M --> I[Image]\n  M --> V[Video]\n  M --> A[Musique/Remix]\n  M --> S[Voix]\n  M --> L[Logo/SVG]\n  T --> T1[Qwen3-Coder-Next abliterated - Ollama]\n  I --> I1[Chroma1-HD - Draw Things]\n  V --> V1[LTX-2.3 / Wan 2.2 - Draw Things]\n  A --> A1[demucs-mlx + ACE-Step 1.5]\n  S --> S1[Kokoro / Chatterbox - mlx-audio]\n  L --> L1[Qwen-Image -> Potrace/VTracer]\n  T1 -.audit dur.-> C[Claude Opus 4.7 cloud]",
+      "alt": "Carte du studio IA local sur M5 Max 128 Go : depuis la machine, six branches vers Texte/Audit (Qwen3-Coder-Next abliterated via Ollama), Image (Chroma1-HD via Draw Things), Vidéo (LTX-2.3 ou Wan 2.2 via Draw Things), Musique/Remix (demucs-mlx + ACE-Step 1.5), Voix (Kokoro ou Chatterbox via mlx-audio), et Logo/SVG (Qwen-Image puis vectorisation Potrace/VTracer). Le texte escalade vers Claude Opus 4.7 dans le cloud pour les audits difficiles."
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "texte",
+      "title": "TEXTE / LLM — code & audit (uncensored)",
+      "columns": ["Modèle", "Rôle", "Taille / fit 128 Go", "SWE-bench", "Uncensored"],
+      "rows": [
+        {
+          "name": "Qwen3-Coder-Next",
+          "cells": {
+            "Modèle": "Qwen3-Coder-Next",
+            "Rôle": "Daily driver coder/agentique (79 tok/s)",
+            "Taille / fit 128 Go": "52 Go Q4 / 85 Go Q8 ✅",
+            "SWE-bench": "70,6",
+            "Uncensored": "✅ huihui_ai/qwen3-coder-next-abliterated"
+          },
+          "sourceIds": ["s1", "s3", "s5"]
+        },
+        {
+          "name": "Qwen3.5-122B-A10B",
+          "cells": {
+            "Modèle": "Qwen3.5-122B-A10B",
+            "Rôle": "Fallback raisonnement (60-66 tok/s)",
+            "Taille / fit 128 Go": "~72-81 Go ✅",
+            "SWE-bench": "72,4",
+            "Uncensored": "✅ huihui_ai/qwen3.5-abliterated:122B"
+          },
+          "sourceIds": ["s2", "s3"]
+        },
+        {
+          "name": "GLM-4.5-Air",
+          "cells": {
+            "Modèle": "GLM-4.5-Air",
+            "Rôle": "Généraliste rapide (superseded)",
+            "Taille / fit 128 Go": "~60-65 Go (4-bit) ✅",
+            "SWE-bench": "plus bas que les Qwen",
+            "Uncensored": "✅ Huihui-GLM-4.5-Air-abliterated"
+          },
+          "sourceIds": ["s3"]
+        },
+        {
+          "name": "Claude Opus 4.7 (cloud, référence)",
+          "cells": {
+            "Modèle": "Claude Opus 4.7 (cloud, référence)",
+            "Rôle": "Reste devant pour les audits durs",
+            "Taille / fit 128 Go": "— (cloud)",
+            "SWE-bench": "87,6",
+            "Uncensored": "non"
+          },
+          "sourceIds": ["s4"]
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "title": "IMAGE — réaliste & uncensored",
+      "columns": ["Modèle", "Pour quoi", "Uncensored", "Mac"],
+      "rows": [
+        {
+          "name": "Chroma1-HD",
+          "cells": { "Modèle": "Chroma1-HD", "Pour quoi": "Réaliste uncensored next-gen (Flux)", "Uncensored": "✅ total", "Mac": "Draw Things ✅" },
+          "sourceIds": ["s6"]
+        },
+        {
+          "name": "Lustify (SDXL)",
+          "cells": { "Modèle": "Lustify (SDXL)", "Pour quoi": "Vote communauté #1, léger/rapide", "Uncensored": "✅", "Mac": "Draw Things ✅" },
+          "sourceIds": ["s8"]
+        },
+        {
+          "name": "Juggernaut XL / CyberRealistic XL",
+          "cells": { "Modèle": "Juggernaut XL / CyberRealistic XL", "Pour quoi": "Réaliste polyvalent (~18M DL)", "Uncensored": "✅ (via LoRA)", "Mac": "Draw Things ✅" },
+          "sourceIds": ["s9"]
+        },
+        {
+          "name": "Z-Image-Turbo",
+          "cells": { "Modèle": "Z-Image-Turbo", "Pour quoi": "Photoréalisme rapide (sub-1s M5)", "Uncensored": "base non alignée", "Mac": "Draw Things natif ✅" },
+          "sourceIds": ["s10"]
+        },
+        {
+          "name": "FLUX.2-dev",
+          "cells": { "Modèle": "FLUX.2-dev", "Pour quoi": "Meilleure qualité brute", "Uncensored": "❌ censuré", "Mac": "lourd (32B)" },
+          "sourceIds": ["s7"]
+        }
+      ]
+    },
+    {
+      "id": "video",
+      "title": "VIDÉO — local (Draw Things = seul runtime Mac viable)",
+      "columns": ["Modèle", "Note", "Mac"],
+      "rows": [
+        {
+          "name": "LTX-2.3",
+          "cells": { "Modèle": "LTX-2.3 (Lightricks)", "Note": "#1 open arène, audio joint, runtime MLX dédié", "Mac": "Draw Things ✅ / ltx-video-mac" },
+          "sourceIds": ["s11", "s12"]
+        },
+        {
+          "name": "Wan 2.2 14B",
+          "cells": { "Modèle": "Wan 2.2 14B (Alibaba)", "Note": "Meilleure qualité/mouvement (128 Go lève les limites)", "Mac": "Draw Things ✅" },
+          "sourceIds": ["s13"]
+        },
+        {
+          "name": "HunyuanVideo 1.5",
+          "cells": { "Modèle": "HunyuanVideo 1.5 (Tencent)", "Note": "À zapper sur Mac (pas de support 1ère classe)", "Mac": "⚠️ instable" },
+          "sourceIds": ["s13"]
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "title": "AUDIO — remix mp3 par texte (ex. lofi/jazz)",
+      "columns": ["Outil", "Rôle", "Note"],
+      "rows": [
+        {
+          "name": "ACE-Step 1.5",
+          "cells": { "Outil": "ACE-Step 1.5", "Rôle": "Upload + restyle texte (audio2audio/cover)", "Note": "Meilleur local, MIT, natif Mac MLX" },
+          "sourceIds": ["s14"]
+        },
+        {
+          "name": "demucs-mlx",
+          "cells": { "Outil": "demucs-mlx", "Rôle": "Séparer les pistes (voix/batterie/basse)", "Note": "~73x temps réel (PAS le Demucs vanilla)" },
+          "sourceIds": ["s15"]
+        },
+        {
+          "name": "Stable Audio 3",
+          "cells": { "Outil": "Stable Audio 3 (challenger)", "Rôle": "Génération/édition fidélité supérieure", "Note": "Sorti 26 mai 2026 ; édition = inpainting, pas restyle complet" },
+          "sourceIds": ["s16"]
+        },
+        {
+          "name": "Udio (cloud)",
+          "cells": { "Outil": "Udio (cloud)", "Rôle": "Upload + décris le remix (le + simple)", "Note": "> Suno pour le restyle ; payant, non privé" },
+          "sourceIds": ["s21"]
+        }
+      ]
+    },
+    {
+      "id": "voix",
+      "title": "VOIX — TTS & transcription (STT)",
+      "columns": ["Modèle", "Type", "Note"],
+      "rows": [
+        {
+          "name": "Kokoro-82M",
+          "cells": { "Modèle": "Kokoro-82M", "Type": "TTS rapide", "Note": "Apache, natif MLX, le défaut (pas de clonage)" },
+          "sourceIds": ["s17", "s18"]
+        },
+        {
+          "name": "Chatterbox",
+          "cells": { "Modèle": "Chatterbox", "Type": "TTS clonage", "Note": "Meilleur clonage de voix (Turbo sur MLX)" },
+          "sourceIds": ["s18"]
+        },
+        {
+          "name": "Qwen3-TTS / Fish Audio S2 Pro",
+          "cells": { "Modèle": "Qwen3-TTS / Fish Audio S2 Pro", "Type": "TTS montants 2026", "Note": "À tester ; Fish #1 open sur l'arène" },
+          "sourceIds": ["s17"]
+        },
+        {
+          "name": "whisper.cpp large-v3-turbo",
+          "cells": { "Modèle": "whisper.cpp large-v3-turbo", "Type": "STT (transcription)", "Note": "Défaut multilingue (99 langues) — tu l'as déjà" },
+          "sourceIds": ["s22"]
+        },
+        {
+          "name": "parakeet-mlx / FluidAudio",
+          "cells": { "Modèle": "parakeet-mlx / FluidAudio CoreML", "Type": "STT rapide", "Note": "Le + rapide en anglais (Neural Engine ~0,19s)" },
+          "sourceIds": ["s22"]
+        }
+      ]
+    },
+    {
+      "id": "logo",
+      "title": "LOGO / SVG / LOTTIE",
+      "columns": ["Besoin", "Meilleur", "Comment"],
+      "rows": [
+        {
+          "name": "Logo",
+          "cells": { "Besoin": "Logo HQ", "Meilleur": "Qwen-Image (local) → vectoriser", "Comment": "Potrace (2 couleurs) / VTracer (couleur). Cloud : Recraft V4" },
+          "sourceIds": ["s19"]
+        },
+        {
+          "name": "SVG",
+          "cells": { "Besoin": "SVG / vecteur", "Meilleur": "LLM qui écrit le code (Qwen-Coder)", "Comment": "OmniSVG 1.1 4B pour de l'image→vecteur illustration" },
+          "sourceIds": ["s19"]
+        },
+        {
+          "name": "SVG animé",
+          "cells": { "Besoin": "SVG animé", "Meilleur": "LLM → SVG + CSS", "Comment": "CSS keyframes (meilleur support que SMIL)" },
+          "sourceIds": ["s20"]
+        },
+        {
+          "name": "Lottie",
+          "cells": { "Besoin": "Lottie (JSON anim)", "Meilleur": "OmniLottie (réel) ou LLM écrit le JSON", "Comment": "OmniLottie CUDA-only → port MPS requis ; sinon LottieFiles AI" },
+          "sourceIds": ["s20"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ex1-audit",
+      "title": "Auditer un contrat sans se faire refuser",
+      "body": "Tu demandes un PoC d'exploit de réentrance. Un modèle aligned refuse ; qwen3-coder-next-abliterated (Q8, 85 Go) l'écrit direct, en local, sans que le code client sorte de la M5. Première passe rapide, puis tu confirmes les cas tordus avec Opus 4.7.",
+      "sourceIds": ["s5", "s4"]
+    },
+    {
+      "id": "ex2-remix",
+      "title": "Remixer un mp3 en lofi",
+      "body": "Tu sépares les pistes avec demucs-mlx, tu gardes la voix, puis ACE-Step 1.5 en mode cover/audio2audio régénère l'instru avec le prompt 'lofi, mellow, vinyl crackle'. Tout en local. Pour le plus simple sans te prendre la tête : Udio en cloud.",
+      "sourceIds": ["s14", "s15"]
+    },
+    {
+      "id": "ex3-logo",
+      "title": "Créer un logo vectoriel propre",
+      "body": "Qwen-Image (le meilleur open pour le rendu de texte) génère le logo en raster, puis Potrace le convertit en SVG net et redimensionnable. Pour un logo géométrique, demander le code SVG direct à un LLM marche souvent mieux qu'un modèle d'image.",
+      "sourceIds": ["s19"]
+    },
+    {
+      "id": "ex4-video",
+      "title": "Générer une courte vidéo sur Mac",
+      "body": "Dans Draw Things (seul runtime Mac viable), tu lances LTX-2.3 (rapide, avec audio) ou Wan 2.2 14B (meilleure qualité). Compte plusieurs minutes pour un clip court basse-déf — le M5 aide mais la vidéo locale reste lente.",
+      "sourceIds": ["s12", "s13"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "an1-videur",
+      "setup": "L'abliteration, c'est retirer le videur à l'entrée d'un club.",
+      "takeaway": "Le club (le modèle) est le même à l'intérieur, mais plus personne ne te refuse l'entrée sur certains sujets. Sans videur, un peu de désordre — d'où la légère perte de qualité."
+    },
+    {
+      "id": "an2-mp3",
+      "setup": "La quantization, c'est compresser un WAV en MP3.",
+      "takeaway": "Q8 = 320 kbps (tu n'entends presque pas la différence), Q4 = 128 kbps (correct), Q2 = ça grésille. Avec 128 Go tu peux te permettre la haute qualité."
+    },
+    {
+      "id": "an3-moteurs",
+      "setup": "Le runtime, c'est le moteur ; le modèle, c'est le carburant.",
+      "takeaway": "Ollama roule au 'texte', Draw Things au 'pixel'. Tu ne mets pas du carburant image dans un moteur texte — d'où un outil différent par catégorie."
+    },
+    {
+      "id": "an4-mecano",
+      "setup": "Le local face à Claude, c'est le mécano du coin face au spécialiste moteur de course.",
+      "takeaway": "Le mécano règle 80 % des soucis, vite et gratuitement chez toi. Pour la panne rare et vicieuse, tu vas chez le spécialiste (Opus 4.7)."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m1-plus-gros",
+      "myth": "Plus le modèle est gros, meilleur il est.",
+      "truth": "Faux si tu dois trop le compresser. Un 70-122B en Q8/Q6 bat souvent un 235B+ écrasé en Q3. Le bon compromis taille/quant compte plus que le nombre brut de paramètres.",
+      "sourceIds": ["s1", "s3"]
+    },
+    {
+      "id": "m2-flux-nsfw",
+      "myth": "Flux est le meilleur pour des images NSFW réalistes.",
+      "truth": "L'inverse : FLUX.2 est le plus censuré (filtrage strict, conçu pour refuser). Pour du réaliste uncensored, on utilise Chroma1-HD ou des checkpoints SDXL (Lustify, CyberRealistic).",
+      "sourceIds": ["s6", "s7"]
+    },
+    {
+      "id": "m3-remplace",
+      "myth": "Un modèle local peut remplacer Claude pour mes audits.",
+      "truth": "Pas pour le difficile. Le meilleur local ~72 % SWE-bench contre 87,6 % pour Opus 4.7. Le local = première passe sans refus ; Opus = les exploits subtils.",
+      "sourceIds": ["s4", "s2"]
+    },
+    {
+      "id": "m4-comfyui-video",
+      "myth": "ComfyUI est le moyen de faire de la vidéo IA sur Mac.",
+      "truth": "Pas vraiment : MPS casse pour Wan/Hunyuan dans ComfyUI. Sur Apple Silicon, la vidéo passe par Draw Things (Metal natif), sinon ça tombe en CPU silencieusement.",
+      "sourceIds": ["s13"]
+    },
+    {
+      "id": "m5-lottie",
+      "myth": "Il y a un bon modèle local pour générer du Lottie.",
+      "truth": "OmniLottie existe (CVPR 2026) mais il est CUDA-only, sans chemin MPS — il faut un port manuel. En pratique, un LLM qui écrit le JSON Lottie ou LottieFiles AI (cloud) restent plus simples.",
+      "sourceIds": ["s20"]
+    }
+  ],
+  "glossary": [
+    { "term": "Runtime", "definition": "Le moteur qui fait tourner un modèle : Ollama (texte), Draw Things (image/vidéo), mlx-audio (voix). HuggingFace/Civitai ne sont que des magasins de fichiers, pas des moteurs." },
+    { "term": "Abliterated / uncensored", "definition": "Modèle dont le réflexe de refus a été neutralisé après coup, sans réentraînement. Répond à tout, avec une légère perte de qualité." },
+    { "term": "Quantization (Q4, Q8)", "definition": "Compression du modèle en réduisant la précision des nombres. Q8 ≈ quasi parfait, Q4 ≈ moitié de taille, Q2/Q3 ≈ dégradé." },
+    { "term": "GGUF / safetensors", "definition": "Formats de fichiers de modèles. GGUF = modèles quantifiés locaux (Ollama). safetensors = format sûr (pas de code exécutable caché), à préférer aux .ckpt." },
+    { "term": "MoE (Mixture of Experts)", "definition": "Architecture où seule une fraction des paramètres ('actifs') travaille par requête. Lourd en RAM, mais rapide." },
+    { "term": "SWE-bench Verified", "definition": "Benchmark de référence : résoudre de vrais bugs de code. Opus 4.7 ≈ 87,6 % ; meilleur local qui rentre ≈ 72 %." },
+    { "term": "Elo (arène)", "definition": "Classement par votes humains en duels (Artificial Analysis). Mesure la préférence globale, pas le pur photoréalisme." },
+    { "term": "Stem separation", "definition": "Découper un morceau en pistes isolées (voix, batterie, basse). Outil Mac : demucs-mlx. Point de départ d'un remix." },
+    { "term": "Vectorisation", "definition": "Convertir une image raster en SVG (vecteur redimensionnable). Outils : Potrace (2 couleurs), VTracer (couleur)." },
+    { "term": "Lottie", "definition": "Format d'animation léger basé sur du JSON (issu d'After Effects). Lisible partout (web/mobile)." },
+    { "term": "RAG / LoRA", "definition": "RAG = donner au modèle une base de docs qu'il consulte (à jour, citable). LoRA = finetune léger pour lui apprendre un style/format." }
+  ],
+  "practicalTakeaways": [
+    "Texte/audit : `ollama pull huihui_ai/qwen3-coder-next-abliterated:q8_0` (rapide, sans refus), Opus 4.7 gardé pour la passe difficile.",
+    "Image réaliste uncensored : Draw Things + Chroma1-HD (pas FLUX.2). SDXL léger : Lustify ou Juggernaut XL.",
+    "Vidéo : Draw Things uniquement (pas ComfyUI), LTX-2.3 pour vitesse+audio ou Wan 2.2 14B pour la qualité — attends-toi à du lent.",
+    "Remix audio : demucs-mlx (sépare) + ACE-Step 1.5 (restyle en lofi/jazz). Le plus simple sans local : Udio.",
+    "Voix : Kokoro (rapide) ou Chatterbox (clonage) via mlx-audio ; transcription = whisper.cpp turbo (tu l'as déjà).",
+    "Logo/SVG : Qwen-Image → Potrace/VTracer ; pour du SVG/animé, un LLM qui écrit le code reste le plus fiable."
+  ],
+  "sourceMap": [
+    { "id": "s1", "title": "Qwen3-Coder-Next (carte HF)", "url": "https://huggingface.co/Qwen/Qwen3-Coder-Next", "publisher": "Alibaba/Qwen", "publishedAt": "2026-02-01", "fetchedAt": "2026-05-28", "composite": 10, "primary": true, "provenance": "live", "claims": ["MoE 80B/3B actifs", "SWE-bench Verified 70,6"], "conflict": false },
+    { "id": "s2", "title": "Qwen3.5-122B-A10B (Artificial Analysis)", "url": "https://artificialanalysis.ai/models/qwen3-5-122b-a10b", "publisher": "Artificial Analysis", "publishedAt": "2026-05-01", "fetchedAt": "2026-05-28", "composite": 9, "primary": true, "provenance": "live", "claims": ["#1 Intelligence Index de sa classe", "SWE-bench Verified 72,4"], "conflict": false },
+    { "id": "s3", "title": "The Byte Lab — benchmark M5 Max (tok/s)", "url": "https://thebytelab.com/m5-max-local-ai-benchmark-qwen/", "publisher": "The Byte Lab", "publishedAt": "2026-03-15", "fetchedAt": "2026-05-28", "composite": 7, "primary": false, "provenance": "live", "claims": ["Qwen3-Coder-Next Q8 = 79 tok/s sur M5 Max", "Qwen3.5-122B 4-bit = 60-66 tok/s"], "conflict": false },
+    { "id": "s4", "title": "TokenMix — SWE-bench 2026 : Claude Opus 4.7", "url": "https://tokenmix.ai/blog/swe-bench-2026-claude-opus-4-7-wins", "publisher": "TokenMix", "publishedAt": "2026-05-01", "fetchedAt": "2026-05-28", "composite": 7, "primary": false, "provenance": "live", "claims": ["Opus 4.7 = 87,6 % SWE-bench Verified"], "conflict": false },
+    { "id": "s5", "title": "Ollama — qwen3-coder-next-abliterated (tags)", "url": "https://ollama.com/huihui_ai/qwen3-coder-next-abliterated/tags", "publisher": "Ollama/huihui-ai", "publishedAt": "2026-02-15", "fetchedAt": "2026-05-28", "composite": 9, "primary": true, "provenance": "live", "claims": ["q4_K = 52 Go, q8_0 = 85 Go", "version abliterated de Coder-Next"], "conflict": false },
+    { "id": "s6", "title": "Chroma1-HD (carte HF)", "url": "https://huggingface.co/lodestones/Chroma1-HD", "publisher": "lodestones", "publishedAt": "2026-03-01", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["8,9B base FLUX.1-schnell, ~18 Go", "uncensored, supporté par Draw Things"], "conflict": false },
+    { "id": "s7", "title": "Artificial Analysis — arène images (open weights)", "url": "https://artificialanalysis.ai/image/leaderboard/text-to-image/open-weights", "publisher": "Artificial Analysis", "publishedAt": "2026-05-14", "fetchedAt": "2026-05-28", "composite": 9, "primary": true, "provenance": "live", "claims": ["HiDream-O1 #1 open (Elo 1190)", "Qwen-Image-Max 1161 > FLUX.2-dev 1158"], "conflict": false },
+    { "id": "s8", "title": "Civitai — Lustify (modèle 573152)", "url": "https://civitai.com/models/573152", "publisher": "Civitai", "publishedAt": "2026-03-29", "fetchedAt": "2026-05-28", "composite": 7, "primary": true, "provenance": "live", "claims": ["SDXL NSFW réaliste, vote communauté #1"], "conflict": false },
+    { "id": "s9", "title": "Civitai — Juggernaut XL (modèle 133005)", "url": "https://civitai.com/models/133005/juggernaut-xl", "publisher": "Civitai", "publishedAt": "2026-02-01", "fetchedAt": "2026-05-28", "composite": 7, "primary": true, "provenance": "live", "claims": ["~18M téléchargements, SDXL réaliste polyvalent"], "conflict": false },
+    { "id": "s10", "title": "Draw Things — Lightning Draft (Z-Image interactif)", "url": "https://releases.drawthings.ai/p/introducing-lightning-draft-interactive", "publisher": "Draw Things", "publishedAt": "2026-04-15", "fetchedAt": "2026-05-28", "composite": 7, "primary": false, "provenance": "live", "claims": ["Z-Image-Turbo sub-1s interactif sur M5 Max"], "conflict": false },
+    { "id": "s11", "title": "Artificial Analysis — arène vidéo (T2V)", "url": "https://artificialanalysis.ai/video/leaderboard/text-to-video", "publisher": "Artificial Analysis", "publishedAt": "2026-05-14", "fetchedAt": "2026-05-28", "composite": 9, "primary": true, "provenance": "live", "claims": ["LTX-2.3 = #1 open-weight T2V", "audio joint"], "conflict": false },
+    { "id": "s12", "title": "ltx-video-mac (runtime MLX)", "url": "https://github.com/james-see/ltx-video-mac", "publisher": "GitHub", "publishedAt": "2026-05-19", "fetchedAt": "2026-05-28", "composite": 7, "primary": true, "provenance": "live", "claims": ["LTX-2.3 Distilled Q4 ~22 Go natif Apple Silicon"], "conflict": false },
+    { "id": "s13", "title": "Draw Things — Video Generation Basics (wiki)", "url": "https://wiki.drawthings.ai/wiki/Video_Generation_Basics", "publisher": "Draw Things", "publishedAt": "2026-04-20", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["Wan 2.2, Hunyuan, LTX-2 supportés sur M-series", "ComfyUI MPS instable pour Wan/Hunyuan"], "conflict": false },
+    { "id": "s14", "title": "ACE-Step 1.5 (GitHub)", "url": "https://github.com/ace-step/ACE-Step-1.5", "publisher": "ACE-Step", "publishedAt": "2026-05-27", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["audio2audio cover/repaint", "MIT, natif Mac MLX, 10,7k★"], "conflict": false },
+    { "id": "s15", "title": "demucs-mlx (GitHub)", "url": "https://github.com/ssmall256/demucs-mlx", "publisher": "GitHub", "publishedAt": "2026-03-01", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["séparation pistes native MLX, ~73x temps réel"], "conflict": false },
+    { "id": "s16", "title": "Stability AI — Stable Audio 3", "url": "https://stability.ai/news-updates/meet-stable-audio-3-the-model-family-built-for-artistic-experimentation-with-open-weight-models", "publisher": "Stability AI", "publishedAt": "2026-05-26", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["famille open-weight, meilleure fidélité FAD/CLAP", "édition par inpainting de section"], "conflict": false },
+    { "id": "s17", "title": "Artificial Analysis — arène TTS (speech)", "url": "https://artificialanalysis.ai/text-to-speech/leaderboard", "publisher": "Artificial Analysis", "publishedAt": "2026-05-14", "fetchedAt": "2026-05-28", "composite": 9, "primary": true, "provenance": "live", "claims": ["Fish Audio S2 Pro #1 open (Elo 1123)", "Kokoro 82M solide"], "conflict": false },
+    { "id": "s18", "title": "mlx-audio (GitHub)", "url": "https://github.com/Blaizzy/mlx-audio", "publisher": "GitHub", "publishedAt": "2026-04-01", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["support natif Apple Silicon : Kokoro, Chatterbox, Qwen3-TTS"], "conflict": false },
+    { "id": "s19", "title": "WaveSpeed — Qwen-Image vs SDXL/FLUX (texte)", "url": "https://wavespeed.ai/blog/posts/qwen-2512-vs-sdxl-flux-text-benchmark/", "publisher": "WaveSpeed", "publishedAt": "2026-03-01", "fetchedAt": "2026-05-28", "composite": 6, "primary": false, "provenance": "live", "claims": ["Qwen-Image = meilleur rendu de texte open"], "conflict": false },
+    { "id": "s20", "title": "OmniLottie (GitHub)", "url": "https://github.com/OpenVGLab/OmniLottie", "publisher": "OpenVGLab", "publishedAt": "2026-03-01", "fetchedAt": "2026-05-28", "composite": 8, "primary": true, "provenance": "live", "claims": ["text/image/video → Lottie JSON, Apache", "CUDA-only, pas de chemin MPS"], "conflict": false },
+    { "id": "s21", "title": "Suno vs Udio (comparatif 2026)", "url": "https://www.tldl.io/blog/suno-vs-udio-comparison", "publisher": "TLDL", "publishedAt": "2026-04-01", "fetchedAt": "2026-05-28", "composite": 6, "primary": false, "provenance": "live", "claims": ["Udio meilleur pour upload + restyle par référence", "Suno pour chansons complètes rapides"], "conflict": false },
+    { "id": "s22", "title": "whisper.cpp (GitHub)", "url": "https://github.com/ggml-org/whisper.cpp", "publisher": "ggml-org", "publishedAt": "2026-01-01", "fetchedAt": "2026-05-28", "composite": 9, "primary": true, "provenance": "live", "claims": ["large-v3-turbo : meilleur STT local multilingue sur Mac (Metal + ANE)"], "conflict": false }
+  ],
+  "uncertaintyNotes": [
+    "Les threads Reddit/X directs étaient peu indexés/throttlés : la confirmation s'appuie surtout sur les benchmarks (Artificial Analysis), Civitai, l'activité GitHub et des roundups datés 2026.",
+    "Les chiffres SWE-bench des modèles Qwen viennent de cartes officielles (en partie auto-déclarés) ; aucun benchmark spécifique 'audit smart-contract' n'existe.",
+    "Les vitesses tok/s et les timings vidéo sur M5 Max sont des mesures tierces ou des estimations relatives (souvent M5 iPad / speedup vs M4) — ton chiffre réel varie.",
+    "OmniLottie est réel mais documenté CUDA-only : 'local sur M5' nécessite un port MPS manuel. Donnée d'entraînement CC-BY-NC.",
+    "Stable Audio 3 (26 mai 2026) bat ACE-Step sur les benchmarks mais son édition est de l'inpainting de section, pas du restyle de genre complet, et pas d'app Mac clé-en-main confirmée.",
+    "Cadre images : adultes fictifs uniquement — jamais de vraie personne sans consentement, jamais de mineurs."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 9,
+    "a11y": 8,
+    "ux": 8,
+    "performance": 8,
+    "securityPrivacy": 9,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}

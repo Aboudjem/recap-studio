@@ -30,8 +30,23 @@ export function loadContent(slug: string = loadActiveSlug()): RecapPageContent {
     join(APP_ROOT, "src", "content", `${slug}.json`),
     join(REPO_ROOT, "fixtures", "topics", `${slug}.json`),
   ];
-  for (const path of candidates) {
-    if (existsSync(path)) {
+  for (let i = 0; i < candidates.length; i++) {
+    const path = candidates[i];
+    if (path && existsSync(path)) {
+      // If we fell through to the fixture fallback (i > 0), the active slug
+      // pointed at a file that does not exist. That's almost always a bug
+      // (renamed content file, stale active-content.json, typo). Surface it
+      // loudly in build logs instead of silently rendering the wrong page.
+      // History: bit us during the 2026-05-13 hermes/openclaw recap session.
+      if (i > 0) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `recap-web: active slug "${slug}" has no content file at ` +
+            `apps/recap-web/src/content/${slug}.json — falling back to fixture ` +
+            `at ${path}. Update apps/recap-web/src/lib/active-content.json or ` +
+            `write the missing content file.`,
+        );
+      }
       return parseRecapPageContent(readJson(path));
     }
   }

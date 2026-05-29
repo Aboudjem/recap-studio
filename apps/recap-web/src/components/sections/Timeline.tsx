@@ -18,7 +18,7 @@ export function Timeline({ content }: Props) {
               className="absolute -left-[27px] top-2 inline-block h-3 w-3 rounded-full border-2 border-accent bg-canvas dark:bg-canvas-dark"
             />
             <p className="text-xs font-semibold uppercase tracking-wider text-accent">{t.date}</p>
-            <h3 className="mt-1 font-display text-lg">{t.title}</h3>
+            <h3 className="mt-1 font-sans text-lg">{t.title}</h3>
             <p className="recap-prose mt-1 text-sm text-muted dark:text-muted-dark">
               {t.body}
             </p>

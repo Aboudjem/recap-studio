@@ -1,0 +1,563 @@
+{
+  "slug": "hermes-openclaw-nouveaux-players",
+  "topic": "Hermes, OpenClaw & les nouveaux players des agent runtimes",
+  "audienceLevel": "intermediate",
+  "generatedAt": "2026-05-13T23:10:00.000Z",
+  "fixture": true,
+  "oneSentenceAnswer": "Les agent runtimes 2026 tiennent en trois familles, SDK des labos, orchestrateurs graphes, et runtimes domain-specific comme Hermes ou OpenClaw.",
+  "fiveMinutePath": [
+    "Voir la carte du marché agent runtime fin avril 2026 et les trois familles qui se dégagent.",
+    "Comprendre où Hermes (adam-os) et OpenClaw se positionnent face aux SDK des labos.",
+    "Comparer les choix techniques, runtime model, hook system, MCP, mémoire, déploiement.",
+    "Lire ce qui a bougé depuis avril, Hermes v0.13, Agent SDK Anthropic, Mastra GA, OpenAI Agents update.",
+    "Repartir avec une checklist build-vs-buy pour décider quand garder son runtime maison."
+  ],
+  "whyItMatters": [
+    "Choisir un runtime décide pour 12-24 mois de la vélocité, du lock-in, et du coût d'observabilité.",
+    "Les SDK des labos rattrapent vite les frameworks tiers, ce qui change l'équation build-vs-buy chaque trimestre.",
+    "Les runtimes domain-specific comme Hermes/OpenClaw gardent un edge sur les flows verticaux que les SDK généralistes ne couvrent pas.",
+    "Le hook system est devenu le vrai differentiator, plus que l'agent loop lui-même."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k-three-families",
+      "title": "Trois familles, pas une",
+      "body": "Le marché agent runtime n'est plus un seul jeu. SDK des labos (Anthropic, OpenAI) optimisés pour leur modèle. Orchestrateurs généralistes (LangGraph, CrewAI, AutoGen) optimisés pour la flexibilité graphe. Runtimes domain-specific (Hermes, OpenClaw, ElevenLabs Conversational) optimisés pour un flow vertical précis.",
+      "icon": "layers",
+      "sourceIds": ["src-anthropic-agent-sdk", "src-openai-agents", "src-mastra", "src-langgraph"]
+    },
+    {
+      "id": "k-hermes-vertical",
+      "title": "Hermes choisit le vertical, pas la généralité",
+      "body": "Hermes (adam-os, v0.13) est un runtime opinionated pour assistants conversationnels persistants. Plugin system pour filtres (voice-filter, markdown stripping), eval suite intégrée, KB folder caps, lint scripts. Le pari, perdre en flexibilité pour gagner en vitesse de prod sur un seul use case.",
+      "icon": "compass",
+      "sourceIds": ["src-adam-os-repo", "src-hermes-v013-notes"]
+    },
+    {
+      "id": "k-openclaw-hooks",
+      "title": "OpenClaw mise tout sur les hooks",
+      "body": "OpenClaw structure le runtime autour de hooks (humanize-filter, safety-guardian, script-guardian) et d'un SOUL.md persona ~20K char. Sandbox isolation par session, SQLite event pipeline, k-anonymity sur les profils. Différenciation par les guardrails, pas par l'agent loop.",
+      "icon": "shield",
+      "sourceIds": ["src-cafe-creme-deploy", "src-openclaw-dashboard"]
+    },
+    {
+      "id": "k-sdk-catchup",
+      "title": "Les SDK des labos rattrapent vite",
+      "body": "Claude Agent SDK et OpenAI Agents SDK incluent maintenant tool use, memory, handoff entre agents, sessions, et MCP natif. Le delta avec les frameworks tiers se réduit chaque release. Migration depuis CrewAI/LangChain vers SDK natif devient un trade-off réel.",
+      "icon": "trending-up",
+      "sourceIds": ["src-anthropic-agent-sdk", "src-openai-agents"]
+    },
+    {
+      "id": "k-mcp-default",
+      "title": "MCP est devenu le bus standard",
+      "body": "Model Context Protocol passe de proposition Anthropic à standard de facto. Claude, OpenAI Codex, ChatGPT desktop, Cursor, Zed, et la plupart des SDK supportent MCP servers comme première extension point. Les runtimes qui ne parlent pas MCP perdent l'écosystème.",
+      "icon": "plug",
+      "sourceIds": ["src-mcp-spec", "src-anthropic-agent-sdk"]
+    },
+    {
+      "id": "k-hook-diff",
+      "title": "Le hook system est le vrai differentiator",
+      "body": "Tous les runtimes savent boucler un agent. Ce qui sépare un toy d'un truc en prod, c'est les hooks autour, PreToolUse, PostToolUse, SessionStart, Stop, UserPromptSubmit. Claude Code, Hermes, OpenClaw, et maintenant Mastra ont des hook systems comparables. LangGraph et CrewAI restent en retard ici.",
+      "icon": "git-branch",
+      "sourceIds": ["src-claude-code-hooks", "src-mastra", "src-hermes-v013-notes"]
+    },
+    {
+      "id": "k-buildvsbuy",
+      "title": "Build-vs-buy se rejoue chaque trimestre",
+      "body": "Garder un runtime maison (Hermes, OpenClaw) ne se justifie que par un flow vertical assez spécifique ou un besoin d'ownership total des hooks. Sinon, le SDK du labo qui sert ton modèle principal devient la baseline raisonnable. Réévaluer tous les 3 mois.",
+      "icon": "scale",
+      "sourceIds": ["src-anthropic-agent-sdk", "src-openai-agents", "src-adam-os-repo"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "comparison", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "d-landscape",
+      "kind": "mermaid",
+      "alt": "Carte du marché agent runtime 2026 organisée en trois familles, SDK des labos, orchestrateurs graphes, runtimes domain-specific.",
+      "code": "graph TD\n    A[Agent runtimes 2026] --> B[SDK des labos]\n    A --> C[Orchestrateurs graphes]\n    A --> D[Runtimes domain-specific]\n    B --> B1[Claude Agent SDK]\n    B --> B2[OpenAI Agents SDK]\n    B --> B3[Vercel AI SDK]\n    C --> C1[LangGraph]\n    C --> C2[CrewAI]\n    C --> C3[AutoGen 0.4]\n    C --> C4[Mastra]\n    D --> D1[Hermes / adam-os]\n    D --> D2[OpenClaw]\n    D --> D3[ElevenLabs Conversational]\n    style D1 fill:#7C3AED,color:#fff\n    style D2 fill:#7C3AED,color:#fff"
+    },
+    {
+      "id": "d-hook-flow",
+      "kind": "mermaid",
+      "alt": "Flow d'un appel agent traversant les hooks Hermes ou OpenClaw avant et après chaque tool call.",
+      "code": "sequenceDiagram\n    participant U as User\n    participant R as Runtime\n    participant H as Hooks\n    participant T as Tool\n    U->>R: prompt\n    R->>H: PreToolUse\n    H-->>R: ok / block / modify\n    R->>T: execute\n    T-->>R: result\n    R->>H: PostToolUse\n    H-->>R: filtered\n    R->>U: réponse"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-02",
+      "title": "OpenAI Agents SDK GA",
+      "body": "OpenAI promeut Swarm en Agents SDK officiel, avec handoffs, guardrails, et sessions persistantes. Premier signal fort que les labos veulent leur propre orchestrateur.",
+      "sourceIds": ["src-openai-agents"]
+    },
+    {
+      "date": "2026-03",
+      "title": "Claude Agent SDK consolidé",
+      "body": "Anthropic regroupe les helpers tool-use, memory, MCP, sub-agents dans un SDK unifié. Couvre maintenant ce que faisait Claude Code côté plugin et hooks.",
+      "sourceIds": ["src-anthropic-agent-sdk"]
+    },
+    {
+      "date": "2026-04",
+      "title": "Mastra GA et MCP partout",
+      "body": "Mastra (TS-native) atteint la GA et devient l'alternative crédible à LangChain pour les équipes JavaScript. MCP passe la barre du standard de facto, supporté par Claude, OpenAI, Cursor, Zed.",
+      "sourceIds": ["src-mastra", "src-mcp-spec"]
+    },
+    {
+      "date": "2026-05-07",
+      "title": "Hermes v0.13.0",
+      "body": "Release Hermes utilisée par adam-os. Remplace hermes auth login par hermes model, ajoute plugin system mature (voice-filter), eval suite nightly, et lint KB folder caps.",
+      "sourceIds": ["src-hermes-v013-notes", "src-adam-os-repo"]
+    },
+    {
+      "date": "2026-05",
+      "title": "OpenClaw consolide les guardrails",
+      "body": "OpenClaw renforce sandbox isolation par session, ajoute k-anonymity sur les profils utilisateurs, et stabilise le humanize-filter hook utilisé par Cafe Creme Bot en prod.",
+      "sourceIds": ["src-cafe-creme-deploy", "src-openclaw-dashboard"]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "c-runtimes",
+      "title": "Sept runtimes, sept choix",
+      "columns": ["Runtime", "Famille", "Langage", "MCP natif", "Hook system", "Sweet spot"],
+      "rows": [
+        {
+          "name": "Hermes (adam-os)",
+          "cells": {
+            "Famille": "Domain-specific",
+            "Langage": "Python",
+            "MCP natif": "Oui",
+            "Hook system": "Riche (plugin + filtres)",
+            "Sweet spot": "Assistant conversationnel persistant vertical"
+          },
+          "sourceIds": ["src-hermes-v013-notes", "src-adam-os-repo"]
+        },
+        {
+          "name": "OpenClaw",
+          "cells": {
+            "Famille": "Domain-specific",
+            "Langage": "Python",
+            "MCP natif": "Partiel",
+            "Hook system": "Très riche (guardrails)",
+            "Sweet spot": "Bot social avec guardrails forts"
+          },
+          "sourceIds": ["src-cafe-creme-deploy", "src-openclaw-dashboard"]
+        },
+        {
+          "name": "Claude Agent SDK",
+          "cells": {
+            "Famille": "SDK labo",
+            "Langage": "Python + TS",
+            "MCP natif": "Oui (canonical)",
+            "Hook system": "Solide (sub-agents)",
+            "Sweet spot": "Agent qui pilote Claude end-to-end"
+          },
+          "sourceIds": ["src-anthropic-agent-sdk"]
+        },
+        {
+          "name": "OpenAI Agents SDK",
+          "cells": {
+            "Famille": "SDK labo",
+            "Langage": "Python + TS",
+            "MCP natif": "Oui",
+            "Hook system": "Guardrails + handoffs",
+            "Sweet spot": "Multi-agent avec handoff GPT"
+          },
+          "sourceIds": ["src-openai-agents"]
+        },
+        {
+          "name": "Mastra",
+          "cells": {
+            "Famille": "Orchestrateur",
+            "Langage": "TypeScript",
+            "MCP natif": "Oui",
+            "Hook system": "Moyen (workflows)",
+            "Sweet spot": "Équipe JS qui veut un LangChain moderne"
+          },
+          "sourceIds": ["src-mastra"]
+        },
+        {
+          "name": "LangGraph",
+          "cells": {
+            "Famille": "Orchestrateur",
+            "Langage": "Python + TS",
+            "MCP natif": "Via adapter",
+            "Hook system": "Faible (nodes only)",
+            "Sweet spot": "Workflow stateful graphe explicite"
+          },
+          "sourceIds": ["src-langgraph"]
+        },
+        {
+          "name": "CrewAI",
+          "cells": {
+            "Famille": "Orchestrateur",
+            "Langage": "Python",
+            "MCP natif": "Via plugin",
+            "Hook system": "Faible (callbacks)",
+            "Sweet spot": "Équipe d'agents rôles classiques"
+          },
+          "sourceIds": ["src-crewai"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "e-hermes-coach",
+      "title": "Hermes en prod, coach WhatsApp persistant",
+      "body": "adam-os fait tourner Hermes v0.13 sur un Droplet Frankfurt, avec plugin voice-filter qui strip le markdown avant envoi WhatsApp, eval suite nightly via launchd, et lint KB cap qui empêche les dossiers persona de gonfler. C'est exactement le profil où le runtime vertical bat le SDK généraliste, le flow est trop spécifique pour un Claude Agent SDK out-of-the-box.",
+      "sourceIds": ["src-adam-os-repo", "src-hermes-v013-notes"]
+    },
+    {
+      "id": "e-openclaw-cafe",
+      "title": "OpenClaw en prod, Cafe Creme Bot",
+      "body": "Cafe Creme Bot tourne sur OpenClaw avec qualifier agent en persona Adam, script-guardian qui valide chaque message contre un script de vente, safety-guardian qui bloque les dérapages, et humanize-filter qui retire les tells AI. SOUL.md ~14.3K char dans la limite 20K. Le hook system est ce qui rend le bot livrable.",
+      "sourceIds": ["src-cafe-creme-deploy", "src-openclaw-dashboard"]
+    },
+    {
+      "id": "e-sdk-migration",
+      "title": "Migration LangChain vers Claude Agent SDK",
+      "body": "Pattern récurrent depuis mars, équipes qui partaient sur LangChain pour un agent Claude finissent par migrer vers Claude Agent SDK. Moins de lock-in framework, meilleur tool-use, MCP natif, observabilité Anthropic. La cost-benefit penche vers SDK natif quand le modèle est fixé.",
+      "sourceIds": ["src-anthropic-agent-sdk"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "a-kitchen",
+      "setup": "Choisir un runtime agent, c'est choisir une cuisine.",
+      "takeaway": "SDK labo = cuisine intégrée du fabricant, parfait si tu manges chez lui. Orchestrateur graphe = cuisine modulaire IKEA, flexible mais montage long. Runtime domain-specific = cuisine sur-mesure, lente à construire mais imbattable pour un seul plat."
+    },
+    {
+      "id": "a-firewall",
+      "setup": "Le hook system est au runtime ce que le firewall est au réseau.",
+      "takeaway": "Sans hooks tu as un agent qui marche en démo. Avec hooks tu as un agent que tu peux mettre en prod, parce que tu peux bloquer, modifier, ou auditer chaque appel."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m-best-runtime",
+      "myth": "Il y a un meilleur runtime agent en 2026.",
+      "truth": "Il y a un meilleur runtime par profil de use case. SDK labo pour piloter un seul modèle, orchestrateur pour multi-agent flexible, domain-specific pour vertical opinionated. Pas de winner-takes-all.",
+      "sourceIds": ["src-anthropic-agent-sdk", "src-mastra"]
+    },
+    {
+      "id": "m-build-vanity",
+      "myth": "Construire son runtime maison (Hermes/OpenClaw) est de la vanité.",
+      "truth": "Vrai si tu reproduit ce que fait un SDK. Faux si tu encodes un flow vertical, des hooks spécifiques, ou un guardrail métier que le SDK ne couvre pas. La justification doit tenir en une phrase, sinon migre.",
+      "sourceIds": ["src-adam-os-repo", "src-cafe-creme-deploy"]
+    },
+    {
+      "id": "m-mcp-magic",
+      "myth": "Passer en MCP suffit à rendre un agent interopérable.",
+      "truth": "MCP standardise le transport tool/context, pas les hooks ni la mémoire ni l'eval. Deux runtimes 100% MCP-compatibles peuvent rester très différents à utiliser en prod.",
+      "sourceIds": ["src-mcp-spec"]
+    },
+    {
+      "id": "m-langchain-dead",
+      "myth": "LangChain et CrewAI sont morts depuis l'arrivée des SDK des labos.",
+      "truth": "Plus lents à évoluer, mais toujours utiles pour multi-provider et workflows graphes explicites. La part de marché baisse, l'usage continue. Pas un binaire mort-vivant.",
+      "sourceIds": ["src-langgraph", "src-crewai"]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "agent runtime",
+      "definition": "Couche logicielle qui boucle un LLM avec des outils, de la mémoire, et des hooks, jusqu'à une condition d'arrêt."
+    },
+    {
+      "term": "MCP",
+      "definition": "Model Context Protocol, standard ouvert proposé par Anthropic pour exposer outils et données à un agent. Devenu standard de facto en 2026."
+    },
+    {
+      "term": "hook system",
+      "definition": "Ensemble de points d'extension (PreToolUse, PostToolUse, SessionStart, Stop, UserPromptSubmit) où du code custom peut intercepter, modifier, ou bloquer une étape de l'agent."
+    },
+    {
+      "term": "handoff",
+      "definition": "Transfert d'une conversation d'un agent à un autre, typiquement avec mémoire partagée. Patron clé des SDK multi-agent OpenAI/Anthropic."
+    },
+    {
+      "term": "guardrail",
+      "definition": "Règle ou filtre déterministe qui valide entrée ou sortie d'un agent, indépendamment du LLM. Souvent implémenté en hook."
+    },
+    {
+      "term": "domain-specific runtime",
+      "definition": "Runtime optimisé pour un use case vertical (assistant conversationnel, sales bot, code agent) au prix de la généralité."
+    },
+    {
+      "term": "SOUL.md",
+      "definition": "Convention OpenClaw, fichier markdown qui décrit la persona d'un agent. Limite ~20K caractères avant truncation."
+    },
+    {
+      "term": "eval suite",
+      "definition": "Batterie de tests qui mesure le comportement d'un agent sur des cas connus. Intégrée nativement dans Hermes v0.13 et Claude Agent SDK."
+    }
+  ],
+  "practicalTakeaways": [
+    "Si ton agent ne pilote qu'un seul modèle, default au SDK du labo, c'est la baseline la plus saine.",
+    "Garde un runtime maison (Hermes, OpenClaw) seulement si tu peux écrire en une phrase pourquoi le SDK ne suffit pas.",
+    "Évalue ton runtime tous les 3 mois, l'équation build-vs-buy change à chaque release de SDK labo.",
+    "Investis dans les hooks plus que dans l'agent loop, c'est là que se gagnent les batailles de prod.",
+    "Choisis MCP par défaut pour exposer tes outils, sinon tu te coupes de l'écosystème 2026.",
+    "Mesure ton coût total observabilité + eval avant de migrer, le runtime n'est qu'une fraction du TCO."
+  ],
+  "sourceMap": [
+    {
+      "id": "src-anthropic-agent-sdk",
+      "title": "Anthropic — Claude Agent SDK",
+      "url": "https://docs.anthropic.com/en/docs/agents-and-tools/overview",
+      "publisher": "Anthropic",
+      "publishedAt": "2026-03",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 3,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Doc officielle Anthropic couvrant le Claude Agent SDK, tool-use, memory, sub-agents, et intégration MCP native.",
+      "claims": [
+        "Claude Agent SDK consolidé en mars 2026",
+        "MCP natif comme premier extension point",
+        "Sub-agents et hooks supportés par défaut"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-openai-agents",
+      "title": "OpenAI — Agents SDK",
+      "url": "https://platform.openai.com/docs/agents",
+      "publisher": "OpenAI",
+      "publishedAt": "2026-02",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 3,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Doc OpenAI sur Agents SDK (ex-Swarm), handoffs, guardrails, sessions, et tool-use multi-agent.",
+      "claims": [
+        "Agents SDK GA février 2026",
+        "Handoffs comme primitive principale",
+        "Guardrails intégrés"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-mastra",
+      "title": "Mastra — TypeScript agent framework",
+      "url": "https://mastra.ai/",
+      "publisher": "Mastra",
+      "publishedAt": "2026-04",
+      "composite": 7,
+      "reliability": 4,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 5,
+      "primary": false,
+      "provenance": "fixture",
+      "summary": "Framework agent TypeScript natif, workflows, mémoire, MCP, alternative à LangChain pour stack JS.",
+      "claims": [
+        "GA avril 2026",
+        "MCP supporté nativement",
+        "Cible équipes TypeScript"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-langgraph",
+      "title": "LangGraph — Stateful workflows",
+      "url": "https://langchain-ai.github.io/langgraph/",
+      "publisher": "LangChain",
+      "publishedAt": "2026-04",
+      "composite": 7,
+      "reliability": 4,
+      "freshness": 4,
+      "relevance": 5,
+      "independence": 5,
+      "primary": false,
+      "provenance": "fixture",
+      "summary": "Framework graphe stateful de LangChain pour orchestrer agents et workflows multi-étapes.",
+      "claims": [
+        "Graphe explicite comme primitive",
+        "MCP via adapter, pas natif"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-crewai",
+      "title": "CrewAI — Multi-agent crews",
+      "url": "https://docs.crewai.com/",
+      "publisher": "CrewAI",
+      "publishedAt": "2026-04",
+      "composite": 7,
+      "reliability": 4,
+      "freshness": 4,
+      "relevance": 4,
+      "independence": 5,
+      "primary": false,
+      "provenance": "fixture",
+      "summary": "Framework Python multi-agent organisé en crews avec rôles, tâches, et outils partagés.",
+      "claims": [
+        "Modèle rôles + tâches",
+        "Callbacks plutôt que hook system riche"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-mcp-spec",
+      "title": "Model Context Protocol — Spec",
+      "url": "https://modelcontextprotocol.io/",
+      "publisher": "Anthropic + community",
+      "publishedAt": "2026-04",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Spec officielle MCP, transport et primitives pour exposer outils, ressources, prompts à un agent.",
+      "claims": [
+        "Supporté par Claude, OpenAI, Cursor, Zed, Codex",
+        "Standard de facto en 2026"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-claude-code-hooks",
+      "title": "Claude Code — Hooks reference",
+      "url": "https://docs.claude.com/en/docs/claude-code/hooks",
+      "publisher": "Anthropic",
+      "publishedAt": "2026-04",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 3,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Doc Claude Code hooks, PreToolUse, PostToolUse, SessionStart, Stop, UserPromptSubmit, payload JSON.",
+      "claims": [
+        "Hook system mature couvrant tout le cycle de vie",
+        "JSON payload standardisé"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-adam-os-repo",
+      "title": "adam-os — repo local",
+      "url": "https://github.com/Aboudjem/adam-os",
+      "publisher": "Adam Boudjemaa",
+      "publishedAt": "2026-05",
+      "composite": 8,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 5,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Projet personnel, runtime Hermes v0.13 packagé pour coach WhatsApp, plugin voice-filter, eval suite, KB caps.",
+      "claims": [
+        "Hermes v0.13 en prod sur Droplet Frankfurt",
+        "Plugin system voice-filter actif",
+        "Eval suite nightly via launchd"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-hermes-v013-notes",
+      "title": "Hermes v0.13 — release notes (mémoire projet)",
+      "url": "https://github.com/Aboudjem/adam-os/blob/main/RESET-PHASE-2026-05/README.md",
+      "publisher": "Adam Boudjemaa",
+      "publishedAt": "2026-05-07",
+      "composite": 7,
+      "reliability": 4,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Notes locales sur Hermes v0.13, hermes model remplace hermes auth login, plugin maturity, lint scripts.",
+      "claims": [
+        "hermes model remplace hermes auth login",
+        "Lint KB folder cap actif",
+        "Plugin voice-filter livré"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-cafe-creme-deploy",
+      "title": "Cafe Creme Bot — deploy notes (mémoire projet)",
+      "url": "https://github.com/Aboudjem/cafe-creme-bot",
+      "publisher": "Adam Boudjemaa",
+      "publishedAt": "2026-05",
+      "composite": 7,
+      "reliability": 4,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Notes locales sur déploiement Cafe Creme Bot sur OpenClaw, multi-agent (qualifier, script-guardian, safety-guardian), humanize-filter hook, SQLite event pipeline.",
+      "claims": [
+        "OpenClaw sur VPS 51.75.77.232 via Docker",
+        "Multi-agent qualifier + guardians + humanize-filter",
+        "77/77 tests passing"
+      ],
+      "conflict": false
+    },
+    {
+      "id": "src-openclaw-dashboard",
+      "title": "OpenClaw Dashboard — runtime notes",
+      "url": "https://openclaw.dev/",
+      "publisher": "OpenClaw",
+      "publishedAt": "2026-05",
+      "composite": 6,
+      "reliability": 3,
+      "freshness": 4,
+      "relevance": 5,
+      "independence": 4,
+      "primary": false,
+      "provenance": "fixture",
+      "summary": "Référence OpenClaw, SOUL.md persona ~20K char cap, sandbox isolation par session, k-anonymity, hook humanize-filter.",
+      "claims": [
+        "SOUL.md cap 20K caractères",
+        "Sandbox isolation par session",
+        "Hook humanize-filter en prod"
+      ],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "Page construite en mode fixture, pas de fetch live. Versions exactes (Mastra GA mois précis, build numbers Claude Agent SDK) peuvent dériver.",
+    "OpenClaw a moins de doc publique que les SDK des labos, certains détails (cap SOUL.md, isolation modèle) viennent de la mémoire projet locale et pas d'une doc canonique.",
+    "Le marché bouge vite, traiter ce snapshot comme valable mai 2026, à réévaluer fin Q2.",
+    "Hermes est un runtime adam-os interne, pas un produit public, certaines comparaisons sont d'usage personnel plus que de benchmark indépendant."
+  ],
+  "reviewScores": {
+    "facts": 7,
+    "beginner": 7,
+    "a11y": 9,
+    "ux": 8,
+    "performance": 9,
+    "securityPrivacy": 10,
+    "simplicity": 8,
+    "skeptical": 8
+  }
+}

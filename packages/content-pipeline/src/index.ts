@@ -7,6 +7,7 @@
 export * from "./schema.js";
 export * from "./schema-session.js";
 export * from "./config.js";
+export * from "./load-config.js";
 export * from "./load.js";
 export * from "./source-cache.js";
 export * from "./source-vault.js";
