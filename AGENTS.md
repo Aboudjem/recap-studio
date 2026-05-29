@@ -231,7 +231,7 @@ Every place that surfaces a score — README, generated HTML, skill output, any 
 | Package | Exports | Tests |
 |---|---|---|
 | `@recap-studio/content-pipeline` | `RecapPageContent` schema, loaders, `loadConfig` (subpath) | yes |
-| `@recap-studio/design-system` | Design tokens, Tailwind config | yes |
+| `@recap-studio/design-system` | Design tokens, Tailwind config | no |
 | `@recap-studio/validation` | `validateContent()`, dimension scores (deterministic heuristics) | yes |
 | `@recap-studio/html-renderer` | `renderToHtml()`, `renderFromJson()`, `getBaseStyles()` | 9 tests |
 | `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |

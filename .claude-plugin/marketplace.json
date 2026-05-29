@@ -26,7 +26,7 @@
         "repo": "Aboudjem/recap-studio"
       },
       "description": "Turn a topic or a git diff into a beautiful, dark-mode, mobile-first one-page explainer in ~5 minutes. Output is ONE self-contained HTML file — inlined CSS, zero JS — that opens with a double-click, offline. Specialist agents draft it; a deterministic board checks structure + citations. Reusable HTML template; works in Claude Code, Cursor, VS Code, the terminal, and more.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "homepage": "https://github.com/Aboudjem/recap-studio",
       "license": "MIT",
       "keywords": [

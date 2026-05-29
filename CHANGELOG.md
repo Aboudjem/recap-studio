@@ -5,6 +5,37 @@ All notable changes to Recap Studio are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-05-28
+
+### Changed
+
+- **Honest framing in art assets and npm placeholder** — removed the
+  retired "13 agents / 7-dimension validation board / 9.7 / 10"
+  phrasing from `social-preview.svg`, `hero-diagram.svg`, and the
+  `npm-placeholder` package (version, description, help banner).
+  Replaced with plain language: "self-contained HTML",
+  "deterministic heuristic checks", "opens offline".
+- **SVG diagram labels** — `hero-diagram.svg` relabels "+ 7 reviewers
+  (parallel)" → "7 heuristic checks"; "Validation board" per-dimension
+  score table → named heuristic dimensions; OUTPUT card removes the
+  stale "103 KB First Load JS" figure.
+- **social-preview.svg** — bumped version label v0.2.0 → v0.3.1;
+  replaced 9.7/10 chip with "offline HTML" label.
+- **SECURITY.md** — supported-versions table updated: 0.3.x ✅,
+  0.2.x ❌, 0.1.x ❌ (was listing only 0.1.x as supported).
+- **README.md** — replaced `shields.io/npm/v` badge (rendered stale
+  0.2.0) with `shields.io/github/v/tag` badge tracking the git tag.
+- **llms.txt** — added caveats to the npm Links section: the
+  `@recap-studio/cli` and `@recap-studio/html-renderer` packages are
+  not yet published; the `recap-studio` placeholder redirects to the
+  10x marketplace.
+- **AGENTS.md** — corrected `design-system` test entry: "yes" → "no"
+  (package.json test script is `echo no tests`).
+- **CHANGELOG.md** — fixed "third plugin" historical note (marketplace
+  now ships four plugins); added Keep-a-Changelog footer comparison
+  links.
+- **npm-placeholder version** bumped 0.2.0 → 0.3.1.
+
 ## [0.3.0] - 2026-05-29
 
 The "make it real" rebuild. Audited end-to-end (11 specialist passes), then
@@ -129,7 +160,7 @@ rebuilt the output, opened it to every editor, and made the claims honest.
 ### Changed
 
 - Marketplace integration. Recap Studio is listed in
-  [`Aboudjem/10x`](https://github.com/Aboudjem/10x) as the third plugin.
+  [`Aboudjem/10x`](https://github.com/Aboudjem/10x) as one of the plugins.
 - README restructured to install-first format with badge row + collapsible
   editor setup.
 
@@ -142,3 +173,8 @@ rebuilt the output, opened it to every editor, and made the claims honest.
   Next.js 15 App Router renderer, deterministic 7-dimension validation
   board, and the `latest-ai-models` offline-safe demo path.
 - Final validation report scored 9.7/10 overall, every threshold passed.
+
+[0.3.1]: https://github.com/Aboudjem/recap-studio/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/Aboudjem/recap-studio/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/Aboudjem/recap-studio/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/Aboudjem/recap-studio/releases/tag/v0.1.0

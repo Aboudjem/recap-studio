@@ -1,6 +1,6 @@
 {
   "name": "recap-studio",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "Turn a topic or coding session into a beautiful, dark-mode, mobile-first one-page explainer — one self-contained HTML file you double-click to read offline in ~5 minutes. Claude Code plugin + CLI + MCP server.",
   "license": "MIT",
