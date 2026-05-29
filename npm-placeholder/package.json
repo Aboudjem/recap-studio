@@ -1,7 +1,7 @@
 {
   "name": "recap-studio",
-  "version": "0.2.0",
-  "description": "Generate beautiful, calm, mobile-first one-page explainers in under 5 minutes. Claude Code plugin with 13 specialist agents, 7-dimension validation board, static Next.js output. This package redirects to the canonical install path.",
+  "version": "0.3.1",
+  "description": "Turn any topic or git diff into a self-contained, offline-ready HTML explainer in ~5 minutes. Claude Code plugin + CLI + MCP server. Deterministic heuristic checks, zero JavaScript output. This package redirects to the canonical install path.",
   "keywords": [
     "claude-code",
     "claude-code-plugin",

@@ -29,7 +29,7 @@ Then in any Claude Code session:
 git clone https://github.com/Aboudjem/recap-studio
 cd recap-studio && pnpm install
 pnpm -w demo:latest-ai-models    # offline demo
-pnpm -w validate:demo            # 7-dimension scorecard
+pnpm -w validate:demo            # heuristic quality checks
 pnpm --filter recap-web dev      # http://localhost:3000
 ```
 

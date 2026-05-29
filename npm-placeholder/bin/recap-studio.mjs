@@ -7,7 +7,7 @@
  * a placeholder that surfaces the canonical install paths to anyone who
  * stumbles into `npm install recap-studio` or `npx recap-studio`.
  */
-const VERSION = "0.2.0";
+const VERSION = "0.3.1";
 const REPO = "https://github.com/Aboudjem/recap-studio";
 const MARKETPLACE = "https://github.com/Aboudjem/10x";
 
@@ -15,8 +15,8 @@ const arg = process.argv[2];
 
 const help = `recap-studio v${VERSION}
 
-Generate beautiful, calm, mobile-first one-page explainers in under 5 minutes.
-13 specialist agents pass typed JSON through a 7-dimension validation board.
+Turn any topic or git diff into a self-contained, offline-ready HTML explainer
+in ~5 minutes. Deterministic heuristic checks; zero JavaScript output.
 
 This npm package is a placeholder. Recap Studio installs via the
 10x Claude Code marketplace:
@@ -36,7 +36,7 @@ Prefer to run it locally? Clone the repo:
   git clone ${REPO}
   cd recap-studio && pnpm install
   pnpm -w demo:latest-ai-models    # generate the offline demo
-  pnpm -w validate:demo            # 7-dimension scorecard
+  pnpm -w validate:demo            # heuristic quality checks
   pnpm --filter recap-web dev      # http://localhost:3000
 
 Marketplace:  ${MARKETPLACE}
