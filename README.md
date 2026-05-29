@@ -38,9 +38,9 @@
 
 A real run of `/recap "what is creatine"`, researched live, every claim fact-checked against primary sources (ISSN, NIH), then rendered to one self-contained page:
 
-<picture>
-  <img alt="Animated walkthrough of a generated Recap Studio page about creatine: dark-mode hero, an inline-SVG energy-cycle diagram, icon key-idea cards, and a sources list citing NIH and ISSN." src=".github/assets/demo.gif" width="100%">
-</picture>
+![recap-studio demo](.github/assets/demo.gif)
+
+<sub>Animated walkthrough of a generated Recap Studio page about creatine: dark-mode hero, an inline-SVG energy-cycle diagram, icon key-idea cards, and a sources list citing NIH and ISSN.</sub>
 
 ---
 
