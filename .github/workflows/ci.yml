@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
-      - name: Install
-        run: pnpm install --frozen-lockfile=false
+      - name: Install (strict lockfile)
+        run: pnpm install --frozen-lockfile
       - name: Build packages
         # Downstream workspace packages need built dist/ for typecheck to resolve imports.
         run: pnpm -r --if-present run build
@@ -34,6 +34,40 @@ jobs:
         run: |
           node scripts/demo-latest-ai-models.mjs
           node scripts/validate.mjs
+      - name: Render + assert self-contained
+        run: |
+          node scripts/render-html.mjs latest-ai-models
+          F=artifacts/latest-ai-models/recap-latest-ai-models.html
+          test -f "$F" || { echo "no HTML produced"; exit 1; }
+          if grep -q "/_next/" "$F"; then echo "FAIL: absolute /_next/ path in standalone HTML"; exit 1; fi
+          if grep -qi "<script" "$F"; then echo "FAIL: <script> in standalone HTML"; exit 1; fi
+          echo "ok: standalone HTML is self-contained (no /_next/, no <script>)"
+      - name: CLI smoke
+        run: |
+          node packages/cli/dist/index.js --version
+          node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json
+          node packages/cli/dist/index.js render fixtures/topics/latest-ai-models.json -o /tmp/cli-out.html
+          test -f /tmp/cli-out.html && echo "ok: recap CLI render + validate"
+
+  secrets-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for leaked secrets / hardcoded keys
+        run: |
+          # Exclude files that legitimately contain key-SHAPED regexes (the
+          # secret scanners themselves) plus build/output dirs.
+          PATTERN='(sk-ant-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|xox[bpars]-[A-Za-z0-9-]{12,})'
+          if grep -rnEI "$PATTERN" . \
+              --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist \
+              --exclude-dir=.next --exclude-dir=out \
+              --exclude=pnpm-lock.yaml \
+              --exclude=validate.mjs \
+              --exclude=security-privacy.ts \
+              --exclude=block-secret-writes.mjs ; then
+            echo "FAIL: possible secret committed"; exit 1
+          fi
+          echo "ok: no leaked secrets"
 
   hooks:
     runs-on: ubuntu-latest

@@ -1,0 +1,45 @@
+{
+  "name": "recap-studio",
+  "metadata": {
+    "description": "Turn any topic or coding session into a beautiful, dark-mode, mobile-first one-page explainer you can read in ~5 minutes — and double-click to open offline. Works in Claude Code, or as a standalone MCP server / CLI in any editor.",
+    "keywords": [
+      "claude-code",
+      "claude-code-plugin",
+      "recap",
+      "explainer",
+      "dark-mode",
+      "mobile-first",
+      "self-contained-html",
+      "mcp",
+      "cli",
+      "education"
+    ]
+  },
+  "owner": {
+    "name": "Adam Boudjemaa"
+  },
+  "plugins": [
+    {
+      "name": "recap-studio",
+      "source": {
+        "source": "github",
+        "repo": "Aboudjem/recap-studio"
+      },
+      "description": "Turn a topic or a git diff into a beautiful, dark-mode, mobile-first one-page explainer in ~5 minutes. Output is ONE self-contained HTML file — inlined CSS, zero JS — that opens with a double-click, offline. Specialist agents draft it; a deterministic board checks structure + citations. Reusable HTML template; works in Claude Code, Cursor, VS Code, the terminal, and more.",
+      "version": "0.3.0",
+      "homepage": "https://github.com/Aboudjem/recap-studio",
+      "license": "MIT",
+      "keywords": [
+        "recap",
+        "explainer",
+        "education",
+        "dark-mode",
+        "mobile-first",
+        "self-contained-html",
+        "nextjs",
+        "mcp",
+        "cli"
+      ]
+    }
+  ]
+}

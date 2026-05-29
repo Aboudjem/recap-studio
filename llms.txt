@@ -1,0 +1,47 @@
+# Recap Studio
+
+> Claude Code plugin: turn any topic or git diff into a cited, mobile-first, dark-mode one-page explainer in under 5 minutes.
+
+## Install
+
+### Marketplace (recommended)
+```
+claude plugin install recap-studio@10x
+```
+
+### CLI (any terminal, no Claude Code required)
+```
+npx @recap-studio/cli render content.json -o out.html
+npx @recap-studio/cli validate content.json
+```
+
+## Key files / packages
+
+- `README.md` — overview, install, commands, quality bar
+- `GOAL_SPEC.md` — authoritative product spec
+- `skills/` — `recap-topic`, `recap-session`, `recap-setup`, `recap-validate` (Claude Code skill orchestrators)
+- `packages/html-renderer/` (`@recap-studio/html-renderer`) — `renderToHtml(content, {theme})` → one self-contained dark-mode HTML string; all CSS inlined, zero JavaScript, opens offline via `file://`
+- `packages/cli/` (`@recap-studio/cli`) — `recap render` / `recap validate` commands; works in any editor or terminal
+- `packages/mcp-server/` (`@recap-studio/mcp-server`) — MCP server exposing `render_recap_html` tool; compatible with Cursor, VS Code, Codex, Continue
+- `packages/content-pipeline/` (`@recap-studio/content-pipeline`) — schema definitions, content loader, subpath `@recap-studio/content-pipeline/load-config` for safe imports
+- `packages/validation/` — deterministic heuristic scorer (see IMPORTANT note below)
+- `agents/` — 13 specialist agent prompt files (fact-checker, structure-reviewer, citation-validator, etc.); invoked at skill runtime, not during static validation
+
+## IMPORTANT: validation scores
+
+Scores produced by `pnpm validate:demo` (and displayed as "9.7 / 10") are **deterministic heuristics** — word counts, sourceId presence, secret-pattern regex — executed by `scripts/validate.mjs` in Node.js.
+
+- They do **not** involve LLM calls.
+- They do **not** fetch or verify cited sources.
+- LLM agent reviews (the 13 specialist agents) run at **skill invocation time** inside Claude Code, not during static demo validation.
+
+Any mention of "7 reviewers in parallel" refers to 7 heuristic dimensions running concurrently, not 7 concurrent LLM agents during `pnpm validate:demo`.
+
+## Links
+
+- Repository: https://github.com/Aboudjem/recap-studio
+- npm (plugin): https://www.npmjs.com/package/recap-studio
+- npm (CLI): https://www.npmjs.com/package/@recap-studio/cli
+- npm (html-renderer): https://www.npmjs.com/package/@recap-studio/html-renderer
+- License: MIT
+- Author: Adam Boudjemaa (https://github.com/Aboudjem)
