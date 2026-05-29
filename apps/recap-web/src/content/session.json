@@ -1,0 +1,147 @@
+{
+  "slug": "session",
+  "topic": "What we rebuilt in Recap Studio",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-29T00:00:00.000Z",
+  "fixture": false,
+  "oneSentenceAnswer": "We made Recap Studio's pages into one file you can double-click offline, made it work in any editor, and told the truth about its score.",
+  "fiveMinutePath": [
+    "See the one problem that made every page un-shareable.",
+    "Meet the new piece that fixes it: a self-contained HTML template.",
+    "Learn why it now works in editors other than Claude Code.",
+    "Understand the honesty fix around the quality score.",
+    "Check what's left and what to try next."
+  ],
+  "whyItMatters": [
+    "Before this session, a generated page only worked behind a web server — double-clicking the file showed a broken, unstyled mess. That defeats the whole point of \"here's a page you can share\".",
+    "The tool claimed it was reviewed by seven AI reviewers, but the score was actually a quick rule-based check. Saying so plainly protects the project's credibility.",
+    "Most people don't live in one editor. Making it work in Cursor, VS Code, and the terminal — not just Claude Code — is the difference between a demo and a tool people rely on."
+  ],
+  "keyIdeas": [
+    {
+      "id": "self-contained",
+      "title": "One file, no server, works offline",
+      "body": "A new renderer writes the whole page — styling included — into a single HTML file with no JavaScript. You can email it, open it on a plane, or double-click it. No build server required.",
+      "icon": "image",
+      "sourceIds": ["html-renderer", "render-script"]
+    },
+    {
+      "id": "reusable",
+      "title": "A template other tools can borrow",
+      "body": "The look-and-feel is now a shared package, not locked inside one app. Any sibling tool that can describe its content can get the same calm, dark, mobile page for free.",
+      "icon": "layers",
+      "sourceIds": ["html-renderer"]
+    },
+    {
+      "id": "anywhere",
+      "title": "Runs in any editor",
+      "body": "A small command-line tool and a fixed plug-in interface mean the page generator and checker work in Cursor, VS Code, the terminal, and more — not only inside Claude Code.",
+      "icon": "globe",
+      "sourceIds": ["cli", "mcp"]
+    },
+    {
+      "id": "honest-score",
+      "title": "Honest about the score",
+      "body": "The built-in score is a fast rule-based check (does every claim cite a source? is it short enough?). It does not read the sources or run an AI. We now say that everywhere it appears.",
+      "icon": "shield",
+      "sourceIds": ["validate", "audit"]
+    },
+    {
+      "id": "safer-defaults",
+      "title": "Safer out of the box",
+      "body": "The settings file shipped with deploy and email switched on. We reset it to off, kept it off the public repo, and left a clearly-marked example to copy.",
+      "icon": "lock",
+      "sourceIds": ["config"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept-map", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "timeline", "id": "timeline", "enabled": true },
+    { "kind": "comparison", "id": "comparison", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "concept-map",
+      "kind": "svg",
+      "alt": "Before: content went through a web-app builder and produced files with broken links that only worked on a server. After: the same content also goes through a new renderer that produces one self-contained HTML file you can double-click.",
+      "code": "<svg viewBox=\"0 0 760 380\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"Inter, system-ui, sans-serif\"><defs><linearGradient id=\"sg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#A78BFF\"/><stop offset=\"1\" stop-color=\"#4FA8FF\"/></linearGradient></defs><text x=\"30\" y=\"34\" fill=\"#A8A8B4\" font-size=\"12\" font-weight=\"700\" letter-spacing=\"1\">BEFORE</text><rect x=\"30\" y=\"48\" width=\"180\" height=\"56\" rx=\"14\" fill=\"#15151B\" stroke=\"#2E2E38\"/><text x=\"120\" y=\"81\" text-anchor=\"middle\" fill=\"#F2F1EE\" font-size=\"14\">Content (JSON)</text><path d=\"M210 76 H280\" stroke=\"#2E2E38\" stroke-width=\"2\"/><rect x=\"280\" y=\"48\" width=\"180\" height=\"56\" rx=\"14\" fill=\"#15151B\" stroke=\"#2E2E38\"/><text x=\"370\" y=\"81\" text-anchor=\"middle\" fill=\"#F2F1EE\" font-size=\"14\">Web-app build</text><path d=\"M460 76 H530\" stroke=\"#2E2E38\" stroke-width=\"2\"/><rect x=\"530\" y=\"48\" width=\"200\" height=\"56\" rx=\"14\" fill=\"#1B1B23\" stroke=\"#5A2230\"/><text x=\"630\" y=\"74\" text-anchor=\"middle\" fill=\"#FF8FB1\" font-size=\"13\">Broken links</text><text x=\"630\" y=\"92\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"12\">needs a server</text><text x=\"30\" y=\"190\" fill=\"#A8A8B4\" font-size=\"12\" font-weight=\"700\" letter-spacing=\"1\">AFTER</text><rect x=\"30\" y=\"204\" width=\"180\" height=\"56\" rx=\"14\" fill=\"#15151B\" stroke=\"#2E2E38\"/><text x=\"120\" y=\"237\" text-anchor=\"middle\" fill=\"#F2F1EE\" font-size=\"14\">Content (JSON)</text><path d=\"M210 232 H280\" stroke=\"url(#sg)\" stroke-width=\"2.5\"/><rect x=\"280\" y=\"204\" width=\"180\" height=\"56\" rx=\"14\" fill=\"#15151B\" stroke=\"#7C5CFF\"/><text x=\"370\" y=\"230\" text-anchor=\"middle\" fill=\"#CFC4FF\" font-size=\"13\">html-renderer</text><text x=\"370\" y=\"248\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"11\">inlines everything</text><path d=\"M460 232 H530\" stroke=\"url(#sg)\" stroke-width=\"2.5\"/><rect x=\"530\" y=\"204\" width=\"200\" height=\"56\" rx=\"14\" fill=\"#10231C\" stroke=\"#46B97F\"/><text x=\"630\" y=\"230\" text-anchor=\"middle\" fill=\"#7CE0AC\" font-size=\"13\">One HTML file</text><text x=\"630\" y=\"248\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"11\">double-click, offline</text><rect x=\"280\" y=\"300\" width=\"450\" height=\"50\" rx=\"14\" fill=\"#16121f\" stroke=\"#2E2E38\"/><text x=\"505\" y=\"322\" text-anchor=\"middle\" fill=\"#CFC4FF\" font-size=\"12\">The web-app path still exists for hosting on Vercel —</text><text x=\"505\" y=\"339\" text-anchor=\"middle\" fill=\"#A8A8B4\" font-size=\"12\">the new file path is for sharing.</text></svg>"
+    }
+  ],
+  "timeline": [
+    { "date": "Step 1", "title": "Audited the whole tool", "body": "Eleven specialist passes mapped what worked and what didn't, with file-level evidence.", "sourceIds": ["audit"] },
+    { "date": "Step 2", "title": "Built the self-contained renderer", "body": "A new package turns content into one offline HTML file. Proven by a screenshot at phone and desktop sizes.", "sourceIds": ["html-renderer"] },
+    { "date": "Step 3", "title": "Opened it to other editors", "body": "A command-line tool and a fixed plug-in interface make it work outside Claude Code.", "sourceIds": ["cli", "mcp"] },
+    { "date": "Step 4", "title": "Fixed honesty and safety", "body": "Reframed the score, reset risky defaults, and hardened the validator against bad input.", "sourceIds": ["validate", "config"] }
+  ],
+  "comparisons": [
+    {
+      "id": "before-after",
+      "title": "Before vs after",
+      "columns": ["Before", "After"],
+      "rows": [
+        { "name": "Open the page", "cells": { "Before": "Needs a running server", "After": "Double-click the file" }, "sourceIds": ["html-renderer"] },
+        { "name": "Works offline", "cells": { "Before": "No", "After": "Yes" }, "sourceIds": ["render-script"] },
+        { "name": "Other editors", "cells": { "Before": "Claude Code only", "After": "Cursor, VS Code, terminal, more" }, "sourceIds": ["cli", "mcp"] },
+        { "name": "The score", "cells": { "Before": "Sounded like AI review", "After": "Labeled as a rule-based check" }, "sourceIds": ["validate"] }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ex-render",
+      "title": "Make a shareable page in one command",
+      "body": "Run `recap render content.json -o page.html`. You get a single file you can email; the person opens it with a double-click, no install.",
+      "sourceIds": ["cli"]
+    },
+    {
+      "id": "ex-demo",
+      "title": "The demo proves it",
+      "body": "`pnpm render:demo` produced a 47 KB page with a hand-drawn diagram, scored sections, and cited sources — verified visually on a phone-width screen.",
+      "sourceIds": ["render-script"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "an-pdf",
+      "setup": "Think of the old output like a website that only loads on the office network.",
+      "takeaway": "The new output is like a PDF: one file, opens anywhere, looks the same for everyone."
+    }
+  ],
+  "misconceptions": [
+    { "id": "mc-score", "myth": "A 9.7/10 means seven AI reviewers approved the page.", "truth": "It's a fast rule-based score (citations present, page short enough, no secrets). The AI review only runs inside Claude Code.", "sourceIds": ["validate", "audit"] },
+    { "id": "mc-rebuild", "myth": "The old web app was thrown away.", "truth": "It stays — for hosting on Vercel. We added a second path that makes one shareable file.", "sourceIds": ["html-renderer"] }
+  ],
+  "glossary": [
+    { "term": "self-contained HTML", "definition": "A web page whose styling and content are all inside one file, so it works with no server and no internet." },
+    { "term": "MCP", "definition": "A standard way for editors to talk to small tools. Fixing our messages to follow it is what lets other editors use Recap Studio." },
+    { "term": "CLI", "definition": "A command you type in a terminal. Ours, `recap`, renders or scores a page anywhere." },
+    { "term": "fixture", "definition": "Saved example data used so the demo runs offline with no live research." }
+  ],
+  "practicalTakeaways": [
+    "Generate a recap, then just double-click the HTML — no server needed.",
+    "Use `recap render` / `recap validate` from any editor's terminal.",
+    "Trust the score as a quick structural check, not as a fact-check — run /recap in Claude Code for the real review.",
+    "Copy recap-studio.config.example.ts and turn on deploy/email only when you want them."
+  ],
+  "sourceMap": [
+    { "id": "html-renderer", "title": "packages/html-renderer — the self-contained renderer", "url": "https://github.com/Aboudjem/recap-studio/tree/main/packages/html-renderer", "publisher": "recap-studio", "composite": 9, "primary": true, "provenance": "live", "summary": "renderToHtml() builds one offline HTML file with inlined CSS and zero JS.", "claims": ["self-contained", "reusable"] },
+    { "id": "render-script", "title": "scripts/render-html.mjs — pipeline wiring", "url": "https://github.com/Aboudjem/recap-studio/blob/main/scripts/render-html.mjs", "publisher": "recap-studio", "composite": 8, "primary": true, "provenance": "live", "summary": "Reads content JSON and writes artifacts/<slug>/recap-<slug>.html.", "claims": ["self-contained"] },
+    { "id": "cli", "title": "packages/cli — the recap command", "url": "https://github.com/Aboudjem/recap-studio/tree/main/packages/cli", "publisher": "recap-studio", "composite": 9, "primary": true, "provenance": "live", "summary": "recap render|validate, works without Claude Code.", "claims": ["anywhere"] },
+    { "id": "mcp", "title": "packages/mcp-server — render tool + MCP-compliant transport", "url": "https://github.com/Aboudjem/recap-studio/tree/main/packages/mcp-server", "publisher": "recap-studio", "composite": 8, "primary": true, "provenance": "live", "summary": "Adds render_recap_html and fixes responses to MCP's text content format.", "claims": ["anywhere"] },
+    { "id": "validate", "title": "scripts/validate.mjs — deterministic checks", "url": "https://github.com/Aboudjem/recap-studio/blob/main/scripts/validate.mjs", "publisher": "recap-studio", "composite": 8, "primary": true, "provenance": "live", "summary": "Rule-based scoring; now guards bad input and is described honestly.", "claims": ["honest-score"] },
+    { "id": "config", "title": "recap-studio.config.example.ts — safe defaults", "url": "https://github.com/Aboudjem/recap-studio/blob/main/recap-studio.config.example.ts", "publisher": "recap-studio", "composite": 8, "primary": true, "provenance": "live", "summary": "Deploy and email off by default; real config is gitignored.", "claims": ["safer-defaults"] },
+    { "id": "audit", "title": "docs/audit — the 11-pass audit", "url": "https://github.com/Aboudjem/recap-studio/tree/main/docs/audit", "publisher": "recap-studio", "composite": 9, "primary": true, "provenance": "live", "summary": "Evidence-backed findings that drove every change this session.", "claims": ["honest-score"] }
+  ],
+  "uncertaintyNotes": [
+    "Reading time is estimated from word count, not measured.",
+    "The before/after diagram is a simplified picture of the build, not the literal code path."
+  ],
+  "reviewScores": {}
+}
