@@ -44,8 +44,8 @@ Any mention of "7 reviewers in parallel" refers to 7 heuristic dimensions runnin
 ## Links
 
 - Repository: https://github.com/Aboudjem/recap-studio
-- npm (plugin): https://www.npmjs.com/package/recap-studio
-- npm (CLI): https://www.npmjs.com/package/@recap-studio/cli
-- npm (html-renderer): https://www.npmjs.com/package/@recap-studio/html-renderer
+- npm (plugin): https://www.npmjs.com/package/recap-studio (placeholder; canonical install is via 10x marketplace)
+- npm (CLI): https://www.npmjs.com/package/@recap-studio/cli (published with the 0.3.x release)
+- npm (html-renderer): https://www.npmjs.com/package/@recap-studio/html-renderer (published with the 0.3.x release)
 - License: MIT
 - Author: Adam Boudjemaa (https://github.com/Aboudjem)
