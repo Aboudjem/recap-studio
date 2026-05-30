@@ -21,14 +21,13 @@ Generated: 2026-05-30 · Engine: Supernova v1 · Run: `node /path/to/supernova/s
 | Issue templates present | +3 | Fixed — `bug_report.md` + `feature_request.md` |
 | GitHub description quality | +5 | Already strong (160 chars, keyword-first); no change needed |
 
-**Remaining gap: none** — description was already within the 20–160 char target and keyword-rich. The engine flagged it as a gap; see engine notes below.
+**Remaining gap: none.** The description was already within the 20–160 char target and keyword-rich. The engine flagged it; see engine notes below.
 
 ---
 
 ## Engine notes (false gaps / observations)
 
-The `description_quality` gap was a **false positive**. The existing description —
-*"Generate beautiful, calm, mobile-first one-page explainers in under 5 minutes. Claude Code plugin. 13 specialist agents, 7-dimension validation, static Next.js output."* — is 160 characters, keyword-first, and well above the 20-char floor. The engine likely triggered because it checked length or keyword heuristics against a stale cached value. No change was made to the description.
+The `description_quality` gap was a false positive. The existing description — *"Generate beautiful, calm, mobile-first one-page explainers in under 5 minutes. Claude Code plugin. 13 specialist agents, 7-dimension validation, static Next.js output."* — is 160 characters, keyword-first, and well above the 20-char floor. The engine likely triggered because it checked length or keyword heuristics against a stale cached value. No change was made to the description.
 
 Topics were also already set (verified via `gh repo view`). The `has_examples_dir` and `has_issue_templates` gaps were genuine.
 

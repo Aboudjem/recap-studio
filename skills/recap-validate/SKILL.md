@@ -1,5 +1,6 @@
 ---
 name: recap-validate
+user-invocable: false
 description: Use when the user types /recap validate, asks Recap Studio to "score the page", "run validation", "qa the recap", or wants the multi-agent quality report regenerated. Dispatches the validation board and writes a structured report.
 arguments:
   - name: content

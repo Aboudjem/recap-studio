@@ -6,7 +6,7 @@ Dated: June 2026 · Standard: Supernova Pillar 1 (borrowed-reach-first)
 
 ## Why borrowed reach first
 
-Recap Studio has a visceral hook: **one command → double-clickable, offline, dark-mode explainer with cited sources**. That hook lands hardest when people *see* it — the demo GIF does most of the selling. The strategy is therefore demo-first, community-first, not a cold Show HN post into a crowded feed.
+Recap Studio has a visceral hook: one command → double-clickable, offline, dark-mode explainer with cited sources. That hook lands hardest when people *see* it — the demo GIF does most of the selling. The strategy is demo-first, community-first, not a cold Show HN post into a crowded feed.
 
 ---
 
@@ -49,9 +49,9 @@ Recap Studio has a visceral hook: **one command → double-clickable, offline, d
 
 ---
 
-## Visceral-hook advantage
+## The differentiator
 
-The differentiator other tools cannot copy quickly is the **offline, double-clickable, zero-JS output**. Every marketing touchpoint should open with this fact. The comparison table in the README (self-contained offline HTML: **YES** vs No for every competitor) is the visual proof — screenshot it and add it to the dev.to post.
+The offline, double-clickable, zero-JS output is what other tools can't copy quickly. Every marketing touchpoint should open with this fact. The comparison table in the README (self-contained offline HTML: **YES** vs No for every competitor) is the visual proof — screenshot it and add it to the dev.to post.
 
 ---
 

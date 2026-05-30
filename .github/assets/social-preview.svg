@@ -12,7 +12,7 @@
   </defs>
   <rect width="1280" height="640" fill="url(#rs-social-bg)"/>
   <g font-family="system-ui,-apple-system,Segoe UI,sans-serif" fill="#16161D">
-    <text x="80" y="180" font-size="13" font-weight="700" letter-spacing="4" fill="#7C5CFF">RECAP STUDIO · v0.3.1</text>
+    <text x="80" y="180" font-size="13" font-weight="700" letter-spacing="4" fill="#7C5CFF">RECAP STUDIO · v0.4.0</text>
     <text x="80" y="280" font-size="78" font-weight="800" letter-spacing="-2">One-page explainers</text>
     <text x="80" y="360" font-size="78" font-weight="800" letter-spacing="-2">in five minutes.</text>
     <text x="80" y="430" font-size="26" fill="#5C5C66">Topic or git diff in. Self-contained HTML out.</text>

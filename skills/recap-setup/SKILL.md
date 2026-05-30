@@ -1,5 +1,6 @@
 ---
 name: recap-setup
+user-invocable: false
 description: Use when the user types /recap setup, /recap config, or asks Recap Studio to "configure", "initialize", or "set defaults". Writes recap-studio.config.ts with safe defaults and validates env.
 arguments:
   - name: preset
