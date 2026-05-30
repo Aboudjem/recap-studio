@@ -5,29 +5,65 @@ All notable changes to Recap Studio are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-05-29
+## [0.4.0] - 2026-05-30
 
-Documentation and presentation polish. No behaviour changes.
+Portability and discoverability layer. The plugin now installs into any AI CLI,
+ships cross-editor manifests, has a static GitHub Pages demo, and reads honestly.
+No behaviour changes to the renderer or the agents themselves.
 
 ### Added
 
-- Embedded the `demo.gif` walkthrough in the README.
+- **Multi-CLI installer** (`install.sh` plus `install.ps1`): symlinks the four
+  skills into 13 host CLIs (Gemini, Codex, OpenCode, Pi, Vibe, VS Code/Copilot,
+  Trae, OpenClaw, Antigravity, Hermes, Cline, Kimi), with `--update`,
+  `--uninstall`, and a curl-pipe one-liner. The optional local MCP server is the
+  universal fallback.
+- **Cross-editor manifests:** `.cursor-plugin/plugin.json` and
+  `.copilot-plugin/plugin.json` mirror `.claude-plugin/plugin.json` (name,
+  version, description, author, skills, and the MCP block for dual-mode).
+- **GitHub Pages demo:** `site/index.html` (dark static landing page) plus
+  `.github/workflows/deploy-pages.yml`. It reuses the shipped `demo.gif` and a
+  real, pre-rendered self-contained recap (`.github/sample-recap.html`). Vercel
+  and the hosted Next.js app are untouched; see CLAUDE.md for the
+  Pages-vs-Vercel decision.
+- **README portability blocks:** a language switcher, an install matrix with a
+  per-editor setup section, and a Star History chart.
+- **Localized READMEs:** full translations at `READMEs/{zh-CN,ja,es,fr}.md`.
+- **`CLAUDE.md`:** project header plus contributor notes (host-agnostic agents
+  rationale, installer target-dir table, manifests-to-sync list, version-bump
+  checklist, Pages-vs-Vercel decision, the npm gap).
+- **`.github/FUNDING.yml`** (`github: Aboudjem`).
+- Embedded the `demo.gif` walkthrough in the README (carried over from the
+  prior unreleased polish).
 
 ### Changed
 
+- **Host-agnostic agents (#167):** dropped the `model:` pin from all 13 agent
+  prompt files so every host CLI falls back to its own default model. The
+  cost/quality split (haiku for lookups, sonnet for synthesis) is now documented
+  in `AGENTS.md` as a suggestion, not enforced in frontmatter.
+- **Honest test figure:** corrected "44 tests across 6 packages" to "43 tests
+  across 5 test-bearing packages" in `README.md` and `AGENTS.md`
+  (`design-system` ships no tests).
 - Unified the `/recap session` command form (space form is canonical).
-- Corrected the unshipped-npm claims (the `@recap-studio` packages are not yet published).
+- Corrected the unshipped-npm claims (the `@recap-studio` packages are not yet
+  published).
 - De-serif'd `og.svg` to the sans-serif type system.
 
 ### Removed
 
+- **Stray self-marketplace manifest** `.claude-plugin/marketplace.json`. The
+  canonical distribution is the [Aboudjem/10x](https://github.com/Aboudjem/10x)
+  hub; the self-hosted manifest added in 0.3.0 is no longer needed.
 - Internal rebuild and migration docs, plus audit evidence.
 - The stale "103 KB First Load JS" metric.
 
 ### Fixed
 
+- Removed em-dashes (U+2014) from docs, agent prompts, skill files, and the
+  load-bearing JSON manifest descriptions, replacing them with commas, colons,
+  or parentheticals per the house style.
 - Animated SVGs now respect `prefers-reduced-motion`.
-- Removed sentence-break em-dashes from the docs.
 
 ## [0.3.1] - 2026-05-28
 
@@ -198,7 +234,8 @@ rebuilt the output, opened it to every editor, and made the claims honest.
   board, and the `latest-ai-models` offline-safe demo path.
 - Final validation report scored 9.7/10 overall, every threshold passed.
 
-[Unreleased]: https://github.com/Aboudjem/recap-studio/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/Aboudjem/recap-studio/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/Aboudjem/recap-studio/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/Aboudjem/recap-studio/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Aboudjem/recap-studio/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Aboudjem/recap-studio/compare/v0.1.0...v0.2.0

@@ -1,8 +1,8 @@
 {
   "name": "recap-studio",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "private": true,
-  "description": "Turn a topic or coding session into a beautiful, dark-mode, mobile-first one-page explainer — one self-contained HTML file you double-click to read offline in ~5 minutes. Claude Code plugin + CLI + MCP server.",
+  "description": "Turn a topic or coding session into a beautiful, dark-mode, mobile-first one-page explainer: one self-contained HTML file you double-click to read offline in ~5 minutes. Claude Code plugin + CLI + MCP server.",
   "license": "MIT",
   "packageManager": "pnpm@10.0.0",
   "engines": {
