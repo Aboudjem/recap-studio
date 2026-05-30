@@ -31,6 +31,9 @@ artifacts/
 # Demo render scratch (the committed asset is .github/assets/demo.gif)
 demo-output/
 
+# Example output HTML (regenerated locally; input JSONs are committed)
+examples/*/output/*.html
+
 # Local config (deploy/email opt-ins must never ship). Template:
 # recap-studio.config.example.ts
 recap-studio.config.ts

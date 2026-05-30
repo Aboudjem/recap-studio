@@ -1,0 +1,190 @@
+{
+  "slug": "session-refactor-validation",
+  "topic": "Session: Refactor validation package to pure functions",
+  "audienceLevel": "intermediate",
+  "generatedAt": "2026-05-30T00:00:00.000Z",
+  "fixture": true,
+  "oneSentenceAnswer": "Replaced a class-based Validator with three pure functions, removing 80 lines of boilerplate while keeping all 9 tests green.",
+  "fiveMinutePath": [
+    "See what changed: 3 files touched, net -80 lines.",
+    "Understand why: the class was hiding state that didn't need to exist.",
+    "Review the new API: validateContent(), scoreContent(), formatReport().",
+    "Note the test strategy: same 9 assertions, zero test changes needed.",
+    "Learn the pattern: pure functions are easier to test and tree-shake."
+  ],
+  "whyItMatters": [
+    "Pure functions eliminate hidden state bugs — the old class had a mutable errors array that leaked between calls.",
+    "Tree-shaking now works: callers that only need scoreContent() don't bundle the formatter.",
+    "The refactor is a template for two other packages that still use the same class pattern."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k-pure",
+      "title": "Pure functions, no class",
+      "body": "validateContent(json) returns a plain ValidationResult object. No constructor, no this, no mutable state. The result is serialisable.",
+      "icon": "function",
+      "sourceIds": ["src-pr-diff"]
+    },
+    {
+      "id": "k-treeshake",
+      "title": "Named exports enable tree-shaking",
+      "body": "Bundlers can now drop formatReport from builds that only call validateContent. The old default-class export prevented this optimisation.",
+      "icon": "scissors",
+      "sourceIds": ["src-pr-diff"]
+    },
+    {
+      "id": "k-tests-unchanged",
+      "title": "Zero test changes — the best kind of refactor",
+      "body": "All 9 tests passed with identical assertions. Behaviour-preserving refactors should not require test rewrites; if they do, the API changed, not just the implementation.",
+      "icon": "check",
+      "sourceIds": ["src-pr-diff"]
+    },
+    {
+      "id": "k-mutable-bug",
+      "title": "The mutable errors array was a latent bug",
+      "body": "The class accumulated errors in this.errors across calls. A caller who ran validate() twice on the same instance got doubled errors on the second pass. Pure functions make this impossible.",
+      "icon": "bug",
+      "sourceIds": ["src-pr-diff"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero",           "id": "hero",       "enabled": true },
+    { "kind": "matters",        "id": "matters",    "enabled": true },
+    { "kind": "ideas",          "id": "ideas",      "enabled": true },
+    { "kind": "comparison",     "id": "compare",    "enabled": true },
+    { "kind": "examples",       "id": "examples",   "enabled": true },
+    { "kind": "analogies",      "id": "analogies",  "enabled": true },
+    { "kind": "misconceptions", "id": "myths",      "enabled": true },
+    { "kind": "glossary",       "id": "glossary",   "enabled": true },
+    { "kind": "takeaways",      "id": "takeaways",  "enabled": true },
+    { "kind": "sources",        "id": "sources",    "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "before-after",
+      "kind": "mermaid",
+      "alt": "Before: a Validator class with mutable this.errors. After: three named pure function exports.",
+      "code": "graph LR\n  subgraph Before\n    A[new Validator\\(\\)] --> B[this.errors = \\[\\]]\n    B --> C[validate\\(json\\)]\n    C --> D[this.errors.push\\(...\\)]\n  end\n  subgraph After\n    E[validateContent\\(json\\)] --> F[return ValidationResult]\n    G[scoreContent\\(json\\)] --> H[return number]\n    I[formatReport\\(result\\)] --> J[return string]\n  end"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "class-vs-pure",
+      "title": "Class vs pure functions",
+      "columns": ["Property", "Class (before)", "Pure functions (after)"],
+      "rows": [
+        {
+          "name": "State",
+          "cells": {
+            "Property": "State",
+            "Class (before)": "Mutable this.errors — leaks between calls",
+            "Pure functions (after)": "No state — result is a return value"
+          },
+          "sourceIds": ["src-pr-diff"]
+        },
+        {
+          "name": "Tree-shaking",
+          "cells": {
+            "Property": "Tree-shaking",
+            "Class (before)": "Blocked — default export bundles everything",
+            "Pure functions (after)": "Works — named exports are independently droppable"
+          },
+          "sourceIds": ["src-pr-diff"]
+        },
+        {
+          "name": "Test setup",
+          "cells": {
+            "Property": "Test setup",
+            "Class (before)": "new Validator() before each test",
+            "Pure functions (after)": "Direct call — no setup needed"
+          },
+          "sourceIds": ["src-pr-diff"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "e-validate-call",
+      "title": "Calling the new API",
+      "body": "import { validateContent } from '@recap-studio/validation'; const result = validateContent(json); if (!result.valid) console.error(result.errors);",
+      "sourceIds": ["src-pr-diff"]
+    },
+    {
+      "id": "e-tree-shake",
+      "title": "Tree-shaking in action",
+      "body": "A CI script that only calls scoreContent() now ships 40% less code because formatReport() is not imported and gets dropped by the bundler.",
+      "sourceIds": ["src-pr-diff"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "a-vending",
+      "setup": "A class with mutable state is like a vending machine that remembers your last order.",
+      "takeaway": "If the machine remembers the wrong order, every new customer gets the wrong snack. A pure function is a machine that resets after every use — input in, output out, no memory."
+    },
+    {
+      "id": "a-calculator",
+      "setup": "Pure functions are like a calculator with no memory button.",
+      "takeaway": "Every calculation starts fresh. You can run 9 calculations in a row and the tenth is not affected by any of them."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m-classes-bad",
+      "myth": "Classes are always wrong in TypeScript.",
+      "truth": "Classes are fine when state genuinely belongs to an instance (e.g. a database connection pool). Validators and scorers have no per-instance state, so they should be functions.",
+      "sourceIds": ["src-pr-diff"]
+    },
+    {
+      "id": "m-tests-must-change",
+      "myth": "Any API change requires test rewrites.",
+      "truth": "If the tests only assert on outputs (not on class internals), a behaviour-preserving refactor leaves tests untouched. Good tests are a safety net, not a mirror of implementation details.",
+      "sourceIds": ["src-pr-diff"]
+    }
+  ],
+  "glossary": [
+    { "term": "Pure function", "definition": "A function whose output depends only on its inputs and has no side effects — no shared state, no I/O." },
+    { "term": "Tree-shaking", "definition": "A bundler optimisation that removes unused exports from the final JavaScript bundle." },
+    { "term": "Named export", "definition": "An export identified by name (export function foo). Bundlers can tree-shake named exports; default class exports are harder to shake." },
+    { "term": "Mutable state", "definition": "Data that can be changed after creation — a source of latent bugs when the same object is reused across calls." }
+  ],
+  "practicalTakeaways": [
+    "Check for mutable class state that could leak between calls before shipping a validation utility.",
+    "Named exports plus pure functions give you free tree-shaking in any modern bundler.",
+    "A refactor that requires zero test changes is a signal the abstraction boundary was correct from the start.",
+    "Run the full test suite immediately after removing a class — if tests still pass with zero changes, you refactored cleanly."
+  ],
+  "sourceMap": [
+    {
+      "id": "src-pr-diff",
+      "title": "Git diff — refactor/validation-pure-functions",
+      "url": "https://github.com/Aboudjem/recap-studio/compare/main...refactor/validation-pure-functions",
+      "publisher": "Adam Boudjemaa",
+      "publishedAt": "2026-05-30",
+      "composite": 8,
+      "reliability": 4,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 3,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "The pull-request diff that introduced the pure-function refactor of the validation package.",
+      "claims": ["3 files changed, net -80 lines", "All 9 tests green with zero test modifications"],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "The 40% bundle-size reduction for tree-shaking is illustrative; actual savings depend on the consuming application's import graph."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 8,
+    "a11y": 9,
+    "ux": 8,
+    "performance": 9,
+    "securityPrivacy": 10,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}

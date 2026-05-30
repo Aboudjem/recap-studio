@@ -1,0 +1,217 @@
+{
+  "slug": "react-server-components",
+  "topic": "React Server Components",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-05-30T00:00:00.000Z",
+  "fixture": true,
+  "oneSentenceAnswer": "React Server Components let you run React components on the server so they never ship JavaScript to the browser, making pages load faster without sacrificing interactivity.",
+  "fiveMinutePath": [
+    "Understand the client–server split: what runs where.",
+    "See how RSC differs from SSR and SSG.",
+    "Learn the 'use client' and 'use server' directives.",
+    "Understand the data-fetching pattern: async components.",
+    "Know the gotchas: no useState, no event handlers in Server Components."
+  ],
+  "whyItMatters": [
+    "Zero-JS Server Components shrink your bundle and improve Core Web Vitals.",
+    "Async components remove the need for useEffect-on-mount data fetching.",
+    "The mental model shift (server vs client tree) avoids a whole class of bugs."
+  ],
+  "keyIdeas": [
+    {
+      "id": "k-server-by-default",
+      "title": "Server by default in Next.js 13+",
+      "body": "Every component in the App Router is a Server Component unless you add 'use client'. It runs once on the server and ships zero JS to the browser.",
+      "icon": "server",
+      "sourceIds": ["src-react-docs", "src-nextjs-docs"]
+    },
+    {
+      "id": "k-no-hooks",
+      "title": "No useState or useEffect",
+      "body": "Server Components cannot use React hooks that depend on the browser. If you need state, event handlers, or browser APIs, add 'use client' at the top of that file.",
+      "icon": "ban",
+      "sourceIds": ["src-react-docs"]
+    },
+    {
+      "id": "k-async-data",
+      "title": "Async components replace useEffect fetching",
+      "body": "Server Components can be async functions. Await your database or API call directly in the component body — no useEffect, no loading state, no waterfall.",
+      "icon": "database",
+      "sourceIds": ["src-react-docs", "src-nextjs-docs"]
+    },
+    {
+      "id": "k-composition",
+      "title": "Server and Client components compose",
+      "body": "A Server Component can import and render a Client Component. Pass serialisable props (strings, numbers, plain objects) — not functions or class instances.",
+      "icon": "puzzle",
+      "sourceIds": ["src-react-docs"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero",           "id": "hero",       "enabled": true },
+    { "kind": "matters",        "id": "matters",    "enabled": true },
+    { "kind": "concept-map",    "id": "concept",    "enabled": true },
+    { "kind": "ideas",          "id": "ideas",      "enabled": true },
+    { "kind": "comparison",     "id": "compare",    "enabled": true },
+    { "kind": "examples",       "id": "examples",   "enabled": true },
+    { "kind": "analogies",      "id": "analogies",  "enabled": true },
+    { "kind": "misconceptions", "id": "myths",      "enabled": true },
+    { "kind": "glossary",       "id": "glossary",   "enabled": true },
+    { "kind": "takeaways",      "id": "takeaways",  "enabled": true },
+    { "kind": "sources",        "id": "sources",    "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "rsc-split",
+      "kind": "mermaid",
+      "alt": "Diagram showing the Server Component tree staying on the server while Client Components (marked use client) hydrate in the browser.",
+      "code": "graph TD\n  A[Next.js App Router] --> B[Server Component]\n  B --> C[Server Component]\n  B --> D[Client Component\\n'use client']\n  C --> E[DB / API call\\nasync/await]\n  D --> F[useState / events\\nbrowser APIs]\n  style D fill:#3b1d8a,color:#fff\n  style F fill:#1d3b8a,color:#fff"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "rsc-vs-ssr-ssg",
+      "title": "RSC vs SSR vs SSG",
+      "columns": ["Feature", "Server Component", "SSR (getServerSideProps)", "SSG (getStaticProps)"],
+      "rows": [
+        {
+          "name": "Runs at",
+          "cells": {
+            "Feature": "Runs at",
+            "Server Component": "Request time (server)",
+            "SSR (getServerSideProps)": "Request time (server)",
+            "SSG (getStaticProps)": "Build time"
+          },
+          "sourceIds": ["src-react-docs", "src-nextjs-docs"]
+        },
+        {
+          "name": "Ships JS to browser",
+          "cells": {
+            "Feature": "Ships JS to browser",
+            "Server Component": "No",
+            "SSR (getServerSideProps)": "Yes (hydration)",
+            "SSG (getStaticProps)": "Yes (hydration)"
+          },
+          "sourceIds": ["src-react-docs"]
+        },
+        {
+          "name": "Data fetching style",
+          "cells": {
+            "Feature": "Data fetching style",
+            "Server Component": "async/await in component",
+            "SSR (getServerSideProps)": "Separate function",
+            "SSG (getStaticProps)": "Separate function"
+          },
+          "sourceIds": ["src-nextjs-docs"]
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "e-product-page",
+      "title": "Product page with zero JS for the description",
+      "body": "Make your ProductDescription a Server Component that fetches from a CMS directly. Only the AddToCart button needs 'use client'. The description ships no JS.",
+      "sourceIds": ["src-nextjs-docs"]
+    },
+    {
+      "id": "e-dashboard",
+      "title": "Dashboard with async data fetching",
+      "body": "An async Server Component can await your database query at the top level. No useEffect, no loading spinner, no extra round-trip from the browser.",
+      "sourceIds": ["src-react-docs", "src-nextjs-docs"]
+    },
+    {
+      "id": "e-layout",
+      "title": "Shared layout that reads session server-side",
+      "body": "A root layout Server Component can read auth session from cookies or headers directly, then pass the user name down as a prop to a client header component.",
+      "sourceIds": ["src-nextjs-docs"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "a-kitchen",
+      "setup": "Server Components are like a kitchen that preps food before service.",
+      "takeaway": "The kitchen (server) does all the heavy work — chopping, cooking — and sends a finished plate. The dining room (browser) only needs a fork, not a full kitchen."
+    },
+    {
+      "id": "a-document",
+      "setup": "Choosing 'use client' is like highlighting a section of a document that needs to be interactive.",
+      "takeaway": "Everything unmarked stays static. Only the highlighted sections get JavaScript attached. Less highlighting means a lighter document."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "m-replace",
+      "myth": "Server Components replace Client Components entirely.",
+      "truth": "They complement each other. Interactive UI still needs Client Components. The goal is to keep non-interactive parts on the server to save bundle size.",
+      "sourceIds": ["src-react-docs"]
+    },
+    {
+      "id": "m-same-as-ssr",
+      "myth": "RSC is the same as SSR.",
+      "truth": "SSR renders a snapshot and ships JS for hydration. RSC never ships its own JS — it streams a component-tree description the client runtime interprets.",
+      "sourceIds": ["src-react-docs"]
+    }
+  ],
+  "glossary": [
+    { "term": "Server Component", "definition": "A React component that runs only on the server and ships no JavaScript to the browser." },
+    { "term": "Client Component", "definition": "A React component that runs in the browser, marked with 'use client' at the top of the file." },
+    { "term": "Hydration", "definition": "Attaching React event handlers to server-rendered HTML in the browser so it becomes interactive." },
+    { "term": "App Router", "definition": "The Next.js 13+ routing system where every component is a Server Component by default." }
+  ],
+  "practicalTakeaways": [
+    "Default to Server Components; only add 'use client' when you need state or event handlers.",
+    "Fetch data directly in async Server Components instead of useEffect.",
+    "Push the 'use client' boundary as deep in the tree as possible to minimise bundle size.",
+    "Pass only serialisable values (strings, numbers, plain objects) from Server to Client Components."
+  ],
+  "sourceMap": [
+    {
+      "id": "src-react-docs",
+      "title": "React Docs — Server Components",
+      "url": "https://react.dev/reference/rsc/server-components",
+      "publisher": "Meta / React team",
+      "publishedAt": "2024-03-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 4,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Official React documentation on the Server Components model, constraints, and composition rules.",
+      "claims": ["Server Components ship no JS", "Hooks not allowed in Server Components"],
+      "conflict": false
+    },
+    {
+      "id": "src-nextjs-docs",
+      "title": "Next.js Docs — Server and Client Components",
+      "url": "https://nextjs.org/docs/app/building-your-application/rendering/server-components",
+      "publisher": "Vercel / Next.js team",
+      "publishedAt": "2024-09-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 4,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Next.js App Router documentation covering server-first defaults, async components, and layout patterns.",
+      "claims": ["App Router defaults to Server Components", "async/await works in component body"],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "RSC is still evolving; some edge cases around streaming and Suspense boundaries change between React minor versions."
+  ],
+  "reviewScores": {
+    "facts": 9,
+    "beginner": 9,
+    "a11y": 9,
+    "ux": 9,
+    "performance": 9,
+    "securityPrivacy": 10,
+    "simplicity": 9,
+    "skeptical": 8
+  }
+}
