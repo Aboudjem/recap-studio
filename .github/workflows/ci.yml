@@ -80,4 +80,5 @@ jobs:
         run: |
           echo '{"tool_input":{"file_path":".env.local"}}' | node hooks/block-secret-writes.mjs && exit 1 || echo "ok: refused .env"
           echo '{"tool_input":{"command":"git push origin main"}}' | node hooks/block-destructive-git.mjs && exit 1 || echo "ok: refused push"
-          echo '{}' | node hooks/validate-before-deploy.mjs && exit 1 || echo "ok: refused deploy with no config"
+          echo '{"tool_input":{"command":"vercel --prod"}}' | node hooks/validate-before-deploy.mjs && exit 1 || echo "ok: refused prod deploy with no config"
+          echo '{"tool_input":{"command":"ls -la"}}' | node hooks/validate-before-deploy.mjs || exit 1 && echo "ok: allowed non-deploy Bash"
