@@ -64,7 +64,7 @@ pnpm install
 pnpm -w build
 # or: pnpm build
 
-# Run all tests across all packages (44 tests, 6 packages)
+# Run all tests across all packages (43 tests, 5 test-bearing packages)
 pnpm -w test
 # or: pnpm test
 
@@ -100,9 +100,11 @@ The validation gate must return a composite score of **9.7/10 or better** on the
 
 ## The 13 Specialist Agents
 
-Agents live in `agents/` as Markdown files with YAML frontmatter. Each declares its `name`, `description`, and preferred Claude `model`. The skill orchestrator (inside `skills/recap-topic/SKILL.md` and `skills/recap-session/SKILL.md`) dispatches them in the order below. The directory names stay hyphenated (`recap-session`); the user-facing invocation is the space form `/recap session`.
+Agents live in `agents/` as Markdown files with YAML frontmatter. Each declares its `name`, `description`, and `tools`. They carry no `model:` pin (see CLAUDE.md, host-agnostic agents), so each host CLI falls back to its own default model. The skill orchestrator (inside `skills/recap-topic/SKILL.md` and `skills/recap-session/SKILL.md`) dispatches them in the order below. The directory names stay hyphenated (`recap-session`); the user-facing invocation is the space form `/recap session`.
 
-| Agent file | Role | Model |
+The "Suggested model" column is guidance for the cost/quality split that worked well in practice; it is not pinned in the agent frontmatter, so any host CLI runs these with its own default model.
+
+| Agent file | Role | Suggested model |
 |---|---|---|
 | `research-scout.md` | Finds current, reliable sources on the topic | haiku |
 | `source-librarian.md` | Scores sources; builds the citation map | haiku |
@@ -236,7 +238,7 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 | `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |
 | `@recap-studio/mcp-server` | MCP server with `render_recap_html` + `validate` tools | 9 tests |
 
-Total: 44 tests across 6 packages.
+Total: 43 tests across 5 test-bearing packages (`design-system` ships no tests; it is consumed by `recap-web`).
 
 ---
 
