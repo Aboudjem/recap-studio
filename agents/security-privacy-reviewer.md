@@ -1,7 +1,6 @@
 ---
 name: security-privacy-reviewer
 description: Reviews secrets, unsafe commands, prompt-injection vectors from sources, untrusted external data, email/deploy side effects, and privacy of repo content.
-model: sonnet
 tools:
   - Read
   - Grep

@@ -1,7 +1,6 @@
 ---
 name: performance-reviewer
 description: Reviews bundle size, image budget, animation cost, Core Web Vitals risk, lazy loading, and static generation. Prefers static-first.
-model: haiku
 tools:
   - Read
   - Bash

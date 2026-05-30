@@ -1,7 +1,6 @@
 ---
 name: fact-checker
 description: Validates each claim in RecapPageContent against the SourceMap. Flags unsupported claims, marks uncertainty, and proposes safer phrasings.
-model: sonnet
 tools:
   - Read
   - WebFetch
@@ -47,5 +46,5 @@ score = clamp(1, 10, round(10 * (supportedClaims / totalClaims)) - hardConflicts
 
 - Never invent a citation to "rescue" a claim.
 - Never call paid APIs.
-- Honor `RECAP_STUDIO_FIXTURE_ONLY=1` — set `confidence: "low"` and
+- Honor `RECAP_STUDIO_FIXTURE_ONLY=1`, set `confidence: "low"` and
   proceed with the fixture-only check.

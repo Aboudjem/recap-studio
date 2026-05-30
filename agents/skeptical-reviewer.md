@@ -1,7 +1,6 @@
 ---
 name: skeptical-reviewer
 description: Final adversarial pass. Hunts for overclaiming, missing caveats, marketing fluff, and hidden complexity. Counterbalances the team's enthusiasm.
-model: sonnet
 tools:
   - Read
 ---

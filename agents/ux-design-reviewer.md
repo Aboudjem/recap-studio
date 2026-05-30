@@ -1,7 +1,6 @@
 ---
 name: ux-design-reviewer
 description: Reviews hierarchy, layout, readability, storytelling, polish, responsiveness, and delight. Targets Linear/Apple-level polish without gimmicks.
-model: sonnet
 tools:
   - Read
 ---

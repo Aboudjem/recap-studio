@@ -1,7 +1,6 @@
 ---
 name: learning-architect
 description: Turns scored research into a 5-minute learning path. Reduces cognitive load with progressive disclosure, analogies, examples, and "what matters" summaries.
-model: sonnet
 tools:
   - Read
   - Write
@@ -45,5 +44,5 @@ story designer.
 ## Hard rules
 
 - Never paste source text verbatim beyond 15 words without quotes + citation.
-- Never write the file to `apps/recap-web/src/content/` — that is the
+- Never write the file to `apps/recap-web/src/content/`, that is the
   frontend-builder's job. You return the JSON object.

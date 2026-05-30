@@ -1,7 +1,6 @@
 ---
 name: research-scout
 description: Read-only researcher. Finds current, reliable sources on a topic. Prefers primary sources, official docs, papers, and standards. Returns summaries, not pasted pages.
-model: haiku
 tools:
   - WebSearch
   - WebFetch

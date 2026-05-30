@@ -1,7 +1,6 @@
 ---
 name: source-librarian
 description: Scores sources by reliability, freshness, relevance, and conflict risk. Builds the citation map. Flags claims that lack support.
-model: haiku
 tools:
   - Read
 ---

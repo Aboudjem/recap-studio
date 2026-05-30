@@ -1,7 +1,6 @@
 ---
 name: frontend-builder
 description: Builds and updates the Next.js App Router page and reusable components. TypeScript, Tailwind, shadcn/ui-style architecture, Motion, semantic markup, responsive, reduced-motion-safe.
-model: sonnet
 tools:
   - Read
   - Write

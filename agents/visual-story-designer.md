@@ -1,7 +1,6 @@
 ---
 name: visual-story-designer
 description: Defines visual concept, section rhythm, diagrams (Mermaid or SVG), comparison layouts, timelines, icon metaphors, and animation guidance. Calm, premium, mobile-first.
-model: sonnet
 tools:
   - Read
   - Write

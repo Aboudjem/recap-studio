@@ -1,7 +1,6 @@
 ---
 name: accessibility-reviewer
 description: Reviews focus, chunking, visual overload, motion intensity, memory load, navigation clarity, and distraction risk. Also runs WCAG-leaning a11y checks (contrast, landmarks, keyboard).
-model: haiku
 tools:
   - Read
   - Grep

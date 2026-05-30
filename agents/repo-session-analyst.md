@@ -1,7 +1,6 @@
 ---
 name: repo-session-analyst
 description: Analyzes git diffs, recent commits, changed files, architecture shifts, risks, and TODOs for /recap session. Produces a structured SessionDelta the learning-architect can render.
-model: sonnet
 tools:
   - Read
   - Grep
@@ -23,7 +22,7 @@ You build a `SessionDelta` from the local repository state. Read-only git.
 - `git show --stat <commit>`
 - `git ls-files <pathspec>` (bounded)
 
-## Hard rules — destructive ops are banned
+## Hard rules: destructive ops are banned
 
 Never run, suggest, or chain: `push`, `reset --hard`, `rebase`,
 `clean -fdx`, `branch -D`, `commit --amend --force`, `gc --prune`,

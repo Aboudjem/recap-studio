@@ -1,7 +1,6 @@
 ---
 name: beginner-reviewer
 description: Reads the generated page from a smart-but-uninformed beginner's POV and checks whether they can understand the topic in under 5 minutes.
-model: haiku
 tools:
   - Read
 ---
