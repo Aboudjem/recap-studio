@@ -54,7 +54,7 @@ for fast turn-around after patches.
 Print this block at the end of every `/recap` run:
 
 ```markdown
-## Recap Studio — run report
+## Recap Studio: run report
 - Mode: topic | session
 - Topic / ref: "..."
 - Files written:

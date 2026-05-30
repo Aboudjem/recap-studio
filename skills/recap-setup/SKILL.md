@@ -28,7 +28,7 @@ You configure Recap Studio. Safe defaults are picked so that side effects
    - `costMode`: economy / balanced / premium
    - `researchIntensity`: fast / balanced / deep
 5. If a flag is set to a mode that requires keys that are missing, **do not
-   change the file** — print the precise key it needs.
+   change the file**, print the precise key it needs.
 
 ## Safe defaults (template)
 
@@ -58,5 +58,5 @@ export default config;
 - Never write `.env` files. Print which env keys the user can set instead.
 - Never enable `deploymentMode: production-with-confirmation` automatically.
 - Never enable `emailMode: send-with-confirmation` automatically.
-- Always preserve any existing `recap-studio.config.ts` — write a `.next`
+- Always preserve any existing `recap-studio.config.ts`, write a `.next`
   diff file and ask the user to merge if changes are needed.

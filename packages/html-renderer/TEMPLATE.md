@@ -1,4 +1,4 @@
-# The Recap Template — reuse & white-label guide
+# The Recap Template: reuse & white-label guide
 
 `@recap-studio/html-renderer` is a **shared visual asset for the 10x toolset**. Any tool that can shape its output into a `RecapPageContent` gets the same calm-premium dark page, self-contained and offline-safe, for free. This guide shows how to reuse and re-skin it.
 
@@ -11,7 +11,7 @@ The renderer consumes one object: `RecapPageContent` (defined and validated in `
 | `topic`, `oneSentenceAnswer` | Hero headline + one-line answer |
 | `fiveMinutePath[]` | Numbered "reading path" chips |
 | `whyItMatters[]` | "The short version" cards |
-| `keyIdeas[] {title, body, icon}` | Icon cards — `icon` maps to the inline SVG set (see §4) |
+| `keyIdeas[] {title, body, icon}` | Icon cards, `icon` maps to the inline SVG set (see §4) |
 | `diagrams[] {kind, code, alt}` | `kind:"svg"` is inlined; `kind:"mermaid"` gets a static fallback |
 | `timeline[]`, `comparisons[]` | Timeline rail + responsive comparison table/cards |
 | `examples[]`, `analogies[]`, `misconceptions[]` | Concrete + myth/truth sections |
@@ -58,7 +58,7 @@ Then embed `css` in your own shell, or post-process the `<style>` block.
 
 ## 4. Icons
 
-`keyIdeas[].icon` accepts a name from the built-in inline SVG set (Lucide-style, stroke = `currentColor`): `layers`, `brain`, `scroll`, `image`, `trending-up`, `trending-down`, `zap`, `cpu`, `database`, `globe`, `shield`, `rocket`, `lock`, `eye`, `compass`, `target`, `gauge`, `puzzle`, `book`, `message`, `clock`, `star`. Unknown names fall back to a neutral dot — the renderer never throws on a new name.
+`keyIdeas[].icon` accepts a name from the built-in inline SVG set (Lucide-style, stroke = `currentColor`): `layers`, `brain`, `scroll`, `image`, `trending-up`, `trending-down`, `zap`, `cpu`, `database`, `globe`, `shield`, `rocket`, `lock`, `eye`, `compass`, `target`, `gauge`, `puzzle`, `book`, `message`, `clock`, `star`. Unknown names fall back to a neutral dot, the renderer never throws on a new name.
 
 ## 5. Diagrams (self-contained)
 
@@ -67,8 +67,8 @@ Then embed `css` in your own shell, or post-process the `<style>` block.
 
 ## 6. Who reuses this
 
-- **Recap Studio** — `/recap "<topic>"` and `/recap session` write `artifacts/<slug>/recap-<slug>.html`.
-- **Other 10x tools** — any tool with a report can shape it into a `RecapPageContent` (or a subset, using `visualSections` to hide what doesn't apply) and ship the same polished page. No design work, no build step.
+- **Recap Studio**: `/recap "<topic>"` and `/recap session` write `artifacts/<slug>/recap-<slug>.html`.
+- **Other 10x tools**: any tool with a report can shape it into a `RecapPageContent` (or a subset, using `visualSections` to hide what doesn't apply) and ship the same polished page. No design work, no build step.
 
 ## 7. Guarantees
 

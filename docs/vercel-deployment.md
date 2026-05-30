@@ -82,7 +82,7 @@ RECAP_USER_CONFIRMED_PUBLIC=1 SSO_MODE=all scripts/vercel-set-public.sh
 The script PATCHes `https://api.vercel.com/v9/projects/{id}` with the
 Vercel CLI's stored token. It never echoes the token.
 
-This is a **project-level** change — it affects every deployment of the
+This is a **project-level** change, it affects every deployment of the
 project, past and future. Treat it as a deliberate setting, not a deploy
 flag.
 

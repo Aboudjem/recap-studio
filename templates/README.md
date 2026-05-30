@@ -16,10 +16,10 @@ generated content.
 1. Create `templates/<id>/template.json` with the same shape as the
    defaults below.
 2. Append a row to `templates/manifest.json`.
-3. Document it in your PR — what audience, what fits.
+3. Document it in your PR, what audience, what fits.
 
 Defaults ship in this repo:
 
-- `tech-explainer` — the standard 12-section page, beginner-friendly.
-- `coding-session` — built around `SessionDelta`, with a per-file deep-dive
+- `tech-explainer`: the standard 12-section page, beginner-friendly.
+- `coding-session`: built around `SessionDelta`, with a per-file deep-dive
   accordion in `--deep` mode.

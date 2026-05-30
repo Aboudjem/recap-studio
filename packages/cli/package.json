@@ -1,7 +1,7 @@
 {
   "name": "@recap-studio/cli",
   "version": "0.3.0",
-  "description": "The `recap` CLI — turn a RecapPageContent JSON into a self-contained dark-mode HTML page, or score it. Works in any editor/terminal, no Claude required.",
+  "description": "The `recap` CLI: turn a RecapPageContent JSON into a self-contained dark-mode HTML page, or score it. Works in any editor/terminal, no Claude required.",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {

@@ -32,7 +32,7 @@ stakeholder.
    - `git log --oneline -n 30`
    - `git diff --stat <ref>`
    - `git diff --unified=0 <ref> -- <pathspec>` (chunked, bounded)
-2. **repo-session-analyst** — derive a structured `SessionDelta`:
+2. **repo-session-analyst**: derive a structured `SessionDelta`:
    - high-level overview (1 sentence)
    - before/after architecture (Mermaid)
    - what changed (grouped by feature)
@@ -42,12 +42,12 @@ stakeholder.
    - risks
    - TODOs
    - next steps
-3. **learning-architect** — turn `SessionDelta` into `RecapPageContent` with
+3. **learning-architect**: turn `SessionDelta` into `RecapPageContent` with
    the session schema (see `packages/content-pipeline/src/schema-session.ts`).
-4. **visual-story-designer** — propose 1–3 diagrams (system, sequence, or
+4. **visual-story-designer**: propose 1–3 diagrams (system, sequence, or
    tree) plus a "what changed" comparison block.
-5. **frontend-builder** — write `apps/recap-web/src/content/session.json`.
-6. **Validation board** — same parallel reviewers as topic mode, plus a
+5. **frontend-builder**: write `apps/recap-web/src/content/session.json`.
+6. **Validation board**: same parallel reviewers as topic mode, plus a
    privacy pass that flags any private path leaking into the page.
 7. **Render the self-contained page.** Run `node scripts/render-html.mjs session`
    → `artifacts/session/recap-session.html` (one dark-mode file, inlined CSS,

@@ -2,8 +2,8 @@
 
 Recap Studio reads two things at runtime:
 
-1. **`recap-studio.config.ts`** — typed knobs (see schema below).
-2. **Environment variables** — keys for opt-in side effects, plus runtime
+1. **`recap-studio.config.ts`**: typed knobs (see schema below).
+2. **Environment variables**: keys for opt-in side effects, plus runtime
    knobs.
 
 Both are optional. The system runs offline with safe defaults out of the box.
@@ -29,7 +29,7 @@ type RecapStudioConfig = {
 
 Create or update via `/recap setup`. The skill refuses to enable
 `deploymentMode: production-with-confirmation` or
-`emailMode: send-with-confirmation` automatically — you must change those
+`emailMode: send-with-confirmation` automatically, you must change those
 yourself.
 
 ## Environment variables
@@ -45,12 +45,12 @@ All optional. See `.env.example` for the canonical list.
 | `BRAVE_SEARCH_API_KEY` / `EXA_API_KEY` / `TAVILY_API_KEY` | Optional search providers          | unset   |
 | `RESEND_API_KEY` / `DEFAULT_EMAIL_FROM` / `DEFAULT_EMAIL_TO` | Email side effect (see "Email" below) | unset   |
 | `VERCEL_TOKEN` / `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` | Deploy side effect                      | unset   |
-| `RECAP_ALLOW_SECRET_WRITE=1`            | Hook escape — use only after human review            | unset   |
-| `RECAP_ALLOW_DESTRUCTIVE_GIT=1`         | Hook escape — use only after human review            | unset   |
+| `RECAP_ALLOW_SECRET_WRITE=1`            | Hook escape, use only after human review            | unset   |
+| `RECAP_ALLOW_DESTRUCTIVE_GIT=1`         | Hook escape, use only after human review            | unset   |
 | `RECAP_USER_CONFIRMED_PREVIEW=1`        | Confirm a preview deploy                             | unset   |
 | `RECAP_USER_CONFIRMED_PROD_DEPLOY=1`    | Confirm a production deploy                          | unset   |
 | `RECAP_USER_CONFIRMED_PUBLIC=1`         | Confirm a project-level SSO toggle (deploy script)   | unset   |
-| `SSO_MODE`                              | `off`/`preview_only`/`all` — used by vercel-set-public.sh | `off` |
+| `SSO_MODE`                              | `off`/`preview_only`/`all`, used by vercel-set-public.sh | `off` |
 
 ## Email
 
@@ -72,11 +72,11 @@ you've verified in the Resend dashboard. The agent can also call
 domains, so the agent has no way to discover what's verified. Two
 workarounds:
 
-1. **Sandbox sender** — use `from: "onboarding@resend.dev"`. Resend
+1. **Sandbox sender**: use `from: "onboarding@resend.dev"`. Resend
    accepts it from any account, but only delivers to the email address
    of the Resend account owner. Fine for self-emailing recaps to
    yourself. Will fail (or be silently dropped) for any other recipient.
-2. **Pre-set `DEFAULT_EMAIL_FROM`** — pin a known-verified address in
+2. **Pre-set `DEFAULT_EMAIL_FROM`**: pin a known-verified address in
    env. The agent uses it without listing domains. This is the right
    choice for shared/team setups.
 

@@ -34,7 +34,7 @@ from bounded read-only `git` commands; the rest is identical.
 - Never fabricate citations.
 - Never write outside the declared file scope.
 - Never call paid APIs unless config + env permit.
-- Honor `RECAP_STUDIO_FIXTURE_ONLY=1` — force fixture pathways.
+- Honor `RECAP_STUDIO_FIXTURE_ONLY=1`, force fixture pathways.
 - Mark uncertainty.
 
 ## Model routing

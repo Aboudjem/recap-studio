@@ -46,9 +46,9 @@ guesses; if a section is missing the schema, the page omits it.
 
 ## Modes
 
-- **Topic mode** — research → librarian → learning architect → visual story
+- **Topic mode**: research → librarian → learning architect → visual story
   designer → frontend builder → validation board → refine.
-- **Session mode** — git-read → repo-session-analyst → learning architect →
+- **Session mode**: git-read → repo-session-analyst → learning architect →
   visual story → frontend builder → validation board, with a privacy pass
   for redacted paths.
 

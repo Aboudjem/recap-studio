@@ -1,12 +1,12 @@
 # @recap-studio/html-renderer
 
-Render a typed `RecapPageContent` into **one self-contained, dark-mode, mobile-first HTML file**. No framework, no build step, no runtime JavaScript, no external requests — the output **opens with a double-click and works offline**.
+Render a typed `RecapPageContent` into **one self-contained, dark-mode, mobile-first HTML file**. No framework, no build step, no runtime JavaScript, no external requests, the output **opens with a double-click and works offline**.
 
 This is the reusable visual template behind [Recap Studio](https://github.com/Aboudjem/recap-studio). Any tool that can produce a `RecapPageContent` (or matching JSON) can call it and get a shareable page. See [`TEMPLATE.md`](./TEMPLATE.md) for the reuse + white-label guide.
 
 ## Why
 
-Next.js `output: export` writes absolute `/_next/...` asset paths, so a generated page only works behind a web server — double-clicking the file shows a blank, unstyled page. This package solves that: it emits a single HTML string with **all CSS inlined** and **zero `<script>`**, so the file is portable, e-mailable, and offline-safe.
+Next.js `output: export` writes absolute `/_next/...` asset paths, so a generated page only works behind a web server, double-clicking the file shows a blank, unstyled page. This package solves that: it emits a single HTML string with **all CSS inlined** and **zero `<script>`**, so the file is portable, e-mailable, and offline-safe.
 
 ## Usage
 
@@ -50,7 +50,7 @@ await Bun.write("recap.html", html); // or fs.writeFileSync
 
 ## Diagrams
 
-For a truly self-contained file, supply diagrams as **hand-authored inline SVG** (`Diagram.kind = "svg"`). Mermaid (`kind = "mermaid"`) renders as a captioned figure with the source in a `<details>` — see [`TEMPLATE.md`](./TEMPLATE.md#diagrams).
+For a truly self-contained file, supply diagrams as **hand-authored inline SVG** (`Diagram.kind = "svg"`). Mermaid (`kind = "mermaid"`) renders as a captioned figure with the source in a `<details>`, see [`TEMPLATE.md`](./TEMPLATE.md#diagrams).
 
 ## License
 

@@ -1,6 +1,6 @@
-# @recap-studio/cli — the `recap` command
+# @recap-studio/cli: the `recap` command
 
-Turn a `RecapPageContent` JSON into a **self-contained dark-mode HTML page**, or score it — from any terminal or editor. No Claude Code required.
+Turn a `RecapPageContent` JSON into a **self-contained dark-mode HTML page**, or score it, from any terminal or editor. No Claude Code required.
 
 ```bash
 npx @recap-studio/cli render recap.json -o recap.html   # one self-contained HTML file
@@ -21,7 +21,7 @@ Recap Studio's `/recap` slash command lives in Claude Code. The CLI is the **cro
 
 ## Honesty
 
-`validate` runs **deterministic heuristics** — it does not fetch sources or run an LLM. For the full multi-agent review (fact-check against primaries, beginner/a11y/UX/etc.), run `/recap` inside Claude Code.
+`validate` runs **deterministic heuristics**, it does not fetch sources or run an LLM. For the full multi-agent review (fact-check against primaries, beginner/a11y/UX/etc.), run `/recap` inside Claude Code.
 
 ## Install
 

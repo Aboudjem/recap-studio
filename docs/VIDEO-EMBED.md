@@ -18,7 +18,7 @@ is already in place.
 
 GitHub renders an actual `<video>` player only for files it hosts on its own
 `user-attachments` CDN. It will **not** play a `<video>` tag that points at a
-file committed in the repo (e.g. `demo-output/output.mp4`) — that path is not a
+file committed in the repo (e.g. `demo-output/output.mp4`), that path is not a
 playable video source on github.com. To get the native player you must upload
 the mp4 to GitHub once and use the URL it returns.
 
@@ -32,7 +32,7 @@ Steps:
    `https://github.com/user-attachments/assets/…`. Copy that URL.
 4. Paste the URL on its own line at the **top of `README.md`, above the GIF**.
    GitHub auto-detects the attachment URL and renders an inline HTML5 player.
-   You can discard the issue/PR/release you used to upload — the URL keeps
+   You can discard the issue/PR/release you used to upload, the URL keeps
    working.
 
 Example placement at the top of the README:

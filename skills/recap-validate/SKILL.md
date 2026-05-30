@@ -24,15 +24,15 @@ You run the validation board and emit a structured quality report.
 
 ## Reviewers (parallel, isolated)
 
-1. `fact-checker` — every claim must reference a `sourceMap` id and the
+1. `fact-checker`: every claim must reference a `sourceMap` id and the
    source must support the claim. Unsupported claims drop the score.
-2. `beginner-reviewer` — read time ≤ 5 min for a smart 18-year-old.
-3. `accessibility-reviewer` — chunking, motion, focus, density.
-4. `ux-design-reviewer` — hierarchy, polish, storytelling, responsiveness.
-5. `performance-reviewer` — bundle, lazy-load, static-first, CWV risk.
-6. `security-privacy-reviewer` — secrets, PII, prompt-injection cues,
+2. `beginner-reviewer`: read time ≤ 5 min for a smart 18-year-old.
+3. `accessibility-reviewer`: chunking, motion, focus, density.
+4. `ux-design-reviewer`: hierarchy, polish, storytelling, responsiveness.
+5. `performance-reviewer`: bundle, lazy-load, static-first, CWV risk.
+6. `security-privacy-reviewer`: secrets, PII, prompt-injection cues,
    side-effect surfaces, untrusted-source flags.
-7. `skeptical-reviewer` — overclaim, marketing fluff, hidden complexity.
+7. `skeptical-reviewer`: overclaim, marketing fluff, hidden complexity.
 
 ## Scoring
 
@@ -49,7 +49,7 @@ Each reviewer emits `{ score: 1..10, findings: Finding[], blockers: string[] }`.
 Write `artifacts/<slug>/validation.json` and print a Markdown summary:
 
 ```
-## Validation report — <slug>
+## Validation report: <slug>
 | Dimension | Score | Target | Status | Top finding |
 | --------- | ----- | ------ | ------ | ----------- |
 ...

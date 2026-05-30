@@ -1,4 +1,4 @@
-# Recap Studio — Multi-Editor Setup (MCP + CLI)
+# Recap Studio: Multi-Editor Setup (MCP + CLI)
 
 Copy-paste config blocks for the MCP server and the `recap` CLI in every major editor.
 One smoke test per editor confirms it is wired up correctly.
@@ -9,7 +9,7 @@ One smoke test per editor confirms it is wired up correctly.
 
 > **Heads-up on `npx`/`npm`:** the `@recap-studio/*` packages publish to npm **with the 0.3.0
 > release**. Until then, every `npx @recap-studio/...` command below works only from a built
-> clone — use the `node packages/<pkg>/dist/index.js` form, or build first (below). The
+> clone, use the `node packages/<pkg>/dist/index.js` form, or build first (below). The
 > Claude Code marketplace install (`recap-studio@10x`) works today.
 
 **All editors:** You need a local build of the MCP server before the `node` form of any config
@@ -32,7 +32,7 @@ Replace `/ABSOLUTE/PATH/TO/recap-studio` throughout this document with the outpu
 
 ---
 
-## The `recap` CLI — quick reference
+## The `recap` CLI: quick reference
 
 The `recap` CLI is in `packages/cli`. It renders a `RecapPageContent` JSON to a self-contained
 HTML file and validates content. No Claude, no API key, no server required.
@@ -60,7 +60,7 @@ Both commands also work via `pnpm exec recap` inside the repo.
 **Config mechanism:** `.mcp.json` at the repo root (project-scoped, shared with the team)
 or `claude mcp add` for a user-local entry.
 
-### Option A — `.mcp.json` (recommended, checked in)
+### Option A: `.mcp.json` (recommended, checked in)
 
 ```json
 {
@@ -73,7 +73,7 @@ or `claude mcp add` for a user-local entry.
 }
 ```
 
-### Option B — `claude mcp add` (user-local, not committed)
+### Option B: `claude mcp add` (user-local, not committed)
 
 ```bash
 # Local scope (private to you)
@@ -100,7 +100,7 @@ claude mcp list
 
 ```bash
 recap render apps/recap-web/src/content/latest-ai-models.json -o /tmp/test.html
-# recap: wrote /tmp/test.html (… KB, self-contained — double-click to open)
+# recap: wrote /tmp/test.html (… KB, self-contained: double-click to open)
 ```
 
 ---
@@ -125,7 +125,7 @@ recap render apps/recap-web/src/content/latest-ai-models.json -o /tmp/test.html
 
 1. Add `.cursor/mcp.json` to the repo root with the block above.
 2. Reload the Cursor window: `Cmd+Shift+P` → **Reload Window**.
-3. Open **Cursor Settings → MCP** — `recap-studio-tools` should show as **Connected**.
+3. Open **Cursor Settings → MCP**, `recap-studio-tools` should show as **Connected**.
 4. In Cursor chat, type:
 
    ```
@@ -224,7 +224,7 @@ npx @recap-studio/cli validate fixtures/topics/latest-ai-models.json
 **Config file:** `~/.gemini/settings.json` (user-scoped) or `.gemini/settings.json` at the
 project root.
 
-> **Important — env vars are NOT auto-forwarded in Gemini CLI.** If the MCP server needs
+> **Important, env vars are NOT auto-forwarded in Gemini CLI.** If the MCP server needs
 > environment variables (e.g. `RESEND_API_KEY`, `VERCEL_TOKEN`), list them explicitly in the
 > `env` key as shown below. Without the `env` key those values will be absent inside the server
 > process even if they are set in your shell.
@@ -375,7 +375,7 @@ npx @recap-studio/cli validate fixtures/topics/latest-ai-models.json
 ## Troubleshooting
 
 **MCP server not connecting / silent failure**
-Run `pnpm build` in the repo root — the `dist/` directory is not committed and must be built
+Run `pnpm build` in the repo root, the `dist/` directory is not committed and must be built
 locally before any `node packages/mcp-server/dist/index.js` config will work.
 
 **"Cannot find module" error in MCP server logs**
@@ -392,9 +392,9 @@ This can happen with older builds of the MCP server that returned `type: "json"`
 Windsurf sends keepalive pings. The v0.3 MCP server handles `ping` with an empty `{}` result
 so this should no longer occur. If you see it, rebuild the MCP server and refresh Cascade.
 
-**Gemini CLI — tools receive no env vars**
+**Gemini CLI, tools receive no env vars**
 Gemini sanitises the child process environment. Add every required env var to the `env` map in
 `.gemini/settings.json` explicitly (see §5 above).
 
-**Continue.dev — tools do nothing**
+**Continue.dev, tools do nothing**
 Ensure you are in **agent mode**, not ask or chat mode. MCP tools are only invoked in agent mode.
