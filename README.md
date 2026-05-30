@@ -20,6 +20,14 @@
 </p>
 
 <p align="center">
+  <b>English</b> ·
+  <a href="READMEs/zh-CN.md">简体中文</a> ·
+  <a href="READMEs/ja.md">日本語</a> ·
+  <a href="READMEs/es.md">Español</a> ·
+  <a href="READMEs/fr.md">Français</a>
+</p>
+
+<p align="center">
   <a href="#what-is-this">What is this</a> ·
   <a href="#get-started-in-3-steps">Get started</a> ·
   <a href="#in-claude-code">In Claude Code</a> ·
@@ -106,6 +114,109 @@ After each run, the skill renders the self-contained HTML, opens it, and asks "D
 
 > [!TIP]
 > `10x` is the plugin marketplace at [github.com/Aboudjem/10x](https://github.com/Aboudjem/10x). It lets you install Recap Studio (and other tools) without cloning this repo.
+
+---
+
+## Install the skills into any AI CLI
+
+Claude Code is the first-class host (via the 10x marketplace above). To load the four `/recap` skills directly into another CLI, run the one-line installer. It symlinks `recap-topic`, `recap-session`, `recap-setup`, and `recap-validate` into that CLI's skills directory; `--update` pulls the latest and relinks, `--uninstall` removes them.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
+```
+
+On Windows, run `install.ps1 <platform>` from a checkout (Developer Mode or an elevated shell is needed for symlinks).
+
+| Platform | Skills directory | One-liner |
+|:--|:--|:--|
+| Claude Code | (plugin) | `claude plugin install recap-studio@10x` |
+| Codex / Gemini / OpenCode / Pi | `~/.agents/skills` | `install.sh codex` |
+| VS Code (Copilot) | `~/.copilot/skills` | `install.sh copilot` |
+| Trae | `~/.trae/skills` | `install.sh trae` |
+| Vibe | `~/.vibe/skills` | `install.sh vibe` |
+| OpenClaw | `~/.openclaw/skills` | `install.sh openclaw` |
+| Antigravity | `~/.gemini/antigravity/skills` | `install.sh antigravity` |
+| Hermes / Cline / Kimi | `~/.<cli>/skills` | `install.sh hermes` |
+
+Skill-directory conventions change between CLI releases. If a link does not resolve, fall back to the optional local MCP server (it works in every MCP-capable client). Run `install.sh all` to link every platform at once. Build the MCP server once with `pnpm -w build` before adding it.
+
+<details>
+<summary><b>Claude Code</b></summary>
+
+One-command plugin install from the [10x marketplace](https://github.com/Aboudjem/10x):
+
+```bash
+claude plugin marketplace add Aboudjem/10x
+claude plugin install recap-studio@10x
+```
+
+Or add just the local MCP server (after `pnpm -w build`):
+
+```bash
+claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
+```
+</details>
+
+<details>
+<summary><b>Cursor</b></summary>
+
+Add to `~/.cursor/mcp.json` (after `pnpm -w build`):
+
+```json
+{ "mcpServers": { "recap-studio": { "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
+```
+</details>
+
+<details>
+<summary><b>VS Code (Copilot)</b></summary>
+
+Add to `.vscode/mcp.json` (after `pnpm -w build`):
+
+```json
+{ "servers": { "recap-studio": { "type": "stdio", "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
+```
+</details>
+
+<details>
+<summary><b>Codex CLI</b></summary>
+
+```bash
+codex mcp add recap-studio -- node packages/mcp-server/dist/index.js
+```
+</details>
+
+<details>
+<summary><b>Gemini CLI</b></summary>
+
+Add to `~/.gemini/mcp_config.json` (after `pnpm -w build`):
+
+```json
+{ "mcpServers": { "recap-studio": { "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
+```
+</details>
+
+<details>
+<summary><b>Windsurf</b></summary>
+
+Add to `~/.codeium/windsurf/mcp_config.json` (after `pnpm -w build`):
+
+```json
+{ "mcpServers": { "recap-studio": { "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
+```
+</details>
+
+<details>
+<summary><b>Continue.dev</b></summary>
+
+Add to `.continue/mcpServers/recap-studio.yaml` (after `pnpm -w build`):
+
+```yaml
+mcpServers:
+  recap-studio: { command: node, args: ["packages/mcp-server/dist/index.js"], type: stdio }
+```
+</details>
+
+The copy-paste setup, plus a smoke test for each editor, is in [`docs/multi-editor.md`](docs/multi-editor.md).
 
 ---
 
@@ -202,7 +313,7 @@ The row that matters: **self-contained offline HTML**. No other explainer or cha
 
 ## Why trust it
 
-- **44 tests pass** across 6 packages. Build is green. CI runs on every push.
+- **43 tests pass** across 5 test-bearing packages. Build is green. CI runs on every push.
 - **Two E2E use cases proven**: topic explainer (`fixtures/topics/latest-ai-models.json`) and session recap (`session.json`, a recap of this codebase rebuild). Both render to validated self-contained HTML.
 - **Honest scoring**: the heuristic score from `validate` is deterministic, so the same input always gives the same score. It is not an LLM opinion. No sources are fetched. The LLM review runs only inside Claude Code via `/recap`.
 - **Safe defaults**: no network calls, no deploys, no emails, no secret writes, no destructive git, all off until you explicitly opt in. See [`docs/security-and-privacy.md`](docs/security-and-privacy.md).
@@ -239,6 +350,18 @@ See [`hooks/README.md`](hooks/README.md) and [`docs/security-and-privacy.md`](do
 - [Configuration](docs/configuration.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
+
+---
+
+## Star History
+
+<a href="https://star-history.com/#Aboudjem/recap-studio&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Aboudjem/recap-studio&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Aboudjem/recap-studio&type=Date" />
+    <img alt="Star history chart for Aboudjem/recap-studio" src="https://api.star-history.com/svg?repos=Aboudjem/recap-studio&type=Date" width="70%" />
+  </picture>
+</a>
 
 ---
 
