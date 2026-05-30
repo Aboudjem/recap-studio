@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0B0F">
+<meta name="generator" content="Recap Studio">
+<title>Latest AI models</title>
+<meta name="description" content="Most leading AI labs now ship three sizes of model per family, a fast small one, a balanced mid one, and a deep flagship that can think before it answers.">
+<meta property="og:title" content="Latest AI models">
+<meta property="og:description" content="Most leading AI labs now ship three sizes of model per family, a fast small one, a balanced mid one, and a deep flagship that can think before it answers.">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23A78BFF%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234FA8FF%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230B0B0F%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Inter%2Csystem-ui%2Csans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2218%22%20fill%3D%22url(%23g)%22%20text-anchor%3D%22middle%22%3ER%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>:root {
+  /* dark is the default surface */
+  --canvas: #0B0B0F;
+  --surface: #15151B;
+  --surface-2: #1B1B23;
+  --line: #23232B;
+  --line-strong: #2E2E38;
+  --ink: #F2F1EE;          /* off-white, not pure white */
+  --muted: #A8A8B4;
+  --faint: #6E6E7A;
+  --accent: #8B6DFF;       /* primary violet — AA on surface (4.5:1+) */
+  --accent-strong: #7C5CFF;
+  --accent-2: #4FA8FF;     /* secondary: sky blue (gradients) */
+  --accent-3: #38E0C8;     /* tertiary: teal (gradients, accents) */
+  --accent-warm: #FF8FB1;  /* warm pink pop, used sparingly */
+  --accent-soft: #211B3D;  /* dark-mode accent chip bg */
+  --accent-ink: #CFC4FF;   /* text on accent-soft */
+  --ok: #46B97F;
+  --warn: #F0B24A;
+  --err: #FF6B72;          /* AA on dark canvas at small sizes */
+  /* gradients — calm, premium, "slightly more colorful" */
+  --grad-accent: linear-gradient(120deg, #A78BFF 0%, #7C5CFF 42%, #4FA8FF 100%);
+  --grad-accent-2: linear-gradient(120deg, #7C5CFF 0%, #4FA8FF 55%, #38E0C8 100%);
+  --grad-warm: linear-gradient(120deg, #FF9FC0 0%, #FF7AA8 100%);
+  --grad-head: linear-gradient(100deg, #EDE9FF 0%, #FFFFFF 32%, #BFE0FF 70%, #B9F4E8 100%);
+  --grad-edge: linear-gradient(120deg, rgba(167,139,255,.55), rgba(79,168,255,.18) 55%, rgba(56,224,200,.0));
+  --radius-xs: 6px; --radius-sm: 10px; --radius-md: 14px;
+  --radius-lg: 20px; --radius-xl: 28px;
+  --shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 12px 40px -16px rgba(0,0,0,.7);
+  --ring: 0 0 0 1px var(--line);
+  --ring-strong: 0 0 0 1px var(--line-strong);
+  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --maxw: 46rem;
+  --ease: cubic-bezier(0.2, 0.65, 0.25, 1);
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --canvas: #FBFAF7; --surface: #FFFFFF; --surface-2: #F6F5F1;
+  --line: #E7E6E1; --line-strong: #D9D8D2;
+  --ink: #16161D; --muted: #5C5C66; --faint: #8A8A94;
+  --accent: #6A45F0; --accent-strong: #7C5CFF;
+  --accent-soft: #EDE8FF; --accent-ink: #2A1E63;
+  --err: #D7424B;
+  --shadow: 0 1px 2px rgba(20,18,40,.06), 0 18px 32px -16px rgba(20,18,40,.12);
+  --ring: 0 0 0 1px var(--line);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--canvas);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 17px;
+  font-feature-settings: "ss01","cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+code { font-family: var(--font-mono); font-size: .9em; background: var(--surface-2); border: 1px solid var(--line); padding: .08em .38em; border-radius: var(--radius-xs); }
+strong { font-weight: 650; color: var(--ink); }
+:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent); border-radius: var(--radius-xs); }
+::selection { background: var(--accent-strong); color: #fff; }
+.recap-skip { position: fixed; left: 12px; top: -64px; background: var(--accent-strong); color: #fff; padding: 10px 16px; border-radius: 999px; font-weight: 600; z-index: 60; transition: top .16s var(--ease); }
+.recap-skip:focus { top: 12px; text-decoration: none; }
+.recap-main { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; }
+@media (min-width: 768px) { .recap-main { max-width: 50rem; padding: 4rem 2rem 7rem; } }
+.recap-section { margin-top: 4.5rem; scroll-margin-top: 2rem; }
+@media (min-width: 768px) { .recap-section { margin-top: 6rem; } }
+.recap-eyebrow { display: inline-flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.recap-eyebrow .recap-icon { -webkit-text-fill-color: var(--accent); color: var(--accent); }
+.recap-h2 { font-family: var(--font-sans); font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 640; line-height: 1.15; letter-spacing: -0.01em; margin-top: .6rem; color: var(--ink); }
+.recap-h3 { font-size: 1.1rem; font-weight: 620; line-height: 1.3; letter-spacing: -0.005em; color: var(--ink); }
+.recap-lead { color: var(--muted); margin-top: .75rem; max-width: 60ch; }
+.recap-prose { max-width: 62ch; }
+.recap-prose p { max-width: 62ch; }
+.recap-muted { color: var(--muted); }
+.recap-hero { position: relative; padding-top: 1rem; }
+.recap-hero::before {
+  content: ""; position: absolute; inset: -48% -30% auto -30%; height: 460px; z-index: -1;
+  background:
+    radial-gradient(42% 80% at 22% 0%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 72%),
+    radial-gradient(40% 78% at 70% 6%, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 70%),
+    radial-gradient(36% 70% at 95% 0%, color-mix(in srgb, var(--accent-3) 18%, transparent), transparent 72%);
+  filter: blur(10px); pointer-events: none;
+}
+.recap-hero-kicker { display: inline-flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--accent-ink); border: 1px solid transparent; border-radius: 999px; padding: .3rem .8rem; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--grad-accent) border-box; }
+.recap-hero-kicker .recap-icon { width: 15px; height: 15px; color: var(--accent-2); }
+.recap-h1 { font-family: var(--font-display); font-weight: 720; font-size: clamp(2.3rem, 6.4vw, 3.9rem); line-height: 1.04; letter-spacing: -0.022em; margin-top: 1.1rem; color: var(--ink); background: var(--grad-head); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.recap-answer { font-size: clamp(1.15rem, 2.6vw, 1.4rem); line-height: 1.5; color: var(--muted); margin-top: 1.1rem; max-width: 40ch; }
+.recap-answer strong { color: var(--ink); }
+.recap-meta { display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin-top: 1.4rem; font-size: .82rem; color: var(--faint); align-items: center; }
+.recap-meta .recap-dot { width: 3px; height: 3px; border-radius: 999px; background: var(--faint); }
+.recap-path { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.recap-step { display: inline-flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: .35rem .7rem .35rem .4rem; }
+.recap-step b { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 999px; background: var(--grad-accent); color: #14101F; font-size: .72rem; font-weight: 800; }
+.recap-grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
+@media (min-width: 640px) { .recap-grid-2 { grid-template-columns: 1fr 1fr; } .recap-grid-3 { grid-template-columns: repeat(3, 1fr); } }
+.recap-card { position: relative; background: var(--surface); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: var(--ring); transition: box-shadow .18s var(--ease), transform .18s var(--ease); }
+.recap-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: var(--grad-edge); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .6; pointer-events: none; }
+.recap-card:hover { box-shadow: var(--ring-strong), 0 10px 40px -18px color-mix(in srgb, var(--accent) 50%, transparent); transform: translateY(-2px); }
+.recap-card:hover::before { opacity: 1; }
+.recap-card .recap-h3 { margin-top: .65rem; }
+.recap-card p { color: var(--muted); margin-top: .4rem; }
+.recap-ico { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: var(--radius-md); background: var(--grad-accent); color: #14101F; box-shadow: 0 6px 18px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
+.recap-ico .recap-icon { width: 20px; height: 20px; }
+.recap-icon { width: 20px; height: 20px; flex: none; }
+.recap-num { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 999px; background: var(--grad-accent); color: #14101F; font-weight: 800; font-size: .85rem; }
+.recap-timeline { position: relative; margin-top: 1.5rem; padding-left: 1.6rem; border-left: 2px solid transparent; border-image: var(--grad-accent-2) 1; display: grid; gap: 1.4rem; }
+.recap-tl-item { position: relative; }
+.recap-tl-item::before { content: ""; position: absolute; left: calc(-1.6rem - 6px); top: .35rem; width: 12px; height: 12px; border-radius: 999px; background: var(--grad-accent); box-shadow: 0 0 0 3px var(--canvas), 0 0 12px -2px color-mix(in srgb, var(--accent) 80%, transparent); }
+.recap-tl-date { font-size: .76rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-2); }
+.recap-tl-item .recap-h3 { margin-top: .15rem; }
+.recap-tl-item p { color: var(--muted); margin-top: .3rem; }
+.recap-compare-cards { display: grid; gap: 1rem; margin-top: 1.5rem; }
+@media (min-width: 768px) { .recap-compare-cards { display: none; } }
+.recap-table-wrap { display: none; margin-top: 1.5rem; overflow-x: auto; border-radius: var(--radius-lg); box-shadow: var(--ring); }
+@media (min-width: 768px) { .recap-table-wrap { display: block; } }
+.recap-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.recap-table th, .recap-table td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.recap-table thead th { background: var(--surface-2); color: var(--muted); font-weight: 600; font-size: .8rem; letter-spacing: .03em; text-transform: uppercase; }
+.recap-table tbody tr:nth-child(odd) { background: var(--surface); }
+.recap-table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--surface) 55%, var(--canvas)); }
+.recap-table td:first-child { font-weight: 600; color: var(--ink); }
+.recap-table tr:last-child td { border-bottom: none; }
+.recap-kv { display: flex; justify-content: space-between; gap: 1rem; padding: .4rem 0; border-bottom: 1px solid var(--line); }
+.recap-kv:last-child { border-bottom: none; }
+.recap-kv dt { color: var(--muted); }
+.recap-kv dd { color: var(--ink); text-align: right; }
+.recap-myth { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--ring); overflow: hidden; }
+.recap-myth-top, .recap-myth-bot { padding: 1rem 1.25rem; display: flex; gap: .6rem; }
+.recap-myth-top { border-bottom: 1px solid var(--line); }
+.recap-tag { display: inline-flex; align-items: center; gap: .35rem; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; flex: none; }
+.recap-tag-myth { color: var(--err); }
+.recap-tag-truth { color: var(--ok); }
+.recap-tag .recap-icon { width: 15px; height: 15px; }
+.recap-myth p { color: var(--ink); }
+.recap-myth-bot p { color: var(--muted); }
+.recap-glossary { margin-top: 1.5rem; border-radius: var(--radius-lg); box-shadow: var(--ring); overflow: hidden; }
+.recap-gitem { border-bottom: 1px solid var(--line); }
+.recap-gitem:last-child { border-bottom: none; }
+.recap-gitem summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .95rem 1.25rem; font-weight: 600; color: var(--ink); background: var(--surface); }
+.recap-gitem summary::-webkit-details-marker { display: none; }
+.recap-gitem summary .recap-icon { width: 18px; height: 18px; color: var(--muted); transition: transform .18s var(--ease); }
+.recap-gitem[open] summary .recap-icon { transform: rotate(180deg); }
+.recap-gitem p { color: var(--muted); padding: 0 1.25rem 1.1rem; }
+.recap-takeaways { margin-top: 1.5rem; display: grid; gap: .75rem; }
+.recap-take { display: flex; gap: .8rem; align-items: flex-start; }
+.recap-take .recap-check { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: var(--radius-sm); background: var(--grad-accent-2); color: #0C1016; flex: none; margin-top: .1rem; box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--accent-2) 70%, transparent); }
+.recap-take .recap-icon { width: 16px; height: 16px; }
+.recap-take p { color: var(--ink); }
+.recap-sources { display: grid; gap: .75rem; margin-top: 1.5rem; }
+.recap-source { display: block; background: var(--surface); border-radius: var(--radius-md); padding: .9rem 1.1rem; box-shadow: var(--ring); transition: box-shadow .18s var(--ease); }
+.recap-source:hover { box-shadow: var(--ring-strong); text-decoration: none; }
+.recap-source-title { display: flex; align-items: center; gap: .4rem; font-weight: 600; color: var(--ink); }
+.recap-source-title .recap-icon { width: 14px; height: 14px; color: var(--muted); }
+.recap-source-meta { font-size: .8rem; color: var(--faint); margin-top: .2rem; display: flex; flex-wrap: wrap; gap: .35rem .7rem; align-items: center; }
+.recap-badge { font-size: .68rem; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; padding: .1rem .45rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.recap-badge-primary { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.recap-badge-fixture { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.recap-note { margin-top: 1.25rem; background: color-mix(in srgb, var(--warn) 9%, var(--surface)); border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent); border-radius: var(--radius-md); padding: .9rem 1.1rem; }
+.recap-note .recap-eyebrow { color: var(--warn); }
+.recap-note p { color: var(--muted); margin-top: .35rem; }
+.recap-figure { margin-top: 1.5rem; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--ring); padding: 1.25rem; overflow-x: auto; }
+.recap-figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.recap-figcap { font-size: .82rem; color: var(--muted); margin-top: .8rem; text-align: center; }
+.recap-figfallback { display: grid; gap: .75rem; }
+.recap-figfallback pre { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); background: var(--canvas); border: 1px solid var(--line); border-radius: var(--radius-md); padding: .9rem; overflow-x: auto; white-space: pre; }
+.recap-fixture { display: flex; align-items: center; gap: .6rem; background: color-mix(in srgb, var(--warn) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent); color: var(--ink); border-radius: var(--radius-md); padding: .7rem 1rem; font-size: .85rem; margin-bottom: 2rem; }
+.recap-fixture .recap-icon { width: 17px; height: 17px; color: var(--warn); }
+.recap-scorechip { position: fixed; right: 14px; top: 14px; z-index: 40; display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; font-weight: 600; color: var(--ink); background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(8px); border-radius: 999px; padding: .35rem .7rem; box-shadow: var(--ring); }
+.recap-scorechip .recap-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--ok); }
+.recap-footer { max-width: var(--maxw); margin: 4rem auto 0; padding: 2rem 1.25rem; border-top: 1px solid var(--line); text-align: center; color: var(--faint); font-size: .85rem; }
+.recap-footer strong { color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .recap-reveal { opacity: 0; transform: translateY(20px); animation: recapFadeUp .6s var(--ease) forwards; }
+  .recap-reveal:nth-of-type(1) { animation-delay: calc(0 * 18ms); }
+  .recap-reveal:nth-of-type(2) { animation-delay: calc(1 * 18ms); }
+  .recap-reveal:nth-of-type(3) { animation-delay: calc(2 * 18ms); }
+  .recap-reveal:nth-of-type(4) { animation-delay: calc(3 * 18ms); }
+  .recap-reveal:nth-of-type(5) { animation-delay: calc(4 * 18ms); }
+  .recap-reveal:nth-of-type(6) { animation-delay: calc(5 * 18ms); }
+  .recap-reveal:nth-of-type(7) { animation-delay: calc(6 * 18ms); }
+  .recap-reveal:nth-of-type(8) { animation-delay: calc(7 * 18ms); }
+  .recap-reveal:nth-of-type(9) { animation-delay: calc(8 * 18ms); }
+  .recap-reveal:nth-of-type(10) { animation-delay: calc(9 * 18ms); }
+  .recap-reveal:nth-of-type(11) { animation-delay: calc(10 * 18ms); }
+  .recap-reveal:nth-of-type(12) { animation-delay: calc(11 * 18ms); }
+  .recap-reveal:nth-of-type(13) { animation-delay: calc(12 * 18ms); }
+  .recap-reveal:nth-of-type(14) { animation-delay: calc(13 * 18ms); }
+}
+@keyframes recapFadeUp { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .recap-reveal { opacity: 1 !important; transform: none !important; }
+}</style>
+</head>
+<body>
+<a class="recap-skip" href="#hero">Skip to summary</a>
+<main class="recap-main" id="top">
+<div class="recap-fixture" role="note"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Demo content from a fixture — not a live research run.</div>
+<header class="recap-section recap-hero recap-reveal" id="hero">
+  <span class="recap-hero-kicker"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.94 14.06 6 22l-1.94-7.94L-1.5 12l5.56-2.06L6 2l1.94 7.94L13.5 12z" transform="translate(6 0) scale(0.8)"/></svg>~3 min read</span>
+  <h1 class="recap-h1">Latest AI models</h1>
+  <p class="recap-answer">Most leading AI labs now ship three sizes of model per family, a fast small one, a balanced mid one, and a deep flagship that can think before it answers.</p>
+  <div class="recap-meta"><span>2026-05-29</span><span class="recap-dot"></span><span>5 sources</span><span class="recap-dot"></span><span>beginner</span></div>
+  <div class="recap-path" aria-label="Reading path"><span class="recap-step"><b>1</b>See the three-tier shape every major lab now ships.</span><span class="recap-step"><b>2</b>Learn the jargon: tokens, context window, reasoning, multimodal.</span><span class="recap-step"><b>3</b>Compare the named flagships head-to-head on a few real tasks.</span><span class="recap-step"><b>4</b>Spot common myths about benchmarks and pricing.</span><span class="recap-step"><b>5</b>Pick a model for your next project using a short checklist.</span></div>
+</header>
+<section class="recap-section recap-reveal" id="matters" aria-labelledby="matters-h">
+  <p class="recap-eyebrow">Why it matters</p><h2 class="recap-h2" id="matters-h">The short version</h2>
+  <div class="recap-grid recap-grid-3"><div class="recap-card"><span class="recap-num">1</span><p>Picking the wrong tier wastes money or breaks latency budgets.</p></div><div class="recap-card"><span class="recap-num">2</span><p>Capabilities differ more than names suggest, especially on reasoning.</p></div><div class="recap-card"><span class="recap-num">3</span><p>Public benchmarks lag real life; a methodology is part of the score.</p></div></div>
+</section>
+<section class="recap-section recap-reveal" id="concept-map" aria-labelledby="cm-h">
+  <p class="recap-eyebrow">Concept map</p><h2 class="recap-h2" id="cm-h">How it fits together</h2>
+  <figure class="recap-figure" role="group" aria-label="Concept map: one model family splits into Small (fast, cheap), Mid (balanced), and Flagship (reasoning, long context) tiers, each with its best use, separated by four axes — speed, cost, reasoning, context length."><svg viewBox="0 0 760 470" role="img" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="rcAcc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8B6DFF"/><stop offset="1" stop-color="#6A45F0"/>
+    </linearGradient>
+  </defs>
+  <!-- connectors -->
+  <g stroke="#2E2E38" stroke-width="2" fill="none">
+    <path d="M380 70 V96 M380 96 H150 V126 M380 96 H380 V126 M380 96 H610 V126"/>
+    <path d="M150 214 V250 M380 214 V250 M610 214 V250"/>
+  </g>
+  <!-- root -->
+  <g>
+    <rect x="290" y="26" width="180" height="44" rx="14" fill="url(#rcAcc)"/>
+    <text x="380" y="53" text-anchor="middle" fill="#0B0B0F" font-size="16" font-weight="700">Model family</text>
+  </g>
+  <!-- tiers -->
+  <g>
+    <rect x="40" y="126" width="220" height="88" rx="16" fill="#15151B" stroke="#2E2E38"/>
+    <rect x="40" y="126" width="6" height="88" rx="3" fill="#8B6DFF"/>
+    <text x="64" y="158" fill="#F2F1EE" font-size="16" font-weight="650">Small</text>
+    <text x="64" y="182" fill="#A8A8B4" font-size="13">fast · cheap</text>
+    <text x="64" y="200" fill="#A8A8B4" font-size="13">runs on a phone</text>
+  </g>
+  <g>
+    <rect x="270" y="126" width="220" height="88" rx="16" fill="#15151B" stroke="#2E2E38"/>
+    <rect x="270" y="126" width="6" height="88" rx="3" fill="#8B6DFF"/>
+    <text x="294" y="158" fill="#F2F1EE" font-size="16" font-weight="650">Mid</text>
+    <text x="294" y="182" fill="#A8A8B4" font-size="13">balanced</text>
+    <text x="294" y="200" fill="#A8A8B4" font-size="13">the everyday default</text>
+  </g>
+  <g>
+    <rect x="500" y="126" width="220" height="88" rx="16" fill="#15151B" stroke="#2E2E38"/>
+    <rect x="500" y="126" width="6" height="88" rx="3" fill="#8B6DFF"/>
+    <text x="524" y="158" fill="#F2F1EE" font-size="16" font-weight="650">Flagship</text>
+    <text x="524" y="182" fill="#A8A8B4" font-size="13">reasoning</text>
+    <text x="524" y="200" fill="#A8A8B4" font-size="13">long context</text>
+  </g>
+  <!-- use cases -->
+  <g>
+    <rect x="40" y="250" width="220" height="96" rx="16" fill="#1B1B23" stroke="#23232B"/>
+    <text x="64" y="282" fill="#C9BCFF" font-size="11" font-weight="700" letter-spacing="1">USE IT FOR</text>
+    <text x="64" y="306" fill="#F2F1EE" font-size="13">Chat, classify,</text>
+    <text x="64" y="324" fill="#F2F1EE" font-size="13">short tasks</text>
+  </g>
+  <g>
+    <rect x="270" y="250" width="220" height="96" rx="16" fill="#1B1B23" stroke="#23232B"/>
+    <text x="294" y="282" fill="#C9BCFF" font-size="11" font-weight="700" letter-spacing="1">USE IT FOR</text>
+    <text x="294" y="306" fill="#F2F1EE" font-size="13">Agents, coding,</text>
+    <text x="294" y="324" fill="#F2F1EE" font-size="13">structured output</text>
+  </g>
+  <g>
+    <rect x="500" y="250" width="220" height="96" rx="16" fill="#1B1B23" stroke="#23232B"/>
+    <text x="524" y="282" fill="#C9BCFF" font-size="11" font-weight="700" letter-spacing="1">USE IT FOR</text>
+    <text x="524" y="306" fill="#F2F1EE" font-size="13">Hard reasoning,</text>
+    <text x="524" y="324" fill="#F2F1EE" font-size="13">long documents</text>
+  </g>
+  <!-- capability axes legend -->
+  <g transform="translate(40,380)">
+    <text x="0" y="0" fill="#A8A8B4" font-size="12">Four axes that separate them:</text>
+    <g font-size="12" font-weight="600">
+      <rect x="0" y="14" width="150" height="26" rx="13" fill="#221C3F"/><text x="14" y="31" fill="#C9BCFF">speed</text>
+      <rect x="162" y="14" width="150" height="26" rx="13" fill="#221C3F"/><text x="176" y="31" fill="#C9BCFF">cost</text>
+      <rect x="324" y="14" width="170" height="26" rx="13" fill="#221C3F"/><text x="338" y="31" fill="#C9BCFF">reasoning</text>
+      <rect x="506" y="14" width="180" height="26" rx="13" fill="#221C3F"/><text x="520" y="31" fill="#C9BCFF">context length</text>
+    </g>
+  </g>
+</svg><figcaption class="recap-figcap">Concept map: one model family splits into Small (fast, cheap), Mid (balanced), and Flagship (reasoning, long context) tiers, each with its best use, separated by four axes — speed, cost, reasoning, context length.</figcaption></figure>
+<figure class="recap-figure" role="group" aria-label="Sequence diagram showing how a reasoning model thinks before answering">
+  <div class="recap-figfallback">
+    <p class="recap-muted">Sequence diagram showing how a reasoning model thinks before answering</p>
+    <details><summary class="recap-eyebrow">Diagram source</summary><pre>sequenceDiagram
+  participant U as User
+  participant M as Reasoning model
+  U-&gt;&gt;M: Question
+  M--&gt;&gt;M: Plan steps (hidden)
+  M--&gt;&gt;M: Verify each step
+  M-&gt;&gt;U: Final answer + (optional) summary of thought</pre></details>
+  </div>
+  <figcaption class="recap-figcap">Diagram — open the source above, or view the hosted version for the rendered graphic.</figcaption>
+</figure>
+</section>
+<section class="recap-section recap-reveal" id="ideas" aria-labelledby="ideas-h">
+  <p class="recap-eyebrow">Key ideas</p><h2 class="recap-h2" id="ideas-h">The core concepts</h2>
+  <div class="recap-grid recap-grid-2"><div class="recap-card"><span class="recap-ico"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></span><h3 class="recap-h3">Every family ships three tiers</h3><p>Labs offer a small fast tier, a mid balanced tier, and a flagship for hard problems. Picking the tier matters more than picking the lab.</p></div><div class="recap-card"><span class="recap-ico"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5a3 3 0 1 0-5.997.142 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.142 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/></svg></span><h3 class="recap-h3">Reasoning is its own product surface</h3><p>Some models can think before answering. They cost more and take longer, but they reduce silly mistakes on math, code, and planning.</p></div><div class="recap-card"><span class="recap-ico"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/></svg></span><h3 class="recap-h3">Context windows are getting absurd</h3><p>Modern flagships can read hundreds of thousands of tokens. Bigger is not always better; retrieval still beats stuffing a whole codebase.</p></div><div class="recap-card"><span class="recap-ico"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span><h3 class="recap-h3">Multimodal is default, not optional</h3><p>Vision is built in across the major families. Audio in and out is shipping fast. You can hand a model a photo or a PDF and ask questions.</p></div><div class="recap-card"><span class="recap-ico"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 17h6v-6"/><path d="m22 17-8.5-8.5-5 5L2 7"/></svg></span><h3 class="recap-h3">Price falls, capability rises</h3><p>Inference cost per million tokens dropped roughly an order of magnitude in two years. The cheap tier today beats yesterday&#39;s flagship.</p></div></div>
+</section>
+<section class="recap-section recap-reveal" id="timeline" aria-labelledby="tl-h">
+  <p class="recap-eyebrow">Timeline</p><h2 class="recap-h2" id="tl-h">How we got here</h2>
+  <div class="recap-timeline"><div class="recap-tl-item"><p class="recap-tl-date">2024-05</p><h3 class="recap-h3">Flagship sizes consolidate</h3><p>Labs settle on a small/mid/large shape per family, dropping older one-size-fits-all lines.</p></div><div class="recap-tl-item"><p class="recap-tl-date">2024-09</p><h3 class="recap-h3">Reasoning models go mainstream</h3><p>A dedicated reasoning surface ships across two major labs, with separate pricing and latency profiles.</p></div><div class="recap-tl-item"><p class="recap-tl-date">2025-03</p><h3 class="recap-h3">Context jumps past 1M tokens</h3><p>Long-context flagships read hundreds of thousands of tokens in one call; agentic use cases get viable.</p></div><div class="recap-tl-item"><p class="recap-tl-date">2025-11</p><h3 class="recap-h3">Per-token price crosses a cent floor</h3><p>Mid-tier inference falls below one cent per thousand tokens for many providers.</p></div></div>
+</section>
+<section class="recap-section recap-reveal" id="comparison" aria-labelledby="cmp-h">
+  <p class="recap-eyebrow">Comparison</p><h2 class="recap-h2" id="cmp-h">Side by side</h2>
+  <h3 class="recap-h3" style="margin-top:1.5rem">What each tier is for</h3>
+  <div class="recap-compare-cards"><div class="recap-card"><h3 class="recap-h3">Small</h3><dl><div class="recap-kv"><dt>Tier</dt><dd>Small</dd></div><div class="recap-kv"><dt>Strengths</dt><dd>Cheap and fast. Great for routing, classification, short answers.</dd></div><div class="recap-kv"><dt>Watch out for</dt><dd>Drops accuracy on multi-step reasoning.</dd></div></dl></div><div class="recap-card"><h3 class="recap-h3">Mid</h3><dl><div class="recap-kv"><dt>Tier</dt><dd>Mid</dd></div><div class="recap-kv"><dt>Strengths</dt><dd>Balanced. The right default for most product features.</dd></div><div class="recap-kv"><dt>Watch out for</dt><dd>Slower than small; can still hallucinate on niche facts.</dd></div></dl></div><div class="recap-card"><h3 class="recap-h3">Flagship</h3><dl><div class="recap-kv"><dt>Tier</dt><dd>Flagship</dd></div><div class="recap-kv"><dt>Strengths</dt><dd>Long context, reasoning, planning, multimodal depth.</dd></div><div class="recap-kv"><dt>Watch out for</dt><dd>5-20x cost; latency in seconds; rate limits.</dd></div></dl></div></div>
+  <div class="recap-table-wrap"><table class="recap-table"><thead><tr><th></th><th>Tier</th><th>Strengths</th><th>Watch out for</th></tr></thead><tbody><tr><td>Small</td><td>Small</td><td>Cheap and fast. Great for routing, classification, short answers.</td><td>Drops accuracy on multi-step reasoning.</td></tr><tr><td>Mid</td><td>Mid</td><td>Balanced. The right default for most product features.</td><td>Slower than small; can still hallucinate on niche facts.</td></tr><tr><td>Flagship</td><td>Flagship</td><td>Long context, reasoning, planning, multimodal depth.</td><td>5-20x cost; latency in seconds; rate limits.</td></tr></tbody></table></div>
+</section>
+<section class="recap-section recap-reveal" id="examples" aria-labelledby="ex-h">
+  <p class="recap-eyebrow">Make it concrete</p><h2 class="recap-h2" id="ex-h">Examples &amp; analogies</h2>
+  <div class="recap-grid recap-grid-2"><div class="recap-card"><p class="recap-eyebrow"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/></svg>Example</p><h3 class="recap-h3" style="margin-top:.5rem">Tag 10k customer emails by intent</h3><p>Use a small-tier model. Batch them. You want throughput, not deep reasoning.</p></div><div class="recap-card"><p class="recap-eyebrow"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/></svg>Example</p><h3 class="recap-h3" style="margin-top:.5rem">Review a 3-file pull request</h3><p>Use a mid-tier model with structured output. Ask for findings keyed by file and severity.</p></div><div class="recap-card"><p class="recap-eyebrow"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/></svg>Example</p><h3 class="recap-h3" style="margin-top:.5rem">Summarize a 200-page contract</h3><p>Use a flagship with long context. Add retrieval over the table of contents for citations.</p></div><div class="recap-card"><p class="recap-eyebrow"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.94 14.06 6 22l-1.94-7.94L-1.5 12l5.56-2.06L6 2l1.94 7.94L13.5 12z" transform="translate(6 0) scale(0.8)"/></svg>Analogy</p><p style="margin-top:.5rem;color:var(--ink)">Picking a model tier is like picking a kitchen knife.</p><p style="margin-top:.4rem">A paring knife is fast and cheap for small jobs. A chef knife is the daily default. A cleaver is overkill until you need to break down a roast.</p></div><div class="recap-card"><p class="recap-eyebrow"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.94 14.06 6 22l-1.94-7.94L-1.5 12l5.56-2.06L6 2l1.94 7.94L13.5 12z" transform="translate(6 0) scale(0.8)"/></svg>Analogy</p><p style="margin-top:.5rem;color:var(--ink)">Reasoning vs non-reasoning is like driving vs taking a long way with a map.</p><p style="margin-top:.4rem">Driving fast is fine when the route is obvious. The detour with a map is slower but stops you missing the exit.</p></div></div>
+</section>
+<section class="recap-section recap-reveal" id="misconceptions" aria-labelledby="mc-h">
+  <p class="recap-eyebrow">Myth vs truth</p><h2 class="recap-h2" id="mc-h">Clear up the confusion</h2>
+  <div class="recap-grid recap-grid-2"><div class="recap-myth"><div class="recap-myth-top"><span class="recap-tag recap-tag-myth"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Myth</span><p>Bigger model = better answer.</p></div><div class="recap-myth-bot"><span class="recap-tag recap-tag-truth"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>Truth</span><p>On most product tasks the mid tier wins on cost-quality. Use the flagship only when you measured a real gap.</p></div></div><div class="recap-myth"><div class="recap-myth-top"><span class="recap-tag recap-tag-myth"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Myth</span><p>Benchmark leaderboards tell you which model to ship.</p></div><div class="recap-myth-bot"><span class="recap-tag recap-tag-truth"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>Truth</span><p>Public benchmarks leak into training data and rarely match your eval. Run your own evals on your own tasks.</p></div></div><div class="recap-myth"><div class="recap-myth-top"><span class="recap-tag recap-tag-myth"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Myth</span><p>A bigger context window solves retrieval.</p></div><div class="recap-myth-bot"><span class="recap-tag recap-tag-truth"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>Truth</span><p>Models miss details in the middle of long contexts. Retrieval and chunking still help, even at 1M tokens.</p></div></div></div>
+</section>
+<section class="recap-section recap-reveal" id="glossary" aria-labelledby="gl-h">
+  <p class="recap-eyebrow">Glossary</p><h2 class="recap-h2" id="gl-h">Plain-English definitions</h2>
+  <div class="recap-glossary"><details class="recap-gitem"><summary>token<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>A chunk of text the model reads or writes. Roughly four characters of English.</p></details><details class="recap-gitem"><summary>context window<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>The maximum tokens the model can see in one call, prompt plus answer.</p></details><details class="recap-gitem"><summary>reasoning model<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>A model trained to plan and verify steps before answering. Slower, more accurate on hard tasks.</p></details><details class="recap-gitem"><summary>multimodal<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>A model that takes more than one input type, like text and images, or text and audio.</p></details><details class="recap-gitem"><summary>flagship<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>The most capable model in a family. Highest cost, latency, and quality ceiling.</p></details><details class="recap-gitem"><summary>benchmark<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>A standardized test used to compare models. Useful for ranking, weak for product decisions.</p></details><details class="recap-gitem"><summary>retrieval<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary><p>Pulling only the relevant chunks of a document into the prompt instead of stuffing everything.</p></details></div>
+</section>
+<section class="recap-section recap-reveal" id="takeaways" aria-labelledby="tk-h">
+  <p class="recap-eyebrow">Takeaways</p><h2 class="recap-h2" id="tk-h">What to do with this</h2>
+  <div class="recap-takeaways"><div class="recap-take"><span class="recap-check"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><p>Default to the mid tier; promote to flagship only after a real eval shows a gap.</p></div><div class="recap-take"><span class="recap-check"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><p>Cache prompts and structured outputs; cost scales with what you re-send.</p></div><div class="recap-take"><span class="recap-check"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><p>Pair retrieval with long context; do not throw whole codebases at the model.</p></div><div class="recap-take"><span class="recap-check"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><p>Run a small private eval before you swap providers; benchmarks lie about your tasks.</p></div><div class="recap-take"><span class="recap-check"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg></span><p>Re-price every quarter; per-token cost has dropped about an order of magnitude in two years.</p></div></div>
+</section>
+<section class="recap-section recap-reveal" id="sources" aria-labelledby="src-h">
+  <p class="recap-eyebrow">Sources</p><h2 class="recap-h2" id="src-h">Where this comes from</h2>
+  <div class="recap-sources"><a class="recap-source" href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" rel="noopener noreferrer">
+    <span class="recap-source-title">Anthropic — Models overview<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span>
+    <span class="recap-source-meta"><span class="recap-badge recap-badge-primary">primary</span><span class="recap-badge recap-badge-fixture">fixture</span><span>Anthropic</span><span class="recap-dot"></span><span>2026-04-15</span></span>
+    <p class="recap-muted" style="margin-top:.4rem;font-size:.88rem">Vendor docs covering the Claude family, tiers, reasoning surface, and context window guidance.</p>
+  </a><a class="recap-source" href="https://platform.openai.com/docs/models" target="_blank" rel="noopener noreferrer">
+    <span class="recap-source-title">OpenAI — Models<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span>
+    <span class="recap-source-meta"><span class="recap-badge recap-badge-primary">primary</span><span class="recap-badge recap-badge-fixture">fixture</span><span>OpenAI</span><span class="recap-dot"></span><span>2026-04-20</span></span>
+    <p class="recap-muted" style="margin-top:.4rem;font-size:.88rem">Vendor docs covering GPT model families, reasoning-tier surface, and multimodal capabilities.</p>
+  </a><a class="recap-source" href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer">
+    <span class="recap-source-title">Google DeepMind — Gemini<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span>
+    <span class="recap-source-meta"><span class="recap-badge recap-badge-primary">primary</span><span class="recap-badge recap-badge-fixture">fixture</span><span>Google DeepMind</span><span class="recap-dot"></span><span>2026-04-02</span></span>
+    <p class="recap-muted" style="margin-top:.4rem;font-size:.88rem">Vendor page covering Gemini model family, long context window, and multimodal benchmarks.</p>
+  </a><a class="recap-source" href="https://aiindex.stanford.edu/report/" target="_blank" rel="noopener noreferrer">
+    <span class="recap-source-title">Stanford HAI — AI Index Report<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span>
+    <span class="recap-source-meta"><span class="recap-badge recap-badge-primary">primary</span><span class="recap-badge recap-badge-fixture">fixture</span><span>Stanford HAI</span><span class="recap-dot"></span><span>2026-04-01</span></span>
+    <p class="recap-muted" style="margin-top:.4rem;font-size:.88rem">Annual independent measurement of AI capability, cost, and adoption trends.</p>
+  </a><a class="recap-source" href="https://artificialanalysis.ai/" target="_blank" rel="noopener noreferrer">
+    <span class="recap-source-title">Artificial Analysis — Provider benchmarks<svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span>
+    <span class="recap-source-meta"><span class="recap-badge">secondary</span><span class="recap-badge recap-badge-fixture">fixture</span><span>Artificial Analysis</span><span class="recap-dot"></span><span>2026-05-01</span></span>
+    <p class="recap-muted" style="margin-top:.4rem;font-size:.88rem">Independent provider-by-provider latency, throughput, and cost dashboards.</p>
+  </a></div>
+  <div class="recap-note"><p class="recap-eyebrow"><svg class="recap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/></svg>What we're unsure about</p><p>Specific model names and prices change monthly; this fixture intentionally avoids naming exact versions.</p><p>Context-window numbers vary by provider and tier; treat the 1M figure as illustrative, not a contract.</p></div>
+</section>
+</main>
+<footer class="recap-footer">
+<p><strong>Generated by Recap Studio.</strong> One page, offline, yours. Be skeptical — check the sources.</p>
+</footer>
+</body>
+</html>

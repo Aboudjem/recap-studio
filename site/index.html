@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recap Studio - one self-contained explainer page from any topic or coding session</title>
+  <meta name="description" content="Turn any topic or coding session into a beautiful, dark-mode, mobile-first explainer. One self-contained HTML file, inlined CSS, zero JavaScript, opens offline with a double-click. No server, no internet, no dependencies." />
+  <meta property="og:title" content="Recap Studio - self-contained offline explainer pages" />
+  <meta property="og:description" content="Turn a topic or a git diff into one dark-mode HTML file that opens offline with a double-click. Cited sources, inline SVG diagrams, zero JavaScript." />
+  <meta property="og:image" content="assets/page-preview.png" />
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --panel: #14171f;
+      --ink: #e9ebf2;
+      --muted: #9aa1b2;
+      --accent: #7c5cff;
+      --accent-2: #22d3ee;
+      --border: #242938;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+    header { padding: 64px 0 24px; text-align: center; }
+    header img.logo { width: min(520px, 90%); height: auto; }
+    h1 {
+      font-size: clamp(2rem, 6vw, 3rem); margin: 8px 0 0; letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .tagline { font-size: 1.15rem; color: var(--muted); margin: 18px auto 0; max-width: 660px; }
+    .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 28px 0 8px; }
+    .btn {
+      display: inline-block; padding: 11px 18px; border-radius: 10px;
+      border: 1px solid var(--border); color: var(--ink); font-weight: 600;
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .demo { margin: 36px 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--panel); }
+    .demo img { display: block; width: 100%; height: auto; }
+    section { margin: 44px 0; }
+    h2 { font-size: 1.4rem; margin: 0 0 14px; }
+    pre {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; overflow-x: auto; font-size: 0.92rem;
+    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+    .card h3 { margin: 0 0 6px; font-size: 1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .stats { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 18px; }
+    .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; font-size: 0.92rem; color: var(--muted); }
+    .stat b { color: var(--ink); }
+    footer { color: var(--muted); text-align: center; padding: 40px 0 64px; font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 48px; }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <img class="logo" src="assets/logo-dark.svg" alt="Recap Studio" onerror="this.style.display='none'" />
+    <h1>Recap Studio</h1>
+    <p class="tagline">Turn any topic or coding session into a beautiful, dark-mode, mobile-first explainer you can double-click to open. No server, no internet, no dependencies.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Aboudjem/recap-studio">View on GitHub</a>
+      <a class="btn" href="sample-recap.html">See a real sample page</a>
+      <a class="btn" href="https://github.com/Aboudjem/10x">10x marketplace</a>
+    </div>
+    <div class="stats">
+      <span class="stat"><b>43</b> tests, 5 test-bearing packages</span>
+      <span class="stat"><b>13</b> specialist agents</span>
+      <span class="stat"><b>0</b> external requests at read time</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="demo">
+      <img src="assets/demo.gif" alt="A live run of /recap building a self-contained explainer page about creatine, with a dark-mode hero, an inline-SVG diagram, key-idea cards, and a cited sources list" onerror="this.src='assets/page-preview.png'" />
+    </div>
+
+    <section>
+      <h2>Install in Claude Code</h2>
+      <p>One command from the <a href="https://github.com/Aboudjem/10x">10x marketplace</a>, then run <code>/recap</code> in any session.</p>
+      <pre><code>claude plugin marketplace add Aboudjem/10x
+claude plugin install recap-studio@10x</code></pre>
+      <pre><code>/recap "What is React Server Components"</code></pre>
+    </section>
+
+    <section>
+      <h2>Use it anywhere (CLI and MCP)</h2>
+      <p>Link the skills into any AI CLI with the one-line installer, or run the local MCP server as the universal fallback. The CLI is not on npm yet, so clone the repo and build it first.</p>
+      <pre><code>curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex</code></pre>
+      <pre><code>git clone https://github.com/Aboudjem/recap-studio &amp;&amp; cd recap-studio
+pnpm install &amp;&amp; pnpm -w build
+node packages/cli/dist/index.js render content.json</code></pre>
+    </section>
+
+    <section>
+      <h2>What you get on the page</h2>
+      <div class="grid">
+        <div class="card"><h3>Self-contained offline HTML</h3><p>One file, all CSS inlined, zero JavaScript, zero external requests. Opens via file:// on a plane.</p></div>
+        <div class="card"><h3>Hero answer, not an intro</h3><p>One-sentence answer up top, then three takeaways in large type above the fold.</p></div>
+        <div class="card"><h3>Inline SVG concept maps</h3><p>Diagrams are hand-authored inline SVG, never decoration, never a hosted image.</p></div>
+        <div class="card"><h3>Cited sources</h3><p>Every key idea, comparison row, and timeline item references a source map entry.</p></div>
+        <div class="card"><h3>Session recap from git</h3><p>Point it at a git diff plus commits and it builds a recap of what changed and why.</p></div>
+        <div class="card"><h3>Dark-mode, mobile-first</h3><p>Sans-serif type, tasteful gradients, reduced-motion safe, readable on a phone.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Honest by design</h2>
+      <p>The validation score is a deterministic heuristic check (structure, citation presence, word counts, secret and fluff scans). It does not fetch sources and does not call an LLM. The full multi-agent review (13 specialist agents) runs only when you use <code>/recap</code> inside Claude Code. Nothing phones home, no deploys, no emails, no secret writes, all off until you opt in.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    Built by <a href="https://github.com/Aboudjem">Adam Boudjemaa</a>. MIT License. No telemetry, no data collection.
+    <br />
+    <a href="https://github.com/Aboudjem/recap-studio">github.com/Aboudjem/recap-studio</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/assets/**"
+      - ".github/sample-recap.html"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble static site
+        run: |
+          set -euo pipefail
+          mkdir -p _site/assets
+          cp -r site/. _site/
+          # Reuse the already-shipped demo assets; never rebuild them here.
+          for f in demo.gif page-preview.png page-preview.svg logo-light.svg logo-dark.svg hero-diagram.svg social-preview.svg; do
+            [ -f ".github/assets/$f" ] && cp ".github/assets/$f" "_site/assets/$f" || true
+          done
+          # Ship a real, self-contained recap as the sample output.
+          if [ -f .github/sample-recap.html ]; then
+            cp .github/sample-recap.html _site/sample-recap.html
+          elif [ -f artifacts/latest-ai-models/recap-latest-ai-models.html ]; then
+            cp artifacts/latest-ai-models/recap-latest-ai-models.html _site/sample-recap.html
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
