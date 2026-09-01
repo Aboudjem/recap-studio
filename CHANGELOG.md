@@ -5,6 +5,13 @@ All notable changes to Recap Studio are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Release workflow: pushing a `vX.Y.Z` tag now creates the GitHub release and tells the 10x
+  marketplace to re-sync (`.github/workflows/release.yml`).
+
 ## [0.4.0] - 2026-05-30
 
 Portability and discoverability layer. The plugin now installs into any AI CLI,
