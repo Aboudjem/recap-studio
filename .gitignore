@@ -39,3 +39,10 @@ examples/*/output/*.html
 recap-studio.config.ts
 
 npm-placeholder/node_modules/
+
+.goal/
+
+# Local secrets export (new-laptop migration; never commit/push), requested 2026-06-01
+*.secret
+nitya-ai.secret
+.secrets/
