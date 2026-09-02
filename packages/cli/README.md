@@ -16,7 +16,7 @@ Recap Studio's `/recap` slash command lives in Claude Code. The CLI is the **cro
 | Command | What it does |
 |---|---|
 | `recap render <content.json> [-o out.html] [--theme dark\|light\|auto] [--print]` | Render to ONE self-contained HTML file (inlined CSS, zero JS, opens offline). Default theme: `dark`. |
-| `recap validate <content.json>` | Score content with the deterministic checks (structure, citations, word counts, secret/fluff scans). Exit 0 = passes thresholds. |
+| `recap validate <content.json> [--json] [--fail-under <score>]` | Score content with the deterministic checks (structure, citations, word counts, secret/fluff scans). Exit 0 = passes, 1 = does not, 2 = unreadable or invalid file. |
 | `recap --help` / `--version` | Help / version. |
 
 ### Printing
@@ -29,6 +29,20 @@ PDF and would rather see the result first.
 ```bash
 recap render content.json --print -o paper.html
 ```
+
+### Validating in CI
+
+```bash
+recap validate content.json --json --fail-under 8
+```
+
+`--json` writes one JSON document on stdout (the honesty note goes to stderr, so `| jq` works).
+The envelope carries `ok`, `overall`, `passedThresholds`, `failUnder`, every `check` with its score
+and findings, and `blockers`.
+
+`--fail-under <score>` replaces the default rule rather than adding to it. The default rule is
+strict: it needs every check at status `pass`, so a `warn` one point under target fails the run.
+A blocker, such as a secret-shaped string in the content, fails the run at any score.
 
 ## Honesty
 

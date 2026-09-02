@@ -3,7 +3,7 @@
  *
  * Deterministic, runs-anywhere checks that approximate what each reviewer
  * agent does. The agents add depth and judgment; this package guarantees
- * a baseline — and gives the user honest scores even when LLM agents
+ * a baseline, and gives the user honest scores even when LLM agents
  * cannot run.
  */
 export * from "./types.js";

@@ -4,14 +4,22 @@ import type { DimensionResult, Finding } from "../types.js";
 /**
  * Deterministic secret-pattern scan and side-effect surface review.
  */
+/**
+ * No /g flag on purpose. These are module-level constants used with
+ * RegExp.prototype.test, and a global regex carries lastIndex between calls:
+ * a match leaves lastIndex past the hit, so the very next call starts from
+ * there and misses it. That made an identical page alternate between
+ * "blocker, 5/10" and "clean, 10/10" on consecutive runs, which is the
+ * opposite of the deterministic scoring this package promises.
+ */
 const SECRET_PATTERNS: Array<[RegExp, string]> = [
-  [/sk-[A-Za-z0-9]{20,}/g, "OpenAI-like secret key"],
-  [/sk-ant-[A-Za-z0-9-_]{20,}/g, "Anthropic API key"],
-  [/xox[bpars]-[A-Za-z0-9-]{10,}/g, "Slack token"],
-  [/AKIA[0-9A-Z]{16}/g, "AWS access key id"],
-  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/g, "PEM private key"],
-  [/ghp_[A-Za-z0-9]{20,}/g, "GitHub personal access token"],
-  [/Bearer\s+[A-Za-z0-9._-]{20,}/g, "Bearer token in plain text"],
+  [/sk-[A-Za-z0-9]{20,}/, "OpenAI-like secret key"],
+  [/sk-ant-[A-Za-z0-9-_]{20,}/, "Anthropic API key"],
+  [/xox[bpars]-[A-Za-z0-9-]{10,}/, "Slack token"],
+  [/AKIA[0-9A-Z]{16}/, "AWS access key id"],
+  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, "PEM private key"],
+  [/ghp_[A-Za-z0-9]{20,}/, "GitHub personal access token"],
+  [/Bearer\s+[A-Za-z0-9._-]{20,}/, "Bearer token in plain text"],
 ];
 
 const INJECTION_HINTS = [
@@ -46,7 +54,7 @@ export function checkSecurityPrivacy(content: RecapPageContent): Omit<DimensionR
     }
   }
 
-  // Source provenance — every entry must be labeled.
+  // Source provenance: every entry must be labeled.
   for (const s of content.sourceMap) {
     if (!s.provenance) {
       findings.push({

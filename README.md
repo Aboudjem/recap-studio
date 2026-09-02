@@ -244,7 +244,10 @@ node packages/cli/dist/index.js render content.json
 | `recap render <content.json>` | Render a self-contained HTML file from a content JSON |
 | `recap render <content.json> -o out.html` | Write to a specific output path |
 | `recap render <content.json> --theme dark\|light\|auto` | Choose the colour theme (default: dark) |
-| `recap validate <content.json>` | Validate the content structure and exit with code 0/2 |
+| `recap render <content.json> --print` | Render for paper: white ground, black text, source URLs spelled out |
+| `recap validate <content.json>` | Score the content. Exit 0 when every check passes, 1 when one does not, 2 on an unreadable or invalid file |
+| `recap validate <content.json> --json` | Same run, one JSON document on stdout for CI |
+| `recap validate <content.json> --fail-under <score>` | Gate on the overall score instead of the per-check targets. A blocker still fails |
 
 **From the workspace root (if you cloned the repo):**
 

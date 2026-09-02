@@ -69,7 +69,7 @@ export function reportMarkdown(report: ValidationReport): string {
   const rows = report.dimensions
     .map(
       (d) =>
-        `| ${d.name.padEnd(18)} | ${String(d.score).padStart(2)}/10 | ${String(d.target).padStart(2)} | ${d.status.toUpperCase().padEnd(7)} | ${d.findings[0]?.message ?? "—"} |`,
+        `| ${d.name.padEnd(18)} | ${String(d.score).padStart(2)}/10 | ${String(d.target).padStart(2)} | ${d.status.toUpperCase().padEnd(7)} | ${d.findings[0]?.message ?? "none"} |`,
     )
     .join("\n");
   const blockers =
@@ -78,13 +78,13 @@ export function reportMarkdown(report: ValidationReport): string {
       : "_none_";
 
   return [
-    `## Validation report — ${report.slug}`,
+    `## Validation report: ${report.slug}`,
     "",
     "| Dimension          | Score  | Target | Status   | Top finding |",
     "| ------------------ | ------ | ------ | -------- | ----------- |",
     rows,
     "",
-    `Overall: **${report.overall}/10** — thresholds ${
+    `Overall: **${report.overall}/10**, thresholds ${
       report.passedThresholds ? "PASSED ✅" : "NOT PASSED ⚠️"
     }`,
     "",
@@ -92,4 +92,88 @@ export function reportMarkdown(report: ValidationReport): string {
     blockers,
     "",
   ].join("\n");
+}
+
+/** Options `reportJson` cannot derive from the report itself. */
+export interface ReportJsonOptions {
+  /** The version string of the tool that produced this report (the CLI's). */
+  version: string;
+  /** The active `--fail-under` gate, or null when the threshold rule applies. */
+  failUnder?: number | null;
+}
+
+/** One check as it appears in the JSON envelope. */
+export interface JsonCheck {
+  name: string;
+  score: number;
+  target: number;
+  status: string;
+  confidence: string;
+  findings: Array<{ severity: string; message: string; hint?: string; path?: string }>;
+}
+
+/** The machine-readable validation envelope. */
+export interface JsonReport {
+  tool: "recap";
+  version: string;
+  slug: string;
+  topic: string;
+  generatedAt: string;
+  overall: number;
+  passedThresholds: boolean;
+  failUnder: number | null;
+  ok: boolean;
+  checks: JsonCheck[];
+  blockers: string[];
+}
+
+/**
+ * Decide whether a report passes.
+ *
+ * Without a numeric gate this is `passedThresholds`, which requires EVERY
+ * dimension to sit at status "pass" (a "warn" one point under target fails).
+ *
+ * With `--fail-under n` the numeric gate replaces that per-dimension rule, but
+ * it does NOT replace the blocker rule: a blocker is a leaked key or an
+ * equivalent hard failure, and averaging it away would let one through CI.
+ */
+export function reportPasses(report: ValidationReport, failUnder?: number | null): boolean {
+  if (failUnder === undefined || failUnder === null) return report.passedThresholds;
+  return report.overall >= failUnder && report.blockers.length === 0;
+}
+
+/**
+ * Reshape a ValidationReport into the JSON envelope. Pure: it reads the report
+ * and the options and returns a fresh object, mutating neither. Every object is
+ * rebuilt field by field so key order is stable across runs; reusing the report's
+ * own dimension objects would not be, because `target` and `status` are attached
+ * to them after the fact in runValidation.
+ */
+export function reportJson(report: ValidationReport, opts: ReportJsonOptions): JsonReport {
+  const failUnder = opts.failUnder ?? null;
+  return {
+    tool: "recap",
+    version: opts.version,
+    slug: report.slug,
+    topic: report.topic,
+    generatedAt: report.generatedAt,
+    overall: report.overall,
+    passedThresholds: report.passedThresholds,
+    failUnder,
+    ok: reportPasses(report, failUnder),
+    checks: report.dimensions.map((d) => ({
+      name: d.name,
+      score: d.score,
+      target: d.target,
+      status: d.status,
+      confidence: d.confidence,
+      findings: d.findings.map((f) => {
+        const out: JsonCheck["findings"][number] = { severity: f.severity, message: f.message };
+        if (f.hint !== undefined) out.hint = f.hint;
+        if (f.path !== undefined) out.path = f.path;
+        return out;
+      }),
+    })),
+    blockers: [...report.blockers],
+  };
 }
