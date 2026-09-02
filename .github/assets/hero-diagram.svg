@@ -1,68 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Topic or session goes in, recap page comes out: specialist agents draft the content, deterministic checks validate it, then the renderer builds a self-contained HTML page.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" fill="none" role="img" aria-label="Topic or session goes in, recap page comes out: specialist agents draft the content, deterministic checks validate it, then the renderer builds a self-contained HTML page.">
   <defs>
-    <linearGradient id="rh-pipe" x1="0" x2="1">
-      <stop offset="0%" stop-color="#7C5CFF" stop-opacity=".15"/>
-      <stop offset="50%" stop-color="#7C5CFF" stop-opacity=".6"/>
-      <stop offset="100%" stop-color="#7C5CFF" stop-opacity=".15"/>
+    <linearGradient id="rs-hg-ground" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%"   stop-color="#0A0F1C"/>
+      <stop offset="60%"  stop-color="#080C16"/>
+      <stop offset="100%" stop-color="#07070C"/>
     </linearGradient>
-    <style>
-      @keyframes rh-flow { 0% { stroke-dashoffset: 32 } 100% { stroke-dashoffset: 0 } }
-      @keyframes rh-glow { 0%,100% { opacity:.85 } 50% { opacity:1 } }
-      .rh-line   { stroke: #7C5CFF; stroke-width: 2; fill: none; stroke-dasharray: 6 4; animation: rh-flow 1.6s linear infinite; }
-      .rh-card   { fill: #FFFFFF; stroke: #E7E6E1; stroke-width: 1.5; }
-      .rh-card-d { fill: #15151B; stroke: #23232B; stroke-width: 1.5; }
-      .rh-pulse  { animation: rh-glow 3s cubic-bezier(.4,0,.2,1) infinite; }
-      @media (prefers-color-scheme: dark) {
-        .rh-card { fill: #15151B; stroke: #23232B; }
-        .rh-bg   { fill: #0B0B0F; }
-        .rh-text { fill: #F2F1EE; }
-        .rh-muted{ fill: #A4A4B0; }
-      }
-      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-    </style>
+
+    <radialGradient id="rs-hg-bloom" cx="0.5" cy="1" r="0.75">
+      <stop offset="0%"   stop-color="#8E7BFF" stop-opacity="0.20"/>
+      <stop offset="38%"  stop-color="#5B9DFF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#5B9DFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="rs-hg-glowsm" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect class="rh-bg" width="1200" height="320" fill="#FBFAF7"/>
-  <g font-family="system-ui,-apple-system,Segoe UI,sans-serif">
-    <!-- INPUT -->
-    <rect class="rh-card rh-pulse" x="40"  y="120" width="180" height="80" rx="16"/>
-    <text class="rh-text" x="130" y="155" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Topic / session</text>
-    <text class="rh-muted" x="130" y="178" text-anchor="middle" font-size="12" fill="#5C5C66">/recap "Latest AI models"</text>
 
-    <!-- AGENTS PIPELINE -->
-    <rect class="rh-card" x="280" y="80" width="220" height="160" rx="16"/>
-    <text class="rh-text" x="390" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">13 specialist agents</text>
-    <g transform="translate(308, 132)" font-size="11" fill="#5C5C66">
-      <text y="0">· research-scout</text>
-      <text y="16">· source-librarian</text>
-      <text y="32">· learning-architect</text>
-      <text y="48">· visual-story-designer</text>
-      <text y="64">· frontend-builder</text>
-      <text y="80">· repo-session-analyst</text>
-      <text y="96">+ 7 heuristic checks</text>
-    </g>
+  <style>
+    .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+    .card  { fill: #0E1524; stroke: #1E2A42; stroke-width: 1; }
+    .title { font-size: 15px; font-weight: 700; fill: #F2F6FF; letter-spacing: -0.2px; }
+    .item  { font-size: 11.5px; font-weight: 500; fill: #B6C2DA; }
+    .cap   { font-size: 11px; fill: #8494B0; }
+    .cap2  { font-size: 10px; fill: #8494B0; }
+    .tag   { font-size: 11.5px; letter-spacing: 1.6px; fill: #8494B0; }
+    .step  { font-size: 10.5px; font-weight: 600; letter-spacing: 2.4px; fill: #5B9DFF; }
 
-    <!-- HEURISTIC CHECKS -->
-    <rect class="rh-card rh-pulse" x="560" y="80" width="220" height="160" rx="16"/>
-    <text class="rh-text" x="670" y="112" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Heuristic checks</text>
-    <g transform="translate(580, 132)" font-size="11" fill="#5C5C66">
-      <text y="0">facts (citations present)</text>
-      <text y="16">beginner (jargon scan)</text>
-      <text y="32">accessibility (structure)</text>
-      <text y="48">UX (section balance)</text>
-      <text y="64">performance (size)</text>
-      <text y="80">sec/privacy (secret regex)</text>
-      <text y="96">simplicity (word count)</text>
-    </g>
+    @keyframes rs-hg-breathe { 0%,100% { opacity: 0.55; } 50% { opacity: 0.95; } }
+    .bloom { animation: rs-hg-breathe 9s ease-in-out infinite; }
 
-    <!-- OUTPUT -->
-    <rect class="rh-card rh-pulse" x="840" y="120" width="320" height="80" rx="16"/>
-    <text class="rh-text" x="1000" y="152" text-anchor="middle" font-size="15" font-weight="600" fill="#16161D">Self-contained HTML page</text>
-    <text class="rh-muted" x="1000" y="178" text-anchor="middle" font-size="12" fill="#5C5C66">mobile-first · static-first · cite-every-claim</text>
+    @keyframes rs-hg-flow { to { stroke-dashoffset: -240; } }
+    .flowline { animation: rs-hg-flow 14s linear infinite; }
 
-    <!-- FLOW LINES -->
-    <path class="rh-line" d="M220 160 L280 160"/>
-    <path class="rh-line" d="M500 160 L560 160"/>
-    <path class="rh-line" d="M780 160 L840 160"/>
+    @keyframes rs-hg-pip { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+    .p1 { animation: rs-hg-pip 5s ease-in-out infinite 0s; }
+    .p2 { animation: rs-hg-pip 5s ease-in-out infinite 0.35s; }
+    .p3 { animation: rs-hg-pip 5s ease-in-out infinite 0.7s; }
+    .p4 { animation: rs-hg-pip 5s ease-in-out infinite 1.05s; }
+
+    @keyframes rs-hg-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .row-1 { animation: rs-hg-rise 0.6s ease-out 0.30s both; }
+    .row-2 { animation: rs-hg-rise 0.6s ease-out 0.45s both; }
+    .row-3 { animation: rs-hg-rise 0.6s ease-out 0.60s both; }
+    .row-4 { animation: rs-hg-rise 0.6s ease-out 0.75s both; }
+    .row-5 { animation: rs-hg-rise 0.6s ease-out 0.90s both; }
+    .row-6 { animation: rs-hg-rise 0.6s ease-out 1.05s both; }
+    .row-7 { animation: rs-hg-rise 0.6s ease-out 1.20s both; }
+
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="320" fill="url(#rs-hg-ground)"/>
+  <ellipse class="bloom" cx="600" cy="324" rx="700" ry="150" fill="url(#rs-hg-bloom)"/>
+
+  <!-- connectors, left to right -->
+  <g stroke="#5B9DFF" stroke-width="1.5" fill="none">
+    <line x1="248" y1="160" x2="284" y2="160" opacity="0.45"/>
+    <line class="flowline" x1="248" y1="160" x2="284" y2="160" stroke-dasharray="3 6"/>
+    <line x1="524" y1="160" x2="572" y2="160" opacity="0.45"/>
+    <line class="flowline" x1="524" y1="160" x2="572" y2="160" stroke-dasharray="3 6"/>
+    <line x1="824" y1="160" x2="848" y2="160" opacity="0.45"/>
+    <line class="flowline" x1="824" y1="160" x2="848" y2="160" stroke-dasharray="3 6"/>
   </g>
+  <g filter="url(#rs-hg-glowsm)">
+    <g class="p1"><circle cx="266" cy="160" r="3.5" fill="#5B9DFF"/></g>
+    <g class="p2"><circle cx="548" cy="160" r="3.5" fill="#8E7BFF"/></g>
+    <g class="p3"><circle cx="836" cy="160" r="3.5" fill="#C77DFF"/></g>
+  </g>
+
+  <!-- 1. input -->
+  <rect class="card" x="36" y="112" width="212" height="96" rx="14"/>
+  <text class="mono step"  x="142" y="104" text-anchor="middle">IN</text>
+  <text class="disp title" x="142" y="152" text-anchor="middle">Topic / session</text>
+  <text class="mono cap"   x="142" y="178" text-anchor="middle">/recap "Latest AI models"</text>
+
+  <!-- 2. specialist agents -->
+  <rect class="card" x="284" y="56" width="240" height="208" rx="14"/>
+  <text class="disp title" x="404" y="90" text-anchor="middle">Specialist agents</text>
+  <line x1="304" y1="104" x2="504" y2="104" stroke="#1E2A42" stroke-width="1"/>
+  <g class="disp item">
+    <g class="row-1"><text x="304" y="128">· research-scout</text></g>
+    <g class="row-2"><text x="304" y="148">· source-librarian</text></g>
+    <g class="row-3"><text x="304" y="168">· fact-checker</text></g>
+    <g class="row-4"><text x="304" y="188">· learning-architect</text></g>
+    <g class="row-5"><text x="304" y="208">· visual-story-designer</text></g>
+    <g class="row-6"><text x="304" y="228">· frontend-builder</text></g>
+    <g class="row-7"><text x="304" y="248">· repo-session-analyst</text></g>
+  </g>
+
+  <!-- 3. heuristic checks -->
+  <rect class="card" x="572" y="56" width="252" height="208" rx="14"/>
+  <text class="disp title" x="698" y="90" text-anchor="middle">Heuristic checks</text>
+  <line x1="592" y1="104" x2="804" y2="104" stroke="#1E2A42" stroke-width="1"/>
+  <g class="disp item">
+    <g class="row-1"><text x="592" y="128">facts (citations present)</text></g>
+    <g class="row-2"><text x="592" y="148">beginner (jargon scan)</text></g>
+    <g class="row-3"><text x="592" y="168">accessibility (structure)</text></g>
+    <g class="row-4"><text x="592" y="188">UX (section balance)</text></g>
+    <g class="row-5"><text x="592" y="208">performance (size)</text></g>
+    <g class="row-6"><text x="592" y="228">sec/privacy (secret regex)</text></g>
+    <g class="row-7"><text x="592" y="248">simplicity (word count)</text></g>
+  </g>
+
+  <!-- 4. output -->
+  <rect class="card" x="848" y="112" width="312" height="96" rx="14"/>
+  <text class="mono step"  x="1004" y="104" text-anchor="middle">OUT</text>
+  <text class="disp title" x="1004" y="152" text-anchor="middle">Self-contained HTML page</text>
+  <text class="mono cap2"  x="1004" y="178" text-anchor="middle">mobile-first · static-first · cite-every-claim</text>
+
+  <!-- repo signal -->
+  <g filter="url(#rs-hg-glowsm)">
+    <g class="p4"><circle cx="44" cy="296" r="4.5" fill="#3DFFAB"/></g>
+  </g>
+  <text class="mono tag" x="60" y="300">73 tests pass</text>
 </svg>

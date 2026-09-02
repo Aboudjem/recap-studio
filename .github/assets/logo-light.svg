@@ -1,45 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-label="Recap Studio">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" fill="none" role="img" aria-label="recap-studio: one-file explainers, about a five minute read">
   <defs>
-    <linearGradient id="rs-light-bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#F4F1FF"/>
+    <linearGradient id="rs-ll-brand" x1="0" y1="0" x2="1" y2="0.25" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#0B6DFF"/>
+      <stop offset="100%" stop-color="#725BFF"/>
+      <animateTransform attributeName="gradientTransform" type="translate"
+        values="-0.12 0; 0.12 0; -0.12 0" dur="18s" repeatCount="indefinite"/>
     </linearGradient>
-    <linearGradient id="rs-light-ink" x1="0" x2="1">
-      <stop offset="0%" stop-color="#7C5CFF"/>
-      <stop offset="100%" stop-color="#3F2BB8"/>
+
+    <linearGradient id="rs-ll-mark" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#0B6DFF"/>
+      <stop offset="100%" stop-color="#725BFF"/>
     </linearGradient>
-    <style>
-      @keyframes rs-shimmer { 0%,100% { opacity:.6 } 50% { opacity:1 } }
-      @keyframes rs-rise   { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }
-      @keyframes rs-fade   { 0%,100% { opacity:.85 } 50% { opacity:1 } }
-      .rs-bg     { animation: rs-shimmer 6s cubic-bezier(.4,0,.2,1) infinite; }
-      .rs-bar    { transform-origin: bottom; animation: rs-rise 3.4s cubic-bezier(.4,0,.2,1) infinite; }
-      .rs-bar-2  { animation-delay: .3s; }
-      .rs-bar-3  { animation-delay: .6s; }
-      .rs-bar-4  { animation-delay: .9s; }
-      .rs-spark  { animation: rs-fade 2.8s cubic-bezier(.4,0,.2,1) infinite; }
-      .rs-spark-2{ animation-delay: .4s; }
-      .rs-spark-3{ animation-delay: .8s; }
-      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-    </style>
+
+    <linearGradient id="rs-ll-horizon" gradientUnits="userSpaceOnUse" x1="36" y1="168" x2="684" y2="168">
+      <stop offset="0%"   stop-color="#00819C" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#00819C" stop-opacity="0.45"/>
+      <stop offset="55%"  stop-color="#725BFF" stop-opacity="0.6"/>
+      <stop offset="82%"  stop-color="#EB0054" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#EB0054" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="rs-ll-gridfade" gradientUnits="userSpaceOnUse" x1="0" y1="168" x2="0" y2="200">
+      <stop offset="0%"   stop-color="#0B6DFF" stop-opacity="0.45"/>
+      <stop offset="55%"  stop-color="#725BFF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#EB0054" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <clipPath id="rs-ll-frame"><rect width="720" height="200" rx="24"/></clipPath>
+    <clipPath id="rs-ll-gridclip"><rect x="0" y="168" width="720" height="32"/></clipPath>
   </defs>
-  <rect class="rs-bg" width="720" height="200" rx="24" fill="url(#rs-light-bg)"/>
-  <g transform="translate(48, 56)">
-    <rect width="88" height="88" rx="20" fill="#EEEAFF"/>
-    <g transform="translate(16, 16)">
-      <rect class="rs-bar"        x="0"  y="32" width="10" height="24" rx="3" fill="url(#rs-light-ink)"/>
-      <rect class="rs-bar rs-bar-2" x="16" y="20" width="10" height="36" rx="3" fill="url(#rs-light-ink)"/>
-      <rect class="rs-bar rs-bar-3" x="32" y="10" width="10" height="46" rx="3" fill="url(#rs-light-ink)"/>
-      <rect class="rs-bar rs-bar-4" x="48" y="0"  width="10" height="56" rx="3" fill="url(#rs-light-ink)"/>
-      <circle class="rs-spark"           cx="58" cy="4"  r="3" fill="#7C5CFF"/>
-      <circle class="rs-spark rs-spark-2" cx="44" cy="12" r="2" fill="#7C5CFF"/>
-      <circle class="rs-spark rs-spark-3" cx="32" cy="20" r="2" fill="#7C5CFF"/>
+
+  <style>
+    .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+    .tag  { font-size: 11.5px; letter-spacing: 1.6px; fill: #48546B; }
+
+    @keyframes rs-ll-flow { to { stroke-dashoffset: -240; } }
+    .flowline { animation: rs-ll-flow 14s linear infinite; }
+
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <g clip-path="url(#rs-ll-frame)">
+    <rect width="720" height="200" fill="#F7F8FB"/>
+
+    <!-- perspective grid below the horizon, shipped off -->
+    <g id="grid" clip-path="url(#rs-ll-gridclip)" opacity="0">
+      <g stroke="url(#rs-ll-gridfade)" stroke-width="1" fill="none">
+        <path d="M360 168 L-700 200"/><path d="M360 168 L-260 200"/><path d="M360 168 L-20 200"/>
+        <path d="M360 168 L120 200"/> <path d="M360 168 L240 200"/> <path d="M360 168 L310 200"/>
+        <path d="M360 168 L360 200"/>
+        <path d="M360 168 L410 200"/> <path d="M360 168 L480 200"/> <path d="M360 168 L600 200"/>
+        <path d="M360 168 L740 200"/> <path d="M360 168 L980 200"/> <path d="M360 168 L1420 200"/>
+      </g>
+      <g stroke="url(#rs-ll-gridfade)" stroke-width="1" fill="none">
+        <line x1="0" y1="170"   x2="720" y2="170"/>
+        <line x1="0" y1="173.5" x2="720" y2="173.5"/>
+        <line x1="0" y1="178.5" x2="720" y2="178.5"/>
+        <line x1="0" y1="185.5" x2="720" y2="185.5"/>
+        <line x1="0" y1="196"   x2="720" y2="196"/>
+      </g>
     </g>
-  </g>
-  <g font-family="system-ui,-apple-system,Segoe UI,sans-serif" fill="#16161D">
-    <text x="170" y="92" font-size="42" font-weight="700" letter-spacing="-1">Recap Studio</text>
-    <text x="172" y="120" font-size="17" font-weight="500" fill="#7C5CFF">Visual one-page explainers, in under 5 minutes</text>
-    <text x="172" y="148" font-size="14" fill="#5C5C66">Mobile-first · Calm reading · cite every claim</text>
+
+    <g opacity="0.95">
+      <line x1="36" y1="168" x2="684" y2="168" stroke="url(#rs-ll-horizon)" stroke-width="1.25"/>
+      <line class="flowline" x1="36" y1="168" x2="684" y2="168" stroke="url(#rs-ll-horizon)"
+            stroke-width="1.25" stroke-dasharray="3 9" opacity="0.85"/>
+    </g>
+
+    <!-- mark: a page with its top right corner folded forward, the fold catching the accent -->
+    <g transform="translate(44,60)">
+      <path d="M10 6 H54 L78 30 V82 H10 Z" fill="#FFFFFF"
+            stroke="url(#rs-ll-mark)" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M54 6 L78 30 H54 Z" fill="url(#rs-ll-mark)"/>
+      <g fill="#0B6DFF" opacity="0.42">
+        <rect x="22" y="46" width="44" height="4" rx="2"/>
+        <rect x="22" y="58" width="34" height="4" rx="2"/>
+        <rect x="22" y="70" width="26" height="4" rx="2"/>
+      </g>
+    </g>
+
+    <text class="disp" x="168" y="110" font-size="62" font-weight="800" letter-spacing="-2"
+          fill="url(#rs-ll-brand)">recap-studio</text>
+    <text class="mono tag" x="170" y="142">one-file explainers · about 5 min read</text>
   </g>
 </svg>

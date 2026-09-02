@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none" role="img" aria-label="recap-studio: any topic, one file you can double-click. Dark-mode, mobile-first, reads offline in about five minutes. No server, no internet, zero JS in the page.">
+  <defs>
+    <linearGradient id="rs-hd-ground" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%"   stop-color="#0A0F1C"/>
+      <stop offset="60%"  stop-color="#080C16"/>
+      <stop offset="100%" stop-color="#07070C"/>
+    </linearGradient>
+
+    <radialGradient id="rs-hd-bloom" cx="0.5" cy="1" r="0.75">
+      <stop offset="0%"   stop-color="#FF2D78" stop-opacity="0.30"/>
+      <stop offset="38%"  stop-color="#8E7BFF" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#8E7BFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="rs-hd-brand" x1="0" y1="0" x2="1" y2="0.25" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#5B9DFF"/>
+      <stop offset="100%" stop-color="#8E7BFF"/>
+      <animateTransform attributeName="gradientTransform" type="translate"
+        values="-0.12 0; 0.12 0; -0.12 0" dur="18s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <linearGradient id="rs-hd-sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFD59A"/>
+      <stop offset="30%"  stop-color="#FFB341"/>
+      <stop offset="66%"  stop-color="#FF4D8D"/>
+      <stop offset="100%" stop-color="#C77DFF"/>
+    </linearGradient>
+
+    <linearGradient id="rs-hd-rule" gradientUnits="userSpaceOnUse" x1="476" y1="112" x2="476" y2="272">
+      <stop offset="0%"   stop-color="#5B9DFF" stop-opacity="0"/>
+      <stop offset="45%"  stop-color="#5B9DFF" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#FF2D78" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="rs-hd-horizon" gradientUnits="userSpaceOnUse" x1="60" y1="332" x2="1140" y2="332">
+      <stop offset="0%"   stop-color="#00D4FF" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#5B9DFF" stop-opacity="0.5"/>
+      <stop offset="55%"  stop-color="#8E7BFF" stop-opacity="0.8"/>
+      <stop offset="82%"  stop-color="#FF2D78" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FF2D78" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="rs-hd-gridfade" gradientUnits="userSpaceOnUse" x1="0" y1="332" x2="0" y2="400">
+      <stop offset="0%"   stop-color="#5B9DFF" stop-opacity="0.55"/>
+      <stop offset="55%"  stop-color="#8E7BFF" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#FF2D78" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <linearGradient id="rs-hd-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="rs-hd-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="rs-hd-glowsm" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="rs-hd-atmo" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="22" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <clipPath id="rs-hd-sunclip"><circle cx="1104" cy="266" r="60"/></clipPath>
+    <clipPath id="rs-hd-gridclip"><rect x="0" y="332" width="1200" height="68"/></clipPath>
+    <clipPath id="rs-hd-wordclip">
+      <text x="52" y="262" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+            font-size="68" font-weight="800" letter-spacing="-2.5">recap-studio</text>
+    </clipPath>
+
+    <linearGradient id="rs-hd-mark" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#5B9DFF"/>
+      <stop offset="100%" stop-color="#8E7BFF"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 4.5px; fill: #5B9DFF; }
+    .head    { font-size: 38px; font-weight: 700; fill: #F2F6FF; letter-spacing: -0.5px; }
+    .sub     { font-size: 16px; font-weight: 500; fill: #B6C2DA; }
+    .tag     { font-size: 11.5px; letter-spacing: 1.6px; fill: #8494B0; }
+
+    @keyframes rs-hd-breathe { 0%,100% { opacity: 0.55; } 50% { opacity: 0.95; } }
+    .bloom { animation: rs-hd-breathe 9s ease-in-out infinite; }
+
+    @keyframes rs-hd-sunpulse { 0%,100% { opacity: 0.42; } 50% { opacity: 0.62; } }
+    .sun { animation: rs-hd-sunpulse 10s ease-in-out infinite; }
+
+    @keyframes rs-hd-flow { to { stroke-dashoffset: -240; } }
+    .flowline { animation: rs-hd-flow 14s linear infinite; }
+
+    @keyframes rs-hd-pip { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+    .d1 { animation: rs-hd-pip 5s ease-in-out infinite 0s; }
+    .d2 { animation: rs-hd-pip 5s ease-in-out infinite 0.35s; }
+    .d3 { animation: rs-hd-pip 5s ease-in-out infinite 0.7s; }
+    .d4 { animation: rs-hd-pip 5s ease-in-out infinite 1.05s; }
+    .d5 { animation: rs-hd-pip 5s ease-in-out infinite 1.4s; }
+
+    @keyframes rs-hd-sheen {
+      0%   { transform: translateX(0); }
+      34%  { transform: translateX(820px); }
+      100% { transform: translateX(820px); }
+    }
+    .sheen { animation: rs-hd-sheen 7.5s linear infinite; }
+
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="1200" height="400" fill="url(#rs-hd-ground)"/>
+  <ellipse class="bloom" cx="600" cy="404" rx="720" ry="190" fill="url(#rs-hd-bloom)"/>
+
+  <!-- sun disc sitting on the horizon at the right, behind everything -->
+  <g class="sun">
+    <g filter="url(#rs-hd-atmo)">
+      <circle cx="1104" cy="266" r="60" fill="url(#rs-hd-sun)"/>
+    </g>
+    <g clip-path="url(#rs-hd-sunclip)" fill="#080C16">
+      <rect x="1040" y="276" width="132" height="3"/>
+      <rect x="1040" y="286" width="132" height="4"/>
+      <rect x="1040" y="297" width="132" height="5.5"/>
+      <rect x="1040" y="310" width="132" height="7.5"/>
+      <rect x="1040" y="326" width="132" height="10"/>
+    </g>
+  </g>
+
+  <!-- perspective grid below the horizon, shipped off -->
+  <g id="grid" clip-path="url(#rs-hd-gridclip)" opacity="0">
+    <g stroke="url(#rs-hd-gridfade)" stroke-width="1" fill="none">
+      <path d="M600 332 L-1180 400"/><path d="M600 332 L-560 400"/><path d="M600 332 L-190 400"/>
+      <path d="M600 332 L40 400"/>   <path d="M600 332 L200 400"/>  <path d="M600 332 L320 400"/>
+      <path d="M600 332 L415 400"/>  <path d="M600 332 L490 400"/>  <path d="M600 332 L548 400"/>
+      <path d="M600 332 L600 400"/>
+      <path d="M600 332 L652 400"/>  <path d="M600 332 L710 400"/>  <path d="M600 332 L785 400"/>
+      <path d="M600 332 L880 400"/>  <path d="M600 332 L1000 400"/> <path d="M600 332 L1160 400"/>
+      <path d="M600 332 L1390 400"/> <path d="M600 332 L1760 400"/> <path d="M600 332 L2380 400"/>
+    </g>
+    <g stroke="url(#rs-hd-gridfade)" stroke-width="1" fill="none">
+      <line x1="0" y1="335"   x2="1200" y2="335"/>
+      <line x1="0" y1="339.5" x2="1200" y2="339.5"/>
+      <line x1="0" y1="345.5" x2="1200" y2="345.5"/>
+      <line x1="0" y1="353.5" x2="1200" y2="353.5"/>
+      <line x1="0" y1="364"   x2="1200" y2="364"/>
+      <line x1="0" y1="378"   x2="1200" y2="378"/>
+      <line x1="0" y1="396"   x2="1200" y2="396"/>
+    </g>
+  </g>
+
+  <g opacity="0.95">
+    <line x1="60" y1="332" x2="1140" y2="332" stroke="url(#rs-hd-horizon)" stroke-width="1.25"/>
+    <line class="flowline" x1="60" y1="332" x2="1140" y2="332" stroke="url(#rs-hd-horizon)"
+          stroke-width="1.25" stroke-dasharray="3 9" opacity="0.85"/>
+  </g>
+
+  <!-- mark: a page with its top right corner folded forward, the fold catching the accent -->
+  <g transform="translate(52,104)">
+    <path d="M10 6 H54 L78 30 V82 H10 Z" fill="#0E1524"
+          stroke="url(#rs-hd-mark)" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M54 6 L78 30 H54 Z" fill="url(#rs-hd-mark)"/>
+    <g fill="#5B9DFF" opacity="0.55">
+      <rect x="22" y="46" width="44" height="4" rx="2"/>
+      <rect x="22" y="58" width="34" height="4" rx="2"/>
+      <rect x="22" y="70" width="26" height="4" rx="2"/>
+    </g>
+  </g>
+
+  <g filter="url(#rs-hd-glow)">
+    <text class="disp" x="52" y="262" font-size="68" font-weight="800" letter-spacing="-2.5"
+          fill="url(#rs-hd-brand)">recap-studio</text>
+  </g>
+
+  <g clip-path="url(#rs-hd-wordclip)">
+    <g transform="skewX(-18)">
+      <rect class="sheen" x="-220" y="180" width="90" height="110" fill="url(#rs-hd-sheen)" opacity="0.7"/>
+    </g>
+  </g>
+
+  <line x1="476" y1="112" x2="476" y2="272" stroke="url(#rs-hd-rule)" stroke-width="1.5"/>
+
+  <g transform="translate(520,0)">
+    <text class="mono eyebrow" x="0" y="118">ONE-FILE EXPLAINERS</text>
+    <text class="disp head"    x="0" y="168">Any topic, one file</text>
+    <text class="disp head"    x="0" y="208">you can double-click</text>
+    <text class="disp sub"     x="0" y="242">Dark-mode, mobile-first, reads offline in about five minutes.</text>
+
+    <g transform="translate(0,280)">
+      <g class="d1"><circle cx="0"  cy="0" r="4.5" fill="#00D4FF" filter="url(#rs-hd-glowsm)"/></g>
+      <g class="d2"><circle cx="22" cy="0" r="4.5" fill="#5B9DFF" filter="url(#rs-hd-glowsm)"/></g>
+      <g class="d3"><circle cx="44" cy="0" r="4.5" fill="#8E7BFF" filter="url(#rs-hd-glowsm)"/></g>
+      <g class="d4"><circle cx="66" cy="0" r="4.5" fill="#C77DFF" filter="url(#rs-hd-glowsm)"/></g>
+      <g class="d5"><circle cx="88" cy="0" r="4.5" fill="#FF4D8D" filter="url(#rs-hd-glowsm)"/></g>
+      <text class="mono tag" x="114" y="4">SELF-CONTAINED HTML</text>
+    </g>
+
+    <text class="mono tag" x="0" y="318">no server  ·  no internet  ·  zero JS in the page</text>
+  </g>
+</svg>
