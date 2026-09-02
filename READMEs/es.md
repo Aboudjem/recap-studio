@@ -110,8 +110,10 @@ node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json -
 | facts              | 10/10 |  9 | PASS    | none |
 | beginner           | 10/10 |  9 | PASS    | none |
 | accessibility      | 10/10 |  9 | PASS    | none |
+... four more rows ...
 
 Overall: 9.7/10, thresholds PASSED
+Gate: --fail-under 8, overall 9.7/10, blockers 0. Result: PASS
 ```
 
 Añade `--json` y la misma ejecución escribe un único documento JSON en la salida estándar, que un job de CI puede leer con `jq`.
