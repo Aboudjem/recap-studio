@@ -7,10 +7,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-09-02
+
+Three CLI features, a rebuilt visual identity, and one install page instead of an install matrix.
+The renderer's guarantee is unchanged: the page it writes still has zero JavaScript and makes no
+external request.
+
 ### Added
 
-- Release workflow: pushing a `vX.Y.Z` tag now creates the GitHub release and tells the 10x
-  marketplace to re-sync (`.github/workflows/release.yml`).
+- **`recap render --print`**: an `@media print` block in `packages/html-renderer/src/css.ts`,
+  applied when the flag is passed. White ground, black text, page breaks kept off atomic blocks,
+  source URLs spelled out, and the glossary emitted as `<details open>` so paper shows it.
+  Tests: four in `packages/html-renderer/src/render.test.ts` plus one in
+  `packages/cli/src/cli.test.ts` that shells out to the real CLI.
+- **`recap validate --json` and `--fail-under <score>`**: `--json` writes one JSON document on
+  stdout with the honesty note on stderr, so a pipe to `jq` parses. `--fail-under` replaces the
+  per-dimension threshold rule with an overall-score gate, and a blocker still fails the run
+  whatever the score. Tests: `validate --fail-under gates on the overall score and still parses at
+  exit 1` and two siblings in `packages/cli/src/cli.test.ts`.
+- **`recap render --format html|md|txt`**: two pure serializers in
+  `packages/html-renderer/src/serializers.ts`, no new dependency. `--theme` and `--print` are
+  rejected on `md` and `txt` rather than ignored. Tests in
+  `packages/html-renderer/src/render.test.ts`.
+- **Neon Noir visual identity**: new `hero-dark.svg` and `hero-light.svg` banners, rebuilt
+  `logo-dark.svg`, `logo-light.svg`, `hero-diagram.svg` and `social-preview.svg`, plus raster
+  `logo-mark.png`, `logo-mark-512.png` and a 1280x640 `social-preview.png` for the GitHub repo
+  card. Every SVG is GitHub-safe: no script, no external reference, a `prefers-reduced-motion`
+  guard on anything animated.
+- **`docs/editors.md`**, the single install page: the `npx skills add` agent-code table plus MCP
+  snippets for Claude Code, Cursor, VS Code (`servers`), Codex (TOML), Gemini CLI, Windsurf,
+  Continue, OpenCode and Zed (flat `command` and `args`).
+- **`docs/cli.md`, `docs/faq.md`, `docs/comparison.md`**: the command tables, the FAQ and the
+  comparison that used to live in the README.
+
+### Changed
+
+- **`install.sh` delegates to the skills CLI.** The default path runs
+  `npx --yes skills@1.5.23 add Aboudjem/recap-studio -a <agent> -g -y`, mapping all 13 platform
+  ids to agent codes verified against the live vercel-labs/skills table. The old copy and symlink
+  logic stays reachable as `--legacy`, which is also the automatic fallback when `npx` is absent.
+  `--update`, `--uninstall` and `--no-mcp` keep working.
+- **README rewritten** from 381 lines to 179: one install block above the first heading, one
+  editor table instead of a 100-line matrix, two alerts instead of five, five jump links instead
+  of eight. Every image is an absolute `raw.githubusercontent.com` URL so npm renders it. The four
+  translations in `READMEs/{zh-CN,ja,es,fr}.md` were rewritten from the new English.
+- **Version 0.4.0 to 0.5.0** in `package.json`, `.claude-plugin/plugin.json`,
+  `.cursor-plugin/plugin.json` and `.copilot-plugin/plugin.json`. `npm-placeholder/` is untouched.
+- **Test figure corrected** to 73 tests across six workspace projects, re-derived from `pnpm test`.
+  The README, `CLAUDE.md` and `AGENTS.md` previously carried 43 and then 72; the recap-web vitest
+  project was never counted.
+- **`docs/multi-editor.md` is now a stub** pointing at `docs/editors.md`, so older links resolve.
+  Its `npx @recap-studio/cli` instructions are gone: those packages are not published.
+- **`.github/assets/page-preview.svg` removed.** It was a mock of the rendered page; the real
+  screenshot `page-preview.png` shows the same thing and nothing referenced the mock.
+
+### Fixed
+
+- **Non-deterministic validation scoring.** `packages/validation/src/checks/security-privacy.ts`
+  declared `SECRET_PATTERNS` at module scope with the `/g` flag and used them with `.test()`. A
+  global regex keeps `lastIndex` between calls, so the same page alternated between "leaked key"
+  and "clean" on consecutive runs. The flag is dropped and a test runs the same planted-key
+  content six times and asserts every run is deep-equal. This was a shipped bug, not one this
+  release introduced.
+- **`--fail-under` no longer lets a blocker through.** The gate requires `overall >= n` **and**
+  zero blockers, so a leaked key cannot pass CI on a good average.
 
 ## [0.4.0] - 2026-05-30
 
@@ -241,7 +301,8 @@ rebuilt the output, opened it to every editor, and made the claims honest.
   board, and the `latest-ai-models` offline-safe demo path.
 - Final validation report scored 9.7/10 overall, every threshold passed.
 
-[Unreleased]: https://github.com/Aboudjem/recap-studio/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/Aboudjem/recap-studio/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/Aboudjem/recap-studio/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/Aboudjem/recap-studio/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/Aboudjem/recap-studio/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Aboudjem/recap-studio/compare/v0.2.0...v0.3.0

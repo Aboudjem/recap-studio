@@ -1,22 +1,14 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logo-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/logo-light.svg">
-  <img alt="Recap Studio" src=".github/assets/logo-light.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
+  <img alt="Recap Studio: any topic, one file you can double-click" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
-  <a href="https://github.com/Aboudjem/recap-studio/releases"><img src="https://img.shields.io/github/v/tag/Aboudjem/recap-studio?color=7C5CFF&label=version&style=flat-square" alt="version"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-7C5CFF?style=flat-square" alt="License"></a>
+  <a href="https://github.com/Aboudjem/recap-studio/releases"><img src="https://img.shields.io/github/v/tag/Aboudjem/recap-studio?color=5B9DFF&label=version&style=flat-square" alt="version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-5B9DFF?style=flat-square" alt="License"></a>
   <a href="https://github.com/Aboudjem/recap-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Aboudjem/recap-studio/ci.yml?style=flat-square&label=CI" alt="CI"></a>
-  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%E2%89%A520-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node"></a>
-  <a href="https://github.com/Aboudjem/10x"><img src="https://img.shields.io/badge/10x-marketplace-7C5CFF?style=flat-square" alt="10x marketplace"></a>
-  <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=7C5CFF" alt="Stars"></a>
-</p>
-
-<p align="center"><b>Turn any topic or coding session into a beautiful, dark-mode, mobile-first explainer you can double-click to open. No server, no internet, no dependencies.</b></p>
-
-<p align="center">
-  <sub>Self-contained offline HTML · sans-serif Inter font · inline SVG diagrams · zero JavaScript</sub>
+  <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=5B9DFF" alt="Stars"></a>
 </p>
 
 <p align="center">
@@ -27,359 +19,161 @@
   <a href="READMEs/fr.md">Français</a>
 </p>
 
+<p align="center"><b>Turn any topic or coding session into a dark-mode, mobile-first explainer you can double-click to open.</b><br><sub>No server, no internet, no dependencies.</sub></p>
+
 <p align="center">
-  <a href="#what-is-this">What is this</a> ·
-  <a href="#get-started-in-3-steps">Get started</a> ·
-  <a href="#in-claude-code">In Claude Code</a> ·
-  <a href="#anywhere-cli">Anywhere (CLI)</a> ·
-  <a href="#faq">FAQ</a> ·
-  <a href="#comparison">Comparison</a> ·
-  <a href="#why-trust-it">Why trust it</a> ·
-  <a href="docs/architecture.md">Docs</a>
+  <a href="#what-it-does">What it does</a> ·
+  <a href="#install">Install</a> ·
+  <a href="#use-it">Use it</a> ·
+  <a href="#works-in-your-editor">Works in your editor</a> ·
+  <a href="#learn-more">Learn more</a>
 </p>
-
-<picture>
-  <img alt="A real Recap Studio page: dark-mode hero with a gradient headline 'Latest AI models', a one-sentence answer, and a numbered five-step reading path. Calm, premium, mobile-first." src=".github/assets/page-preview.png" width="100%">
-</picture>
-
-### See it in action
-
-A real run of `/recap "what is creatine"`, researched live, every claim fact-checked against primary sources (ISSN, NIH), then rendered to one self-contained page:
-
-![recap-studio demo](.github/assets/demo.gif)
-
-<sub>Animated walkthrough of a generated Recap Studio page about creatine: dark-mode hero, an inline-SVG energy-cycle diagram, icon key-idea cards, and a sources list citing NIH and ISSN.</sub>
-
----
-
-## What is this
-
-Recap Studio takes a topic (`"Latest AI models"`) or a coding session (`git diff` + commits) and produces a **single, self-contained HTML file**: dark-mode, mobile-first, with a hero answer, takeaway cards, an inline SVG concept map, a timeline, a comparison table, misconceptions, a glossary, and cited sources.
-
-**The superpower no other tool has:** the output is one `.html` file with every style inlined, zero JavaScript, and zero external requests. Double-click it in Finder or Explorer and it opens perfectly, with no Wi-Fi, no server, and no `npm install`.
-
-What you get on the page:
-
-| Section | Purpose |
-| --- | --- |
-| Hero | One-sentence answer, not a marketing intro |
-| What matters | Three takeaways, large type, above the fold |
-| Concept map | Inline SVG diagram, never decoration |
-| Key ideas | Four to seven short cards |
-| Timeline | Only when real chronology exists |
-| Comparison | Table on desktop, stacked cards on mobile |
-| Examples + analogies | Concrete first, abstractions second |
-| Misconceptions | Myth on the left, truth on the right |
-| Glossary | Plain-English definitions, collapsed by default |
-| Takeaways | Things you can act on today |
-| Sources | Every claim links to a `sourceMap` entry |
-
----
-
-## Get started in 3 steps
-
-**1. Install the plugin from the [10x marketplace](https://github.com/Aboudjem/10x):**
 
 ```bash
 claude plugin marketplace add Aboudjem/10x
 claude plugin install recap-studio@10x
 ```
 
-**2. Open any Claude Code session and run:**
+## What it does
+
+You ask a question, or you finish a messy afternoon of commits. You want one thing you can read later, or send to a colleague, without a login, a hosted doc, or a build step.
+
+Recap Studio takes a topic (`"Latest AI models"`) or a coding session (`git diff` plus commits) and writes **one HTML file**. Every style is inlined, there is no JavaScript, and the page makes no external request. Double-click it in Finder or Explorer and it opens, offline.
+
+- **A page you can read in about five minutes**: a one-sentence answer, the points that actually matter, an inline SVG concept map, key ideas, misconceptions, a glossary, and cited sources.
+- **A score you can put in CI**: seven deterministic checks over structure, citations, word counts, and secret scans.
+- **A file you can email**: no server to keep alive, no link that rots.
+
+<img alt="A rendered Recap Studio page: dark hero, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+
+## Install
+
+```bash
+claude plugin marketplace add Aboudjem/10x
+claude plugin install recap-studio@10x
+```
+
+`10x` is a plugin marketplace, a list Claude Code can install from. Adding it once makes `recap-studio` and its sibling tools available.
+
+For any other agent, the four skills install through the skills CLI:
+
+```bash
+npx skills add Aboudjem/recap-studio
+```
+
+<details>
+<summary>Other ways in</summary>
+
+```bash
+# Pick the agent explicitly
+npx skills add Aboudjem/recap-studio -a codex
+
+# Or use the repo's own installer, which delegates to the same CLI
+curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
+
+# --legacy copies the skills by hand, for machines without npx
+bash install.sh codex --legacy
+```
+
+`install.sh --update` refreshes an install, `install.sh --uninstall` removes it. Windows uses `install.ps1 <platform>` from a checkout.
+</details>
+
+## Use it
+
+**1. Ask for a page.** In any Claude Code session:
 
 ```
 /recap "What is React Server Components"
 ```
 
-**3. A self-contained `recap-<slug>.html` opens in your browser. Done.**
+Recap Studio researches the topic, checks every claim against the sources it found, renders the page, and opens it. `/recap session` does the same for your last stretch of commits.
 
-> [!NOTE]
-> Nothing phones home. No paid API key needed to try it. `RECAP_STUDIO_FIXTURE_ONLY=1` is the default, so the demo runs entirely from fixtures.
-
----
-
-## In Claude Code
-
-Install once via the 10x marketplace (see above). Then use these commands anywhere in a Claude Code session:
-
-| Command | What it does |
-| --- | --- |
-| `/recap "<topic>"` | Build a full explainer page from any topic |
-| `/recap session` | Recap a coding session from `git diff` + commits |
-| `/recap session --deep` | Same, with a per-file deep-dive accordion |
-| `/recap setup` | Create `recap-studio.config.ts` with safe defaults |
-| `/recap validate` | Re-score the active page (heuristic check, see below) |
-
-After each run, the skill renders the self-contained HTML, opens it, and asks "Deploy to Vercel?" **only if Vercel is configured and only with your explicit yes.**
-
-> [!TIP]
-> `10x` is the plugin marketplace at [github.com/Aboudjem/10x](https://github.com/Aboudjem/10x). It lets you install Recap Studio (and other tools) without cloning this repo.
-
----
-
-## Install the skills into any AI CLI
-
-Claude Code is the first-class host (via the 10x marketplace above). To load the four `/recap` skills directly into another CLI, run the one-line installer. It symlinks `recap-topic`, `recap-session`, `recap-setup`, and `recap-validate` into that CLI's skills directory; `--update` pulls the latest and relinks, `--uninstall` removes them.
+**2. Or render content you already have.** From a clone, with the CLI:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
+pnpm install && pnpm -w build
+node packages/cli/dist/index.js render fixtures/topics/latest-ai-models.json
 ```
 
-On Windows, run `install.ps1 <platform>` from a checkout (Developer Mode or an elevated shell is needed for symlinks).
+```
+recap: wrote latest-ai-models.html (49.8 KB, self-contained, double-click to open)
+```
 
-| Platform | Skills directory | One-liner |
-|:--|:--|:--|
-| Claude Code | (plugin) | `claude plugin install recap-studio@10x` |
-| Codex / Gemini / OpenCode / Pi | `~/.agents/skills` | `install.sh codex` |
-| VS Code (Copilot) | `~/.copilot/skills` | `install.sh copilot` |
-| Trae | `~/.trae/skills` | `install.sh trae` |
-| Vibe | `~/.vibe/skills` | `install.sh vibe` |
-| OpenClaw | `~/.openclaw/skills` | `install.sh openclaw` |
-| Antigravity | `~/.gemini/antigravity/skills` | `install.sh antigravity` |
-| Hermes / Cline / Kimi | `~/.<cli>/skills` | `install.sh hermes` |
-
-Skill-directory conventions change between CLI releases. If a link does not resolve, fall back to the optional local MCP server (it works in every MCP-capable client). Run `install.sh all` to link every platform at once. Build the MCP server once with `pnpm -w build` before adding it.
-
-<details>
-<summary><b>Claude Code</b></summary>
-
-One-command plugin install from the [10x marketplace](https://github.com/Aboudjem/10x):
+**3. Score it before you send it.**
 
 ```bash
-claude plugin marketplace add Aboudjem/10x
-claude plugin install recap-studio@10x
+node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json --fail-under 8
 ```
 
-Or add just the local MCP server (after `pnpm -w build`):
+```
+| Dimension          | Score  | Target | Status   | Top finding |
+| facts              | 10/10 |  9 | PASS    | none |
+| beginner           | 10/10 |  9 | PASS    | none |
+| accessibility      | 10/10 |  9 | PASS    | none |
+
+Overall: 9.7/10, thresholds PASSED
+```
+
+Add `--json` and the same run prints one JSON document on stdout, so a CI job can read it with `jq`.
+
+## What you get
+
+| Artifact | What it is |
+|:--|:--|
+| `recap-<slug>.html` | One self-contained page. All CSS inlined, zero JavaScript, zero external requests. |
+| `--format md` or `txt` | The same page as a Markdown or plain-text file, for a pull request body or a commit note. |
+| `--print` | A paper render: white ground, black text, page breaks kept sane, source URLs spelled out. |
+| A validation report | Seven scored dimensions, a list of blockers, and an exit code. |
+| `--fail-under <score>` | Exit 1 when the overall score is below your gate. A blocker fails the run whatever the score. |
+
+## Works in your editor
+
+Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, and 70+ other agents through `npx skills add`.
+
+| Agent | One-line install |
+|:--|:--|
+| Claude Code | `claude plugin install recap-studio@10x` |
+| Any of 70+ agents | `npx skills add Aboudjem/recap-studio` |
+| Codex, Gemini, OpenCode, Pi | `bash install.sh <agent>` |
+| VS Code (Copilot) | `bash install.sh copilot` |
+| Everything else | see [docs/editors.md](docs/editors.md) |
+
+<details>
+<summary>Add it as an MCP server instead</summary>
+
+The MCP server is local, so it needs a built clone first:
 
 ```bash
-claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
-```
-</details>
-
-<details>
-<summary><b>Cursor</b></summary>
-
-Add to `~/.cursor/mcp.json` (after `pnpm -w build`):
-
-```json
-{ "mcpServers": { "recap-studio": { "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
-```
-</details>
-
-<details>
-<summary><b>VS Code (Copilot)</b></summary>
-
-Add to `.vscode/mcp.json` (after `pnpm -w build`):
-
-```json
-{ "servers": { "recap-studio": { "type": "stdio", "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
-```
-</details>
-
-<details>
-<summary><b>Codex CLI</b></summary>
-
-```bash
-codex mcp add recap-studio -- node packages/mcp-server/dist/index.js
-```
-</details>
-
-<details>
-<summary><b>Gemini CLI</b></summary>
-
-Add to `~/.gemini/mcp_config.json` (after `pnpm -w build`):
-
-```json
-{ "mcpServers": { "recap-studio": { "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
-```
-</details>
-
-<details>
-<summary><b>Windsurf</b></summary>
-
-Add to `~/.codeium/windsurf/mcp_config.json` (after `pnpm -w build`):
-
-```json
-{ "mcpServers": { "recap-studio": { "command": "node", "args": ["packages/mcp-server/dist/index.js"] } } }
-```
-</details>
-
-<details>
-<summary><b>Continue.dev</b></summary>
-
-Add to `.continue/mcpServers/recap-studio.yaml` (after `pnpm -w build`):
-
-```yaml
-mcpServers:
-  recap-studio: { command: node, args: ["packages/mcp-server/dist/index.js"], type: stdio }
-```
-</details>
-
-The copy-paste setup, plus a smoke test for each editor, is in [`docs/multi-editor.md`](docs/multi-editor.md).
-
----
-
-## Anywhere (CLI)
-
-Use the CLI when you are outside Claude Code: in any terminal, any editor, CI, or a cron job.
-
-**Install:**
-
-```bash
-# Works today, from a clone of this repo:
 git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
 pnpm install && pnpm -w build
-node packages/cli/dist/index.js render content.json
-
-# Planned: once @recap-studio/cli is published to npm, this becomes a one-liner.
-# It is NOT on npm yet, so use the clone path above for now:
-# npx @recap-studio/cli render content.json
+claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
 ```
 
-**Commands:**
+There is no `.mcp.json` in this repo. Cursor, VS Code, Codex, Gemini CLI, Windsurf, Continue, OpenCode and Zed each want the same command in their own shape; every snippet is in [docs/editors.md](docs/editors.md).
+</details>
 
-| Command | What it does |
-| --- | --- |
-| `recap render <content.json>` | Render a self-contained HTML file from a content JSON |
-| `recap render <content.json> -o out.html` | Write to a specific output path |
-| `recap render <content.json> --theme dark\|light\|auto` | Choose the colour theme (default: dark) |
-| `recap render <content.json> --print` | Render for paper: white ground, black text, source URLs spelled out |
-| `recap render <content.json> --format html\|md\|txt` | Same page as Markdown or plain text (default: html) |
-| `recap validate <content.json>` | Score the content. Exit 0 when every check passes, 1 when one does not, 2 on an unreadable or invalid file |
-| `recap validate <content.json> --json` | Same run, one JSON document on stdout for CI |
-| `recap validate <content.json> --fail-under <score>` | Gate on the overall score instead of the per-check targets. A blocker still fails |
+## Good to know
 
-**From the workspace root (if you cloned the repo):**
+> [!IMPORTANT]
+> Every side effect is off by default. No network calls, no deploys, no emails, no secret writes, no destructive git. `RECAP_STUDIO_FIXTURE_ONLY=1` is the starting state, so the demo runs from fixtures and nothing phones home.
 
-```bash
-pnpm -w render              # render the demo content
-pnpm -w render:demo         # write artifacts/<slug>/recap-<slug>.html
-pnpm -w demo:latest-ai-models && pnpm --filter recap-web dev
-```
-
-> [!NOTE]
-> `pnpm -w` means "run from the workspace root"; it is how monorepo scripts are invoked. You only need it if you cloned this repo. `@recap-studio/cli` is not yet published to npm, so the clone path above is the way to run it today. Once it is published, `npx @recap-studio/cli` will run it without cloning anything.
-
-**Other workspace scripts:**
-
-| Command | What it does |
-| --- | --- |
-| `pnpm -w validate:demo` | Score the active page (heuristic check) |
-| `pnpm -w history` | List every recap in `artifacts/` with scores |
-| `pnpm -w auto-refresh -- <slug>` | Re-validate a stored recap on demand |
-| `pnpm --filter recap-web dev` | Preview on localhost:3000 (hosted Next.js track) |
-| `pnpm --filter recap-web build` | Build the hosted static site |
-| `pnpm deploy:preview` | Vercel preview deploy (gated by config + env) |
-| `pnpm deploy:prod` | Vercel production deploy (double-gated) |
-
----
-
-## FAQ
-
-**Is the HTML really self-contained?**
-Yes. All CSS is inlined. There is zero JavaScript and zero `/_next/` or CDN references. Verified: 0 external refs, opens via `file://` on a plane.
-
-**Does it work without an internet connection?**
-For rendering: yes, completely offline. For the full LLM agent research pipeline (inside Claude Code), yes, it uses your local Claude Code session, not an external API you manage.
-
-**What is the "score"?**
-`recap validate` runs a fast, deterministic heuristic check that scans structure, citation presence, word counts, and known quality signals. It does NOT fetch sources or run LLMs. The full LLM agent review (13 agents, 7 dimensions) only runs when you use `/recap` inside Claude Code. This is stated clearly in the output.
-
-**Can I use it in VS Code, Cursor, or Codex?**
-Yes. The MCP server (`@recap-studio/mcp-server`) exposes a `render_recap_html` tool, and the `recap` CLI works in any terminal. The MCP transport is spec-compliant (`content` type `"text"`, with `notifications/initialized` + `ping`) and unit-tested. Copy-paste setup for Claude Code, Cursor, VS Code, Codex, Gemini, Windsurf, and Continue, plus a smoke test for each, is in [`docs/multi-editor.md`](docs/multi-editor.md).
-
-**Does it deploy anywhere automatically?**
-No. Deployment is `disabled` by default. It only deploys if you configure Vercel and give explicit consent when prompted.
-
-**Is there a hosted web version?**
-Yes, via the Next.js track (`pnpm --filter recap-web dev`). The hosted track and the offline single-file track produce the same content across different rendering surfaces.
-
----
-
-## Comparison
-
-| Feature | Recap Studio | Notion AI | Gamma | Mintlify | Plain markdown |
-| --- | :---: | :---: | :---: | :---: | :---: |
-| Self-contained offline HTML | **YES** | No | No | No | No |
-| Dark-mode, mobile-first | **YES** | Partial | Partial | Yes | No |
-| Inline SVG concept maps | **YES** | No | No | No | No |
-| Zero JavaScript output | **YES** | No | No | No | Yes |
-| Works without a server | **YES** | No | No | No | Yes |
-| Cited sources in every claim | **YES** | No | No | No | No |
-| Session recap from git diff | **YES** | No | No | No | No |
-| CLI (`npx`) outside Claude Code | **YES** | No | No | No | n/a |
-| Free to run locally | **YES** | Freemium | Freemium | Freemium | Yes |
-
-The row that matters: **self-contained offline HTML**. No other explainer or changelog tool produces a double-clickable file with all styles inlined and no external deps.
-
----
-
-## Why trust it
-
-- **72 tests pass** across 5 test-bearing packages. Build is green. CI runs on every push.
-- **Two E2E use cases proven**: topic explainer (`fixtures/topics/latest-ai-models.json`) and session recap (`session.json`, a recap of this codebase rebuild). Both render to validated self-contained HTML.
-- **Honest scoring**: the heuristic score from `validate` is deterministic, so the same input always gives the same score. It is not an LLM opinion. No sources are fetched. The LLM review runs only inside Claude Code via `/recap`.
-- **Safe defaults**: no network calls, no deploys, no emails, no secret writes, no destructive git, all off until you explicitly opt in. See [`docs/security-and-privacy.md`](docs/security-and-privacy.md).
-- **Open source, MIT**: read every line. No telemetry, no data collection.
-- **Architecture is stable**: hybrid plugin + skills + optional MCP. Reviewed and documented in [`docs/architecture.md`](docs/architecture.md).
+- **The rendered page carries no JavaScript.** CI asserts it on every push: the rendered HTML has no `<script>` tag and no `/_next/` reference.
+- **The score is a heuristic, not a review.** `validate` runs seven deterministic checks. It does not fetch sources and does not call a model. The 13 specialist agents run only inside Claude Code, through `/recap`.
+- **73 tests pass** across six workspace projects, on Node 20 and 22. Only a placeholder redirect package sits on npm, so the CLI runs from a clone.
 
 > [!CAUTION]
-> The "9.7 of 10" figure you may see in older docs came from the heuristic checker, not 7 LLM reviewers running in parallel. The checker is fast and deterministic; trust it as a structural signal, not a peer review.
+> A "9.7 out of 10" you may see in older docs came from that heuristic checker, not from reviewers. Read it as a structural signal, not a peer review.
 
----
+## Learn more
 
-## Safety defaults
-
-> [!WARNING]
-> Every side effect is off by default.
-
-- No network. `RECAP_STUDIO_FIXTURE_ONLY=1` is the starting state.
-- No deploys. `deploymentMode: "disabled"`.
-- No emails. `emailMode: "disabled"`.
-- No secret writes. Hooks refuse `.env*`, PEMs, and key-shaped paths.
-- No destructive git. Hooks refuse `push --force`, `reset --hard`, `rebase`, `clean -fdx`.
-
-See [`hooks/README.md`](hooks/README.md) and [`docs/security-and-privacy.md`](docs/security-and-privacy.md).
-
----
-
-## Docs
-
-- [Architecture](docs/architecture.md)
-- [Agent system](docs/agent-system.md)
-- [Workflows](docs/workflows.md)
-- [Vercel deployment](docs/vercel-deployment.md)
-- [Security and privacy](docs/security-and-privacy.md)
-- [Configuration](docs/configuration.md)
-- [Contributing](CONTRIBUTING.md)
-- [Changelog](CHANGELOG.md)
-
----
-
-## Star History
-
-<a href="https://star-history.com/#Aboudjem/recap-studio&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Aboudjem/recap-studio&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Aboudjem/recap-studio&type=Date" />
-    <img alt="Star history chart for Aboudjem/recap-studio" src="https://api.star-history.com/svg?repos=Aboudjem/recap-studio&type=Date" width="70%" />
-  </picture>
-</a>
+- [Editor setup](docs/editors.md), every agent and every MCP snippet
+- [CLI reference](docs/cli.md), every command and flag
+- [FAQ](docs/faq.md) and [how it compares](docs/comparison.md)
+- [Architecture](docs/architecture.md), [agent system](docs/agent-system.md), [security and privacy](docs/security-and-privacy.md)
+- [Changelog](CHANGELOG.md) and [contributing](CONTRIBUTING.md)
 
 ---
 
 <p align="center">
-  If Recap Studio helped you ship a better explainer, star it.<br/>
-  It helps other developers find tools that respect their attention.
-</p>
-
-<p align="center">
-  <a href="https://www.linkedin.com/in/adam-boudjemaa/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://x.com/AdamBoudj"><img src="https://img.shields.io/badge/X-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
-  <a href="https://adam-boudjemaa.com/"><img src="https://img.shields.io/badge/Website-7C5CFF?style=flat-square&logo=googlechrome&logoColor=white" alt="Website"></a>
-</p>
-
-<p align="center">
-  <sub>Built by <a href="https://github.com/Aboudjem">Adam Boudjemaa</a> · MIT License · No telemetry · No data collection</sub>
+  <sub>Built by <a href="https://github.com/Aboudjem">Adam Boudjemaa</a> · MIT License · No telemetry</sub>
 </p>

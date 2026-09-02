@@ -13,7 +13,7 @@ A Claude Code plugin (also a CLI and an optional MCP server) that turns any topi
 - **Offline track**: `@recap-studio/html-renderer` emits a single self-contained HTML string.
 - **Safe by default**: no network, no deploys, no emails, no secret writes, no destructive git, all off until explicit opt-in.
 - **Distribution**: Claude Code plugin via the [Aboudjem/10x](https://github.com/Aboudjem/10x) marketplace; CLI and MCP server for every other editor.
-- **Honest figures**: 72 tests across 5 test-bearing packages (`design-system` ships none), 13 specialist agents, self-contained offline HTML output. Never inflate a count.
+- **Honest figures**: 73 tests across six workspace projects (`design-system` ships none), 13 specialist agents, self-contained offline HTML output. Never inflate a count.
 
 ## Build, test, validate
 
@@ -22,7 +22,7 @@ Run from the repo root. All commands need pnpm 10 and Node 20+.
 ```bash
 pnpm install            # install workspace deps (node_modules is usually present)
 pnpm -w build           # build all packages
-pnpm -r --if-present run test   # 72 tests, 0 fail, 5 test-bearing packages
+pnpm -r --if-present run test   # 73 tests, 0 fail, six workspace projects
 pnpm typecheck          # TypeScript strict across packages
 pnpm lint               # lint across packages
 pnpm render:demo        # render the demo topic to artifacts/latest-ai-models/
