@@ -15,9 +15,20 @@ Recap Studio's `/recap` slash command lives in Claude Code. The CLI is the **cro
 
 | Command | What it does |
 |---|---|
-| `recap render <content.json> [-o out.html] [--theme dark\|light\|auto]` | Render to ONE self-contained HTML file (inlined CSS, zero JS, opens offline). Default theme: `dark`. |
+| `recap render <content.json> [-o out.html] [--theme dark\|light\|auto] [--print]` | Render to ONE self-contained HTML file (inlined CSS, zero JS, opens offline). Default theme: `dark`. |
 | `recap validate <content.json>` | Score content with the deterministic checks (structure, citations, word counts, secret/fluff scans). Exit 0 = passes thresholds. |
 | `recap --help` / `--version` | Help / version. |
+
+### Printing
+
+Every page rendered by `recap` carries a print stylesheet, so Cmd-P gives a white ground, black
+text, no floating chrome, expanded glossary definitions and each source URL spelled out. Pass
+`--print` to apply those rules on screen as well, which is what you want when you are exporting a
+PDF and would rather see the result first.
+
+```bash
+recap render content.json --print -o paper.html
+```
 
 ## Honesty
 

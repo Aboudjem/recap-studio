@@ -70,3 +70,22 @@ test("recap with unknown command exits 2", () => {
   const { status } = run(["frobnicate"]);
   assert.equal(status, 2);
 });
+
+test("recap render --print produces a light, print-first page", () => {
+  const printOut = resolve(here, "../.cli-print-out.html");
+  try {
+    const { stdout, status } = run(["render", fixture, "--print", "-o", printOut]);
+    assert.equal(status, 0, stdout);
+    const html = readFileSync(printOut, "utf8");
+    // Proves cmdRender actually forwards the flag; a renderer-only test cannot.
+    assert.match(html, /data-theme="light"/, "print mode paints the document light");
+    assert.ok(!html.includes("@media print {"), "print rules apply unconditionally");
+    assert.ok(html.includes("@page { margin: 18mm 14mm; }"), "the print rules are there");
+    assert.ok(html.includes('<details class="recap-gitem" open>'), "glossary is open on paper");
+    // The zero-JS guarantee has to hold on the new path too.
+    assert.ok(!/<script/i.test(html), "no script tags");
+    assert.ok(!html.includes("/_next/"), "no absolute Next paths");
+  } finally {
+    if (existsSync(printOut)) rmSync(printOut);
+  }
+});

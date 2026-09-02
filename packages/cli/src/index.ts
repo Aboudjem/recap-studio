@@ -29,8 +29,11 @@ USAGE
   recap --version                         Print version
 
 RENDER OPTIONS
-  -o, --out <file>      Output path (default: <content-basename>.html)
+  -o, --out <file>      Output path (default: <content-basename>.<ext>)
   --theme <t>           dark | light | auto   (default: dark)
+  --print               Render for paper: white ground, black text, page breaks
+                        kept sane, source URLs printed. Every page prints
+                        cleanly anyway; this makes the screen match the paper.
 
 NOTES
   • The output HTML inlines all CSS, has zero JavaScript, and opens with a
@@ -77,9 +80,10 @@ function cmdRender(args: string[]): void {
   if (!input) fail("render needs a content JSON path. See `recap --help`.", 2);
   const theme = typeof flags.theme === "string" && flags.theme ? flags.theme : "dark";
   if (!["dark", "light", "auto"].includes(theme)) fail(`--theme must be dark|light|auto (got "${theme}")`, 2);
+  const print = flags.print === true;
   let html: string;
   try {
-    html = renderFromJson(readJson(input!), { theme: theme as "dark" | "light" | "auto" });
+    html = renderFromJson(readJson(input!), { theme: theme as "dark" | "light" | "auto", print });
   } catch (e) {
     return fail(`content failed schema validation:\n${(e as Error).message}`, 2);
   }

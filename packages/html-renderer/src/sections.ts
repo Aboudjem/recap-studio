@@ -121,14 +121,14 @@ export function comparison(c: C): string {
       const tbody = b.rows
         .map(
           (r) =>
-            `<tr><td>${esc(r.name)}</td>${cols.map((col) => `<td>${escRich(r.cells[col] ?? "—")}</td>`).join("")}</tr>`,
+            `<tr><td>${esc(r.name)}</td>${cols.map((col) => `<td>${escRich(r.cells[col] ?? "-")}</td>`).join("")}</tr>`,
         )
         .join("");
       const cards = b.rows
         .map(
           (r) =>
             `<div class="recap-card"><h3 class="recap-h3">${esc(r.name)}</h3><dl>${cols
-              .map((col) => `<div class="recap-kv"><dt>${esc(col)}</dt><dd>${escRich(r.cells[col] ?? "—")}</dd></div>`)
+              .map((col) => `<div class="recap-kv"><dt>${esc(col)}</dt><dd>${escRich(r.cells[col] ?? "-")}</dd></div>`)
               .join("")}</dl></div>`,
         )
         .join("");
@@ -177,12 +177,15 @@ export function misconceptions(c: C): string {
 </section>`;
 }
 
-export function glossary(c: C): string {
+export function glossary(c: C, open = false): string {
   if (!c.glossary.length) return "";
+  // Print mode opens them for real. CSS can reveal a closed <details>' children
+  // on paper but cannot change its semantic state for a screen reader.
+  const attr = open ? " open" : "";
   const items = c.glossary
     .map(
       (g) =>
-        `<details class="recap-gitem"><summary>${esc(g.term)}${util("chevron")}</summary><p>${escRich(g.definition)}</p></details>`,
+        `<details class="recap-gitem"${attr}><summary>${esc(g.term)}${util("chevron")}</summary><p>${escRich(g.definition)}</p></details>`,
     )
     .join("");
   return `<section class="recap-section recap-reveal" id="glossary" aria-labelledby="gl-h">
@@ -246,8 +249,13 @@ const RENDERERS: Record<string, (c: C) => string> = {
   sources,
 };
 
+export interface ComposeOptions {
+  /** Print mode: emit glossary entries already open. */
+  print?: boolean;
+}
+
 /** Compose the page body in the order given by visualSections (enabled only). */
-export function composeBody(c: C): string {
+export function composeBody(c: C, opts: ComposeOptions = {}): string {
   const out: string[] = [];
   const seen = new Set<string>();
   const enabled = c.visualSections.filter((s) => s.enabled);
@@ -257,7 +265,7 @@ export function composeBody(c: C): string {
     if (seen.has(key)) continue;
     const fn = RENDERERS[key];
     if (!fn) continue;
-    const html = fn(c);
+    const html = key === "glossary" ? glossary(c, opts.print === true) : fn(c);
     if (html) {
       out.push(html);
       seen.add(key);

@@ -20,7 +20,7 @@ test("renders a complete self-contained HTML document", () => {
   assert.match(html, /<style>/, "inlines a stylesheet");
 });
 
-test("output is truly self-contained — no external refs, no JS, no /_next/", () => {
+test("output is truly self-contained: no external refs, no JS, no /_next/", () => {
   const html = renderToHtml(content);
   assert.ok(!html.includes("/_next/"), "no Next.js absolute asset paths");
   assert.ok(!/<script/i.test(html), "no <script> tags");
@@ -77,4 +77,58 @@ test("sanitizeSvg strips scripts, event handlers, and external hrefs", () => {
   assert.ok(!/onload/i.test(clean), "event handler removed");
   assert.ok(!/https:\/\/evil/i.test(clean), "external href removed");
   assert.ok(clean.includes("<rect"), "geometry preserved");
+});
+
+test("every page carries a print stylesheet and stays zero-JS", () => {
+  const html = renderToHtml(content);
+  assert.match(html, /@media print \{/, "print rules are wrapped in @media print by default");
+  assert.ok(html.includes(".recap-skip, .recap-scorechip { display: none !important; }"), "fixed chrome is hidden on paper");
+  assert.ok(html.includes("@page { margin: 18mm 14mm; }"), "page margins are set");
+  assert.ok(html.includes("#sources { break-before: page;"), "sources start a fresh page");
+  assert.ok(html.includes('.recap-source[href^="http"]::after'), "source URLs are printed");
+  assert.ok(html.includes("details.recap-gitem > *:not(summary)"), "glossary entries are forced open on paper");
+  assert.ok(
+    html.includes("-webkit-text-fill-color: currentColor"),
+    "the gradient-clipped h1 and eyebrow are reset, or they print white on white",
+  );
+  // The whole point of the change is CSS, so the zero-JS guarantee is restated here.
+  assert.ok(!/<script/i.test(html), "no <script> tags");
+  assert.ok(!html.includes("/_next/"), "no Next.js absolute asset paths");
+  assert.ok(!/@import/i.test(html), "no external stylesheet import");
+});
+
+test("--print lifts the print rules out of the media query and paints light", () => {
+  const html = renderToHtml(content, { print: true });
+  assert.ok(!html.includes("@media print {"), "print mode applies the rules unconditionally");
+  assert.ok(html.includes("@page { margin: 18mm 14mm; }"), "the same rules are present, just unwrapped");
+  assert.match(html, /<html lang="en" data-theme="light"/, "print mode paints the document light");
+  assert.ok(html.includes('content="light"'), "color-scheme follows");
+  assert.ok(!/<script/i.test(html), "still no <script> tags");
+});
+
+test("the print block costs under 3 KB of the stylesheet", () => {
+  // printCss() is appended last, so the block runs from "@media print {" to the
+  // end of the sheet. A lazy regex would stop at the first nested "}".
+  const css = getBaseStyles({ theme: "dark" });
+  const start = css.indexOf("@media print {");
+  assert.ok(start > 0, "the print block is present and is not the first rule");
+  const bytes = Buffer.byteLength(css.slice(start), "utf8");
+  assert.ok(bytes < 3072, `print block is ${bytes} bytes, expected under 3072`);
+});
+
+test("print mode opens the glossary for real, not only visually", () => {
+  assert.ok(renderToHtml(content).includes('<details class="recap-gitem">'), "closed by default");
+  assert.ok(
+    renderToHtml(content, { print: true }).includes('<details class="recap-gitem" open>'),
+    "print mode sets the semantic open state a screen reader can see",
+  );
+});
+
+test("print tokens outrank the auto-light layer", () => {
+  // :root:not([data-theme="dark"]) beats a plain :root, and @media adds no
+  // specificity, so the print token block has to be :root:root.
+  const css = getBaseStyles({ theme: "auto" });
+  assert.ok(css.includes(':root:not([data-theme="dark"])'), "auto emits the light layer");
+  const printBlock = css.slice(css.indexOf("@media print {"));
+  assert.ok(printBlock.includes(":root:root {"), "print tokens carry equal-or-better specificity");
 });

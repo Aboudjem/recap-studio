@@ -1,5 +1,5 @@
 /**
- * The complete, self-contained stylesheet for a Recap page — inlined into a
+ * The complete, self-contained stylesheet for a Recap page, inlined into a
  * single <style> block so the output works offline via file:// with zero
  * external requests and zero JavaScript.
  *
@@ -18,8 +18,13 @@ export type Theme = "dark" | "light" | "auto";
 
 export interface CssOptions {
   theme?: Theme;
-  /** none | low | medium | high — scales the reveal animation. Default "low". */
+  /** none | low | medium | high, scales the reveal animation. Default "low". */
   animation?: "none" | "low" | "medium" | "high";
+  /**
+   * Apply the print rules unconditionally instead of only inside @media print.
+   * Default false: the page keeps its screen theme and still prints cleanly.
+   */
+  print?: boolean;
 }
 
 const TOKENS = `
@@ -33,7 +38,7 @@ const TOKENS = `
   --ink: #F2F1EE;          /* off-white, not pure white */
   --muted: #A8A8B4;
   --faint: #6E6E7A;
-  --accent: #8B6DFF;       /* primary violet — AA on surface (4.5:1+) */
+  --accent: #8B6DFF;       /* primary violet, AA on surface (4.5:1+) */
   --accent-strong: #7C5CFF;
   --accent-2: #4FA8FF;     /* secondary: sky blue (gradients) */
   --accent-3: #38E0C8;     /* tertiary: teal (gradients, accents) */
@@ -43,7 +48,7 @@ const TOKENS = `
   --ok: #46B97F;
   --warn: #F0B24A;
   --err: #FF6B72;          /* AA on dark canvas at small sizes */
-  /* gradients — calm, premium, "slightly more colorful" */
+  /* gradients: calm, premium, "slightly more colorful" */
   --grad-accent: linear-gradient(120deg, #A78BFF 0%, #7C5CFF 42%, #4FA8FF 100%);
   --grad-accent-2: linear-gradient(120deg, #7C5CFF 0%, #4FA8FF 55%, #38E0C8 100%);
   --grad-warm: linear-gradient(120deg, #FF9FC0 0%, #FF7AA8 100%);
@@ -272,10 +277,78 @@ const REDUCED_MOTION = `
 }
 `;
 
+/**
+ * Print rules: a rule list with no media wrapper. printCss() decides whether
+ * they go inside @media print (the default, so any page prints cleanly) or are
+ * emitted bare (getBaseStyles({ print: true }), so the screen already shows
+ * what the paper will show).
+ *
+ * The token block is selected as :root:root on purpose. The auto-light layer
+ * uses :root:not([data-theme="dark"]), which outranks a plain :root, and a
+ * media query adds no specificity, so plain :root would lose under
+ * theme "auto" on a light-preferring machine.
+ *
+ * Everything here is plain CSS in the same inline <style>. No script, no
+ * @import, no url(), no external font. The self-contained guarantee holds.
+ */
+const PRINT_RULES = `
+:root:root {
+  --canvas: #fff; --surface: #fff; --surface-2: #fff;
+  --line: #bbb; --line-strong: #888;
+  --ink: #000; --muted: #222; --faint: #444;
+  --accent: #000; --accent-strong: #000;
+  --accent-soft: #f0f0f0; --accent-ink: #000;
+  --shadow: none; --ring: 0 0 0 1px var(--line);
+  color-scheme: light;
+}
+body { background: #fff; color: #000; font-size: 11pt; line-height: 1.5; }
+@page { margin: 18mm 14mm; }
+.recap-skip, .recap-scorechip { display: none !important; }
+/* .recap-h1 and .recap-eyebrow paint their text with a near-white gradient via
+   background-clip: text. On a white ground that is invisible, so undo it. */
+.recap-h1, .recap-eyebrow {
+  background: none; -webkit-background-clip: border-box; background-clip: border-box;
+  -webkit-text-fill-color: currentColor; color: #000;
+}
+.recap-h1 { font-size: 22pt; }
+.recap-h2 { font-size: 15pt; }
+.recap-h3 { font-size: 12pt; }
+h1, h2, h3, .recap-h1, .recap-h2, .recap-h3 { break-after: avoid; page-break-after: avoid; }
+/* Atomic blocks only. .recap-section carries 6rem top margins and can be
+   taller than a page, so avoiding a break inside one pushes blank pages. */
+.recap-card, .recap-source, .recap-take, .recap-gitem,
+.recap-tl-item, .recap-myth, .recap-figure {
+  break-inside: avoid; page-break-inside: avoid;
+}
+.recap-table-wrap { break-inside: auto; overflow-x: visible; }
+/* The comparison shows cards under 768px and the table at or above it. Paper
+   width lands near that boundary, so pick one: the table. */
+.recap-compare-cards { display: none !important; }
+.recap-table-wrap { display: block !important; }
+#sources { break-before: page; page-break-before: always; }
+/* The glossary is <details>. Closed, it prints as the summary line only, so
+   every definition would be missing from the PDF. Force them open on paper. */
+details.recap-gitem { display: block; }
+details.recap-gitem > summary { list-style: none; }
+details.recap-gitem > *:not(summary) { display: block !important; }
+/* The only link the renderer emits in the body is the source card itself, and
+   ::after is its last child, so the URL prints as the entry's final line. */
+.recap-source[href^="http"]::after {
+  content: attr(href); display: block; margin-top: .3rem;
+  font-size: .78em; word-break: break-all; overflow-wrap: anywhere; color: #333;
+}
+.recap-reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+`;
+
+function printCss(force: boolean): string {
+  return force ? PRINT_RULES : `@media print {${PRINT_RULES}}`;
+}
+
 /** Build the full stylesheet string. */
 export function getBaseStyles(options: CssOptions = {}): string {
   const theme = options.theme ?? "dark";
   const animation = options.animation ?? "low";
+  const print = options.print ?? false;
   // For theme "dark" we rely on :root (already dark). For "light"/"auto" we set
   // data-theme on <html> in the shell; "auto" additionally adds a media query.
   const autoLight =
@@ -300,6 +373,7 @@ export function getBaseStyles(options: CssOptions = {}): string {
     CHROME,
     revealCss(animation),
     REDUCED_MOTION,
+    printCss(print),
   ]
     .join("\n")
     .replace(/\n{2,}/g, "\n")
