@@ -31,6 +31,9 @@ await Bun.write("recap.html", html); // or fs.writeFileSync
 | `renderFromJson(json, opts?)` | `(unknown, RenderOptions) => string` | Parses + validates first; throws `Invalid RecapPageContent` on mismatch. |
 | `getBaseStyles(opts?)` | `(CssOptions) => string` | The stylesheet string, for tools that embed CSS into their own shell. |
 | `readingMinutes(content)` | `(RecapPageContent) => number` | Whole-page reading time at 220 wpm. |
+| `renderToMarkdown(content)` | `(RecapPageContent) => string` | The same page as GitHub-flavored Markdown. Pure, no dependency. |
+| `renderToText(content)` | `(RecapPageContent) => string` | The same page as plain text. Pure, no dependency. |
+| `serializeFromJson(json, format)` | `(unknown, "md" \| "txt") => string` | Parses + validates first, like `renderFromJson`. |
 
 ### `RenderOptions`
 

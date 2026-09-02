@@ -64,7 +64,7 @@ pnpm install
 pnpm -w build
 # or: pnpm build
 
-# Run all tests across all packages (43 tests, 5 test-bearing packages)
+# Run all tests across all packages (72 tests, 5 test-bearing packages)
 pnpm -w test
 # or: pnpm test
 
@@ -238,7 +238,7 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 | `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |
 | `@recap-studio/mcp-server` | MCP server with `render_recap_html` + `validate` tools | 9 tests |
 
-Total: 43 tests across 5 test-bearing packages (`design-system` ships no tests; it is consumed by `recap-web`).
+Total: 72 tests across 5 test-bearing packages (`design-system` ships no tests; it is consumed by `recap-web`).
 
 ---
 

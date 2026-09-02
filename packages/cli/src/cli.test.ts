@@ -151,3 +151,41 @@ test("validate without --json names the rule that decided the exit code", () => 
   assert.match(stdout, /Gate: --fail-under 10/, "and the active gate is stated");
   assert.match(stdout, /Result: FAIL/);
 });
+
+test("recap render --format md and txt write plain files", () => {
+  for (const [format, ext, first] of [
+    ["md", ".md", "# "],
+    ["txt", ".txt", undefined],
+  ] as Array<[string, string, string | undefined]>) {
+    const out = resolve(here, `../.cli-format-out${ext}`);
+    try {
+      const { stdout, status } = run(["render", fixture, "--format", format, "-o", out]);
+      assert.equal(status, 0, stdout);
+      const body = readFileSync(out, "utf8");
+      assert.ok(body.length > 0, `${format} output is not empty`);
+      if (first) assert.ok(body.startsWith(first), `${format} starts with "${first}"`);
+      assert.ok(!body.startsWith("<!doctype"), `${format} is not html`);
+      // "self-contained" is a claim about the HTML and must not follow md or txt.
+      assert.ok(!stdout.includes("self-contained"), `${format} does not claim self-contained`);
+    } finally {
+      if (existsSync(out)) rmSync(out);
+    }
+  }
+});
+
+test("recap render picks the extension from the format when -o is absent", () => {
+  const { stdout, status } = run(["render", fixture, "--format", "md", "-o", resolve(here, "../.cli-ext.md")]);
+  assert.equal(status, 0, stdout);
+  assert.match(stdout, /\.md \(/, "reports the .md path it wrote");
+  rmSync(resolve(here, "../.cli-ext.md"), { force: true });
+});
+
+test("recap render rejects an unknown format and html-only flags on md or txt", () => {
+  assert.equal(run(["render", fixture, "--format", "pdf"]).status, 2, "unknown format");
+  assert.match(run(["render", fixture, "--format", "pdf"]).output, /--format must be html\|md\|txt/);
+  // Silently ignoring a flag the user typed is how someone ends up believing a
+  // --print PDF came out of a .txt file.
+  assert.equal(run(["render", fixture, "--format", "md", "--print"]).status, 2, "--print on md");
+  assert.equal(run(["render", fixture, "--format", "txt", "--theme", "light"]).status, 2, "--theme on txt");
+  assert.equal(run(["render", fixture, "--format", "html", "--theme", "light", "-o", "/dev/null"]).status, 0);
+});

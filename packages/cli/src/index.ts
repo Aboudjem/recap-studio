@@ -14,7 +14,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve, basename } from "node:path";
-import { renderFromJson } from "@recap-studio/html-renderer";
+import { renderFromJson, serializeFromJson } from "@recap-studio/html-renderer";
 import { parseRecapPageContent } from "@recap-studio/content-pipeline";
 import { runValidation, reportMarkdown, reportJson, reportPasses } from "@recap-studio/validation";
 
@@ -23,17 +23,19 @@ const VERSION = "0.3.0";
 const HELP = `recap ${VERSION}: self-contained dark-mode explainer pages.
 
 USAGE
-  recap render <content.json> [options]   Render to ONE self-contained HTML file
+  recap render <content.json> [options]   Render to HTML, Markdown or plain text
   recap validate <content.json> [options] Score content with the deterministic checks
   recap --help                            Show this help
   recap --version                         Print version
 
 RENDER OPTIONS
   -o, --out <file>      Output path (default: <content-basename>.<ext>)
-  --theme <t>           dark | light | auto   (default: dark)
+  --format <f>          html | md | txt   (default: html)
+  --theme <t>           dark | light | auto   (default: dark, html only)
   --print               Render for paper: white ground, black text, page breaks
                         kept sane, source URLs printed. Every page prints
                         cleanly anyway; this makes the screen match the paper.
+                        html only.
 
 VALIDATE OPTIONS
   --json                Write the report as one JSON document on stdout. The
@@ -47,6 +49,8 @@ VALIDATE OPTIONS
 NOTES
   - The output HTML inlines all CSS, has zero JavaScript, and opens with a
     double-click. No server, works offline.
+  - md and txt are the same page as plain files: no dependency, no styling,
+    nothing to open them with but a text editor.
   - Content must match the RecapPageContent schema. Most editors' AIs can
     produce it; see the Recap Studio prompt pack.
 `;
@@ -117,27 +121,47 @@ function parseFailUnder(raw: string | true | undefined): number | null {
   return n;
 }
 
+const EXT: Record<string, string> = { html: ".html", md: ".md", txt: ".txt" };
+
 function cmdRender(args: string[]): void {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
   if (!input) fail("render needs a content JSON path. See `recap --help`.", 2);
+
+  const format = typeof flags.format === "string" && flags.format ? flags.format : "html";
+  if (!EXT[format]) fail(`--format must be html|md|txt (got "${format}")`, 2);
+
   const theme = typeof flags.theme === "string" && flags.theme ? flags.theme : "dark";
   if (!["dark", "light", "auto"].includes(theme)) fail(`--theme must be dark|light|auto (got "${theme}")`, 2);
   const print = flags.print === true;
-  let html: string;
+  // Refuse rather than ignore: silently dropping a flag the user typed is how
+  // people end up believing a --print PDF came out of a .txt file.
+  if (format !== "html") {
+    if (flags.theme !== undefined) fail(`--theme applies to --format html only (got --format ${format})`, 2);
+    if (print) fail(`--print applies to --format html only (got --format ${format})`, 2);
+  }
+
+  let body: string;
   try {
-    html = renderFromJson(readJson(input!), { theme: theme as "dark" | "light" | "auto", print });
+    const json = readJson(input!);
+    body =
+      format === "html"
+        ? renderFromJson(json, { theme: theme as "dark" | "light" | "auto", print })
+        : serializeFromJson(json, format as "md" | "txt");
   } catch (e) {
     return fail(`content failed schema validation:\n${(e as Error).message}`, 2);
   }
+
   const out =
     typeof flags.out === "string" && flags.out
       ? resolve(flags.out)
-      : resolve(basename(input!).replace(/\.json$/i, "") + ".html");
+      : resolve(basename(input!).replace(/\.json$/i, "") + EXT[format]);
   mkdirSync(dirname(out), { recursive: true });
-  writeFileSync(out, html, "utf8");
-  const kb = (Buffer.byteLength(html, "utf8") / 1024).toFixed(1);
-  process.stdout.write(`recap: wrote ${out} (${kb} KB, self-contained, double-click to open)\n`);
+  writeFileSync(out, body, "utf8");
+  const kb = (Buffer.byteLength(body, "utf8") / 1024).toFixed(1);
+  // "self-contained" is a claim about the HTML, so only the HTML makes it.
+  const note = format === "html" ? ", self-contained, double-click to open" : "";
+  process.stdout.write(`recap: wrote ${out} (${kb} KB${note})\n`);
 }
 
 const HONESTY_NOTE =

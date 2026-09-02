@@ -245,6 +245,7 @@ node packages/cli/dist/index.js render content.json
 | `recap render <content.json> -o out.html` | Write to a specific output path |
 | `recap render <content.json> --theme dark\|light\|auto` | Choose the colour theme (default: dark) |
 | `recap render <content.json> --print` | Render for paper: white ground, black text, source URLs spelled out |
+| `recap render <content.json> --format html\|md\|txt` | Same page as Markdown or plain text (default: html) |
 | `recap validate <content.json>` | Score the content. Exit 0 when every check passes, 1 when one does not, 2 on an unreadable or invalid file |
 | `recap validate <content.json> --json` | Same run, one JSON document on stdout for CI |
 | `recap validate <content.json> --fail-under <score>` | Gate on the overall score instead of the per-check targets. A blocker still fails |
@@ -316,7 +317,7 @@ The row that matters: **self-contained offline HTML**. No other explainer or cha
 
 ## Why trust it
 
-- **43 tests pass** across 5 test-bearing packages. Build is green. CI runs on every push.
+- **72 tests pass** across 5 test-bearing packages. Build is green. CI runs on every push.
 - **Two E2E use cases proven**: topic explainer (`fixtures/topics/latest-ai-models.json`) and session recap (`session.json`, a recap of this codebase rebuild). Both render to validated self-contained HTML.
 - **Honest scoring**: the heuristic score from `validate` is deterministic, so the same input always gives the same score. It is not an LLM opinion. No sources are fetched. The LLM review runs only inside Claude Code via `/recap`.
 - **Safe defaults**: no network calls, no deploys, no emails, no secret writes, no destructive git, all off until you explicitly opt in. See [`docs/security-and-privacy.md`](docs/security-and-privacy.md).

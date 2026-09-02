@@ -16,6 +16,7 @@ import {
 import { composeBody, readingMinutes } from "./sections.js";
 import { documentShell, type ShellOptions } from "./shell.js";
 import { getBaseStyles, type Theme, type CssOptions } from "./css.js";
+import { renderToMarkdown, renderToText, serializeToFormat, type SerializeFormat } from "./serializers.js";
 
 export interface RenderOptions {
   /** dark | light | auto. Default "dark" (the Recap Studio house style). */
@@ -60,5 +61,13 @@ export function renderFromJson(
   return renderToHtml(content, options);
 }
 
-export { getBaseStyles, readingMinutes };
-export type { Theme, CssOptions, RecapPageContent };
+/**
+ * Parse + validate unknown JSON, then serialize to Markdown or plain text.
+ * Mirrors renderFromJson and throws the same `Invalid RecapPageContent` error.
+ */
+export function serializeFromJson(json: unknown, format: SerializeFormat): string {
+  return serializeToFormat(parseRecapPageContent(json), format);
+}
+
+export { getBaseStyles, readingMinutes, renderToMarkdown, renderToText, serializeToFormat };
+export type { Theme, CssOptions, RecapPageContent, SerializeFormat };
