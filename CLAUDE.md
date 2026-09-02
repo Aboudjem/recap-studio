@@ -57,7 +57,20 @@ The 13 agent prompt files in `agents/` carry only `name`, `description`, and `to
 | antigravity | `~/.gemini/antigravity/skills` | folder |
 | hermes, cline, kimi | `~/.<cli>/skills` | folder |
 
-These conventions change between CLI releases. When one drifts, update `install.sh` (`platform_target`), `install.ps1` (`Get-PlatformTarget`), and the install matrix in the README together. The MCP server (`node packages/mcp-server/dist/index.js`) is the universal fallback and is unaffected by this table.
+That table is now the **`--legacy`** path only. `install.sh`'s default path delegates to
+`npx --yes skills@1.5.23 add Aboudjem/recap-studio -a <agent> -g -y`, mapping the 13 platform ids
+to the skills-CLI agent codes in `agent_code()`: gemini to `gemini-cli`, vibe to `mistral-vibe`,
+vscode and copilot to `github-copilot`, hermes to `hermes-agent`, kimi to `kimi-code-cli`, and the
+rest to themselves. Every code was checked against
+`https://github.com/vercel-labs/skills#supported-agents`. Delegating means the install directory
+stays current without this table: the CLI already puts codex skills in `~/.codex/skills/` and
+gemini's in `~/.gemini/skills/`, where the legacy table still writes both to `~/.agents/skills`.
+
+Keep `platform_target()` (and `install.ps1`'s `Get-PlatformTarget`) working anyway, because
+`--legacy` is the offline and no-npx path. The MCP server
+(`node packages/mcp-server/dist/index.js`) is the universal fallback and is unaffected by either
+path. Per-editor snippets live in `docs/editors.md`; `docs/multi-editor.md` is a stub pointing
+there.
 
 ### Manifests to keep in sync
 

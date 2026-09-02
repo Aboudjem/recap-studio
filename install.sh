@@ -2,26 +2,34 @@
 #
 # Recap Studio multi-CLI installer.
 #
-# Symlinks Recap Studio's skills (/recap-topic, /recap-session, /recap-setup,
-# /recap-validate) into a target AI coding CLI's skills directory so they are
-# available in that CLI. The optional local MCP server
-# (node packages/mcp-server/dist/index.js) is the universal fallback for any
-# MCP-capable client; build it once with `pnpm -w build`.
+# Installs Recap Studio's four skills (/recap-topic, /recap-session,
+# /recap-setup, /recap-validate) into a target AI coding CLI.
+#
+# By default this delegates to the Vercel skills CLI:
+#
+#   npx --yes skills@1.5.23 add Aboudjem/recap-studio -a <agent> -g -y
+#
+# That CLI tracks each agent's current skills directory, so the install path
+# stays right as agents move theirs. --legacy keeps the original behaviour:
+# symlink this checkout's skills/ into a hardcoded per-platform directory, no
+# network and no npx.
+#
+# The optional local MCP server (node packages/mcp-server/dist/index.js) is the
+# universal fallback for any MCP-capable client; build it once with
+# `pnpm install && pnpm -w build`. See docs/editors.md.
 #
 # Usage:
-#   ./install.sh <platform> [--update | --uninstall] [--no-mcp]
+#   ./install.sh <platform> [--legacy] [--project] [--update | --uninstall] [--no-mcp]
 #   curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s <platform>
 #
 # Platforms: gemini codex opencode pi vibe vscode copilot trae
 #            openclaw antigravity hermes cline kimi   (or: all)
 #
-# Skill-directory conventions change between CLI releases. The table below is
-# mirrored from the Sniff installer; verify your CLI's current skills path if a
-# link does not resolve. The MCP path always works.
-#
 set -euo pipefail
 
 REPO_URL="https://github.com/Aboudjem/recap-studio.git"
+REPO_SLUG="Aboudjem/recap-studio"
+SKILLS_PKG="skills@1.5.23"
 CLONE_DIR="${RECAP_STUDIO_HOME:-$HOME/.recap-studio}"
 SKILLS=(recap-topic recap-session recap-setup recap-validate)
 ALL_IDS=(gemini codex opencode pi vibe vscode copilot trae openclaw antigravity hermes cline kimi)
@@ -40,7 +48,7 @@ usage() {
 Recap Studio installer
 
 Usage:
-  install.sh <platform> [--update | --uninstall] [--no-mcp]
+  install.sh <platform> [options]
   curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s <platform>
 
 Platforms:
@@ -48,19 +56,45 @@ Platforms:
   all   apply to every platform above
 
 Options:
-  --update     pull the latest Recap Studio and relink
-  --uninstall  remove the symlinks for <platform>
+  --legacy     symlink skills/ directly instead of calling the skills CLI
+               (no npx, no network; uses this script's own platform table)
+  --project    install into the current directory instead of your user directory
+  --update     refresh an existing install
+  --uninstall  remove the skills for <platform>
   --no-mcp     skip the MCP-server hint
   -h, --help   show this help
 
+Default path (needs npx):
+  npx --yes $SKILLS_PKG add $REPO_SLUG -a <agent> -g -y
+
 The local MCP server works in every MCP-capable client (build it first with
-pnpm -w build):
-  claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
+pnpm install && pnpm -w build):
+  claude mcp add recap-studio-tools -- node packages/mcp-server/dist/index.js
   # generic: node packages/mcp-server/dist/index.js
 EOF
 }
 
-# platform_target <id> -> "dir|style" on stdout (empty if unknown).
+# agent_code <platform-id> -> skills-CLI --agent code on stdout (empty if none).
+# Every code below appears in https://github.com/vercel-labs/skills#supported-agents
+agent_code() {
+  case "$1" in
+    gemini)         printf '%s\n' "gemini-cli" ;;
+    codex)          printf '%s\n' "codex" ;;
+    opencode)       printf '%s\n' "opencode" ;;
+    pi)             printf '%s\n' "pi" ;;
+    vibe)           printf '%s\n' "mistral-vibe" ;;
+    vscode|copilot) printf '%s\n' "github-copilot" ;;
+    trae)           printf '%s\n' "trae" ;;
+    openclaw)       printf '%s\n' "openclaw" ;;
+    antigravity)    printf '%s\n' "antigravity" ;;
+    hermes)         printf '%s\n' "hermes-agent" ;;
+    cline)          printf '%s\n' "cline" ;;
+    kimi)           printf '%s\n' "kimi-code-cli" ;;
+    *)              printf '%s\n' "" ;;
+  esac
+}
+
+# platform_target <id> -> "dir|style" on stdout (empty if unknown). Legacy only.
 platform_target() {
   case "$1" in
     gemini|codex|opencode|pi) printf '%s\n' "$HOME/.agents/skills|per-skill" ;;
@@ -123,17 +157,51 @@ unlink_one() {
   fi
 }
 
+# skills_add <agent-code> <scope-flag>
+skills_add() {
+  local code="$1" scope="$2" args
+  args=(add "$REPO_SLUG" -a "$code")
+  [ -n "$scope" ] && args+=("$scope")
+  args+=(-y)
+  info "${c_dim}npx --yes $SKILLS_PKG ${args[*]}${c_rst}"
+  if npx --yes "$SKILLS_PKG" "${args[@]}"; then
+    ok "installed $REPO_SLUG into $code"
+    return 0
+  fi
+  warn "skills CLI failed for $code"
+  return 1
+}
+
+# skills_remove <agent-code> <scope-flag>
+skills_remove() {
+  local code="$1" scope="$2" args joined
+  joined="$(IFS=,; printf '%s' "${SKILLS[*]}")"
+  args=(remove -a "$code" -s "$joined")
+  [ -n "$scope" ] && args+=("$scope")
+  args+=(-y)
+  info "${c_dim}npx --yes $SKILLS_PKG ${args[*]}${c_rst}"
+  if npx --yes "$SKILLS_PKG" "${args[@]}"; then
+    ok "removed $REPO_SLUG from $code"
+    return 0
+  fi
+  warn "skills CLI failed for $code"
+  return 1
+}
+
 mcp_hint() {
   info ""
-  info "${c_dim}Local MCP server (works in every MCP-capable client; run pnpm -w build first):${c_rst}"
-  info "  claude mcp add recap-studio node -- packages/mcp-server/dist/index.js"
+  info "${c_dim}Local MCP server (works in every MCP-capable client; run pnpm install && pnpm -w build first):${c_rst}"
+  info "  claude mcp add recap-studio-tools -- node packages/mcp-server/dist/index.js"
   info "  ${c_dim}generic:${c_rst} node packages/mcp-server/dist/index.js"
+  info "  ${c_dim}per-editor snippets:${c_rst} docs/editors.md"
 }
 
 main() {
-  local platform="" action="install" show_mcp=1 arg
+  local platform="" action="install" show_mcp=1 legacy=0 scope="-g" arg
   for arg in "$@"; do
     case "$arg" in
+      --legacy)    legacy=1 ;;
+      --project)   scope="" ;;
       --update)    action="update" ;;
       --uninstall) action="uninstall" ;;
       --no-mcp)    show_mcp=0 ;;
@@ -155,14 +223,33 @@ main() {
     ids=("$platform")
   fi
 
+  if [ "$legacy" -eq 0 ] && ! command -v npx >/dev/null 2>&1; then
+    warn "npx not found; falling back to --legacy (symlinks from this checkout)."
+    legacy=1
+  fi
+
   local root=""
-  if [ "$action" != "uninstall" ]; then
+  if [ "$legacy" -eq 1 ] && [ "$action" != "uninstall" ]; then
     root="$(resolve_root)"
     info "Recap Studio checkout: $root"
   fi
 
-  local id spec dir style any=0
+  local id code spec dir style any=0
   for id in "${ids[@]}"; do
+    if [ "$legacy" -eq 0 ]; then
+      code="$(agent_code "$id")"
+      if [ -n "$code" ]; then
+        any=1
+        case "$action" in
+          install|update) skills_add "$code" "$scope" || true ;;
+          uninstall)      skills_remove "$code" "$scope" || true ;;
+        esac
+        continue
+      fi
+      warn "no skills-CLI agent code for '$id'; using the legacy path for it."
+      [ -z "$root" ] && [ "$action" != "uninstall" ] && root="$(resolve_root)"
+    fi
+
     spec="$(platform_target "$id")"
     if [ -z "$spec" ]; then
       warn "unknown platform: $id (run --help for the list). MCP fallback still works."
