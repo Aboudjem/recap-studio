@@ -1,147 +1,120 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none" role="img" aria-label="recap-studio: any topic, one file you can double-click. Dark-mode, mobile-first, reads offline in about five minutes. No server, no internet, zero JS in the page.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none" role="img"
+     aria-label="recap-studio, one-file explainers: any topic, one file you can double-click">
+  <title>recap-studio</title>
   <defs>
-    <linearGradient id="rs-hl-brand" x1="0" y1="0" x2="1" y2="0.25" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#0B6DFF"/>
-      <stop offset="100%" stop-color="#725BFF"/>
-      <animateTransform attributeName="gradientTransform" type="translate"
-        values="-0.12 0; 0.12 0; -0.12 0" dur="18s" repeatCount="indefinite"/>
+    <linearGradient id="rc-ground" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#F7F8FB"/>
+      <stop offset="100%" stop-color="#EEF1F7"/>
     </linearGradient>
-
-    <linearGradient id="rs-hl-mark" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#0B6DFF"/>
-      <stop offset="100%" stop-color="#725BFF"/>
+    <radialGradient id="rc-bloomA" cx="0.15" cy="0.13" r="0.44">
+      <stop offset="0%" stop-color="#0959D1" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#0959D1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-bloomB" cx="0.88" cy="0.85" r="0.50">
+      <stop offset="0%" stop-color="#5D4BD1" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#5D4BD1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-bloomC" cx="0.52" cy="0.04" r="0.36">
+      <stop offset="0%" stop-color="#006A80" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#006A80" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-wash" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#0959D1" stop-opacity="0.07"/>
+      <stop offset="42%"  stop-color="#5D4BD1" stop-opacity="0.043"/>
+      <stop offset="76%"  stop-color="#006A80" stop-opacity="0.016"/>
+      <stop offset="100%" stop-color="#006A80" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="rc-frame"><rect width="1200" height="400"/></clipPath>
+    <linearGradient id="rc-rule" gradientUnits="userSpaceOnUse" x1="500" y1="100" x2="500" y2="300">
+      <stop offset="0%"   stop-color="#0959D1" stop-opacity="0"/>
+      <stop offset="45%"  stop-color="#0959D1" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#5D4BD1" stop-opacity="0"/>
     </linearGradient>
-
-    <linearGradient id="rs-hl-rule" gradientUnits="userSpaceOnUse" x1="476" y1="112" x2="476" y2="272">
-      <stop offset="0%"   stop-color="#0B6DFF" stop-opacity="0"/>
-      <stop offset="45%"  stop-color="#0B6DFF" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#EB0054" stop-opacity="0"/>
+    <linearGradient id="rc-ink" gradientUnits="userSpaceOnUse" x1="62" y1="60" x2="200" y2="210">
+      <stop class="rck1" offset="0%"   stop-color="#0959D1"/>
+      <stop class="rck2" offset="52%"  stop-color="#0959D1"/>
+      <stop class="rck3" offset="100%" stop-color="#5D4BD1"/>
     </linearGradient>
-
-    <linearGradient id="rs-hl-horizon" gradientUnits="userSpaceOnUse" x1="60" y1="332" x2="1140" y2="332">
-      <stop offset="0%"   stop-color="#00819C" stop-opacity="0"/>
-      <stop offset="22%"  stop-color="#00819C" stop-opacity="0.45"/>
-      <stop offset="55%"  stop-color="#725BFF" stop-opacity="0.6"/>
-      <stop offset="82%"  stop-color="#EB0054" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#EB0054" stop-opacity="0"/>
+    <linearGradient id="rc-word" x1="0" y1="0" x2="1" y2="0.25">
+      <stop class="rck1" offset="0%"   stop-color="#0959D1"/>
+      <stop class="rck2" offset="46%"  stop-color="#0959D1"/>
+      <stop class="rck3" offset="100%" stop-color="#5D4BD1"/>
     </linearGradient>
-
-    <linearGradient id="rs-hl-gridfade" gradientUnits="userSpaceOnUse" x1="0" y1="332" x2="0" y2="400">
-      <stop offset="0%"   stop-color="#0B6DFF" stop-opacity="0.45"/>
-      <stop offset="55%"  stop-color="#725BFF" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#EB0054" stop-opacity="0.05"/>
-    </linearGradient>
-
-    <linearGradient id="rs-hl-sheen" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.75"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-    </linearGradient>
-
-    <clipPath id="rs-hl-gridclip"><rect x="0" y="332" width="1200" height="68"/></clipPath>
-    <clipPath id="rs-hl-wordclip">
-      <text x="52" y="262" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
-            font-size="68" font-weight="800" letter-spacing="-2.5">recap-studio</text>
-    </clipPath>
   </defs>
 
   <style>
     .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
     .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
-    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 4.5px; fill: #0B6DFF; }
-    .head    { font-size: 38px; font-weight: 700; fill: #07070C; letter-spacing: -0.5px; }
-    .sub     { font-size: 16px; font-weight: 500; fill: #1A2233; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 4.5px; fill: #0959D1; }
+    .head    { font-size: 34px; font-weight: 700; fill: #1A2233; letter-spacing: -0.5px; }
+    .sub     { font-size: 16.5px; font-weight: 500; fill: #48546B; }
     .tag     { font-size: 11.5px; letter-spacing: 1.6px; fill: #48546B; }
-
-    @keyframes rs-hl-flow { to { stroke-dashoffset: -240; } }
-    .flowline { animation: rs-hl-flow 14s linear infinite; }
-
-    @keyframes rs-hl-pip { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
-    .d1 { animation: rs-hl-pip 5s ease-in-out infinite 0s; }
-    .d2 { animation: rs-hl-pip 5s ease-in-out infinite 0.35s; }
-    .d3 { animation: rs-hl-pip 5s ease-in-out infinite 0.7s; }
-    .d4 { animation: rs-hl-pip 5s ease-in-out infinite 1.05s; }
-    .d5 { animation: rs-hl-pip 5s ease-in-out infinite 1.4s; }
-
-    @keyframes rs-hl-sheen {
-      0%   { transform: translateX(0); }
-      34%  { transform: translateX(820px); }
-      100% { transform: translateX(820px); }
-    }
-    .sheen { animation: rs-hl-sheen 7.5s linear infinite; }
-
+    .chip    { font-size: 11.5px; letter-spacing: 1.2px; fill: #48546B; }
+    @keyframes rc-breathe { 0%,100% { opacity:0.72; } 50% { opacity:1; } }
+    .rcbloom { animation: rc-breathe 11s ease-in-out infinite; }
+    @keyframes rc-sweep { 0% { transform: translateX(-360px); } 100% { transform: translateX(1560px); } }
+    .rcwash { animation: rc-sweep 17s cubic-bezier(.5,0,.5,1) infinite; }
+    @keyframes rc-pip { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+    .rcp1 { animation: rc-pip 5s ease-in-out infinite 0.0s; }
+    .rcp2 { animation: rc-pip 5s ease-in-out infinite 0.35s; }
+    .rcp3 { animation: rc-pip 5s ease-in-out infinite 0.7s; }
+    .rcp4 { animation: rc-pip 5s ease-in-out infinite 1.05s; }
+    .rcp5 { animation: rc-pip 5s ease-in-out infinite 1.4s; }
+    .rcp6 { animation: rc-pip 5s ease-in-out infinite 1.75s; }
+    @keyframes rc-flow { to { stroke-dashoffset: -1000; } }
+    .rcedge { stroke-dasharray: 420 580; animation: rc-flow 8s linear infinite; }
+    @keyframes rc-stack { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4px,-8px); } }
+    .rcstack { animation: rc-stack 8s ease-in-out infinite; }
+    @keyframes rc-fold { 0%,14% { opacity: 0.25; } 46%,86% { opacity: 1; } 100% { opacity: 0.25; } }
+    .rcfold { animation: rc-fold 8s cubic-bezier(.3,0,.2,1) infinite; }
+    @keyframes rc-k1 { 0%,100% { stop-color:#0959D1; } 50% { stop-color:#5D4BD1; } }
+    @keyframes rc-k2 { 0%,100% { stop-color:#0959D1; } 50% { stop-color:#0959D1; } }
+    @keyframes rc-k3 { 0%,100% { stop-color:#5D4BD1; } 50% { stop-color:#8A2CD1; } }
+    .rck1 { animation: rc-k1 15s ease-in-out infinite; }
+    .rck2 { animation: rc-k2 15s ease-in-out infinite; }
+    .rck3 { animation: rc-k3 15s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
 
-  <rect width="1200" height="400" fill="#F7F8FB"/>
-
-  <!-- perspective grid below the horizon, shipped off -->
-  <g id="grid" clip-path="url(#rs-hl-gridclip)" opacity="0">
-    <g stroke="url(#rs-hl-gridfade)" stroke-width="1" fill="none">
-      <path d="M600 332 L-1180 400"/><path d="M600 332 L-560 400"/><path d="M600 332 L-190 400"/>
-      <path d="M600 332 L40 400"/>   <path d="M600 332 L200 400"/>  <path d="M600 332 L320 400"/>
-      <path d="M600 332 L415 400"/>  <path d="M600 332 L490 400"/>  <path d="M600 332 L548 400"/>
-      <path d="M600 332 L600 400"/>
-      <path d="M600 332 L652 400"/>  <path d="M600 332 L710 400"/>  <path d="M600 332 L785 400"/>
-      <path d="M600 332 L880 400"/>  <path d="M600 332 L1000 400"/> <path d="M600 332 L1160 400"/>
-      <path d="M600 332 L1390 400"/> <path d="M600 332 L1760 400"/> <path d="M600 332 L2380 400"/>
-    </g>
-    <g stroke="url(#rs-hl-gridfade)" stroke-width="1" fill="none">
-      <line x1="0" y1="335"   x2="1200" y2="335"/>
-      <line x1="0" y1="339.5" x2="1200" y2="339.5"/>
-      <line x1="0" y1="345.5" x2="1200" y2="345.5"/>
-      <line x1="0" y1="353.5" x2="1200" y2="353.5"/>
-      <line x1="0" y1="364"   x2="1200" y2="364"/>
-      <line x1="0" y1="378"   x2="1200" y2="378"/>
-      <line x1="0" y1="396"   x2="1200" y2="396"/>
+  <rect width="1200" height="400" fill="url(#rc-ground)"/>
+  <g class="rcbloom">
+    <rect width="1200" height="400" fill="url(#rc-bloomA)"/>
+    <rect width="1200" height="400" fill="url(#rc-bloomB)"/>
+    <rect width="1200" height="400" fill="url(#rc-bloomC)"/>
+  </g>
+  <g clip-path="url(#rc-frame)">
+    <g transform="translate(0,196)">
+      <ellipse class="rcwash" cx="0" cy="0" rx="430" ry="300" fill="url(#rc-wash)"/>
     </g>
   </g>
-
-  <g opacity="0.95">
-    <line x1="60" y1="332" x2="1140" y2="332" stroke="url(#rs-hl-horizon)" stroke-width="1.25"/>
-    <line class="flowline" x1="60" y1="332" x2="1140" y2="332" stroke="url(#rs-hl-horizon)"
-          stroke-width="1.25" stroke-dasharray="3 9" opacity="0.85"/>
+  <g transform="translate(66,56) scale(0.5781)">
+  <g class="rcstack" opacity="0.5">
+    <rect x="86" y="50" width="110" height="132" rx="10" fill="none"
+          stroke="url(#rc-ink)" stroke-width="10"/>
   </g>
-
-  <!-- mark: a page with its top right corner folded forward, the fold catching the accent -->
-  <g transform="translate(52,104)">
-    <path d="M10 6 H54 L78 30 V82 H10 Z" fill="#FFFFFF"
-          stroke="url(#rs-hl-mark)" stroke-width="3.5" stroke-linejoin="round"/>
-    <path d="M54 6 L78 30 H54 Z" fill="url(#rs-hl-mark)"/>
-    <g fill="#0B6DFF" opacity="0.42">
-      <rect x="22" y="46" width="44" height="4" rx="2"/>
-      <rect x="22" y="58" width="34" height="4" rx="2"/>
-      <rect x="22" y="70" width="26" height="4" rx="2"/>
-    </g>
+  <path d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" fill="url(#rc-ink)" fill-opacity="0.14" stroke="url(#rc-ink)"
+        stroke-opacity="0.5" stroke-width="11" stroke-linejoin="round"/>
+  <g>
+    <path class="rcedge" d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" pathLength="1000" fill="none"
+          stroke="url(#rc-ink)" stroke-width="11" stroke-linejoin="round"/>
   </g>
-
-  <text class="disp" x="52" y="262" font-size="68" font-weight="800" letter-spacing="-2.5"
-        fill="url(#rs-hl-brand)">recap-studio</text>
-
-  <g clip-path="url(#rs-hl-wordclip)">
-    <g transform="skewX(-18)">
-      <rect class="sheen" x="-220" y="180" width="90" height="110" fill="url(#rs-hl-sheen)" opacity="0.7"/>
-    </g>
+  <g class="rcfold">
+    <path d="M150 66 L184 100 H154 A4 4 0 0 1 150 96 Z" fill="url(#rc-ink)"/>
   </g>
-
-  <line x1="476" y1="112" x2="476" y2="272" stroke="url(#rs-hl-rule)" stroke-width="1.5"/>
-
-  <g transform="translate(520,0)">
-    <text class="mono eyebrow" x="0" y="118">ONE-FILE EXPLAINERS</text>
-    <text class="disp head"    x="0" y="168">Any topic, one file</text>
-    <text class="disp head"    x="0" y="208">you can double-click</text>
-    <text class="disp sub"     x="0" y="242">Dark-mode, mobile-first, reads offline in about five minutes.</text>
-
-    <g transform="translate(0,280)">
-      <g class="d1"><circle cx="0"  cy="0" r="4.5" fill="#00819C"/></g>
-      <g class="d2"><circle cx="22" cy="0" r="4.5" fill="#0B6DFF"/></g>
-      <g class="d3"><circle cx="44" cy="0" r="4.5" fill="#725BFF"/></g>
-      <g class="d4"><circle cx="66" cy="0" r="4.5" fill="#A836FF"/></g>
-      <g class="d5"><circle cx="88" cy="0" r="4.5" fill="#EB0054"/></g>
-      <text class="mono tag" x="114" y="4">SELF-CONTAINED HTML</text>
-    </g>
-
-    <text class="mono tag" x="0" y="318">no server  ·  no internet  ·  zero JS in the page</text>
+  <g opacity="0.9" fill="url(#rc-ink)"><rect x="86" y="132" width="76" height="11" rx="5.5"/><rect x="86" y="156" width="56" height="11" rx="5.5"/></g>
   </g>
+  <g>
+    <text class="disp" x="76" y="286" font-size="65" font-weight="800"
+          letter-spacing="-2.3" fill="url(#rc-word)">recap-studio</text>
+  </g>
+  <line x1="500" y1="100" x2="500" y2="300" stroke="url(#rc-rule)" stroke-width="1.5"/>
+  <g transform="translate(544,0)">
+    <text class="mono eyebrow" x="0" y="134">ONE-FILE EXPLAINERS</text>
+    <text class="disp head" x="0" y="168">Any topic, one file</text>
+    <text class="disp head" x="0" y="206">you can double-click</text>
+    <text class="disp sub" x="0" y="242">Dark-mode, mobile-first, reads offline in about five minutes.</text>
+    <g transform="translate(0,285)"><g class="rcp1"><circle cx="0" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp2"><circle cx="22" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp3"><circle cx="44" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp4"><circle cx="66" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp5"><circle cx="88" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp6"><circle cx="110" cy="0" r="4.5" fill="#0959D1"/></g><text class="mono tag" x="146" y="4">SELF-CONTAINED HTML</text></g>
+  </g>
+  <text class="mono tag" x="76" y="352">no server  &#183;  no internet  &#183;  zero JS in the page</text>
 </svg>

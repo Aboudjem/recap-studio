@@ -1,51 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" fill="none" role="img" aria-label="recap-studio: any topic, one file you can double-click. Dark-mode, mobile-first, reads offline in about five minutes.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" fill="none" role="img"
+     aria-label="recap-studio: Any topic, one file you can double-click.">
+  <title>recap-studio</title>
   <defs>
-    <linearGradient id="rs-sp-ground" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0%"   stop-color="#0A0F1C"/>
-      <stop offset="60%"  stop-color="#080C16"/>
-      <stop offset="100%" stop-color="#07070C"/>
+    <linearGradient id="rc-ground" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#0C1328"/>
+      <stop offset="55%" stop-color="#0A0F1C"/>
+      <stop offset="100%" stop-color="#080C18"/>
     </linearGradient>
-
-    <radialGradient id="rs-sp-bloom" cx="0.5" cy="1" r="0.75">
-      <stop offset="0%"   stop-color="#FF2D78" stop-opacity="0.28"/>
-      <stop offset="38%"  stop-color="#8E7BFF" stop-opacity="0.14"/>
+    <radialGradient id="rc-bloomA" cx="0.15" cy="0.13" r="0.44">
+      <stop offset="0%" stop-color="#5B9DFF" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#5B9DFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-bloomB" cx="0.88" cy="0.85" r="0.50">
+      <stop offset="0%" stop-color="#8E7BFF" stop-opacity="0.26"/>
       <stop offset="100%" stop-color="#8E7BFF" stop-opacity="0"/>
     </radialGradient>
-
-    <linearGradient id="rs-sp-brand" x1="0" y1="0" x2="1" y2="0.25" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#5B9DFF"/>
-      <stop offset="100%" stop-color="#8E7BFF"/>
+    <radialGradient id="rc-bloomC" cx="0.52" cy="0.04" r="0.36">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-wash" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#9CC4FF" stop-opacity="0.20"/>
+      <stop offset="42%"  stop-color="#8E7BFF" stop-opacity="0.124"/>
+      <stop offset="76%"  stop-color="#00D4FF" stop-opacity="0.046"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="rc-frame"><rect width="1280" height="640"/></clipPath>
+    <linearGradient id="rc-ink" gradientUnits="userSpaceOnUse" x1="62" y1="60" x2="200" y2="210">
+      <stop class="rck1" offset="0%"   stop-color="#7FB4FF"/>
+      <stop class="rck2" offset="52%"  stop-color="#5B9DFF"/>
+      <stop class="rck3" offset="100%" stop-color="#8E7BFF"/>
     </linearGradient>
-
-    <linearGradient id="rs-sp-horizon" gradientUnits="userSpaceOnUse" x1="80" y1="520" x2="1200" y2="520">
-      <stop offset="0%"   stop-color="#00D4FF" stop-opacity="0"/>
-      <stop offset="22%"  stop-color="#5B9DFF" stop-opacity="0.5"/>
-      <stop offset="55%"  stop-color="#8E7BFF" stop-opacity="0.8"/>
-      <stop offset="82%"  stop-color="#FF2D78" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#FF2D78" stop-opacity="0"/>
+    <filter id="rc-glow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="6.0" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="rc-glow-sm" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="3.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="rc-word" x1="0" y1="0" x2="1" y2="0.25">
+      <stop class="rck1" offset="0%"   stop-color="#7FB4FF"/>
+      <stop class="rck2" offset="46%"  stop-color="#5B9DFF"/>
+      <stop class="rck3" offset="100%" stop-color="#8E7BFF"/>
     </linearGradient>
+    <linearGradient id="rc-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.62"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="rc-wordclip">
+      <text x="96" y="358" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+            font-size="109" font-weight="800" letter-spacing="-3.8">recap-studio</text>
+    </clipPath>
   </defs>
 
   <style>
     .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
     .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 4.5px; fill: #9CC4FF; }
+    .head    { font-size: 34px; font-weight: 700; fill: #F2F6FF; letter-spacing: -0.5px; }
+    .sub     { font-size: 20px; font-weight: 500; fill: #C2CDE4; }
+    .tag     { font-size: 15px; letter-spacing: 1.6px; fill: #93A2BE; }
+    .chip    { font-size: 11.5px; letter-spacing: 1.2px; fill: #C2CDE4; }
+    .chipbig { font-size: 17px; letter-spacing: 1px; fill: #C2CDE4; }
+    .tagsm { font-size: 12.5px; letter-spacing: 1.6px; fill: #93A2BE; }
+    .eyebrow { font-size: 17px; letter-spacing: 5px; }
+    @keyframes rc-breathe { 0%,100% { opacity:0.62; } 50% { opacity:1; } }
+    .rcbloom { animation: rc-breathe 11s ease-in-out infinite; }
+    @keyframes rc-sweep { 0% { transform: translateX(-360px); } 100% { transform: translateX(1640px); } }
+    .rcwash { animation: rc-sweep 19s cubic-bezier(.5,0,.5,1) infinite; }
+    @keyframes rc-sheen { 0% { transform: translateX(0); } 15%,100% { transform: translateX(501px); } }
+    .rcsheen { animation: rc-sheen 8.5s cubic-bezier(.4,0,.3,1) infinite; }
+    @keyframes rc-flow { to { stroke-dashoffset: -1000; } }
+    .rcedge { stroke-dasharray: 420 580; animation: rc-flow 8s linear infinite; }
+    @keyframes rc-stack { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4px,-8px); } }
+    .rcstack { animation: rc-stack 8s ease-in-out infinite; }
+    @keyframes rc-fold { 0%,14% { opacity: 0.25; } 46%,86% { opacity: 1; } 100% { opacity: 0.25; } }
+    .rcfold { animation: rc-fold 8s cubic-bezier(.3,0,.2,1) infinite; }
+    @keyframes rc-k1 { 0%,100% { stop-color:#7FB4FF; } 50% { stop-color:#5B9DFF; } }
+    @keyframes rc-k2 { 0%,100% { stop-color:#5B9DFF; } 50% { stop-color:#8E7BFF; } }
+    @keyframes rc-k3 { 0%,100% { stop-color:#8E7BFF; } 50% { stop-color:#A98CFF; } }
+    .rck1 { animation: rc-k1 15s ease-in-out infinite; }
+    .rck2 { animation: rc-k2 15s ease-in-out infinite; }
+    .rck3 { animation: rc-k3 15s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
 
-  <rect width="1280" height="640" fill="url(#rs-sp-ground)"/>
-  <ellipse cx="640" cy="646" rx="760" ry="290" fill="url(#rs-sp-bloom)" opacity="0.8"/>
-
-  <line x1="80" y1="520" x2="1200" y2="520" stroke="url(#rs-sp-horizon)" stroke-width="1.5" opacity="0.95"/>
-
-  <text class="mono" x="80" y="206" font-size="16" font-weight="600" letter-spacing="5" fill="#5B9DFF">ONE-FILE EXPLAINERS</text>
-
-  <text class="disp" x="80" y="310" font-size="104" font-weight="800" letter-spacing="-4"
-        fill="url(#rs-sp-brand)">recap-studio</text>
-
-  <text class="disp" x="80" y="382" font-size="30" font-weight="600" fill="#F2F6FF">Any topic, one file you can double-click.</text>
-  <text class="disp" x="80" y="428" font-size="24" font-weight="500" fill="#B6C2DA">Dark-mode, mobile-first, reads offline in about five minutes.</text>
-
-  <text class="mono" x="80" y="572" font-size="16" letter-spacing="1.6" fill="#8494B0">github.com/Aboudjem/recap-studio</text>
-
-  <!-- reserved for the composited PNG mark: x 930 to 1150, y 210 to 430. Draw nothing here. -->
+  <rect width="1280" height="640" fill="url(#rc-ground)"/>
+  <g class="rcbloom">
+    <rect width="1280" height="640" fill="url(#rc-bloomA)"/>
+    <rect width="1280" height="640" fill="url(#rc-bloomB)"/>
+    <rect width="1280" height="640" fill="url(#rc-bloomC)"/>
+  </g>
+  <g clip-path="url(#rc-frame)">
+    <g transform="translate(0,320)">
+      <ellipse class="rcwash" cx="0" cy="0" rx="520" ry="380" fill="url(#rc-wash)"/>
+    </g>
+  </g>
+  <g transform="translate(872,126) scale(1.2188)">
+  <g class="rcstack" opacity="0.5">
+    <rect x="86" y="50" width="110" height="132" rx="10" fill="none"
+          stroke="url(#rc-ink)" stroke-width="10"/>
+  </g>
+  <path d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" fill="url(#rc-ink)" fill-opacity="0.14" stroke="url(#rc-ink)"
+        stroke-opacity="0.5" stroke-width="11" stroke-linejoin="round"/>
+  <g filter="url(#rc-glow)">
+    <path class="rcedge" d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" pathLength="1000" fill="none"
+          stroke="url(#rc-ink)" stroke-width="11" stroke-linejoin="round"/>
+  </g>
+  <g class="rcfold" filter="url(#rc-glow-sm)">
+    <path d="M150 66 L184 100 H154 A4 4 0 0 1 150 96 Z" fill="url(#rc-ink)"/>
+  </g>
+  <g opacity="0.9" fill="url(#rc-ink)"><rect x="86" y="132" width="76" height="11" rx="5.5"/><rect x="86" y="156" width="56" height="11" rx="5.5"/></g>
+  </g>
+  <g filter="url(#rc-glow)">
+    <text class="disp" x="96" y="358" font-size="109" font-weight="800"
+          letter-spacing="-3.8" fill="url(#rc-word)">recap-studio</text>
+  </g>
+  <g clip-path="url(#rc-wordclip)">
+    <g transform="skewX(-18)">
+      <rect class="rcsheen" x="-24" y="249" width="50"
+            height="147" fill="url(#rc-sheen)" opacity="0.45"/>
+    </g>
+  </g>
+  <text class="mono eyebrow" x="96" y="258">ONE-FILE EXPLAINERS</text>
+  <text class="disp head" x="96" y="416">Any topic, one file you can double-click.</text>
+  <text class="disp sub" x="96" y="458">Dark-mode, mobile-first, reads offline in about five minutes.</text>
+  <text class="mono tag" x="96" y="604">github.com/Aboudjem/recap-studio</text>
 </svg>

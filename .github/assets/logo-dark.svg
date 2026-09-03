@@ -1,140 +1,125 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" fill="none" role="img" aria-label="recap-studio: one-file explainers, about a five minute read">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" fill="none" role="img"
+     aria-label="recap-studio: a page corner folds while a second page stacks up behind it">
+  <title>recap-studio</title>
   <defs>
-    <linearGradient id="rs-ld-ground" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0%"   stop-color="#0A0F1C"/>
-      <stop offset="60%"  stop-color="#080C16"/>
-      <stop offset="100%" stop-color="#07070C"/>
+    <linearGradient id="rc-ground" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#0C1328"/>
+      <stop offset="55%" stop-color="#0A0F1C"/>
+      <stop offset="100%" stop-color="#080C18"/>
     </linearGradient>
-
-    <radialGradient id="rs-ld-bloom" cx="0.5" cy="1" r="0.75">
-      <stop offset="0%"   stop-color="#FF2D78" stop-opacity="0.30"/>
-      <stop offset="38%"  stop-color="#8E7BFF" stop-opacity="0.14"/>
+    <radialGradient id="rc-bloomA" cx="0.15" cy="0.13" r="0.44">
+      <stop offset="0%" stop-color="#5B9DFF" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#5B9DFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-bloomB" cx="0.88" cy="0.85" r="0.50">
+      <stop offset="0%" stop-color="#8E7BFF" stop-opacity="0.26"/>
       <stop offset="100%" stop-color="#8E7BFF" stop-opacity="0"/>
     </radialGradient>
-
-    <linearGradient id="rs-ld-brand" x1="0" y1="0" x2="1" y2="0.25" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#5B9DFF"/>
-      <stop offset="100%" stop-color="#8E7BFF"/>
-      <animateTransform attributeName="gradientTransform" type="translate"
-        values="-0.12 0; 0.12 0; -0.12 0" dur="18s" repeatCount="indefinite"/>
+    <radialGradient id="rc-bloomC" cx="0.52" cy="0.04" r="0.36">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-wash" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#9CC4FF" stop-opacity="0.20"/>
+      <stop offset="42%"  stop-color="#8E7BFF" stop-opacity="0.124"/>
+      <stop offset="76%"  stop-color="#00D4FF" stop-opacity="0.046"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="rc-frame"><rect width="720" height="200"/></clipPath>
+    <linearGradient id="rc-ink" gradientUnits="userSpaceOnUse" x1="62" y1="60" x2="200" y2="210">
+      <stop class="rck1" offset="0%"   stop-color="#7FB4FF"/>
+      <stop class="rck2" offset="52%"  stop-color="#5B9DFF"/>
+      <stop class="rck3" offset="100%" stop-color="#8E7BFF"/>
     </linearGradient>
-
-    <linearGradient id="rs-ld-mark" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#5B9DFF"/>
-      <stop offset="100%" stop-color="#8E7BFF"/>
-    </linearGradient>
-
-    <linearGradient id="rs-ld-sun" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#FFD59A"/>
-      <stop offset="30%"  stop-color="#FFB341"/>
-      <stop offset="66%"  stop-color="#FF4D8D"/>
-      <stop offset="100%" stop-color="#C77DFF"/>
-    </linearGradient>
-
-    <linearGradient id="rs-ld-horizon" gradientUnits="userSpaceOnUse" x1="36" y1="168" x2="684" y2="168">
-      <stop offset="0%"   stop-color="#00D4FF" stop-opacity="0"/>
-      <stop offset="22%"  stop-color="#5B9DFF" stop-opacity="0.5"/>
-      <stop offset="55%"  stop-color="#8E7BFF" stop-opacity="0.8"/>
-      <stop offset="82%"  stop-color="#FF2D78" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#FF2D78" stop-opacity="0"/>
-    </linearGradient>
-
-    <linearGradient id="rs-ld-gridfade" gradientUnits="userSpaceOnUse" x1="0" y1="168" x2="0" y2="200">
-      <stop offset="0%"   stop-color="#5B9DFF" stop-opacity="0.55"/>
-      <stop offset="55%"  stop-color="#8E7BFF" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#FF2D78" stop-opacity="0.05"/>
-    </linearGradient>
-
-    <filter id="rs-ld-glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="10" result="b"/>
+    <filter id="rc-glow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="6.0" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-
-    <filter id="rs-ld-atmo" x="-70%" y="-70%" width="240%" height="240%">
-      <feGaussianBlur stdDeviation="22" result="b"/>
+    <filter id="rc-glow-sm" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="3.4" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-
-    <clipPath id="rs-ld-frame"><rect width="720" height="200" rx="24"/></clipPath>
-    <clipPath id="rs-ld-sunclip"><circle cx="642" cy="150" r="30"/></clipPath>
-    <clipPath id="rs-ld-gridclip"><rect x="0" y="168" width="720" height="32"/></clipPath>
+    <linearGradient id="rc-word" x1="0" y1="0" x2="1" y2="0.25">
+      <stop class="rck1" offset="0%"   stop-color="#7FB4FF"/>
+      <stop class="rck2" offset="46%"  stop-color="#5B9DFF"/>
+      <stop class="rck3" offset="100%" stop-color="#8E7BFF"/>
+    </linearGradient>
+    <linearGradient id="rc-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.62"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="rc-wordclip">
+      <text x="140" y="108" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+            font-size="62" font-weight="800" letter-spacing="-1.9">recap-studio</text>
+    </clipPath>
   </defs>
 
   <style>
     .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
     .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
-    .tag  { font-size: 11.5px; letter-spacing: 1.6px; fill: #8494B0; }
-
-    @keyframes rs-ld-breathe { 0%,100% { opacity: 0.55; } 50% { opacity: 0.95; } }
-    .bloom { animation: rs-ld-breathe 9s ease-in-out infinite; }
-
-    @keyframes rs-ld-sunpulse { 0%,100% { opacity: 0.42; } 50% { opacity: 0.62; } }
-    .sun { animation: rs-ld-sunpulse 10s ease-in-out infinite; }
-
-    @keyframes rs-ld-flow { to { stroke-dashoffset: -240; } }
-    .flowline { animation: rs-ld-flow 14s linear infinite; }
-
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 4.5px; fill: #9CC4FF; }
+    .head    { font-size: 22px; font-weight: 700; fill: #F2F6FF; letter-spacing: -0.5px; }
+    .sub     { font-size: 16.5px; font-weight: 500; fill: #C2CDE4; }
+    .tag     { font-size: 11.5px; letter-spacing: 1.6px; fill: #93A2BE; }
+    .chip    { font-size: 11.5px; letter-spacing: 1.2px; fill: #C2CDE4; }
+    @keyframes rc-breathe { 0%,100% { opacity:0.62; } 50% { opacity:1; } }
+    .rcbloom { animation: rc-breathe 11s ease-in-out infinite; }
+    @keyframes rc-sweep { 0% { transform: translateX(-360px); } 100% { transform: translateX(1080px); } }
+    .rcwash { animation: rc-sweep 15s cubic-bezier(.5,0,.5,1) infinite; }
+    @keyframes rc-sheen { 0% { transform: translateX(0); } 15%,100% { transform: translateX(285px); } }
+    .rcsheen { animation: rc-sheen 8.5s cubic-bezier(.4,0,.3,1) infinite; }
+    @keyframes rc-flow { to { stroke-dashoffset: -1000; } }
+    .rcedge { stroke-dasharray: 420 580; animation: rc-flow 8s linear infinite; }
+    @keyframes rc-stack { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4px,-8px); } }
+    .rcstack { animation: rc-stack 8s ease-in-out infinite; }
+    @keyframes rc-fold { 0%,14% { opacity: 0.25; } 46%,86% { opacity: 1; } 100% { opacity: 0.25; } }
+    .rcfold { animation: rc-fold 8s cubic-bezier(.3,0,.2,1) infinite; }
+    @keyframes rc-k1 { 0%,100% { stop-color:#7FB4FF; } 50% { stop-color:#5B9DFF; } }
+    @keyframes rc-k2 { 0%,100% { stop-color:#5B9DFF; } 50% { stop-color:#8E7BFF; } }
+    @keyframes rc-k3 { 0%,100% { stop-color:#8E7BFF; } 50% { stop-color:#A98CFF; } }
+    .rck1 { animation: rc-k1 15s ease-in-out infinite; }
+    .rck2 { animation: rc-k2 15s ease-in-out infinite; }
+    .rck3 { animation: rc-k3 15s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
 
-  <g clip-path="url(#rs-ld-frame)">
-    <rect width="720" height="200" fill="url(#rs-ld-ground)"/>
-    <ellipse class="bloom" cx="360" cy="204" rx="430" ry="98" fill="url(#rs-ld-bloom)"/>
-
-    <!-- sun disc on the horizon at the right, behind everything -->
-    <g class="sun">
-      <g filter="url(#rs-ld-atmo)">
-        <circle cx="642" cy="150" r="30" fill="url(#rs-ld-sun)"/>
-      </g>
-      <g clip-path="url(#rs-ld-sunclip)" fill="#080C16">
-        <rect x="606" y="155" width="72" height="1.6"/>
-        <rect x="606" y="160" width="72" height="2.2"/>
-        <rect x="606" y="166" width="72" height="3"/>
-        <rect x="606" y="173" width="72" height="4"/>
-      </g>
-    </g>
-
-    <!-- perspective grid below the horizon, shipped off -->
-    <g id="grid" clip-path="url(#rs-ld-gridclip)" opacity="0">
-      <g stroke="url(#rs-ld-gridfade)" stroke-width="1" fill="none">
-        <path d="M360 168 L-700 200"/><path d="M360 168 L-260 200"/><path d="M360 168 L-20 200"/>
-        <path d="M360 168 L120 200"/> <path d="M360 168 L240 200"/> <path d="M360 168 L310 200"/>
-        <path d="M360 168 L360 200"/>
-        <path d="M360 168 L410 200"/> <path d="M360 168 L480 200"/> <path d="M360 168 L600 200"/>
-        <path d="M360 168 L740 200"/> <path d="M360 168 L980 200"/> <path d="M360 168 L1420 200"/>
-      </g>
-      <g stroke="url(#rs-ld-gridfade)" stroke-width="1" fill="none">
-        <line x1="0" y1="170"   x2="720" y2="170"/>
-        <line x1="0" y1="173.5" x2="720" y2="173.5"/>
-        <line x1="0" y1="178.5" x2="720" y2="178.5"/>
-        <line x1="0" y1="185.5" x2="720" y2="185.5"/>
-        <line x1="0" y1="196"   x2="720" y2="196"/>
-      </g>
-    </g>
-
-    <g opacity="0.95">
-      <line x1="36" y1="168" x2="684" y2="168" stroke="url(#rs-ld-horizon)" stroke-width="1.25"/>
-      <line class="flowline" x1="36" y1="168" x2="684" y2="168" stroke="url(#rs-ld-horizon)"
-            stroke-width="1.25" stroke-dasharray="3 9" opacity="0.85"/>
-    </g>
-
-    <!-- mark: a page with its top right corner folded forward, the fold catching the accent -->
-    <g transform="translate(44,60)">
-      <g filter="url(#rs-ld-glow)">
-        <path d="M10 6 H54 L78 30 V82 H10 Z" fill="#0E1524"
-              stroke="url(#rs-ld-mark)" stroke-width="3.5" stroke-linejoin="round"/>
-        <path d="M54 6 L78 30 H54 Z" fill="url(#rs-ld-mark)"/>
-        <g fill="#5B9DFF" opacity="0.55">
-          <rect x="22" y="46" width="44" height="4" rx="2"/>
-          <rect x="22" y="58" width="34" height="4" rx="2"/>
-          <rect x="22" y="70" width="26" height="4" rx="2"/>
-        </g>
-      </g>
-    </g>
-
-    <text class="disp" x="168" y="110" font-size="62" font-weight="800" letter-spacing="-2"
-          fill="url(#rs-ld-brand)">recap-studio</text>
-    <text class="mono tag" x="170" y="142">one-file explainers · about 5 min read</text>
+  <rect width="720" height="200" fill="url(#rc-ground)"/>
+  <g class="rcbloom">
+    <rect width="720" height="200" fill="url(#rc-bloomA)"/>
+    <rect width="720" height="200" fill="url(#rc-bloomB)"/>
+    <rect width="720" height="200" fill="url(#rc-bloomC)"/>
   </g>
+  <g clip-path="url(#rc-frame)">
+    <g transform="translate(0,100)">
+      <ellipse class="rcwash" cx="0" cy="0" rx="300" ry="180" fill="url(#rc-wash)"/>
+    </g>
+  </g>
+  <g transform="translate(30,50) scale(0.3906)">
+  <g class="rcstack" opacity="0.5">
+    <rect x="86" y="50" width="110" height="132" rx="10" fill="none"
+          stroke="url(#rc-ink)" stroke-width="10"/>
+  </g>
+  <path d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" fill="url(#rc-ink)" fill-opacity="0.14" stroke="url(#rc-ink)"
+        stroke-opacity="0.5" stroke-width="11" stroke-linejoin="round"/>
+  <g filter="url(#rc-glow)">
+    <path class="rcedge" d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" pathLength="1000" fill="none"
+          stroke="url(#rc-ink)" stroke-width="11" stroke-linejoin="round"/>
+  </g>
+  <g class="rcfold" filter="url(#rc-glow-sm)">
+    <path d="M150 66 L184 100 H154 A4 4 0 0 1 150 96 Z" fill="url(#rc-ink)"/>
+  </g>
+  <g opacity="0.9" fill="url(#rc-ink)"><rect x="86" y="132" width="76" height="11" rx="5.5"/><rect x="86" y="156" width="56" height="11" rx="5.5"/></g>
+  </g>
+  <g filter="url(#rc-glow)">
+    <text class="disp" x="140" y="108" font-size="62" font-weight="800"
+          letter-spacing="-1.9" fill="url(#rc-word)">recap-studio</text>
+  </g>
+  <g clip-path="url(#rc-wordclip)">
+    <g transform="skewX(-18)">
+      <rect class="rcsheen" x="72" y="46" width="29"
+            height="84" fill="url(#rc-sheen)" opacity="0.45"/>
+    </g>
+  </g>
+  <text class="mono tag" x="140" y="142">one-file explainers  &#183;  about 5 min read</text>
 </svg>

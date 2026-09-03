@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" role="img"
+     aria-label="recap-studio: a page corner folds while a second page stacks up behind it">
+  <title>recap-studio</title>
+  <desc>Animated dark-mode logo mark. The whole mark is drawn as a muted track; one bright
+  element travels over it, so no frame is an incomplete logo and the reduced-motion resting frame
+  is the finished mark.</desc>
+  <defs>
+    <linearGradient id="rc-plate" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#0C1328"/>
+      <stop offset="58%" stop-color="#0A0F1C"/>
+      <stop offset="100%" stop-color="#080C18"/>
+    </linearGradient>
+    <radialGradient id="rc-bloomA" cx="0.24" cy="0.24" r="0.68">
+      <stop offset="0%" stop-color="#5B9DFF" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#5B9DFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rc-bloomB" cx="0.80" cy="0.82" r="0.64">
+      <stop offset="0%" stop-color="#8E7BFF" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#8E7BFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rc-ink" gradientUnits="userSpaceOnUse" x1="62" y1="60" x2="200" y2="210">
+      <stop class="rck1" offset="0%"   stop-color="#7FB4FF"/>
+      <stop class="rck2" offset="52%"  stop-color="#5B9DFF"/>
+      <stop class="rck3" offset="100%" stop-color="#8E7BFF"/>
+    </linearGradient>
+    <filter id="rc-glow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="6.0" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="rc-glow-sm" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="3.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    @keyframes rc-breathe { 0%,100% { opacity:0.62; } 50% { opacity:1; } }
+    .rcbloom { animation: rc-breathe 9s ease-in-out infinite; }
+    @keyframes rc-flow { to { stroke-dashoffset: -1000; } }
+    .rcedge { stroke-dasharray: 420 580; animation: rc-flow 8s linear infinite; }
+    @keyframes rc-stack { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4px,-8px); } }
+    .rcstack { animation: rc-stack 8s ease-in-out infinite; }
+    @keyframes rc-fold { 0%,14% { opacity: 0.25; } 46%,86% { opacity: 1; } 100% { opacity: 0.25; } }
+    .rcfold { animation: rc-fold 8s cubic-bezier(.3,0,.2,1) infinite; }
+    @keyframes rc-k1 { 0%,100% { stop-color:#7FB4FF; } 50% { stop-color:#5B9DFF; } }
+    @keyframes rc-k2 { 0%,100% { stop-color:#5B9DFF; } 50% { stop-color:#8E7BFF; } }
+    @keyframes rc-k3 { 0%,100% { stop-color:#8E7BFF; } 50% { stop-color:#A98CFF; } }
+    .rck1 { animation: rc-k1 15s ease-in-out infinite; }
+    .rck2 { animation: rc-k2 15s ease-in-out infinite; }
+    .rck3 { animation: rc-k3 15s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="256" height="256" rx="56" fill="url(#rc-plate)"/>
+  <g class="rcbloom">
+    <rect width="256" height="256" rx="56" fill="url(#rc-bloomA)"/>
+    <rect width="256" height="256" rx="56" fill="url(#rc-bloomB)"/>
+  </g>
+  <rect x="0.9" y="0.9" width="254.2" height="254.2" rx="55.2" fill="none"
+        stroke="#22314D" stroke-width="1.8"/>
+
+  <g class="rcstack" opacity="0.5">
+    <rect x="86" y="50" width="110" height="132" rx="10" fill="none"
+          stroke="url(#rc-ink)" stroke-width="10"/>
+  </g>
+  <path d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" fill="url(#rc-ink)" fill-opacity="0.14" stroke="url(#rc-ink)"
+        stroke-opacity="0.5" stroke-width="11" stroke-linejoin="round"/>
+  <g filter="url(#rc-glow)">
+    <path class="rcedge" d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" pathLength="1000" fill="none"
+          stroke="url(#rc-ink)" stroke-width="11" stroke-linejoin="round"/>
+  </g>
+  <g class="rcfold" filter="url(#rc-glow-sm)">
+    <path d="M150 66 L184 100 H154 A4 4 0 0 1 150 96 Z" fill="url(#rc-ink)"/>
+  </g>
+  <g opacity="0.9" fill="url(#rc-ink)"><rect x="86" y="132" width="76" height="11" rx="5.5"/><rect x="86" y="156" width="56" height="11" rx="5.5"/></g>
+</svg>
