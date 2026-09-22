@@ -1,0 +1,321 @@
+{
+  "slug": "learning-mode-demo",
+  "topic": "Learning mode: why answering beats re-reading",
+  "audienceLevel": "beginner",
+  "generatedAt": "2026-09-22T09:00:00.000Z",
+  "fixture": true,
+  "oneSentenceAnswer": "Re-reading a page feels like learning; answering questions about it is what actually keeps the page in your head a week later.",
+  "fiveMinutePath": [
+    "Try the three questions at the top before you know any answers.",
+    "Read the key ideas, four at a time, not ten.",
+    "Answer each check, then open the feedback.",
+    "Compare what you guessed at the start with what you learned.",
+    "Come back on day 1, day 3 and day 7."
+  ],
+  "whyItMatters": [
+    "Testing yourself beats re-reading on any delayed test.",
+    "Two techniques carry most of the benefit: self-testing and spacing.",
+    "A page that only looks good teaches less than one that asks."
+  ],
+  "keyIdeas": [
+    {
+      "id": "ki-retrieval",
+      "title": "Pulling a fact out changes it",
+      "body": "Five minutes after studying, re-reading wins. Two days and a week later, the group that was tested remembers far more. Retrieval is not a measurement of learning, it is an act of learning.",
+      "icon": "brain",
+      "sourceIds": ["s-roediger-2006"]
+    },
+    {
+      "id": "ki-ranking",
+      "title": "Most study tricks are weak",
+      "body": "A review of ten common techniques rated only two as high utility: practice testing and distributed practice. Highlighting, summarising and re-reading were rated low.",
+      "icon": "list",
+      "sourceIds": ["s-dunlosky-2013"]
+    },
+    {
+      "id": "ki-prequestion",
+      "title": "Questions before reading, not only after",
+      "body": "Asking a question the reader cannot yet answer helps the material that question names. It does almost nothing for the rest of the page, so ask about what must stick.",
+      "icon": "help",
+      "sourceIds": ["s-pan-2023"]
+    },
+    {
+      "id": "ki-chunk",
+      "title": "Four new things, not seven",
+      "body": "When grouping and rehearsal are blocked, working memory holds about three to five items. A block that introduces ten at once is a block the reader will not hold.",
+      "icon": "grid",
+      "sourceIds": ["s-cowan-2001"]
+    },
+    {
+      "id": "ki-feedback",
+      "title": "Feedback comes after the answer",
+      "body": "Retrieval works without feedback and works better with it, mainly by correcting confident mistakes. Printing the answer under the question removes the retrieval and keeps none of the benefit.",
+      "icon": "check",
+      "sourceIds": ["s-roediger-butler-2011"]
+    }
+  ],
+  "visualSections": [
+    { "kind": "hero", "id": "hero", "enabled": true },
+    { "kind": "matters", "id": "matters", "enabled": true },
+    { "kind": "concept-map", "id": "concept-map", "enabled": true },
+    { "kind": "ideas", "id": "ideas", "enabled": true },
+    { "kind": "examples", "id": "examples", "enabled": true },
+    { "kind": "analogies", "id": "analogies", "enabled": true },
+    { "kind": "misconceptions", "id": "misconceptions", "enabled": true },
+    { "kind": "glossary", "id": "glossary", "enabled": true },
+    { "kind": "takeaways", "id": "takeaways", "enabled": true },
+    { "kind": "sources", "id": "sources", "enabled": true }
+  ],
+  "diagrams": [
+    {
+      "id": "dg-loop",
+      "kind": "mermaid",
+      "alt": "A loop: ask before reading, read a short block, answer a check, open the feedback, then revisit on day 1, 3 and 7.",
+      "code": "flowchart LR\n  A[Ask first] --> B[Read one block]\n  B --> C[Answer a check]\n  C --> D[Open the feedback]\n  D --> E[Revisit D1 D3 D7]\n  E --> B"
+    }
+  ],
+  "examples": [
+    {
+      "id": "ex-week",
+      "title": "The same page, one week apart",
+      "body": "Two readers finish this page. One re-reads it twice. One closes it and writes down what they remember. On day seven the second reader recalls noticeably more of it.",
+      "sourceIds": ["s-roediger-2006"]
+    },
+    {
+      "id": "ex-trivial",
+      "title": "A question that teaches nothing",
+      "body": "Ask \"is spacing better than cramming?\" with the options \"yes\" and \"no\" and everyone scores full marks. The page now feels mastered and nothing was retrieved.",
+      "sourceIds": ["s-koriat-bjork-2005"]
+    }
+  ],
+  "analogies": [
+    {
+      "id": "an-path",
+      "setup": "A memory is a path through a field. Reading about the path is watching someone else walk it.",
+      "takeaway": "Every time you walk it yourself, the grass stays flat a little longer."
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "mc-fluency",
+      "myth": "If the page feels easy, I have learned it.",
+      "truth": "Ease of reading is fluency, and fluency reliably makes people overconfident. An easy quiz adds fluency instead of correcting it.",
+      "sourceIds": ["s-koriat-bjork-2005"]
+    },
+    {
+      "id": "mc-points",
+      "myth": "Points and badges will make people learn more.",
+      "truth": "Rewards tied to engagement or completion reduced intrinsic motivation across 128 studies. What helps is feedback that shows competence, not the token itself.",
+      "sourceIds": ["s-deci-1999"]
+    }
+  ],
+  "glossary": [
+    { "term": "Retrieval practice", "definition": "Answering from memory instead of re-reading. The answering is what strengthens the memory." },
+    { "term": "Prequestion", "definition": "A question asked before the reading, which the reader is expected to get wrong." },
+    { "term": "Spacing", "definition": "Spreading revision over separate days rather than repeating it once in one sitting." },
+    { "term": "Fluency", "definition": "The feeling that material is easy. It tracks how smooth the text is, not how much you will remember." },
+    { "term": "Cloze", "definition": "A sentence with words removed, which the reader fills back in from memory." }
+  ],
+  "practicalTakeaways": [
+    "Put two or three questions at the top of anything you want remembered.",
+    "Give every key idea one question whose answer is not in its own prompt.",
+    "Say why the right answer is right, and show it only after the reader commits.",
+    "Plan a day 1, day 3 and day 7 pass instead of one long session."
+  ],
+  "sourceMap": [
+    {
+      "id": "s-roediger-2006",
+      "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+      "url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+      "publisher": "Psychological Science 17(3), 249-255",
+      "publishedAt": "2006-03-01",
+      "composite": 9.5,
+      "reliability": 5,
+      "freshness": 3,
+      "relevance": 5,
+      "independence": 5,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "After 5 minutes repeated studying wins; on delayed tests at 2 days and 1 week prior testing produces substantially greater retention.",
+      "claims": ["retrieval beats restudy at a delay"],
+      "conflict": false
+    },
+    {
+      "id": "s-dunlosky-2013",
+      "title": "Improving Students' Learning With Effective Learning Techniques",
+      "url": "https://doi.org/10.1177/1529100612453266",
+      "publisher": "Psychological Science in the Public Interest 14(1), 4-58",
+      "publishedAt": "2013-01-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 3,
+      "relevance": 5,
+      "independence": 5,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Ten techniques rated on four criteria: only practice testing and distributed practice are rated high utility; highlighting and rereading are rated low.",
+      "claims": ["only two of ten techniques rate high utility"],
+      "conflict": false
+    },
+    {
+      "id": "s-pan-2023",
+      "title": "Prequestioning and Pretesting Effects: a Review of Empirical Research, Theoretical Perspectives, and Implications for Educational Practice",
+      "url": "https://doi.org/10.1007/s10648-023-09814-5",
+      "publisher": "Educational Psychology Review 35, article 97",
+      "publishedAt": "2023-10-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 5,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Prequestions help the specifically prequestioned material (g about 0.66) and not the rest of the passage (g about 0.01).",
+      "claims": ["prequestions help only what they ask about"],
+      "conflict": false
+    },
+    {
+      "id": "s-cowan-2001",
+      "title": "The magical number 4 in short-term memory: a reconsideration of mental storage capacity",
+      "url": "https://doi.org/10.1017/S0140525X01003922",
+      "publisher": "Behavioral and Brain Sciences 24(1), 87-114",
+      "publishedAt": "2001-02-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 2,
+      "relevance": 4,
+      "independence": 5,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Across paradigms that block chunking and rehearsal, the capacity limit is closer to 3-5 items than to Miller's seven.",
+      "claims": ["capacity is about 4 chunks, not 7"],
+      "conflict": false
+    },
+    {
+      "id": "s-roediger-butler-2011",
+      "title": "The critical role of retrieval practice in long-term retention",
+      "url": "https://doi.org/10.1016/j.tics.2010.09.003",
+      "publisher": "Trends in Cognitive Sciences 15(1), 20-27",
+      "publishedAt": "2011-01-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 3,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Retrieval produces benefits without feedback and larger benefits with it, particularly by correcting high-confidence errors.",
+      "claims": ["feedback after the answer increases the retrieval benefit"],
+      "conflict": false
+    },
+    {
+      "id": "s-koriat-bjork-2005",
+      "title": "Illusions of Competence in Monitoring One's Knowledge During Study",
+      "url": "https://doi.org/10.1037/0278-7393.31.2.187",
+      "publisher": "Journal of Experimental Psychology: LMC 31(2), 187-194",
+      "publishedAt": "2005-03-01",
+      "composite": 8.5,
+      "reliability": 5,
+      "freshness": 2,
+      "relevance": 5,
+      "independence": 4,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Learners systematically overestimate what they will remember when the answer is in front of them during study.",
+      "claims": ["fluency during study produces overconfidence"],
+      "conflict": false
+    },
+    {
+      "id": "s-deci-1999",
+      "title": "A Meta-Analytic Review of Experiments Examining the Effects of Extrinsic Rewards on Intrinsic Motivation",
+      "url": "https://doi.org/10.1037/0033-2909.125.6.627",
+      "publisher": "Psychological Bulletin 125(6), 627-668",
+      "publishedAt": "1999-11-01",
+      "composite": 9,
+      "reliability": 5,
+      "freshness": 2,
+      "relevance": 4,
+      "independence": 5,
+      "primary": true,
+      "provenance": "fixture",
+      "summary": "Across 128 studies, engagement-, completion- and performance-contingent rewards undermined free-choice intrinsic motivation (d = -0.40, -0.36, -0.28); positive feedback raised it.",
+      "claims": ["contingent rewards undermine intrinsic motivation"],
+      "conflict": false
+    }
+  ],
+  "uncertaintyNotes": [
+    "Effect sizes here come from meta-analyses of classroom and laboratory studies, mostly with students. Nobody has measured a one-page web explainer specifically.",
+    "The day 1 / day 3 / day 7 prompts are a reasonable default for a short horizon, not an optimal schedule. The best gap grows with how long you need to remember."
+  ],
+  "reviewScores": {},
+  "learn": {
+    "enabled": true,
+    "prequestions": [
+      {
+        "question": "A week after reading, who remembers more: the reader who re-read twice, or the reader who tested themselves once?",
+        "hint": "Ask yourself which one felt harder at the time."
+      },
+      {
+        "question": "How many genuinely new things can you hold at once while reading?",
+        "hint": "The famous number is wrong in the direction you would not expect."
+      },
+      {
+        "question": "Why is a quiz everyone passes a bad quiz?",
+        "hint": "Think about what the score is really measuring."
+      }
+    ],
+    "checks": [
+      {
+        "id": "ck-delay",
+        "prompt": "Roediger and Karpicke tested readers 5 minutes, 2 days and 1 week after study. What changed with the delay?",
+        "options": [
+          "Repeated study stayed ahead at every delay",
+          "Prior testing overtook repeated study on the delayed tests",
+          "The two groups were level at all three delays"
+        ],
+        "answer": 1,
+        "why": "At 5 minutes restudy was ahead. At 2 days and 1 week the tested group retained substantially more, which is why immediate performance is a poor guide."
+      },
+      {
+        "id": "ck-utility",
+        "prompt": "Of the ten study techniques reviewed in 2013, how many earned a high utility rating?",
+        "options": ["Two", "Five", "All ten, for different goals"],
+        "answer": 0,
+        "why": "Only practice testing and distributed practice. Summarising, highlighting, the keyword mnemonic, imagery and rereading were rated low utility."
+      },
+      {
+        "id": "ck-prequestion",
+        "prompt": "You open a page with three questions. What do they improve?",
+        "options": [
+          "Everything in the page that follows",
+          "Only the material those three questions are about",
+          "Nothing, because the reader gets them wrong"
+        ],
+        "answer": 1,
+        "why": "The benefit is close to g = 0.66 for the prequestioned material and close to zero for the rest, so prequestions have to name what must stick."
+      },
+      {
+        "id": "ck-capacity",
+        "prompt": "How many new items should one block of a page introduce at once?",
+        "options": ["Around four", "Around seven", "As many as fit on screen"],
+        "answer": 0,
+        "why": "When chunking and rehearsal are blocked, capacity sits near three to five items. Miller's seven was offered as a rhetorical figure, not a measured limit."
+      }
+    ],
+    "cloze": [
+      {
+        "text": "Immediate performance is ___ ; what you keep after a ___ is learning.",
+        "blanks": ["fluency", "delay"]
+      },
+      {
+        "text": "Feedback belongs ___ the answer, never ___ it.",
+        "blanks": ["after", "under"]
+      }
+    ],
+    "revision": {
+      "d1": "Close the page and list the five key ideas from memory. Then check.",
+      "d3": "Redo the four checks. Note only the ones you got wrong.",
+      "d7": "Explain to someone why re-reading feels better than it works."
+    }
+  }
+}
