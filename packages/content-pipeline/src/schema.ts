@@ -135,6 +135,62 @@ export const ReviewScores = z.object({
 });
 export type ReviewScores = z.infer<typeof ReviewScores>;
 
+/* ------------------------------------------------------------------ *
+ * Learning mode (optional)
+ *
+ * An opt-in block that turns a recap page from something you read into
+ * something you answer. Every piece is static markup: the page stays
+ * JavaScript-free, so the standalone HTML keeps its offline guarantee.
+ * Rationale and sources: docs/proposals/learning-mode.md.
+ * ------------------------------------------------------------------ */
+
+/** A question asked BEFORE the reader has read the answer (pretesting). */
+export const PreQuestion = z.object({
+  question: z.string().min(1),
+  /** Optional nudge shown when the reader opens the question. Never the answer. */
+  hint: z.string().min(1).optional(),
+});
+export type PreQuestion = z.infer<typeof PreQuestion>;
+
+/** One multiple-choice retrieval item. `why` is the feedback, shown only after answering. */
+export const LearnCheck = z.object({
+  id: z.string().min(1),
+  prompt: z.string().min(1),
+  options: z.array(z.string().min(1)).min(2),
+  /** Zero-based index into `options`. */
+  answer: z.number().int().min(0),
+  /** Why that option is right. Required: retrieval without feedback leaves errors in place. */
+  why: z.string().min(1),
+});
+export type LearnCheck = z.infer<typeof LearnCheck>;
+
+/** A fill-in-the-blank line. `blanks` holds the expected fillers, in order. */
+export const ClozeItem = z.object({
+  text: z.string().min(1),
+  blanks: z.array(z.string().min(1)).min(1),
+});
+export type ClozeItem = z.infer<typeof ClozeItem>;
+
+/**
+ * What to re-read on day 1, day 3 and day 7. Plain prompts, not a scheduler:
+ * a static page cannot know when it was first opened.
+ */
+export const RevisionPlan = z.object({
+  d1: z.string().min(1).optional(),
+  d3: z.string().min(1).optional(),
+  d7: z.string().min(1).optional(),
+});
+export type RevisionPlan = z.infer<typeof RevisionPlan>;
+
+export const LearnBlock = z.object({
+  enabled: z.boolean(),
+  prequestions: z.array(PreQuestion).optional(),
+  checks: z.array(LearnCheck).optional(),
+  cloze: z.array(ClozeItem).optional(),
+  revision: RevisionPlan.optional(),
+});
+export type LearnBlock = z.infer<typeof LearnBlock>;
+
 export const RecapPageContent = z.object({
   slug: z.string().min(1),
   topic: z.string().min(1),
@@ -157,6 +213,8 @@ export const RecapPageContent = z.object({
   sourceMap: z.array(SourceMapItem).min(1),
   uncertaintyNotes: z.array(z.string()).default([]),
   reviewScores: ReviewScores.default({} as ReviewScores),
+  /** Optional learning mode. Absent or `enabled: false` renders exactly as before. */
+  learn: LearnBlock.optional(),
 });
 export type RecapPageContent = z.infer<typeof RecapPageContent>;
 

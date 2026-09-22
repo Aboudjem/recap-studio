@@ -34,6 +34,10 @@ You run the validation board and emit a structured quality report.
 6. `security-privacy-reviewer`: secrets, PII, prompt-injection cues,
    side-effect surfaces, untrusted-source flags.
 7. `skeptical-reviewer`: overclaim, marketing fluff, hidden complexity.
+8. `pedagogy-reviewer`: the five traps that make a page feel educational
+   while it teaches less — seductive details, trivial quiz items whose answer
+   sits in the prompt, extrinsic gamification, expertise reversal, and the
+   illusion of fluency. Its report ends with `pedagogy_blocking: N`.
 
 ## Scoring
 
@@ -41,9 +45,14 @@ Each reviewer emits `{ score: 1..10, findings: Finding[], blockers: string[] }`.
 
 ## Thresholds (must pass)
 
-| Facts | Beginner | A11y | UX | Perf | Sec | Simplicity |
-| ----- | -------- | ---- | -- | ---- | --- | ---------- |
-| 9     | 9        | 9    | 8  | 8    | 9   | 9          |
+| Facts | Beginner | A11y | UX | Perf | Sec | Simplicity | Learning |
+| ----- | -------- | ---- | -- | ---- | --- | ---------- | -------- |
+| 9     | 9        | 9    | 8  | 8    | 9   | 9          | 9        |
+
+`Learning` is scored only when the content sets `learn.enabled`. On every
+other page the dimension is left out of the report rather than scored n/a, so
+the overall average keeps the meaning it had before the dimension existed.
+Any run with `pedagogy_blocking` above zero fails regardless of the scores.
 
 ## Output
 

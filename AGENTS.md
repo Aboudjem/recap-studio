@@ -9,7 +9,7 @@ Guidance for AI coding agents (Codex, GitHub Copilot Workspace, Claude Code, and
 **Recap Studio** is a Claude Code plugin (distributed via the Aboudjem/10x marketplace) that turns any topic query or git diff into a cited, dark-mode, mobile-first one-page explainer in under 5 minutes. It ships as a hybrid architecture:
 
 - **Skills**: the user-facing slash commands (`/recap`, `/recap session`, `/recap setup`, `/recap validate`)
-- **Specialist agents**: 13 Markdown-defined agent prompts that the skill orchestrator dispatches
+- **Specialist agents**: 14 Markdown-defined agent prompts that the skill orchestrator dispatches
 - **Optional MCP server**: exposes a `render_recap_html` tool for editors that speak MCP (Cursor, VS Code, Codex, Continue)
 - **Packages**: shared TypeScript libraries used by all tracks
 - **Hosted Next.js track**: `apps/recap-web` renders the full page for browser/Vercel deployment
@@ -38,7 +38,7 @@ recap-studio/
 │   ├── recap-session/      # SKILL.md: /recap session (git diff -> session recap)
 │   ├── recap-setup/        # SKILL.md: one-time config wizard
 │   └── recap-validate/     # SKILL.md: validate a content JSON file
-├── agents/                 # 13 specialist agent prompt files (Markdown frontmatter)
+├── agents/                 # 14 specialist agent prompt files (Markdown frontmatter)
 ├── hooks/                  # Claude Code hooks (MJS) + hooks.json manifest
 ├── scripts/                # Dev scripts (render-html.mjs, validate.mjs, demo-*.mjs, etc.)
 ├── fixtures/               # Sample content JSON files for testing and demos
@@ -64,7 +64,7 @@ pnpm install
 pnpm -w build
 # or: pnpm build
 
-# Run all tests across all packages (73 tests, six workspace projects)
+# Run all tests across all packages (104 tests, six workspace projects)
 pnpm -w test
 # or: pnpm test
 
@@ -98,7 +98,7 @@ The validation gate must return a composite score of **9.7/10 or better** on the
 
 ---
 
-## The 13 Specialist Agents
+## The 14 Specialist Agents
 
 Agents live in `agents/` as Markdown files with YAML frontmatter. Each declares its `name`, `description`, and `tools`. They carry no `model:` pin (see CLAUDE.md, host-agnostic agents), so each host CLI falls back to its own default model. The skill orchestrator (inside `skills/recap-topic/SKILL.md` and `skills/recap-session/SKILL.md`) dispatches them in the order below. The directory names stay hyphenated (`recap-session`); the user-facing invocation is the space form `/recap session`.
 
@@ -120,10 +120,11 @@ The "Suggested model" column is guidance for the cost/quality split that worked 
 | `performance-reviewer.md` | Bundle size, Core Web Vitals risk, static-first audit | haiku |
 | `security-privacy-reviewer.md` | Secrets, prompt-injection vectors, unsafe commands, privacy | sonnet |
 | `beginner-reviewer.md` | "Can a smart newcomer understand this in 5 minutes?" check | haiku |
+| `pedagogy-reviewer.md` | Five learning traps: does the page teach, or only look like it? | sonnet |
 
 **How the pipeline dispatches them:**
 
-The skill SKILL.md instructs the orchestrator to invoke these agents sequentially or in parallel where possible. `research-scout` and `source-librarian` always run before `learning-architect`. The six reviewer agents (`skeptical`, `ux-design`, `accessibility`, `performance`, `security-privacy`, `beginner`) run in parallel after the content is built. The orchestrator collects their findings, patches the content JSON, and triggers a final render.
+The skill SKILL.md instructs the orchestrator to invoke these agents sequentially or in parallel where possible. `research-scout` and `source-librarian` always run before `learning-architect`. The seven reviewer agents (`skeptical`, `ux-design`, `accessibility`, `performance`, `security-privacy`, `beginner`, `pedagogy`) run in parallel after the content is built. The orchestrator collects their findings, patches the content JSON, and triggers a final render.
 
 **Adding a new agent:**
 
@@ -238,7 +239,9 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 | `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |
 | `@recap-studio/mcp-server` | MCP server with `render_recap_html` + `validate` tools | 9 tests |
 
-Total: 73 tests across six workspace projects (`design-system` ships no tests; it is consumed by `recap-web`).
+Total: 104 tests across six workspace projects (`design-system` ships no tests; it is consumed by `recap-web`).
+The per-package counts in the table above predate several releases and are lower than what runs today;
+`pnpm -r --if-present run test` is the source of truth.
 
 ---
 

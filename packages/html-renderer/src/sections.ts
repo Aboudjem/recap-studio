@@ -234,6 +234,86 @@ export function sources(c: C): string {
 </section>`;
 }
 
+/* ------------------------------------------------------------------ *
+ * Learning mode (opt-in, `content.learn.enabled`)
+ *
+ * Prequestions before the body, retrieval checks after it. Radio inputs and
+ * <details> carry the whole interaction, so the document stays script-free
+ * and still opens from file:// with no network.
+ * ------------------------------------------------------------------ */
+
+/** Questions the reader cannot answer yet. The hint opens; the answer is not here. */
+export function preQuestions(c: C): string {
+  const items = c.learn?.prequestions ?? [];
+  if (!items.length) return "";
+  const rows = items
+    .map(
+      (q, i) =>
+        `<details class="recap-pq"><summary><span class="recap-pq-num">${i + 1}</span>${esc(q.question)}</summary>${
+          q.hint ? `<p>${escRich(q.hint)}</p>` : ""
+        }</details>`,
+    )
+    .join("");
+  return `<section class="recap-section recap-reveal" id="prequestions" aria-labelledby="pq-h">
+  ${head("Before you read", "Questions you cannot answer yet").replace('class="recap-h2"', 'class="recap-h2" id="pq-h"')}
+  <div class="recap-learn">${rows}</div>
+  <p class="recap-muted" style="margin-top:1rem;font-size:.9rem">Guessing wrong here is the point. Read on, then come back.</p>
+</section>`;
+}
+
+/** Retrieval checks, cloze lines and the revision prompts. */
+export function checkBlock(c: C): string {
+  const learn = c.learn;
+  const checks = learn?.checks ?? [];
+  const cloze = learn?.cloze ?? [];
+  const rev = learn?.revision;
+  const revRows: Array<[string, string]> = [];
+  if (rev?.d1) revRows.push(["Day 1", rev.d1]);
+  if (rev?.d3) revRows.push(["Day 3", rev.d3]);
+  if (rev?.d7) revRows.push(["Day 7", rev.d7]);
+  if (!checks.length && !cloze.length && !revRows.length) return "";
+
+  const checkHtml = checks
+    .map((k) => {
+      const opts = k.options
+        .map(
+          (o, i) =>
+            `<label class="recap-opt" for="${esc(k.id)}-o${i}"><input type="radio" id="${esc(k.id)}-o${i}" name="check-${esc(k.id)}" value="${i}"><span>${esc(o)}</span></label>`,
+        )
+        .join("");
+      const right = k.options[k.answer];
+      return `<fieldset class="recap-quiz" data-learn="check" data-check-id="${esc(k.id)}">
+    <legend>${escRich(k.prompt)}</legend>
+    <div class="recap-opts">${opts}</div>
+    <details class="recap-answer-box"><summary>Show the answer</summary>${
+      right ? `<p><b>Answer:</b> ${esc(right)}</p>` : ""
+    }<p>${escRich(k.why)}</p></details>
+  </fieldset>`;
+    })
+    .join("");
+
+  const clozeHtml = cloze
+    .map(
+      (z) =>
+        `<div class="recap-cloze"><p>${escRich(z.text)}</p><details class="recap-answer-box"><summary>Show the missing words</summary><p>${z.blanks
+          .map((b) => esc(b))
+          .join(" &middot; ")}</p></details></div>`,
+    )
+    .join("");
+
+  const revHtml = revRows.length
+    ? `<div class="recap-revision">${revRows
+        .map(([label, prompt]) => `<div><b>${esc(label)}:</b> ${escRich(prompt)}</div>`)
+        .join("")}<p class="recap-muted" style="font-size:.9rem">The page cannot remind you. Spacing works, but the calendar is yours.</p></div>`
+    : "";
+
+  return `<section class="recap-section recap-reveal" id="checks" aria-labelledby="ck-h">
+  ${head("Check yourself", "Answer first, then look").replace('class="recap-h2"', 'class="recap-h2" id="ck-h"')}
+  <div class="recap-learn">${checkHtml}${clozeHtml}</div>
+  ${revHtml}
+</section>`;
+}
+
 const RENDERERS: Record<string, (c: C) => string> = {
   hero,
   matters: whatMatters,
@@ -273,5 +353,27 @@ export function composeBody(c: C, opts: ComposeOptions = {}): string {
   }
   // Always ensure hero is first even if visualSections omitted it.
   if (!seen.has("hero")) out.unshift(hero(c));
+
+  // Learning mode wraps the body rather than joining visualSections: the
+  // prequestions must precede the five-minute path (rendered inside the hero)
+  // and the checks must follow the material they ask about.
+  if (c.learn?.enabled === true) {
+    const pq = preQuestions(c);
+    if (pq) {
+      const heroAt = out.findIndex((html) => html.includes('id="hero"'));
+      out.splice(heroAt + 1, 0, pq);
+    }
+    const cb = checkBlock(c);
+    if (cb) {
+      // Before the takeaways: the reader answers on the material, then reads
+      // what to do about it. Falls back to "before the sources", then the end.
+      const at = ["takeaways", "sources"]
+        .map((id) => out.findIndex((html) => html.includes(`id="${id}"`)))
+        .find((i) => i !== -1);
+      if (at === undefined) out.push(cb);
+      else out.splice(at, 0, cb);
+    }
+  }
+
   return out.join("\n");
 }

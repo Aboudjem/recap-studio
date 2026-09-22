@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Proposed
+
+- **Learning mode** (`docs/proposals/learning-mode.md`): an opt-in `learn` block that turns a
+  recap page from something you read into something you answer, without adding a byte of
+  JavaScript. Radio inputs and `<details>` carry the whole interaction, so the standalone HTML
+  still opens from `file://` with no network and still fails CI on a `<script>` tag.
+  - `RecapPageContent.learn` is optional: `{ enabled, prequestions?, checks?, cloze?, revision? }`.
+    A page without it renders identical markup and scores exactly as before — the demo is still
+    9.7/10 across the same seven dimensions.
+  - Two page sections, in both rendering tracks. `PreQuestions` sits above the five-minute path,
+    because prequestions raise recall for the material they name and barely touch the rest
+    (Pan & Carpenter 2023). `CheckBlock` sits after the material and keeps the right answer and
+    its `why` behind a closed reveal, because feedback belongs after the answer
+    (Roediger & Butler 2011).
+  - `agents/learning-architect.md` drops its unsourced numbers. "5 steps of ≤ 18 words" and
+    "4–7 cards" were house preferences; the chunking rule now cites the 3–5 item capacity
+    finding (Cowan 2001) and the schema bounds are named as schema bounds.
+  - `agents/pedagogy-reviewer.md` is new: the reviewer that asks whether the page teaches.
+    Five traps — seductive details, a quiz whose answer sits in its own prompt, extrinsic
+    gamification, expertise reversal, illusion of fluency. Every report ends with
+    `pedagogy_blocking: N`. Registered as reviewer 6h in the validation board.
+  - New `learning` validation dimension, target 9, scored only when `learn.enabled` is true and
+    left out of the report otherwise. Not scored "n/a at 10": `overall` is a mean, and a free 10
+    on every ordinary page would lift every historical score by construction.
+  - `fixtures/topics/learning-mode-demo.json` is a new fixture and a self-describing one: a page
+    about retrieval practice that uses retrieval practice. Every citation on it was re-checked
+    against Crossref, which caught one mis-cited issue number (Roediger & Karpicke 2006 is
+    *Psychological Science* 17(3), not 17(2)).
+  - No deployment, no new dependency, no stored state. A static page has no memory, so there is
+    no score, no streak, and `revision` is three prompts rather than a scheduler.
+
 ## [0.5.1] - 2026-09-03
 
 A motion identity, and the literal synthwave scenery removed. No behaviour changes.

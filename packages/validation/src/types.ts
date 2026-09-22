@@ -9,6 +9,7 @@ export const Dimension = z.enum([
   "security-privacy",
   "simplicity",
   "skeptical",
+  "learning",
 ]);
 export type Dimension = z.infer<typeof Dimension>;
 
@@ -53,4 +54,6 @@ export const TARGETS: Record<Dimension, number> = {
   "security-privacy": 9,
   simplicity: 9,
   skeptical: 7,
+  // Only scored when learn.enabled; see checks/learning.ts.
+  learning: 9,
 };

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { loadContent } from "~/lib/content";
 import { Hero } from "~/components/sections/Hero";
 import { WhatMatters } from "~/components/sections/WhatMatters";
+import { PreQuestions } from "~/components/sections/PreQuestions";
+import { CheckBlock } from "~/components/sections/CheckBlock";
 import { ConceptMap } from "~/components/sections/ConceptMap";
 import { KeyIdeas } from "~/components/sections/KeyIdeas";
 import { Timeline } from "~/components/sections/Timeline";
@@ -34,6 +36,8 @@ export default function Page() {
   const enabled = new Set(
     content.visualSections.filter((s) => s.enabled).map((s) => s.kind),
   );
+  // Learning mode is opt-in per page. Off, the page renders exactly as before.
+  const learning = content.learn?.enabled === true;
 
   return (
     <>
@@ -42,6 +46,8 @@ export default function Page() {
         {content.fixture ? <FixtureBanner /> : null}
 
         {enabled.has("hero") ? <Hero content={content} /> : null}
+        {/* Prequestions come before the five-minute path, which WhatMatters renders. */}
+        {learning ? <PreQuestions content={content} /> : null}
         {enabled.has("matters") ? <WhatMatters content={content} /> : null}
         {enabled.has("concept-map") ? <ConceptMap content={content} /> : null}
         {enabled.has("ideas") ? <KeyIdeas content={content} /> : null}
@@ -55,6 +61,8 @@ export default function Page() {
           <ExamplesAndAnalogies content={content} />
         ) : null}
         {enabled.has("misconceptions") ? <Misconceptions content={content} /> : null}
+        {/* Retrieval lands after the body it asks about. */}
+        {learning ? <CheckBlock content={content} /> : null}
         {enabled.has("glossary") ? <Glossary content={content} /> : null}
         {enabled.has("takeaways") ? <Takeaways content={content} /> : null}
         {enabled.has("sources") ? <Sources content={content} /> : null}
