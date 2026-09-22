@@ -1,6 +1,6 @@
 # Agent system
 
-Recap Studio runs a 13-agent pipeline. Agents are isolated, typed contracts;
+Recap Studio runs a 14-agent pipeline. Agents are isolated, typed contracts;
 they pass JSON, never raw context dumps.
 
 ## Pipeline (topic mode)
@@ -19,8 +19,9 @@ they pass JSON, never raw context dumps.
 | 6e | performance-reviewer          | haiku  | Bundle, lazy-load, CWV risk       | `DimensionResult` |
 | 6f | security-privacy-reviewer     | sonnet | Secrets, injection, side effects  | `DimensionResult` |
 | 6g | skeptical-reviewer            | sonnet | Overclaim, fluff, hidden cost     | `DimensionResult` |
+| 6h | pedagogy-reviewer             | sonnet | Five learning traps; does it teach? | `DimensionResult` |
 
-The reviewers (6a–6g) run **in parallel**, isolated. Their findings are
+The reviewers (6a–6h) run **in parallel**, isolated. Their findings are
 aggregated, the architect applies patches, and only failing dimensions are
 re-checked. Cap = 3 iterations.
 
@@ -65,3 +66,4 @@ Each agent declares the smallest tool set it needs:
 | performance-reviewer     | Read, Bash, Grep                     |
 | security-privacy         | Read, Grep                           |
 | skeptical-reviewer       | Read                                 |
+| pedagogy-reviewer        | Read                                 |
