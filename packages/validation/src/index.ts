@@ -15,3 +15,4 @@ export * from "./checks/ux.js";
 export * from "./checks/performance.js";
 export * from "./checks/security-privacy.js";
 export * from "./checks/simplicity.js";
+export * from "./checks/learning.js";

@@ -7,6 +7,7 @@ import { checkUx } from "./checks/ux.js";
 import { checkPerformance } from "./checks/performance.js";
 import { checkSecurityPrivacy } from "./checks/security-privacy.js";
 import { checkSimplicity } from "./checks/simplicity.js";
+import { checkLearning } from "./checks/learning.js";
 
 export interface RunOpts {
   /** Path to .next build dir; if absent, perf confidence drops to low. */
@@ -26,7 +27,11 @@ export function runValidation(
   content: RecapPageContent,
   opts: RunOpts = {},
 ): ValidationReport {
-  const results: DimensionResult[] = [
+  // The learning dimension is scored only when the page opts into learning
+  // mode. It is left OUT of the list otherwise rather than scored n/a at 10,
+  // because `overall` is a mean: a free 10 on every ordinary page would lift
+  // every historical score by construction and mean nothing.
+  const dimensions = [
     checkFacts(content),
     checkBeginner(content),
     checkAccessibility(content, opts),
@@ -34,7 +39,10 @@ export function runValidation(
     checkPerformance(content, opts),
     checkSecurityPrivacy(content),
     checkSimplicity(content),
-  ].map((d) => {
+  ];
+  if (content.learn?.enabled === true) dimensions.push(checkLearning(content));
+
+  const results: DimensionResult[] = dimensions.map((d) => {
     const blockers = d.findings.filter((f) => f.severity === "blocker").length;
     return {
       ...d,
