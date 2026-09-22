@@ -209,6 +209,37 @@ const GLOSSARY = `
 .recap-gitem p { color: var(--muted); padding: 0 1.25rem 1.1rem; }
 `;
 
+const LEARN = `
+/* Learning mode. Every interaction here is a radio input or a <details>:
+   the document stays script-free, so it still works offline from file://. */
+.recap-learn { margin-top: 1.5rem; display: grid; gap: .75rem; }
+.recap-pq { border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--ring); overflow: hidden; }
+.recap-pq > summary { list-style: none; cursor: pointer; display: flex; align-items: flex-start; gap: .7rem; padding: .9rem 1.1rem; font-weight: 600; color: var(--ink); }
+.recap-pq > summary::-webkit-details-marker { display: none; }
+.recap-pq p { color: var(--muted); padding: 0 1.1rem 1rem; border-top: 1px solid var(--line); padding-top: .8rem; }
+.recap-pq-num { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; flex: none; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: .78rem; font-weight: 700; }
+.recap-quiz { border: none; margin: 0; padding: 1.1rem; border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--ring); }
+.recap-quiz > legend { padding: 0; font-weight: 600; color: var(--ink); line-height: 1.45; }
+.recap-opts { display: grid; gap: .5rem; margin-top: .85rem; }
+.recap-opt { display: flex; align-items: flex-start; gap: .7rem; padding: .55rem .75rem; border-radius: var(--radius-sm); background: var(--canvas); box-shadow: 0 0 0 1px var(--line); cursor: pointer; font-size: .94rem; color: var(--muted); }
+.recap-opt input { accent-color: var(--accent); margin-top: .18rem; flex: none; }
+/* The page marks what the reader picked. It does NOT say whether it is right:
+   the verdict waits inside the <details> below. */
+.recap-opt input:checked + span { color: var(--ink); font-weight: 600; }
+.recap-opt:has(input:checked) { box-shadow: 0 0 0 1px var(--accent); }
+.recap-opt input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.recap-answer-box { margin-top: .85rem; border-radius: var(--radius-sm); box-shadow: 0 0 0 1px var(--line); padding: .55rem .75rem; }
+.recap-answer-box > summary { list-style: none; cursor: pointer; font-size: .88rem; font-weight: 600; color: var(--accent); }
+.recap-answer-box > summary::-webkit-details-marker { display: none; }
+.recap-answer-box p { margin-top: .5rem; font-size: .9rem; color: var(--muted); }
+.recap-answer-box p b { color: var(--ink); }
+.recap-cloze { border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--ring); padding: 1rem 1.1rem; }
+.recap-cloze > p { color: var(--ink); }
+.recap-revision { margin-top: 1.5rem; display: grid; gap: .5rem; }
+.recap-revision div { border-radius: var(--radius-sm); background: var(--surface); box-shadow: 0 0 0 1px var(--line); padding: .6rem .8rem; font-size: .92rem; color: var(--muted); }
+.recap-revision b { color: var(--ink); }
+`;
+
 const TAKEAWAYS = `
 .recap-takeaways { margin-top: 1.5rem; display: grid; gap: .75rem; }
 .recap-take { display: flex; gap: .8rem; align-items: flex-start; }
@@ -331,6 +362,10 @@ h1, h2, h3, .recap-h1, .recap-h2, .recap-h3 { break-after: avoid; page-break-aft
 details.recap-gitem { display: block; }
 details.recap-gitem > summary { list-style: none; }
 details.recap-gitem > *:not(summary) { display: block !important; }
+/* Same reason for learning mode: a closed <details> prints as its summary
+   only, so paper would show the questions with neither hints nor answers. */
+details.recap-pq > *:not(summary), details.recap-answer-box > *:not(summary) { display: block !important; }
+.recap-quiz, .recap-pq, .recap-cloze { break-inside: avoid; page-break-inside: avoid; }
 /* The only link the renderer emits in the body is the source card itself, and
    ::after is its last child, so the URL prints as the entry's final line. */
 .recap-source[href^="http"]::after {
@@ -367,6 +402,7 @@ export function getBaseStyles(options: CssOptions = {}): string {
     COMPARE,
     MISC,
     GLOSSARY,
+    LEARN,
     TAKEAWAYS,
     SOURCES,
     DIAGRAM,
