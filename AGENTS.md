@@ -64,7 +64,7 @@ pnpm install
 pnpm -w build
 # or: pnpm build
 
-# Run all tests across all packages (73 tests, six workspace projects)
+# Run all tests across all packages (104 tests, six workspace projects)
 pnpm -w test
 # or: pnpm test
 
@@ -239,7 +239,9 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 | `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |
 | `@recap-studio/mcp-server` | MCP server with `render_recap_html` + `validate` tools | 9 tests |
 
-Total: 73 tests across six workspace projects (`design-system` ships no tests; it is consumed by `recap-web`).
+Total: 104 tests across six workspace projects (`design-system` ships no tests; it is consumed by `recap-web`).
+The per-package counts in the table above predate several releases and are lower than what runs today;
+`pnpm -r --if-present run test` is the source of truth.
 
 ---
 
