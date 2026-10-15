@@ -46,6 +46,7 @@ All optional. See `.env.example` for the canonical list.
 | `RESEND_API_KEY` / `DEFAULT_EMAIL_FROM` / `DEFAULT_EMAIL_TO` | Email side effect (see "Email" below) | unset   |
 | `VERCEL_TOKEN` / `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` | Deploy side effect                      | unset   |
 | `RECAP_ALLOW_SECRET_WRITE=1`            | Hook escape, use only after human review            | unset   |
+| `RECAP_ALLOW_GIT_PUSH=1`                | Hook escape: plain `git push` only, force pushes stay blocked | unset   |
 | `RECAP_ALLOW_DESTRUCTIVE_GIT=1`         | Hook escape, use only after human review            | unset   |
 | `RECAP_USER_CONFIRMED_PREVIEW=1`        | Confirm a preview deploy                             | unset   |
 | `RECAP_USER_CONFIRMED_PROD_DEPLOY=1`    | Confirm a production deploy                          | unset   |

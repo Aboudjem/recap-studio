@@ -5,7 +5,7 @@
 | Threat                                    | Mitigation                                                    |
 | ----------------------------------------- | ------------------------------------------------------------- |
 | Secret leakage via writes                 | `hooks/block-secret-writes.mjs` refuses `.env*` / keys        |
-| Destructive git command                   | `hooks/block-destructive-git.mjs` refuses push/reset --hard   |
+| Destructive git command                   | `hooks/block-destructive-git.mjs` refuses push/reset --hard; `RECAP_ALLOW_GIT_PUSH=1` opens plain pushes only |
 | Accidental production deploy              | `hooks/validate-before-deploy.mjs` requires config + env flag |
 | Accidental email send                     | `emailMode: disabled` default + `confirmed: true` requirement |
 | Prompt injection from sources             | source text sanitized; injection regex check                  |
