@@ -140,7 +140,7 @@ Hooks run automatically inside Claude Code sessions. They are listed in `hooks/h
 | Hook file | When it fires | What it blocks |
 |---|---|---|
 | `block-secret-writes.mjs` | Before any file write | Writes containing API keys, tokens, or secret patterns |
-| `block-destructive-git.mjs` | Before any shell command | `git push --force`, `git reset --hard`, branch deletion on main |
+| `block-destructive-git.mjs` | Before any shell command | Any `git push` (plain pushes allowed with `RECAP_ALLOW_GIT_PUSH=1`), force/delete pushes, `git reset --hard`, `rebase`, branch deletion |
 | `validate-before-deploy.mjs` | Before deploy scripts execute | Deployment if `pnpm validate:demo` returns below threshold |
 | `format-after-edit.mjs` | After any TypeScript/JS/JSON file edit | (runs `prettier`; does not block, reformats) |
 | `qa-summary-on-stop.mjs` | When the Claude Code session stops | (prints QA summary; does not block) |

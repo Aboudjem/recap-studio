@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-10-15
+
+The git guard is no longer all-or-nothing: you can let Claude push while history-rewriting
+commands stay blocked.
+
+### Added
+
+- **`RECAP_ALLOW_GIT_PUSH=1`**, a narrow opt-in for `hooks/block-destructive-git.mjs`. It allows a
+  plain `git push` (new branch, fast-forward, tags). Force, force-with-lease, `+refspec`,
+  `:refspec`, `--delete`/`-d`, `--mirror` and `--prune` pushes stay blocked, as do `reset --hard`,
+  `rebase`, `clean -fdx`, `branch -D` and the rest. `RECAP_ALLOW_DESTRUCTIVE_GIT=1` still opens
+  everything. With neither set, every push is refused, as before.
+- `hooks/block-destructive-git.test.mjs` (node:test), run in CI.
+
+### Changed
+
+- The guard checks each shell segment separately and skips git's global options, so
+  `git -C <dir> push --force` and `git -C <dir> reset --hard` are now caught.
+- Text inside quotes is no longer matched (`git commit -m "then git push"` is not a push), unless
+  the command re-evaluates strings (`bash -c`, `eval`, `$(...)` and similar).
+- The refusal message names the variable that would allow the command.
+
 ## [0.5.1] - 2026-09-03
 
 A motion identity, and the literal synthwave scenery removed. No behaviour changes.

@@ -82,3 +82,5 @@ jobs:
           echo '{"tool_input":{"command":"git push origin main"}}' | node hooks/block-destructive-git.mjs && exit 1 || echo "ok: refused push"
           echo '{"tool_input":{"command":"vercel --prod"}}' | node hooks/validate-before-deploy.mjs && exit 1 || echo "ok: refused prod deploy with no config"
           echo '{"tool_input":{"command":"ls -la"}}' | node hooks/validate-before-deploy.mjs || exit 1 && echo "ok: allowed non-deploy Bash"
+      - name: Hook unit tests
+        run: node --test hooks/*.test.mjs
