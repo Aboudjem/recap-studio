@@ -35,7 +35,9 @@ const target = input.file_path ?? input.target_path ?? input.path ?? "";
 if (!target) process.exit(0);
 
 const allow = process.env.RECAP_ALLOW_SECRET_WRITE === "1";
-const blocked = SECRET_GLOBS.some((re) => re.test(target));
+// macOS temp dirs live under /private/tmp, which is not a secret location.
+const isTempDir = target.startsWith("/private/tmp/");
+const blocked = !isTempDir && SECRET_GLOBS.some((re) => re.test(target));
 
 if (blocked && !allow) {
   process.stderr.write(
