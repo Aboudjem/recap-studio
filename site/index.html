@@ -86,8 +86,17 @@
     </div>
 
     <section>
-      <h2>Install in Claude Code</h2>
-      <p>One command from the <a href="https://github.com/Aboudjem/10x">10x marketplace</a>, then run <code>/recap</code> in any session.</p>
+      <h2>Install (recommended: the Vercel skills CLI)</h2>
+      <p>One command installs the skills for all your projects. It works in 78 agents: pick yours in the menu (<a href="https://github.com/vercel-labs/skills#supported-agents">supported agents</a>). <code>npx skills</code> is Vercel's open installer for agent skills. Page: <a href="https://skills.sh/aboudjem/recap-studio">skills.sh/aboudjem/recap-studio</a>.</p>
+      <pre><code>npx skills add Aboudjem/recap-studio -g</code></pre>
+      <p>It installs the skills only. The MCP server is a separate one-line step (below).</p>
+      <p>Or install straight into one agent. Put its name after <code>-a</code>; drop <code>-g</code> for this project only.</p>
+      <pre><code>npx skills add Aboudjem/recap-studio -g -a codex -y</code></pre>
+    </section>
+
+    <section>
+      <h2>Claude Code plugin</h2>
+      <p>Adds the 13 research agents, safety hooks and the MCP server. From the <a href="https://github.com/Aboudjem/10x">10x marketplace</a>, then run <code>/recap</code> in any session.</p>
       <pre><code>claude plugin marketplace add Aboudjem/10x
 claude plugin install recap-studio@10x</code></pre>
       <pre><code>/recap "What is React Server Components"</code></pre>
@@ -95,9 +104,7 @@ claude plugin install recap-studio@10x</code></pre>
 
     <section>
       <h2>Use it anywhere (CLI and MCP)</h2>
-      <p>Install the skills for all your projects with one command. Put your agent after <code>-a</code>; drop <code>-g</code> for this project only. Or run the local MCP server. The CLI runs straight from GitHub with npx: no clone, no build.</p>
-      <pre><code>npx skills add Aboudjem/recap-studio -g -a codex -y</code></pre>
-      <p>Any other agent (Vercel skills CLI): run <code>npx skills add Aboudjem/recap-studio -g</code>, then pick your agent in its menu. <code>npx skills</code> is Vercel's open installer for agent skills. Its page: <a href="https://skills.sh/aboudjem/recap-studio">skills.sh/aboudjem/recap-studio</a>.</p>
+      <p>The CLI runs straight from GitHub with npx: no clone, no build. The same file serves the MCP tools: <code>npx -y github:Aboudjem/recap-studio mcp</code>.</p>
       <pre><code>npx -y github:Aboudjem/recap-studio demo
 npx -y github:Aboudjem/recap-studio render content.json</code></pre>
     </section>
