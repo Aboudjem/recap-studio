@@ -9,7 +9,7 @@ Nothing is published to npm; `npx -y github:Aboudjem/recap-studio` runs it from 
 
 ## Install
 
-- Recommended, any of 78 agents (Vercel skills CLI, for all your projects): `npx skills add Aboudjem/recap-studio -g`, then pick your agent in the menu. It installs the skills only; the MCP server is a separate step (below). Page: https://skills.sh/aboudjem/recap-studio
+- Recommended, works in more than 70 agents (Vercel skills CLI, for all your projects): `npx skills add Aboudjem/recap-studio -g`, then pick your agent in the menu. In a terminal it shows the agent menu. In a script it installs into every agent folder, so add `-a <agent>` there. It installs the skills only; the MCP server is a separate step (below). Page: https://skills.sh/aboudjem/recap-studio
 - Straight into one agent: `npx skills add Aboudjem/recap-studio -g -a <agent> -y` (drop `-g` for this project only)
 - Claude Code plugin (adds the 13 research agents, safety hooks and the MCP server): `claude plugin marketplace add Aboudjem/10x` then `claude plugin install recap-studio@10x`
 - CLI, no install: `npx -y github:Aboudjem/recap-studio demo`
