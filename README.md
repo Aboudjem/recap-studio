@@ -124,7 +124,7 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 
 ## Works with
 
-| Agent                               | What was tested                                                                                 | Tested     |
+| Agent                               | What was checked                                                                                | Tested     |
 | :---------------------------------- | :---------------------------------------------------------------------------------------------- | :--------- |
 | Claude Code 2.1.326                 | Plugin loaded with `--plugin-dir`; its MCP server reported `Connected` from an unrelated folder | 2026-11-17 |
 | Codex CLI 0.169.0                   | `codex exec` called the `validate_content` MCP tool and returned the verdict                    | 2026-11-17 |

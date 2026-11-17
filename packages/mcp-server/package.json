@@ -7,7 +7,9 @@
   "bin": {
     "recap-studio-mcp": "./dist/bin.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -16,9 +18,9 @@
     "lint": "echo 'mcp-server: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "*",
-    "@recap-studio/html-renderer": "*",
-    "@recap-studio/validation": "*",
+    "@recap-studio/content-pipeline": "0.1.0",
+    "@recap-studio/html-renderer": "0.3.0",
+    "@recap-studio/validation": "0.1.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {

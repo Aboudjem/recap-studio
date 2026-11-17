@@ -10,7 +10,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -18,7 +20,7 @@
     "lint": "echo 'validation: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "*",
+    "@recap-studio/content-pipeline": "0.1.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {

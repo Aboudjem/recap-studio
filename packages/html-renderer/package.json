@@ -15,7 +15,11 @@
       "import": "./dist/css.js"
     }
   },
-  "files": ["dist", "README.md", "TEMPLATE.md"],
+  "files": [
+    "dist",
+    "README.md",
+    "TEMPLATE.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -23,7 +27,7 @@
     "lint": "echo 'html-renderer: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "*"
+    "@recap-studio/content-pipeline": "0.1.0"
   },
   "devDependencies": {
     "tsx": "^4.16.0",

@@ -18,10 +18,10 @@
     "lint": "echo 'cli: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "*",
-    "@recap-studio/html-renderer": "*",
-    "@recap-studio/validation": "*",
-    "@recap-studio/mcp-server": "*"
+    "@recap-studio/content-pipeline": "0.1.0",
+    "@recap-studio/html-renderer": "0.3.0",
+    "@recap-studio/validation": "0.1.0",
+    "@recap-studio/mcp-server": "0.6.0"
   },
   "devDependencies": {
     "tsx": "^4.16.0",

@@ -66,9 +66,9 @@
     "clean": "rimraf node_modules apps/*/node_modules packages/*/node_modules"
   },
   "devDependencies": {
-    "@recap-studio/content-pipeline": "*",
-    "@recap-studio/html-renderer": "*",
-    "@recap-studio/validation": "*",
+    "@recap-studio/content-pipeline": "0.1.0",
+    "@recap-studio/html-renderer": "0.3.0",
+    "@recap-studio/validation": "0.1.0",
     "@types/node": "^20.14.0",
     "esbuild": "^0.24.2",
     "prettier": "^3.3.0",
