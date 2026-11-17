@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: メールで送れて、PR に添付できて、飛行機の中でも読める 1 ページ" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio: メールで送れて、PR に添付でき、機内でも読める 1 ページ。画像は 40 件のコミットが 1 ページになる様子と、実際の行 Verdict: PASS, 49.8 KB, 0 script tags, 9.7/10 を示します。" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,15 +18,23 @@
   <a href="fr.md">Français</a>
 </p>
 
-**メールで送れて、PR に添付できて、飛行機の中でも読める 1 ページ。**
+**何が変わったかを、送れる 1 ページで理解する。**
 
-Recap Studio は、トピックやコーディングセッションを、ダブルクリックで開ける 1 つの HTML ページに変えます。
+Recap Studio は、コーディングセッションやトピックから HTML ページを 1 つ作ります。
 
-クローンもインストールも不要で今すぐ試せます。2026-11-17 の実際の出力です（パスは短縮）:
+| やったことがわかる | 送れる 1 ページ | 送る前にチェック済み |
+|:--|:--|:--|
+| `/recap session` が git の差分とコミットを読み、1 ページを書きます。 | HTML ファイル 1 つ、script タグ 0、CSS はすべて中に。下のデモが両方を表示します。 | 7 つのチェックがモデルなしで採点します。`--fail-under 8` で弱いページを拒否します。 |
+
+**対応:** skills を読めるすべてのエージェントと、すべての MCP クライアント。テスト済み: Claude Code、Codex CLI。ページ生成にモデルは不要で、文章はあなたのエージェントのモデルが書きます。
+
+今すぐ試せます。必要なのは Node 20 以降だけです。
 
 ```bash
 npx -y github:Aboudjem/recap-studio demo
 ```
+
+2026-11-17 の実際の出力(パスは短縮):
 
 ```text
 Verdict: PASS. Wrote /tmp/try/recap-latest-ai-models.html
@@ -38,19 +46,16 @@ Next:
 - Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
-<img alt="Recap Studio で生成したページ: ダークなヒーロー、一文の答え、5 ステップの読み順" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+<img alt="Recap Studio が作ったページ: 暗い上部バナー、一文の答え、5 ステップの読み進め方" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
-リードに今週何が変わったかと聞かれます。手元には 40 件のコミットとチャットログがあるだけで、そのまま送れるページはありません。
-あるいは、あるトピックの意味を聞かれて、リンクを 10 個貼ることになります。
-Recap Studio なら 1 つのファイルで済みます。JavaScript を含まず、ネットワーク通信もしません。
+スコアが見るのは形で、正しさではありません。共有する前にソースを読んでください。
 
-## 使う理由
+## いつ使うか
 
-- **どこでも開けます。** 1 ファイル、script タグ 0 個、CSS はすべてインライン。上のデモが両方を表示します。
-- **送る前にチェックされます。** 7 つのオフラインチェックがモデルなしでページを採点します。`--fail-under 8` を付けると弱いページを拒否します。
-- **自分の作業もまとめられます。** `/recap session` が git の diff とコミットを読み、チームが読めるページにします。
-
-スコアが見るのは形で、正しさではありません。先にソースを読んでください。オフラインでは Mermaid 図はソースのまま表示されるので、SVG 図を使ってください。
+リーダーに今週何が変わったか聞かれます。手元には 40 件のコミットとチャットの記録だけ。送れるページはありません。
+あるいは、あるトピックについて聞かれて、リンクを 10 個送ることになります。
+Recap Studio なら 1 つのファイルで済みます。JavaScript はなく、ネットワーク通信もしません。
+メールで送る、プルリクエストに添付する、機内で開く、どれでもできます。
 
 ## インストール
 
@@ -75,7 +80,7 @@ npx skills add Aboudjem/recap-studio
 npx -y github:Aboudjem/recap-studio render content.json
 ```
 
-**MCP クライアント。** クライアントの MCP 設定に次を貼り付けます:
+**MCP クライアント**(Model Context Protocol でツールを呼べるアプリ)。その MCP 設定に次を貼り付けます:
 
 ```json
 {
@@ -88,7 +93,7 @@ npx -y github:Aboudjem/recap-studio render content.json
 }
 ```
 
-Claude Code プラグインはこのサーバーを自動で起動します。エディタ別の設定例は [docs/editors.md](../docs/editors.md) にあります。
+Claude Code プラグインはこのサーバーを自動で起動します。エディタごとの設定は [docs/editors.md](../docs/editors.md) にあります。
 
 <details>
 <summary>その他のインストール方法</summary>
@@ -113,7 +118,7 @@ node bin/recap.mjs demo
 1. 依頼する。`/recap "<topic>"` はトピックを調べます。`/recap session` は git の差分とコミットを読みます。
 2. エージェントが内容を書く。13 の専門エージェントが情報源を探し、5 分で読める構成を書き、各主張を確認します。
 3. エージェントが内容を JSON としてプロジェクト内の `artifacts/<slug>/content.json` に保存します。
-4. チェッカーが採点する。構造、引用、語数、シークレット検出の 7 つの決定的チェックです。モデルもネットワークも使いません。
+4. チェッカーが採点する。構造、引用、語数、シークレット検出の 7 つの固定チェックで、毎回同じスコアになります。モデルもネットワークも使いません。
 5. レンダラーが 1 つのファイル `artifacts/<slug>/recap-<slug>.html` を書き出します。CSS はすべて埋め込みです。
 
 CLI と MCP サーバーは、依存関係のない 1 つのコミット済みファイル `bin/recap.mjs` です。
@@ -129,7 +134,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 
 | 出力 | 内容 |
 |:--|:--|
-| `recap-<slug>.html` | 自己完結した 1 ページ。CSS はすべて埋め込み、JavaScript ゼロ、外部リクエストゼロ。 |
+| `recap-<slug>.html` | 1 ファイルで完結する 1 ページ。CSS はすべて中に、JavaScript ゼロ、外部リクエストゼロ。 |
 | `--format md` または `txt` | 同じページを Markdown またはプレーンテキストで。プルリクエストやメモ用です。 |
 | `--print` | 印刷用: 白い背景、黒い文字、情報源の URL を明記。 |
 | `recap validate` | 判定から始まり、最大 3 つの修正点、7 つの採点項目が続くレポート。 |
@@ -154,7 +159,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 | 成功するテスト | 113 | `npm run test:count` |
 | 生成ページ内の script タグ | 0 | `node bin/recap.mjs demo` |
 | デモページのサイズ | 49.8 KB | `node bin/recap.mjs demo` |
-| デモ内容のヒューリスティックスコア | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
+| デモ内容のスコア | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
 | MCP ツール | 11 | `echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \| node bin/recap.mjs mcp` |
 
 CI は push とプルリクエストのたびに Node 20 と 22 でテストを実行します。生成ページに `<script>` タグがあっても失敗します。
@@ -168,7 +173,7 @@ CI は push とプルリクエストのたびに Node 20 と 22 でテストを�
 いいえ。JavaScript も読み込む外部リンクもありません。CI は毎回の出力で `<script>` タグがないことを確認します。
 
 **9.7/10 のスコアはモデルの評価ですか?**
-いいえ。構造、引用、語数に対する決定的なチェックの集まりです。情報源は読みません。
+いいえ。構造、引用、語数に対する固定チェックの集まりです。毎回同じスコアになります。情報源は読みません。
 
 **フックは他のプロジェクトに影響しますか?**
 いいえ。フックが見るのはセッションの作業フォルダで、編集中のファイルのフォルダではありません。そのフォルダか親フォルダに `recap-studio.config.*` ファイルか `.recap-studio/` フォルダがあるとき、またはこのリポジトリのときだけ動きます。`RECAP_HOOKS_EVERYWHERE=1` で全体に有効化できます。
@@ -178,10 +183,10 @@ CI は push とプルリクエストのたびに Node 20 と 22 でテストを�
 
 ## Limits
 
-- スコアはヒューリスティックです。形式を確認するだけで、真偽は確認しません。共有前に情報源を読んでください。
+- スコアはおおまかなチェック(ヒューリスティック)です。形式を確認するだけで、真偽は確認しません。共有前に情報源を読んでください。
 - 調査の質はエージェント次第です。CLI は渡された内容を描画するだけで、調査はしません。
-- Mermaid 図はオフラインでは描画されません。ページにはソースが表示されます。完全に視覚的なページには `kind: "svg"` の図を使ってください。
-- 5 つの MCP ツールは未実装です。`render_page_screenshot`、`run_accessibility_scan`、`run_lighthouse_summary` は、サーバーにブラウザが含まれないため `skipped` を返します。`deploy_vercel_preview` は自分で実行するコマンドを返します。`send_email_draft` は下書きを返します。
+- オフラインでは、Mermaid 図(テキストで書くグラフ)はテキストのまま表示されます。代わりに SVG 図を使ってください: `kind: "svg"`。
+- 5 つの MCP ツールは全部の仕事はしません(スタブです)。`render_page_screenshot`、`run_accessibility_scan`、`run_lighthouse_summary` は、サーバーにブラウザが含まれないため `skipped` を返します。`deploy_vercel_preview` は自分で実行するコマンドを返します。`send_email_draft` は下書きを返します。
 - デプロイとメールのツールは、デプロイも送信もしません。デプロイは自分で実行するコマンドを返し、メールは下書きを返します。
 - Codex は書き込みツールをブロックすることがあります。`codex exec` の実行では承認レビューが `render_recap_html` をブロックしました。読み取りツールは動きました。
 

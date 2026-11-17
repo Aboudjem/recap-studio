@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Aboudjem/recap-studio",
   "title": "Recap Studio",
-  "description": "Render one HTML page you can email or open offline, and score it first. No JavaScript, no network.",
-  "version": "0.6.2",
+  "description": "Render and score one HTML page that explains your work or a topic. Opens offline, no JavaScript.",
+  "version": "0.6.3",
   "repository": {
     "url": "https://github.com/Aboudjem/recap-studio",
     "source": "github"
@@ -12,8 +12,8 @@
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/Aboudjem/recap-studio/releases/download/v0.6.2/recap-studio.mcpb",
-      "fileSha256": "cb54ef3767c8ea09f9242ef81c54acbf0c231bc0ae21ef3d617ad9a61095d59c",
+      "identifier": "https://github.com/Aboudjem/recap-studio/releases/download/v0.6.3/recap-studio.mcpb",
+      "fileSha256": "4370ec64a8fab265464a4dec59c604452f77b4701d3998eac0b453896a269f2b",
       "transport": {
         "type": "stdio"
       }

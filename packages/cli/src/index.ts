@@ -27,7 +27,7 @@ import { parseRecapPageContent } from "@recap-studio/content-pipeline";
 import { runValidation, reportMarkdown, reportJson, reportPasses } from "@recap-studio/validation";
 
 /** Kept equal to the repo version by a test. */
-const VERSION = "0.6.2";
+const VERSION = "0.6.3";
 
 /** The bundler inlines the example content here. Unbundled, it is read from the repo. */
 declare const __RECAP_EXAMPLE__: string | undefined;

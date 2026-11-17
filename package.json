@@ -1,8 +1,8 @@
 {
   "name": "recap-studio",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "private": true,
-  "description": "Turns a topic or your git session into one HTML explainer. Double-click to open, works offline, no JavaScript. One file to attach or send. Claude Code plugin, CLI and MCP server.",
+  "description": "Understand what was done: makes one HTML page from your git session or a topic. Double-click to open, works offline, no JavaScript.",
   "license": "MIT",
   "repository": {
     "type": "git",

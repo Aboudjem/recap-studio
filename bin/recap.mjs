@@ -6050,7 +6050,7 @@ var tools = [
 ];
 
 // packages/mcp-server/src/index.ts
-var SERVER_VERSION = "0.6.2";
+var SERVER_VERSION = "0.6.3";
 var PROTOCOL_VERSIONS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 function listTools() {
   return {
@@ -6134,7 +6134,7 @@ async function runServer() {
 }
 
 // packages/cli/src/index.ts
-var VERSION = "0.6.2";
+var VERSION = "0.6.3";
 function exampleContent() {
   if (true) return `{
   "slug": "latest-ai-models",

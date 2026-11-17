@@ -1,120 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none" role="img"
-     aria-label="recap-studio, one-file explainers: explain it in one file. Any topic or coding session, as one page that opens offline.">
-  <title>recap-studio</title>
-  <defs>
-    <linearGradient id="rc-ground" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="55%" stop-color="#F7F8FB"/>
-      <stop offset="100%" stop-color="#EEF1F7"/>
-    </linearGradient>
-    <radialGradient id="rc-bloomA" cx="0.15" cy="0.13" r="0.44">
-      <stop offset="0%" stop-color="#0959D1" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#0959D1" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="rc-bloomB" cx="0.88" cy="0.85" r="0.50">
-      <stop offset="0%" stop-color="#5D4BD1" stop-opacity="0.09"/>
-      <stop offset="100%" stop-color="#5D4BD1" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="rc-bloomC" cx="0.52" cy="0.04" r="0.36">
-      <stop offset="0%" stop-color="#006A80" stop-opacity="0.06"/>
-      <stop offset="100%" stop-color="#006A80" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="rc-wash" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%"   stop-color="#0959D1" stop-opacity="0.07"/>
-      <stop offset="42%"  stop-color="#5D4BD1" stop-opacity="0.043"/>
-      <stop offset="76%"  stop-color="#006A80" stop-opacity="0.016"/>
-      <stop offset="100%" stop-color="#006A80" stop-opacity="0"/>
-    </radialGradient>
-    <clipPath id="rc-frame"><rect width="1200" height="400"/></clipPath>
-    <linearGradient id="rc-rule" gradientUnits="userSpaceOnUse" x1="500" y1="100" x2="500" y2="300">
-      <stop offset="0%"   stop-color="#0959D1" stop-opacity="0"/>
-      <stop offset="45%"  stop-color="#0959D1" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#5D4BD1" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="rc-ink" gradientUnits="userSpaceOnUse" x1="62" y1="60" x2="200" y2="210">
-      <stop class="rck1" offset="0%"   stop-color="#0959D1"/>
-      <stop class="rck2" offset="52%"  stop-color="#0959D1"/>
-      <stop class="rck3" offset="100%" stop-color="#5D4BD1"/>
-    </linearGradient>
-    <linearGradient id="rc-word" x1="0" y1="0" x2="1" y2="0.25">
-      <stop class="rck1" offset="0%"   stop-color="#0959D1"/>
-      <stop class="rck2" offset="46%"  stop-color="#0959D1"/>
-      <stop class="rck3" offset="100%" stop-color="#5D4BD1"/>
-    </linearGradient>
-  </defs>
-
-  <style>
-    .disp { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-    .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
-    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 4.5px; fill: #0959D1; }
-    .head    { font-size: 34px; font-weight: 700; fill: #1A2233; letter-spacing: -0.5px; }
-    .sub     { font-size: 16.5px; font-weight: 500; fill: #48546B; }
-    .tag     { font-size: 11.5px; letter-spacing: 1.6px; fill: #48546B; }
-    .chip    { font-size: 11.5px; letter-spacing: 1.2px; fill: #48546B; }
-    @keyframes rc-breathe { 0%,100% { opacity:0.72; } 50% { opacity:1; } }
-    .rcbloom { animation: rc-breathe 11s ease-in-out infinite; }
-    @keyframes rc-sweep { 0% { transform: translateX(-360px); } 100% { transform: translateX(1560px); } }
-    .rcwash { animation: rc-sweep 17s cubic-bezier(.5,0,.5,1) infinite; }
-    @keyframes rc-pip { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
-    .rcp1 { animation: rc-pip 5s ease-in-out infinite 0.0s; }
-    .rcp2 { animation: rc-pip 5s ease-in-out infinite 0.35s; }
-    .rcp3 { animation: rc-pip 5s ease-in-out infinite 0.7s; }
-    .rcp4 { animation: rc-pip 5s ease-in-out infinite 1.05s; }
-    .rcp5 { animation: rc-pip 5s ease-in-out infinite 1.4s; }
-    .rcp6 { animation: rc-pip 5s ease-in-out infinite 1.75s; }
-    @keyframes rc-flow { to { stroke-dashoffset: -1000; } }
-    .rcedge { stroke-dasharray: 420 580; animation: rc-flow 8s linear infinite; }
-    @keyframes rc-stack { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4px,-8px); } }
-    .rcstack { animation: rc-stack 8s ease-in-out infinite; }
-    @keyframes rc-fold { 0%,14% { opacity: 0.25; } 46%,86% { opacity: 1; } 100% { opacity: 0.25; } }
-    .rcfold { animation: rc-fold 8s cubic-bezier(.3,0,.2,1) infinite; }
-    @keyframes rc-k1 { 0%,100% { stop-color:#0959D1; } 50% { stop-color:#5D4BD1; } }
-    @keyframes rc-k2 { 0%,100% { stop-color:#0959D1; } 50% { stop-color:#0959D1; } }
-    @keyframes rc-k3 { 0%,100% { stop-color:#5D4BD1; } 50% { stop-color:#8A2CD1; } }
-    .rck1 { animation: rc-k1 15s ease-in-out infinite; }
-    .rck2 { animation: rc-k2 15s ease-in-out infinite; }
-    .rck3 { animation: rc-k3 15s ease-in-out infinite; }
-    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-  </style>
-
-  <rect width="1200" height="400" fill="url(#rc-ground)"/>
-  <g class="rcbloom">
-    <rect width="1200" height="400" fill="url(#rc-bloomA)"/>
-    <rect width="1200" height="400" fill="url(#rc-bloomB)"/>
-    <rect width="1200" height="400" fill="url(#rc-bloomC)"/>
-  </g>
-  <g clip-path="url(#rc-frame)">
-    <g transform="translate(0,196)">
-      <ellipse class="rcwash" cx="0" cy="0" rx="430" ry="300" fill="url(#rc-wash)"/>
-    </g>
-  </g>
-  <g transform="translate(66,56) scale(0.5781)">
-  <g class="rcstack" opacity="0.5">
-    <rect x="86" y="50" width="110" height="132" rx="10" fill="none"
-          stroke="url(#rc-ink)" stroke-width="10"/>
-  </g>
-  <path d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" fill="url(#rc-ink)" fill-opacity="0.14" stroke="url(#rc-ink)"
-        stroke-opacity="0.5" stroke-width="11" stroke-linejoin="round"/>
-  <g>
-    <path class="rcedge" d="M74 66 H150 L184 100 V196 A10 10 0 0 1 174 206 H74 A10 10 0 0 1 64 196 V76 A10 10 0 0 1 74 66 Z" pathLength="1000" fill="none"
-          stroke="url(#rc-ink)" stroke-width="11" stroke-linejoin="round"/>
-  </g>
-  <g class="rcfold">
-    <path d="M150 66 L184 100 H154 A4 4 0 0 1 150 96 Z" fill="url(#rc-ink)"/>
-  </g>
-  <g opacity="0.9" fill="url(#rc-ink)"><rect x="86" y="132" width="76" height="11" rx="5.5"/><rect x="86" y="156" width="56" height="11" rx="5.5"/></g>
-  </g>
-  <g>
-    <text class="disp" x="76" y="286" font-size="65" font-weight="800"
-          letter-spacing="-2.3" fill="url(#rc-word)">recap-studio</text>
-  </g>
-  <line x1="500" y1="100" x2="500" y2="300" stroke="url(#rc-rule)" stroke-width="1.5"/>
-  <g transform="translate(544,0)">
-    <text class="mono eyebrow" x="0" y="134">ONE-FILE EXPLAINERS</text>
-    <text class="disp head" x="0" y="168">Explain it in</text>
-    <text class="disp head" x="0" y="206">one file.</text>
-    <text class="disp sub" x="0" y="242">Any topic or coding session, as one page that opens offline.</text>
-    <g transform="translate(0,285)"><g class="rcp1"><circle cx="0" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp2"><circle cx="22" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp3"><circle cx="44" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp4"><circle cx="66" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp5"><circle cx="88" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp6"><circle cx="110" cy="0" r="4.5" fill="#0959D1"/></g><text class="mono tag" x="146" y="4">SELF-CONTAINED HTML</text></g>
-  </g>
-  <text class="mono tag" x="76" y="352">no server  &#183;  no internet  &#183;  zero JS in the page</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" role="img" aria-label="Recap Studio: what changed, on one page. 40 commits become one page with the line Verdict: PASS, 49.8 KB, 0 script tags, 9.7/10. Command: npx -y github:Aboudjem/recap-studio demo">
+<title>Recap Studio: what changed, on one page. 40 commits become one page with the line Verdict: PASS, 49.8 KB, 0 script tags, 9.7/10. Command: npx -y github:Aboudjem/recap-studio demo</title>
+<rect width="1200" height="640" fill="#F7F9FF"/>
+<text x="64" y="78" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="700" fill="#2F6FE0">recap-studio</text>
+<text x="64" y="150" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="62" font-weight="800" fill="#0B1020">What changed, on one page</text>
+<rect x="64" y="196" width="170" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="214" width="130" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="232" width="190" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="250" width="110" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="268" width="160" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="286" width="140" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="304" width="180" height="10" rx="5" fill="#C3CBDD"/>
+<rect x="64" y="322" width="120" height="10" rx="5" fill="#C3CBDD"/>
+<text x="64" y="366" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" fill="#4A5670">40 commits</text>
+<path d="M284 268 H354" stroke="#2F6FE0" stroke-width="5" stroke-linecap="round"/>
+<path d="M342 254 L360 268 L342 282" stroke="#2F6FE0" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="394" y="190" width="742" height="190" rx="14" fill="#FFFFFF" stroke="#D5DCEA" stroke-width="2"/>
+<rect x="422" y="218" width="300" height="14" rx="7" fill="#2F6FE0"/>
+<rect x="422" y="248" width="460" height="10" rx="5" fill="#D5DCEA"/>
+<rect x="422" y="270" width="390" height="10" rx="5" fill="#D5DCEA"/>
+<text x="422" y="342" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="22" font-weight="600" fill="#15803D">Verdict: PASS · 49.8 KB · 0 script tags · 9.7/10</text>
+<rect x="64" y="420" width="333" height="48" rx="24" fill="#EAF1FF" stroke="#9DBBF2" stroke-width="1.5"/>
+<text x="230.5" y="451" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600" fill="#0B1020">Understand what was done</text>
+<rect x="413" y="420" width="235" height="48" rx="24" fill="#EAF1FF" stroke="#9DBBF2" stroke-width="1.5"/>
+<text x="530.5" y="451" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600" fill="#0B1020">One page to send</text>
+<rect x="664" y="420" width="321" height="48" rx="24" fill="#EAF1FF" stroke="#9DBBF2" stroke-width="1.5"/>
+<text x="824.5" y="451" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600" fill="#0B1020">Checked before you send</text>
+<text x="64" y="512" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#2A3550">Agent skills · Any MCP client · CLI · Tested: Claude Code, Codex CLI</text>
+<rect x="64" y="540" width="616" height="54" rx="10" fill="#FFFFFF" stroke="#C3CBDD" stroke-width="1.5"/>
+<text x="88" y="575" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="22" fill="#6B57E8">$</text>
+<text x="114" y="575" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="22" fill="#0B1020">npx -y github:Aboudjem/recap-studio demo</text>
 </svg>

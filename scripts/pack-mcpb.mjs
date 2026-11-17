@@ -30,7 +30,7 @@ async function manifest() {
     name: "recap-studio",
     display_name: "Recap Studio",
     version: pkg.version,
-    description: "Render one HTML page you can email or open offline, and score it first. No JavaScript, no network.",
+    description: "Render and score one HTML page that explains your work or a topic. Opens offline, no JavaScript.",
     long_description: plugin.description,
     author: { name: "Adam Boudjemaa", url: "https://github.com/Aboudjem" },
     repository: { type: "git", url: "https://github.com/Aboudjem/recap-studio" },

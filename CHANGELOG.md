@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-11-17
+
+A first screen that shows what you get. No change to how the tool behaves.
+
+### Changed
+
+- **README first screen.** It now opens with what you get: understand what was done, one page
+  to send, checked before you send. Each point has its proof and a command. A `Works with` line
+  says which agents were tested and that the writing uses your agent's model.
+- **Plain English across the README and the four translations.** Short sentences, common
+  words, and a short explanation for terms such as MCP, heuristic and Mermaid.
+- **New hero and social image.** Built by `node scripts/build-visuals.mjs` from one layout:
+  40 commits become one page, with the real demo line `Verdict: PASS · 49.8 KB · 0 script tags ·
+  9.7/10`, the three points, the agents, and the start command.
+- **Descriptions.** The plugin manifests, `package.json`, `server.json`, the `.mcpb` bundle,
+  `llms.txt`, `AGENTS.md` and the landing page now share the new one-liner.
+
 ## [0.6.2] - 2026-11-17
 
 A clearer first screen, true wording, and one hook fix.

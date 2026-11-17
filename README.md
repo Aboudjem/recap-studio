@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: one page you can email, attach to a PR, or read on a plane" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio: one page you can email, attach to a PR, or read on a plane. The image shows 40 commits that become one page, with the real line Verdict: PASS, 49.8 KB, 0 script tags, 9.7/10." src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,15 +18,23 @@
   <a href="READMEs/fr.md">Français</a>
 </p>
 
-**One page you can email, attach to a PR, or read on a plane.**
+**Understand what changed, in one page you can send.**
 
-Recap Studio turns a topic or a coding session into one HTML page you open with a double-click.
+Recap Studio makes one HTML page from your coding session or a topic.
 
-Try it now, with no clone and no install. This is real output from 2026-11-17, with the path shortened:
+| Understand what was done | One page to send | Checked before you send |
+|:--|:--|:--|
+| `/recap session` reads your git diff and commits, then writes one page. | One HTML file, 0 script tags, all CSS inside. The demo below prints both. | Seven checks score the page with no model; `--fail-under 8` refuses a weak page. |
+
+**Works with:** any agent that reads skills, and any MCP client. Tested: Claude Code, Codex CLI. The page builder needs no model, and the writing uses your agent's model.
+
+Try it now. You only need Node 20 or later.
 
 ```bash
 npx -y github:Aboudjem/recap-studio demo
 ```
+
+Real output from 2026-11-17, path shortened:
 
 ```text
 Verdict: PASS. Wrote /tmp/try/recap-latest-ai-models.html
@@ -38,19 +46,16 @@ Next:
 - Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
-<img alt="A rendered Recap Studio page: dark hero, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+<img alt="A page made by Recap Studio: dark top banner, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
-Your lead asks what changed this week. You have 40 commits, a chat log, and no page you can just send.
-Or someone asks what a topic means, and you paste ten links.
+The score checks shape, not truth, so read the sources before you share.
+
+## When to use it
+
+Your lead asks what changed this week. You have 40 commits and a chat log. You have no page to send.
+Or someone asks about a topic, and you send ten links.
 Recap Studio gives you one file instead. It has no JavaScript and makes no network request.
-
-## Why use it
-
-- **Opens anywhere.** One file, 0 script tags, all CSS inlined. The demo above prints both.
-- **Checked before you send it.** Seven offline checks score the page, with no model. Add `--fail-under 8` to refuse a weak page.
-- **Recaps your own work.** `/recap session` reads your git diff and commits and turns them into a page your team can read.
-
-The score checks shape, not truth, so read the sources first. Mermaid diagrams show as source offline; use SVG diagrams instead.
+Email it, attach it to a pull request, or open it on a plane.
 
 ## Install
 
@@ -79,7 +84,7 @@ npx -y github:Aboudjem/recap-studio render content.json
 
 In this README and the docs, `recap` is short for `npx -y github:Aboudjem/recap-studio`. The CLI prints its hints in the form you used to start it.
 
-**An MCP client.** Paste this into your client's MCP config:
+**An MCP client** (an app that calls tools over the Model Context Protocol). Paste this into its MCP config:
 
 ```json
 {
@@ -92,7 +97,7 @@ In this README and the docs, `recap` is short for `npx -y github:Aboudjem/recap-
 }
 ```
 
-The Claude Code plugin starts this server for you. Per-editor snippets are in [docs/editors.md](docs/editors.md).
+The Claude Code plugin starts this server for you. Setup for each editor is in [docs/editors.md](docs/editors.md).
 
 <details>
 <summary>Other ways in</summary>
@@ -117,8 +122,8 @@ Each release also ships `recap-studio.mcpb`, a one-file bundle for MCP clients t
 1. You ask. `/recap "<topic>"` researches a topic. `/recap session` reads your git diff and commits.
 2. Agents write the content. 13 specialist agents find sources, write a five-minute reading path, and check each claim.
 3. The agent saves the content as JSON in `artifacts/<slug>/content.json`, in your project.
-4. A checker scores it. Seven deterministic checks: structure, citations, word counts, secret scan. No model, no network.
-5. The renderer writes one file, `artifacts/<slug>/recap-<slug>.html`. All CSS is inlined.
+4. A checker scores it. Seven fixed checks give the same score each time: structure, citations, word counts, secret scan. No model, no network.
+5. The renderer writes one file, `artifacts/<slug>/recap-<slug>.html`. All CSS is inside the file.
 
 The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no dependency.
 
@@ -133,7 +138,7 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 
 | Output                 | What it is                                                                                  |
 | :--------------------- | :------------------------------------------------------------------------------------------ |
-| `recap-<slug>.html`    | One self-contained page. All CSS inlined, zero JavaScript, zero external requests.          |
+| `recap-<slug>.html`    | One page in one file. All CSS inside, zero JavaScript, zero outside requests.          |
 | `--format md` or `txt` | The same page as Markdown or plain text, for a pull request or a note.                      |
 | `--print`              | A paper version: white ground, black text, source URLs spelled out.                         |
 | `recap validate`       | A report that opens with the verdict, then up to three fixes, then seven scored dimensions. |
@@ -147,7 +152,7 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 | Codex CLI 0.169.0                   | `codex exec` called the `validate_content` MCP tool and returned the verdict                    | 2026-11-17 |
 | Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` copied all five skills into `.agents/skills/`                            | 2026-11-17 |
 
-Documented, not tested: VS Code (Copilot), Windsurf, Continue, Zed and the other agents the skills CLI supports. Snippets are in [docs/editors.md](docs/editors.md).
+Documented, not tested: VS Code (Copilot), Windsurf, Continue, Zed and the other agents the skills CLI supports. Setup steps are in [docs/editors.md](docs/editors.md).
 
 ## Proof
 
@@ -158,7 +163,7 @@ Each number below comes from a command you can run in a clone.
 | Tests pass                          | 113     | `npm run test:count` (runs `npm test`, prints the total)                          |
 | Script tags in a rendered page      | 0       | `node bin/recap.mjs demo`                                                         |
 | Demo page size                      | 49.8 KB | `node bin/recap.mjs demo`                                                         |
-| Heuristic score of the demo content | 9.7/10  | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json`               |
+| Score of the demo content           | 9.7/10  | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json`               |
 | MCP tools                           | 11      | `echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \| node bin/recap.mjs mcp` |
 
 CI runs the suite on Node 20 and 22 on every push and pull request. It also fails if a rendered page holds a `<script>` tag.
@@ -172,7 +177,7 @@ No. The CLI and the MCP server run anywhere Node 20 runs. Claude Code adds the r
 No. It has no JavaScript and no external link to load. CI checks every render for a `<script>` tag.
 
 **Is the 9.7/10 score a review by a model?**
-No. It is a set of deterministic checks over structure, citations and word counts. It does not read the sources.
+No. It is a set of fixed checks over structure, citations and word counts. They give the same score each time. They do not read the sources.
 
 **Will the hooks change my other projects?**
 No. They check the session's working folder, not the folder of the file being edited. They act only when that folder or a parent has a `recap-studio.config.*` file, a `.recap-studio/` folder, or is this repo. `RECAP_HOOKS_EVERYWHERE=1` turns them on everywhere.
@@ -182,10 +187,10 @@ It does not need it. The CLI is one file with no dependency, so `npx -y github:A
 
 ## Limits
 
-- The score is a heuristic. It checks shape, not truth. Read the sources before you share a page.
+- The score is a rough check (a heuristic). It checks shape, not truth. Read the sources before you share a page.
 - Research quality depends on your agent. The CLI renders the content you give it; it does not research.
-- Mermaid diagrams do not draw offline. The page shows their source. Use `kind: "svg"` diagrams for a fully visual page.
-- Five MCP tools are stubs. `render_page_screenshot`, `run_accessibility_scan` and `run_lighthouse_summary` answer `skipped`: no browser ships with the server. `deploy_vercel_preview` returns a command to run yourself. `send_email_draft` returns a draft.
+- Offline, Mermaid diagrams (text-based charts) show as text. Use SVG diagrams instead: `kind: "svg"`.
+- Five MCP tools do not do the full job (they are stubs). `render_page_screenshot`, `run_accessibility_scan` and `run_lighthouse_summary` answer `skipped`: no browser ships with the server. `deploy_vercel_preview` returns a command to run yourself. `send_email_draft` returns a draft.
 - The deploy and email tools never deploy or send. Deploy returns a shell command to run yourself. Email returns the draft to paste into your mail client.
 - Codex may block the write tools. In a `codex exec` run, its approval review blocked `render_recap_html`. Read tools worked.
 

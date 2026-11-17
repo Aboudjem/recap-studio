@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio : une page à envoyer par e-mail, à joindre à une PR ou à lire dans l'avion" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio : une page à envoyer par e-mail, à joindre à une pull request ou à lire dans l'avion. L'image montre 40 commits qui deviennent une page, avec la vraie ligne Verdict: PASS, 49.8 KB, 0 script tags, 9.7/10." src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,15 +18,23 @@
   <b>Français</b>
 </p>
 
-**Une page à envoyer par e-mail, à joindre à une PR ou à lire dans l'avion.**
+**Comprenez ce qui a changé, dans une page à envoyer.**
 
-Recap Studio transforme un sujet ou une session de code en une page HTML qui s'ouvre d'un double-clic.
+Recap Studio fait une page HTML à partir de votre session de code ou d'un sujet.
 
-Essayez maintenant, sans clone ni installation. Sortie réelle du 2026-11-17, chemin raccourci :
+| Comprendre ce qui a été fait | Une page à envoyer | Vérifiée avant l'envoi |
+|:--|:--|:--|
+| `/recap session` lit votre diff git et vos commits, puis écrit une page. | Un fichier HTML, 0 balise script, tout le CSS dedans. La démo ci-dessous affiche les deux. | Sept contrôles notent la page sans modèle ; `--fail-under 8` refuse une page faible. |
+
+**Compatible avec :** tout agent qui lit des skills, et tout client MCP. Testé : Claude Code, Codex CLI. Le générateur de page n'a besoin d'aucun modèle, et l'écriture utilise le modèle de votre agent.
+
+Essayez maintenant. Il vous faut seulement Node 20 ou plus récent.
 
 ```bash
 npx -y github:Aboudjem/recap-studio demo
 ```
+
+Sortie réelle du 2026-11-17, chemin raccourci :
 
 ```text
 Verdict: PASS. Wrote /tmp/try/recap-latest-ai-models.html
@@ -38,19 +46,16 @@ Next:
 - Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
-<img alt="Une page Recap Studio rendue : en-tête sombre, une réponse en une phrase et un parcours de lecture en cinq étapes" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+<img alt="Une page faite par Recap Studio : bandeau sombre en haut, une réponse en une phrase et un parcours de lecture en cinq étapes" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
-Votre lead demande ce qui a changé cette semaine. Vous avez 40 commits, un historique de chat, et aucune page à envoyer.
-Ou quelqu'un demande ce que veut dire un sujet, et vous collez dix liens.
+La note vérifie la forme, pas la vérité : lisez les sources avant de partager.
+
+## Quand l'utiliser
+
+Votre lead demande ce qui a changé cette semaine. Vous avez 40 commits et un historique de chat. Vous n'avez aucune page à envoyer.
+Ou quelqu'un pose une question sur un sujet, et vous envoyez dix liens.
 Recap Studio vous donne un seul fichier à la place. Il n'a pas de JavaScript et ne fait aucune requête réseau.
-
-## Pourquoi l'utiliser
-
-- **Elle s'ouvre partout.** Un fichier, 0 balise script, tout le CSS en ligne. La démo ci-dessus affiche les deux.
-- **Elle est vérifiée avant de partir.** Sept contrôles hors ligne notent la page, sans modèle. Ajoutez `--fail-under 8` pour refuser une page faible.
-- **Elle résume votre propre travail.** `/recap session` lit votre diff git et vos commits et en fait une page que votre équipe peut lire.
-
-La note vérifie la forme, pas la vérité : lisez d'abord les sources. Hors ligne, les diagrammes Mermaid s'affichent en code source ; utilisez des diagrammes SVG.
+Envoyez-le par e-mail, joignez-le à une pull request ou ouvrez-le dans l'avion.
 
 ## Installation
 
@@ -75,7 +80,7 @@ npx skills add Aboudjem/recap-studio
 npx -y github:Aboudjem/recap-studio render content.json
 ```
 
-**Un client MCP.** Collez ceci dans la configuration MCP de votre client :
+**Un client MCP** (une app qui appelle des outils via le Model Context Protocol). Collez ceci dans sa configuration MCP :
 
 ```json
 {
@@ -88,7 +93,7 @@ npx -y github:Aboudjem/recap-studio render content.json
 }
 ```
 
-Le plugin Claude Code démarre ce serveur pour vous. Les extraits par éditeur sont dans [docs/editors.md](../docs/editors.md).
+Le plugin Claude Code démarre ce serveur pour vous. La configuration de chaque éditeur est dans [docs/editors.md](../docs/editors.md).
 
 <details>
 <summary>Autres façons de l'installer</summary>
@@ -113,7 +118,7 @@ Chaque release fournit aussi `recap-studio.mcpb`, un bundle en un fichier pour l
 1. Vous demandez. `/recap "<topic>"` étudie un sujet. `/recap session` lit votre diff git et vos commits.
 2. Des agents écrivent le contenu. 13 agents spécialisés trouvent des sources, écrivent un parcours de cinq minutes et vérifient chaque affirmation.
 3. L'agent enregistre le contenu en JSON dans `artifacts/<slug>/content.json`, dans votre projet.
-4. Un vérificateur le note. Sept contrôles déterministes : structure, citations, nombre de mots, recherche de secrets. Ni modèle, ni réseau.
+4. Un vérificateur le note. Sept contrôles fixes donnent la même note à chaque fois : structure, citations, nombre de mots, recherche de secrets. Ni modèle, ni réseau.
 5. Le moteur de rendu écrit un seul fichier, `artifacts/<slug>/recap-<slug>.html`. Tout le CSS est intégré.
 
 La CLI et le serveur MCP sont un seul fichier versionné, `bin/recap.mjs`, sans dépendance.
@@ -129,7 +134,7 @@ La CLI et le serveur MCP sont un seul fichier versionné, `bin/recap.mjs`, sans 
 
 | Sortie | Ce que c'est |
 |:--|:--|
-| `recap-<slug>.html` | Une page autonome. Tout le CSS intégré, zéro JavaScript, zéro requête externe. |
+| `recap-<slug>.html` | Une page dans un seul fichier. Tout le CSS dedans, zéro JavaScript, zéro requête externe. |
 | `--format md` ou `txt` | La même page en Markdown ou en texte brut, pour une pull request ou une note. |
 | `--print` | Une version papier : fond blanc, texte noir, URL des sources en clair. |
 | `recap validate` | Un rapport qui commence par le verdict, puis jusqu'à trois corrections, puis sept dimensions notées. |
@@ -143,7 +148,7 @@ La CLI et le serveur MCP sont un seul fichier versionné, `bin/recap.mjs`, sans 
 | Codex CLI 0.169.0 | `codex exec` a appelé l'outil MCP `validate_content` et renvoyé le verdict | 2026-11-17 |
 | Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` a copié les cinq skills dans `.agents/skills/` | 2026-11-17 |
 
-Documentés, non testés : VS Code (Copilot), Windsurf, Continue, Zed et les autres agents pris en charge par la CLI skills. Les extraits sont dans [docs/editors.md](../docs/editors.md).
+Documentés, non testés : VS Code (Copilot), Windsurf, Continue, Zed et les autres agents pris en charge par la CLI skills. Les étapes de configuration sont dans [docs/editors.md](../docs/editors.md).
 
 ## Preuves
 
@@ -154,7 +159,7 @@ Chaque nombre ci-dessous sort d'une commande que vous pouvez lancer dans un clon
 | Tests qui passent | 113 | `npm run test:count` |
 | Balises script dans une page rendue | 0 | `node bin/recap.mjs demo` |
 | Taille de la page de démo | 49.8 KB | `node bin/recap.mjs demo` |
-| Score heuristique du contenu de démo | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
+| Score du contenu de démo | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
 | Outils MCP | 11 | `echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \| node bin/recap.mjs mcp` |
 
 La CI lance la suite sous Node 20 et 22 à chaque push et pull request. Elle échoue aussi si une page rendue contient une balise `<script>`.
@@ -168,7 +173,7 @@ Non. La CLI et le serveur MCP tournent partout où Node 20 tourne. Claude Code a
 Non. Elle n'a ni JavaScript ni lien externe à charger. La CI vérifie chaque rendu pour une balise `<script>`.
 
 **Le score 9.7/10 vient-il d'un modèle ?**
-Non. C'est un ensemble de contrôles déterministes sur la structure, les citations et le nombre de mots. Il ne lit pas les sources.
+Non. C'est un ensemble de contrôles fixes sur la structure, les citations et le nombre de mots. Ils donnent la même note à chaque fois. Ils ne lisent pas les sources.
 
 **Les hooks vont-ils modifier mes autres projets ?**
 Non. Ils regardent le dossier de travail de la session, pas le dossier du fichier modifié. Ils n'agissent que si ce dossier ou un parent contient un fichier `recap-studio.config.*`, un dossier `.recap-studio/`, ou est ce dépôt. `RECAP_HOOKS_EVERYWHERE=1` les active partout.
@@ -178,10 +183,10 @@ Ce n'est pas nécessaire. La CLI est un seul fichier sans dépendance, donc `npx
 
 ## Limites
 
-- Le score est une heuristique. Il vérifie la forme, pas la vérité. Lisez les sources avant de partager une page.
+- Le score est un contrôle approximatif (une heuristique). Il vérifie la forme, pas la vérité. Lisez les sources avant de partager une page.
 - La qualité de la recherche dépend de votre agent. La CLI rend le contenu fourni ; elle ne fait pas de recherche.
-- Les diagrammes Mermaid ne se dessinent pas hors ligne. La page montre leur source. Utilisez des diagrammes `kind: "svg"` pour une page entièrement visuelle.
-- Cinq outils MCP sont des ébauches. `render_page_screenshot`, `run_accessibility_scan` et `run_lighthouse_summary` répondent `skipped` : aucun navigateur n'est livré avec le serveur. `deploy_vercel_preview` renvoie une commande à lancer vous-même. `send_email_draft` renvoie un brouillon.
+- Hors ligne, les diagrammes Mermaid (des graphiques écrits en texte) s'affichent en texte. Utilisez plutôt des diagrammes SVG : `kind: "svg"`.
+- Cinq outils MCP ne font pas tout le travail (ce sont des ébauches). `render_page_screenshot`, `run_accessibility_scan` et `run_lighthouse_summary` répondent `skipped` : aucun navigateur n'est livré avec le serveur. `deploy_vercel_preview` renvoie une commande à lancer vous-même. `send_email_draft` renvoie un brouillon.
 - Les outils de déploiement et d'e-mail ne déploient ni n'envoient rien. Le premier renvoie une commande à lancer vous-même, le second renvoie le brouillon.
 - Codex peut bloquer les outils d'écriture. Lors d'une exécution `codex exec`, sa revue d'approbation a bloqué `render_recap_html`. Les outils de lecture ont fonctionné.
 

@@ -6,7 +6,7 @@ Guidance for AI coding agents (Codex, GitHub Copilot Workspace, Claude Code, and
 
 ## What This Project Is
 
-**Recap Studio** is a Claude Code plugin (distributed via the Aboudjem/10x marketplace) that turns a topic or your git session into one cited, dark-mode HTML explainer. The page opens with a double-click, works offline, and has no JavaScript. It ships as a hybrid architecture:
+**Recap Studio** is a Claude Code plugin (distributed via the Aboudjem/10x marketplace) that helps you understand what changed: it makes one cited, dark-mode HTML page from your coding session or a topic. The page opens with a double-click, works offline, and has no JavaScript. It ships as a hybrid architecture:
 
 - **Skills**: the user-facing slash commands (`/recap`, `/recap session`, `/recap setup`, `/recap validate`)
 - **Specialist agents**: 13 Markdown-defined agent prompts that the skill orchestrator dispatches
