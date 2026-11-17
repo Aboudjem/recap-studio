@@ -122,7 +122,7 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 |:--|:--|
 | 技能和智能体 | 在你项目的 `artifacts/` 下写文件。研究使用你的智能体自带的网页搜索（如果有）。 |
 | CLI 和 MCP 服务器 | 写出你要求的页面。不联网。共 11 个 MCP 工具，列在 [docs/mcp-tools.md](../docs/mcp-tools.md)。 |
-| 插件钩子 | 只在 recap-studio 项目中生效。在那里它们阻止写入和编辑密钥文件、破坏性 git 操作和未经检查的部署。 |
+| 插件钩子 | 只在会话运行于 recap-studio 项目中时生效（见常见问题）。在那里它们阻止破坏性 git 操作和未经检查的部署。它们还阻止写入和编辑密钥文件。范围包括 `.env` 和 `.env.*`，以及 `secrets/` 或 `private/` 下的一切。还包括 SSH 密钥（`id_rsa`、`id_ed25519`、`id_ecdsa`、`id_dsa`，带或不带 `.pub`）以及 `.pem`、`.p12`、`.pfx`、`.keystore` 和 `.key` 文件。 |
 | 部署和邮件 | 插件从不执行。MCP 部署工具返回一条命令，邮件工具返回草稿。 |
 
 ## 你会得到什么
@@ -171,7 +171,7 @@ CI 在每次 push 和 pull request 时于 Node 20 和 22 上运行测试。渲�
 不是。它是针对结构、引用和字数的一组确定性检查。它不会读取来源。
 
 **钩子会影响我的其他项目吗？**
-不会。它们只在含有 `recap-studio.config.*` 文件、`.recap-studio/` 文件夹或本仓库的文件夹中生效。设置 `RECAP_HOOKS_EVERYWHERE=1` 可在所有地方启用。
+不会。它们看的是会话的工作文件夹，而不是被编辑文件所在的文件夹。只有当该文件夹或其上级含有 `recap-studio.config.*` 文件或 `.recap-studio/` 文件夹，或者就是本仓库时，它们才生效。设置 `RECAP_HOOKS_EVERYWHERE=1` 可在所有地方启用。
 
 **为什么不把 CLI 发布到 npm？**
 没有必要。CLI 是一个没有依赖的单文件，所以 `npx -y github:Aboudjem/recap-studio` 可以直接运行它。
@@ -181,7 +181,7 @@ CI 在每次 push 和 pull request 时于 Node 20 和 22 上运行测试。渲�
 - 分数是启发式的。它检查形式，不检查真伪。分享页面前请阅读来源。
 - 研究质量取决于你的智能体。CLI 只渲染你提供的内容，不做研究。
 - Mermaid 图在离线时不会绘制。页面会显示其源码。想要完全可视化的页面，请使用 `kind: "svg"` 图。
-- 截图、无障碍和 Lighthouse 工具只是占位。由于服务器不附带浏览器，它们返回 `skipped`。
+- 五个 MCP 工具只是占位。`render_page_screenshot`、`run_accessibility_scan` 和 `run_lighthouse_summary` 返回 `skipped`：服务器不附带浏览器。`deploy_vercel_preview` 返回一条由你自己运行的命令。`send_email_draft` 返回草稿。
 - 部署和邮件工具不会部署，也不会发送。部署工具返回一条由你自己运行的命令，邮件工具返回草稿。
 - Codex 可能会阻止写入类工具。在一次 `codex exec` 运行中，它的审批检查阻止了 `render_recap_html`。读取类工具正常。
 

@@ -122,7 +122,7 @@ La CLI y el servidor MCP son un único archivo versionado, `bin/recap.mjs`, sin 
 |:--|:--|
 | Skills y agentes | Escriben archivos bajo `artifacts/` en tu proyecto. La investigación usa la búsqueda web de tu agente, si tiene una. |
 | CLI y servidor MCP | Escriben la página que pides. Ninguna llamada de red. 11 herramientas MCP, listadas en [docs/mcp-tools.md](../docs/mcp-tools.md). |
-| Hooks del plugin | Solo actúan en un proyecto recap-studio. Allí bloquean la escritura y la edición de archivos secretos, el git destructivo y los despliegues sin revisar. |
+| Hooks del plugin | Solo actúan cuando la sesión se ejecuta dentro de un proyecto recap-studio (ver las preguntas frecuentes). Allí bloquean el git destructivo y los despliegues sin revisar. También bloquean la escritura y la edición de archivos secretos. Eso incluye `.env` y `.env.*` y todo lo que esté bajo `secrets/` o `private/`. También incluye las claves SSH (`id_rsa`, `id_ed25519`, `id_ecdsa`, `id_dsa`, con o sin `.pub`) y los archivos `.pem`, `.p12`, `.pfx`, `.keystore` y `.key`. |
 | Despliegue y correo | El plugin nunca los ejecuta. La herramienta MCP de despliegue devuelve un comando; la de correo devuelve un borrador. |
 
 ## Qué obtienes
@@ -171,7 +171,7 @@ No. No tiene JavaScript ni enlaces externos que cargar. La CI revisa cada render
 No. Es un conjunto de comprobaciones deterministas sobre estructura, citas y número de palabras. No lee las fuentes.
 
 **¿Los hooks cambiarán mis otros proyectos?**
-No. Solo actúan en una carpeta con un archivo `recap-studio.config.*`, una carpeta `.recap-studio/` o este repositorio. `RECAP_HOOKS_EVERYWHERE=1` los activa en todas partes.
+No. Miran la carpeta de trabajo de la sesión, no la carpeta del archivo que se edita. Solo actúan si esa carpeta o una superior tiene un archivo `recap-studio.config.*`, una carpeta `.recap-studio/`, o es este repositorio. `RECAP_HOOKS_EVERYWHERE=1` los activa en todas partes.
 
 **¿Por qué no publicar la CLI en npm?**
 No hace falta. La CLI es un solo archivo sin dependencias, así que `npx -y github:Aboudjem/recap-studio` la ejecuta directamente.
@@ -181,7 +181,7 @@ No hace falta. La CLI es un solo archivo sin dependencias, así que `npx -y gith
 - La puntuación es una heurística. Comprueba la forma, no la verdad. Lee las fuentes antes de compartir una página.
 - La calidad de la investigación depende de tu agente. La CLI renderiza el contenido que le das; no investiga.
 - Los diagramas Mermaid no se dibujan sin conexión. La página muestra su código. Usa diagramas `kind: "svg"` para una página totalmente visual.
-- Las herramientas de captura, accesibilidad y Lighthouse son esbozos. Responden `skipped` porque el servidor no incluye un navegador.
+- Cinco herramientas MCP son esbozos. `render_page_screenshot`, `run_accessibility_scan` y `run_lighthouse_summary` responden `skipped`: el servidor no incluye un navegador. `deploy_vercel_preview` devuelve un comando para ejecutarlo usted. `send_email_draft` devuelve un borrador.
 - Las herramientas de despliegue y de correo no despliegan ni envían nada. La primera devuelve un comando para ejecutarlo usted; la segunda devuelve el borrador.
 - Codex puede bloquear las herramientas de escritura. En una ejecución de `codex exec`, su revisión de aprobación bloqueó `render_recap_html`. Las de lectura funcionaron.
 

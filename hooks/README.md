@@ -4,9 +4,15 @@ Deterministic safety + DX hooks. Each script reads the Claude Code hook
 payload from stdin and either exits 0 (allow) or exits 2 (block) per the
 official contract.
 
+Scope: the hooks check the session's working folder (`payload.cwd`), not the folder of the
+file being edited. They act only when that folder or a parent has a `recap-studio.config.*`
+file, a `.recap-studio/` folder, or is this repo (a `package.json` named `recap-studio`). The
+home folder never counts. Everywhere else they allow the call without looking at it.
+`RECAP_HOOKS_EVERYWHERE=1` turns them on everywhere. The logic is in `lib/scope.mjs`.
+
 | Hook                     | When                | Purpose                                                   |
 | ------------------------ | ------------------- | --------------------------------------------------------- |
-| `block-secret-writes`    | `PreToolUse` on Write, Edit, MultiEdit, NotebookEdit | Refuse writes and edits to `.env*`, `secrets/**`, keys, PEMs        |
+| `block-secret-writes`    | `PreToolUse` on Write, Edit, MultiEdit, NotebookEdit | Refuse writes and edits to `.env` and `.env.*`, `secrets/**`, `private/**`, SSH keys `id_rsa`, `id_ed25519`, `id_ecdsa`, `id_dsa` (and `.pub`), and `.pem`, `.p12`, `.pfx`, `.keystore`, `.key` files |
 | `block-destructive-git`  | `PreToolUse(Bash)`  | Refuse `git push`, `reset --hard`, `rebase`, `clean -fdx` |
 | `validate-before-deploy` | `PreToolUse(Bash)`  | Block `vercel --prod` unless config + confirmation        |
 | `format-after-edit`      | `PostToolUse(W/E)`  | Best-effort Prettier on the touched file                  |

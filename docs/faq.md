@@ -49,9 +49,10 @@ track and the offline single-file track render the same content through differen
 
 ## What stops it from touching my repo or my secrets?
 
-Pre-commit hooks refuse `.env*` files, PEM files, and key-shaped paths, and they refuse
-`push --force`, `reset --hard`, `rebase`, and `clean -fdx`. A CI job smoke-tests those hooks on
-every push. See [security-and-privacy.md](security-and-privacy.md) and
+The plugin's Claude Code hooks refuse writes to `.env*` files, `secrets/` and `private/` folders,
+SSH keys, and `.pem`, `.p12`, `.pfx`, `.keystore` and `.key` files. They also refuse `git push`,
+`reset --hard`, `rebase` and `clean -fdx`. They act only when the session's working folder is
+inside a recap-studio project. A CI job smoke-tests those hooks on every push. See [security-and-privacy.md](security-and-privacy.md) and
 [../hooks/README.md](../hooks/README.md).
 
 ## Can I turn an existing Markdown file into a page?

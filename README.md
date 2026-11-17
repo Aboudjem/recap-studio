@@ -126,7 +126,7 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 | :----------------- | :----------------------------------------------------------------------------------------------------------- |
 | Skills and agents  | Write files under `artifacts/` in your project. Research uses your agent's own web search, when it has one.                    |
 | CLI and MCP server | Write the page you ask for. No network call. 11 MCP tools, listed in [docs/mcp-tools.md](docs/mcp-tools.md). |
-| Plugin hooks       | Act only in a recap-studio project. They block writes and edits to secret files, destructive git and unchecked deploys there. |
+| Plugin hooks       | Act only when the session runs inside a recap-studio project (see the FAQ). There they block destructive git and unchecked deploys. They also block writes and edits to secret files. That means `.env` and `.env.*` and anything under `secrets/` or `private/`. It also means SSH key files (`id_rsa`, `id_ed25519`, `id_ecdsa`, `id_dsa`, with or without `.pub`) and `.pem`, `.p12`, `.pfx`, `.keystore` and `.key` files. |
 | Deploy and email   | Never run by the plugin. The MCP deploy tool returns a command to run yourself. The email tool returns a draft.  |
 
 ## What you get
@@ -175,7 +175,7 @@ No. It has no JavaScript and no external link to load. CI checks every render fo
 No. It is a set of deterministic checks over structure, citations and word counts. It does not read the sources.
 
 **Will the hooks change my other projects?**
-No. They act only in a folder with a `recap-studio.config.*` file, a `.recap-studio/` folder, or this repo. `RECAP_HOOKS_EVERYWHERE=1` turns them on everywhere.
+No. They check the session's working folder, not the folder of the file being edited. They act only when that folder or a parent has a `recap-studio.config.*` file, a `.recap-studio/` folder, or is this repo. `RECAP_HOOKS_EVERYWHERE=1` turns them on everywhere.
 
 **Why not publish the CLI to npm?**
 It does not need it. The CLI is one file with no dependency, so `npx -y github:Aboudjem/recap-studio` runs it directly.
@@ -185,7 +185,7 @@ It does not need it. The CLI is one file with no dependency, so `npx -y github:A
 - The score is a heuristic. It checks shape, not truth. Read the sources before you share a page.
 - Research quality depends on your agent. The CLI renders the content you give it; it does not research.
 - Mermaid diagrams do not draw offline. The page shows their source. Use `kind: "svg"` diagrams for a fully visual page.
-- Five MCP tools are stubs. Screenshot, accessibility and Lighthouse answer `skipped`: no browser ships with the server.
+- Five MCP tools are stubs. `render_page_screenshot`, `run_accessibility_scan` and `run_lighthouse_summary` answer `skipped`: no browser ships with the server. `deploy_vercel_preview` returns a command to run yourself. `send_email_draft` returns a draft.
 - The deploy and email tools never deploy or send. Deploy returns a shell command to run yourself. Email returns the draft to paste into your mail client.
 - Codex may block the write tools. In a `codex exec` run, its approval review blocked `render_recap_html`. Read tools worked.
 
