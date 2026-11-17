@@ -229,3 +229,33 @@ test("isInside refuses the root itself, parents and siblings", () => {
   assert.equal(isInside("/p/app", "/p/other/a.ts"), false);
   assert.equal(isInside("/p/app", "../other/a.ts", "/p/app"), false);
 });
+
+test("block-secret-writes allows macOS temp paths but still blocks secret files in them", () => {
+  const dir = scratch("config");
+  try {
+    const write = (file_path) => run("block-secret-writes", dir, { file_path }).status;
+    // Ordinary temp paths: the system's /private prefix is not a secret folder.
+    for (const p of [
+      "/private/tmp/recap/out.html",
+      "/private/var/folders/xy/T/recap/content.json",
+      "/tmp/recap/out.html",
+    ])
+      assert.equal(write(p), 0, `${p} is allowed`);
+    // Real secret files stay blocked, in a temp folder or not.
+    for (const p of [
+      "/private/tmp/recap/.env",
+      "/private/tmp/recap/.env.local",
+      "/private/tmp/recap/server.pem",
+      "/private/tmp/recap/tls.key",
+      "/private/tmp/recap/id_ed25519",
+      "/private/var/folders/xy/T/cert.p12",
+      "/private/tmp/recap/secrets/token.txt",
+      "/private/tmp/recap/private/notes.md",
+      "/private/etc/app.conf",
+      "/Users/me/app/.env",
+    ])
+      assert.equal(write(p), 2, `${p} is blocked`);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

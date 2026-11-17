@@ -36,7 +36,7 @@ test("recap --version prints a version", () => {
 test("recap --help shows usage", () => {
   const { stdout } = run(["--help"]);
   assert.match(stdout, /USAGE/);
-  assert.match(stdout, /recap render/);
+  assert.match(stdout, / render <content.json>/);
 });
 
 test("recap render produces a self-contained HTML file", () => {

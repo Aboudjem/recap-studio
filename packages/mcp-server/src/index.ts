@@ -3,11 +3,11 @@
  *
  * Optional local MCP server. The plugin is fully functional without it; the
  * server exposes nice-to-have tools (artifact store, source cache, diagram
- * renderer, screenshot, a11y/lighthouse summaries, Vercel preview helper,
- * email draft helper).
+ * renderer, and stubs for screenshot, a11y, lighthouse, Vercel preview and
+ * email draft).
  *
- * Side-effect tools (deploy, email) refuse to run unless config + env are
- * present AND the caller passes `confirmed: true`.
+ * No tool deploys or sends email. The deploy stub returns the shell command
+ * to run yourself; the email stub returns the draft.
  *
  * MCP transport is intentionally minimal: a JSON-RPC line-delimited reader
  * over stdio that answers `initialize`, `ping`, `tools/list` and `tools/call`.
@@ -21,7 +21,7 @@ import { createInterface } from "node:readline";
 import { tools, type ToolCall } from "./tools.js";
 
 /** Reported in `initialize`. Kept equal to the repo version by a test. */
-export const SERVER_VERSION = "0.6.0";
+export const SERVER_VERSION = "0.6.1";
 
 /** Protocol revisions this server speaks, newest first. */
 const PROTOCOL_VERSIONS = ["2025-06-18", "2025-03-26", "2024-11-05"];

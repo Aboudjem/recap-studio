@@ -33,8 +33,8 @@ Page: 49.8 KB, 0 script tags, all CSS inlined. Score: 9.7/10, 0 blocker(s).
 
 Next:
 - Open the file with a double-click. It works offline.
-- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.
-- Score it before you send it: `recap validate content.json --fail-under 8`.
+- Make your own: `npx -y github:Aboudjem/recap-studio example -o content.json`, edit it, then `npx -y github:Aboudjem/recap-studio render content.json`.
+- Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
 <img alt="Recap Studio 渲染出的页面：深色头图、一句话答案和五步阅读路径" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
@@ -110,7 +110,7 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 | 技能和智能体 | 在你项目的 `artifacts/` 下写文件。研究使用你的智能体自带的网页搜索（如果有）。 |
 | CLI 和 MCP 服务器 | 写出你要求的页面。不联网。共 11 个 MCP 工具，列在 [docs/mcp-tools.md](../docs/mcp-tools.md)。 |
 | 插件钩子 | 只在 recap-studio 项目中生效。在那里它们阻止写入密钥、破坏性 git 操作和未经检查的部署。 |
-| 部署和邮件 | 默认关闭。需要配置开启、密钥，以及你的明确同意。 |
+| 部署和邮件 | 插件从不执行。MCP 部署工具返回一条命令，邮件工具返回草稿。 |
 
 ## 你会得到什么
 
@@ -138,7 +138,7 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 
 | 论断 | 数字 | 命令 |
 |:--|:--|:--|
-| 通过的测试 | 105 | `npm test 2>&1 \| grep -E "^# tests\|Tests "` |
+| 通过的测试 | 109 | `npm run test:count` |
 | 渲染页面中的 script 标签 | 0 | `node bin/recap.mjs demo` |
 | 演示页面大小 | 49.8 KB | `node bin/recap.mjs demo` |
 | 演示内容的启发式分数 | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
@@ -169,6 +169,7 @@ CI 在每次 push 和 pull request 时于 Node 20 和 22 上运行测试。渲�
 - 研究质量取决于你的智能体。CLI 只渲染你提供的内容，不做研究。
 - Mermaid 图在离线时不会绘制。页面会显示其源码。想要完全可视化的页面，请使用 `kind: "svg"` 图。
 - 截图、无障碍和 Lighthouse 工具只是占位。由于服务器不附带浏览器，它们返回 `skipped`。
+- 部署和邮件工具不会部署，也不会发送。部署工具返回一条由你自己运行的命令，邮件工具返回草稿。
 - Codex 可能会阻止写入类工具。在一次 `codex exec` 运行中，它的审批检查阻止了 `render_recap_html`。读取类工具正常。
 
 ## 了解更多

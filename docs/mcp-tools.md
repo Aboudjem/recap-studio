@@ -6,6 +6,8 @@ The Recap Studio MCP server exposes 11 tools over stdio. Start it with `node bin
 
 No tool makes a network call. Three tools write files, all inside the working directory.
 
+Five tools are stubs: the screenshot, accessibility and Lighthouse tools answer `skipped`, the deploy tool returns a command to run yourself, and the email tool returns a draft. None of them deploys or sends.
+
 | Tool | Arguments | What it does | Side effect |
 | --- | --- | --- | --- |
 | `create_run_artifact` | `slug`, `filename`, `content` | Persist a Recap Studio artifact under artifacts/<slug>/<filename>. Use for generated content JSON, diagrams, reports. | Writes one file under `artifacts/` in the working directory. |
@@ -15,8 +17,8 @@ No tool makes a network call. Three tools write files, all inside the working di
 | `render_page_screenshot` | `url`, `outPath` | (scaffold) Render a screenshot of the given URL using Playwright. Disabled until Playwright is installed locally. | None. Always answers `skipped`: no browser ships with the server. |
 | `run_accessibility_scan` | `url` (optional), `htmlPath` (optional) | (scaffold) Run an axe-core scan against a URL or local HTML snapshot. Disabled until axe is installed. | None. Always answers `skipped`: no scanner ships with the server. |
 | `run_lighthouse_summary` | `url` | (scaffold) Run a Lighthouse summary. Disabled until lighthouse is installed locally. | None. Always answers `skipped`: Lighthouse does not ship with the server. |
-| `deploy_vercel_preview` | `confirmed` | Deploy the recap-web app as a Vercel preview. Refuses unless confirmed: true and VERCEL_TOKEN is set. | None. It never deploys. With `confirmed: true` and `VERCEL_TOKEN` it names the script to run yourself. |
-| `send_email_draft` | `to`, `subject`, `body`, `confirmed` | Compose an email draft for the latest Recap. Refuses to send unless confirmed: true and RESEND_API_KEY is set. | None. It never sends. It returns a draft preview. |
+| `deploy_vercel_preview` | `confirmed` | (stub) Never deploys. Checks that confirmed: true and VERCEL_TOKEN are set, then returns the shell command that deploys a Vercel preview, for you to run yourself. | None. Stub: it never deploys. With `confirmed: true` and `VERCEL_TOKEN` it returns `bash scripts/deploy-preview.sh`, a script in a recap-studio checkout, to run yourself. |
+| `send_email_draft` | `to`, `subject`, `body`, `confirmed` | (stub) Never sends email. Returns the draft (to, subject, first 200 characters of the body) for you to paste into your mail client. | None. Stub: it never sends. It returns the draft and says to paste it into your mail client. Recap Studio ships no send code. |
 | `validate_content` | `slug`, `path` (optional) | Run the deterministic validation suite against a content JSON and return a Markdown report, verdict first. Reads artifacts/<slug>/content.json, or the optional path. | None. Reads the content JSON. |
 | `render_recap_html` | `slug`, `path` (optional), `theme` (optional) | Render a RecapPageContent JSON into ONE self-contained, dark-mode HTML file: inlined CSS, zero JavaScript, opens with a double-click offline. Reads artifacts/<slug>/content.json (or the optional path) and writes artifacts/<slug>/recap-<slug>.html. Works in any project and any MCP client. | Writes `artifacts/<slug>/recap-<slug>.html`. |
 

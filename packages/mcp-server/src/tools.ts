@@ -290,7 +290,7 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
   {
     name: "deploy_vercel_preview",
     description:
-      "Deploy the recap-web app as a Vercel preview. Refuses unless confirmed: true and VERCEL_TOKEN is set.",
+      "(stub) Never deploys. Checks that confirmed: true and VERCEL_TOKEN are set, then returns the shell command that deploys a Vercel preview, for you to run yourself.",
     input: DeployVercelPreview,
     inputSchema: {
       type: "object",
@@ -309,14 +309,15 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
       // user's shell where they can audit it.
       return {
         ok: true,
-        next: "run `bash scripts/deploy-preview.sh` from the repo root",
+        deployed: false,
+        next: "run `bash scripts/deploy-preview.sh` from the root of a recap-studio checkout",
       };
     },
   },
   {
     name: "send_email_draft",
     description:
-      "Compose an email draft for the latest Recap. Refuses to send unless confirmed: true and RESEND_API_KEY is set.",
+      "(stub) Never sends email. Returns the draft (to, subject, first 200 characters of the body) for you to paste into your mail client.",
     input: SendEmailDraft,
     inputSchema: {
       type: "object",
@@ -329,16 +330,18 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
       required: ["to", "subject", "body", "confirmed"],
     },
     handler: ({ to, subject, body, confirmed }) => {
-      if (!confirmed) {
-        return { ok: false, draftOnly: true, to, subject, preview: body.slice(0, 200) };
-      }
-      if (!process.env.RESEND_API_KEY) {
-        return { ok: false, reason: "RESEND_API_KEY missing in env" };
-      }
-      // Real send is left to the deploy script after a /recap setup pass.
+      // Recap Studio ships no send code. Whatever `confirmed` says, the answer
+      // is the draft and the next step, never a sent message.
       return {
-        ok: true,
-        nextStep: "scripts/send-email.sh implements the actual send when wired up",
+        ok: false,
+        sent: false,
+        draftOnly: true,
+        to,
+        subject,
+        preview: body.slice(0, 200),
+        nextStep: confirmed
+          ? "Recap Studio does not send email. Paste this draft into your mail client and send it there."
+          : "Draft only. Recap Studio does not send email; paste the draft into your mail client.",
       };
     },
   },

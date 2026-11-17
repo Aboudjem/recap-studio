@@ -20,14 +20,14 @@
  * bundle and `npx github:Aboudjem/recap-studio` all run.
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
-import { dirname, resolve, basename } from "node:path";
+import { dirname, resolve, basename, relative } from "node:path";
 import { runServer } from "@recap-studio/mcp-server";
 import { renderFromJson, serializeFromJson } from "@recap-studio/html-renderer";
 import { parseRecapPageContent } from "@recap-studio/content-pipeline";
 import { runValidation, reportMarkdown, reportJson, reportPasses } from "@recap-studio/validation";
 
 /** Kept equal to the repo version by a test. */
-const VERSION = "0.6.0";
+const VERSION = "0.6.1";
 
 /** The bundler inlines the example content here. Unbundled, it is read from the repo. */
 declare const __RECAP_EXAMPLE__: string | undefined;
@@ -37,18 +37,40 @@ function exampleContent(): string {
   return readFileSync(new URL("../../../fixtures/topics/latest-ai-models.json", import.meta.url), "utf8");
 }
 
+/**
+ * The command the user typed to start this CLI, so every hint we print can be
+ * pasted back as is. An npx user has no `recap` on PATH, so a hint that says
+ * `recap render` would fail for them.
+ */
+function invocation(scriptPath: string = process.argv[1] ?? "", cwd: string = process.cwd()): string {
+  const p = scriptPath.replace(/\\/g, "/");
+  if (p.includes("/_npx/")) return "npx -y github:Aboudjem/recap-studio";
+  const base = p.split("/").pop() ?? "";
+  if (base === "recap" || base === "recap-studio") return base;
+  const rel = relative(cwd, scriptPath);
+  const shown = rel && !rel.startsWith("..") ? rel : scriptPath;
+  return `node ${/\s/.test(shown) ? JSON.stringify(shown) : shown}`;
+}
+
+const SELF = invocation();
+
 const HELP = `recap ${VERSION}: self-contained dark-mode explainer pages.
 
 USAGE
-  recap demo [-o out.html]                Render the built-in example and score it.
-                                          The first page, with no input and no network.
-  recap example [-o content.json]         Write the built-in example content JSON,
-                                          a starting point to edit (default: stdout)
-  recap render <content.json> [options]   Render to HTML, Markdown or plain text
-  recap validate <content.json> [options] Score content with the deterministic checks
-  recap mcp                               Serve the MCP tools over stdio
-  recap --help                            Show this help
-  recap --version                         Print version
+  ${SELF} demo [-o out.html]
+      Render the built-in example and score it.
+      The first page, with no input and no network.
+  ${SELF} example [-o content.json]
+      Write the built-in example content JSON, a starting point to edit
+      (default: stdout).
+  ${SELF} render <content.json> [options]
+      Render to HTML, Markdown or plain text.
+  ${SELF} validate <content.json> [options]
+      Score content with the deterministic checks.
+  ${SELF} mcp
+      Serve the MCP tools over stdio.
+  ${SELF} --help | --version
+      Show this help, or print the version.
 
 RENDER OPTIONS
   -o, --out <file>      Output path (default: <content-basename>.<ext>)
@@ -148,7 +170,7 @@ const EXT: Record<string, string> = { html: ".html", md: ".md", txt: ".txt" };
 function cmdRender(args: string[]): void {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
-  if (!input) fail("render needs a content JSON path. See `recap --help`.", 2);
+  if (!input) fail(`render needs a content JSON path. See \`${SELF} --help\`.`, 2);
 
   const format = typeof flags.format === "string" && flags.format ? flags.format : "html";
   if (!EXT[format]) fail(`--format must be html|md|txt (got "${format}")`, 2);
@@ -192,7 +214,7 @@ const HONESTY_NOTE =
 function cmdValidate(args: string[]): void {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
-  if (!input) fail("validate needs a content JSON path. See `recap --help`.", 2);
+  if (!input) fail(`validate needs a content JSON path. See \`${SELF} --help\`.`, 2);
   const asJson = flags.json === true;
   const failUnder = parseFailUnder(flags.failUnder);
   let content;
@@ -234,7 +256,7 @@ function cmdExample(args: string[]): void {
     mkdirSync(dirname(out), { recursive: true });
     writeFileSync(out, body, "utf8");
     process.stdout.write(
-      `recap: wrote ${out}\nNext: edit it, then run \`recap validate ${flags.out}\` and \`recap render ${flags.out}\`.\n`,
+      `recap: wrote ${out}\nNext: edit it, then run \`${SELF} validate ${flags.out}\` and \`${SELF} render ${flags.out}\`.\n`,
     );
     return;
   }
@@ -263,8 +285,8 @@ function cmdDemo(args: string[]): void {
       "",
       "Next:",
       "- Open the file with a double-click. It works offline.",
-      "- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.",
-      "- Score it before you send it: `recap validate content.json --fail-under 8`.",
+      `- Make your own: \`${SELF} example -o content.json\`, edit it, then \`${SELF} render content.json\`.`,
+      `- Score it before you send it: \`${SELF} validate content.json --fail-under 8\`.`,
       "",
     ].join("\n"),
   );
@@ -285,7 +307,7 @@ async function main(argv: string[]): Promise<void> {
   if (cmd === "demo") return cmdDemo(rest);
   if (cmd === "example") return cmdExample(rest);
   if (cmd === "mcp") return runServer();
-  fail(`unknown command "${cmd}". See \`recap --help\`.`, 2);
+  fail(`unknown command "${cmd}". See \`${SELF} --help\`.`, 2);
 }
 
 void main(process.argv.slice(2));

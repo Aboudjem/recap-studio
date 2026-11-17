@@ -33,8 +33,8 @@ Page: 49.8 KB, 0 script tags, all CSS inlined. Score: 9.7/10, 0 blocker(s).
 
 Next:
 - Open the file with a double-click. It works offline.
-- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.
-- Score it before you send it: `recap validate content.json --fail-under 8`.
+- Make your own: `npx -y github:Aboudjem/recap-studio example -o content.json`, edit it, then `npx -y github:Aboudjem/recap-studio render content.json`.
+- Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
 <img alt="Une page Recap Studio rendue : en-tête sombre, une réponse en une phrase et un parcours de lecture en cinq étapes" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
@@ -110,7 +110,7 @@ La CLI et le serveur MCP sont un seul fichier versionné, `bin/recap.mjs`, sans 
 | Skills et agents | Écrivent des fichiers sous `artifacts/` dans votre projet. La recherche utilise la recherche web de votre agent, s'il en a une. |
 | CLI et serveur MCP | Écrivent la page demandée. Aucun appel réseau. 11 outils MCP, listés dans [docs/mcp-tools.md](../docs/mcp-tools.md). |
 | Hooks du plugin | N'agissent que dans un projet recap-studio. Ils y bloquent l'écriture de secrets, le git destructif et les déploiements non vérifiés. |
-| Déploiement et e-mail | Désactivés. Il faut une option dans la config, une clé et votre accord explicite. |
+| Déploiement et e-mail | Jamais lancés par le plugin. L'outil MCP de déploiement renvoie une commande ; celui d'e-mail renvoie un brouillon. |
 
 ## Ce que vous obtenez
 
@@ -138,7 +138,7 @@ Chaque nombre ci-dessous sort d'une commande que vous pouvez lancer dans un clon
 
 | Affirmation | Nombre | Commande |
 |:--|:--|:--|
-| Tests qui passent | 105 | `npm test 2>&1 \| grep -E "^# tests\|Tests "` |
+| Tests qui passent | 109 | `npm run test:count` |
 | Balises script dans une page rendue | 0 | `node bin/recap.mjs demo` |
 | Taille de la page de démo | 49.8 KB | `node bin/recap.mjs demo` |
 | Score heuristique du contenu de démo | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
@@ -169,6 +169,7 @@ Ce n'est pas nécessaire. La CLI est un seul fichier sans dépendance, donc `npx
 - La qualité de la recherche dépend de votre agent. La CLI rend le contenu fourni ; elle ne fait pas de recherche.
 - Les diagrammes Mermaid ne se dessinent pas hors ligne. La page montre leur source. Utilisez des diagrammes `kind: "svg"` pour une page entièrement visuelle.
 - Les outils capture d'écran, accessibilité et Lighthouse sont des ébauches. Ils répondent `skipped` car aucun navigateur n'est livré avec le serveur.
+- Les outils de déploiement et d'e-mail ne déploient ni n'envoient rien. Le premier renvoie une commande à lancer vous-même, le second renvoie le brouillon.
 - Codex peut bloquer les outils d'écriture. Lors d'une exécution `codex exec`, sa revue d'approbation a bloqué `render_recap_html`. Les outils de lecture ont fonctionné.
 
 ## En savoir plus

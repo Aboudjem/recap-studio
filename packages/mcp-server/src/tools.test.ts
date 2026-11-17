@@ -46,6 +46,42 @@ describe("MCP tool registry", () => {
     assert.equal(res.draftOnly, true);
   });
 
+  it("never sends email, even when confirmed and a key is set", async () => {
+    const tool = tools.find((t) => t.name === "send_email_draft")!;
+    const before = process.env.RESEND_API_KEY;
+    process.env.RESEND_API_KEY = "re_test_not_a_real_key";
+    try {
+      const res = (await tool.handler({
+        to: "x@example.com",
+        subject: "x",
+        body: "y",
+        confirmed: true,
+      } as never)) as { ok: boolean; sent: boolean; draftOnly: boolean; nextStep: string };
+      assert.equal(res.sent, false);
+      assert.equal(res.draftOnly, true);
+      assert.doesNotMatch(res.nextStep, /send-email\.sh/);
+      assert.doesNotMatch(tool.description, /refuses to send unless/i);
+    } finally {
+      if (before === undefined) delete process.env.RESEND_API_KEY;
+      else process.env.RESEND_API_KEY = before;
+    }
+  });
+
+  it("never deploys: with confirmation and a token it only names the command", async () => {
+    const tool = tools.find((t) => t.name === "deploy_vercel_preview")!;
+    const before = process.env.VERCEL_TOKEN;
+    process.env.VERCEL_TOKEN = "not_a_real_token";
+    try {
+      const res = (await tool.handler({ confirmed: true } as never)) as { deployed: boolean; next: string };
+      assert.equal(res.deployed, false);
+      assert.match(res.next, /scripts\/deploy-preview\.sh/);
+      assert.match(tool.description, /never deploys/i);
+    } finally {
+      if (before === undefined) delete process.env.VERCEL_TOKEN;
+      else process.env.VERCEL_TOKEN = before;
+    }
+  });
+
   it("validates mermaid diagram type prefix", async () => {
     const tool = tools.find((t) => t.name === "generate_mermaid_diagram")!;
     await assert.rejects(

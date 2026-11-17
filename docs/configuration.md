@@ -55,6 +55,9 @@ All optional. See `.env.example` for the canonical list.
 
 ## Email
 
+Recap Studio ships no code that sends email. The `send_email_draft` MCP tool only returns a draft.
+The settings below guide an agent that you ask to send a recap through Resend yourself.
+
 Email is **off by default**. Set `emailMode` to `"draft"` or
 `"send-with-confirmation"` in `recap-studio.config.ts` and set
 `RESEND_API_KEY` in your shell.

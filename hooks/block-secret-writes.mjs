@@ -21,7 +21,22 @@ const SECRET_GLOBS = [
   /\.p12$/i,
   /\.pfx$/i,
   /\.keystore$/i,
+  /\.key$/i,
 ];
+
+/**
+ * macOS keeps temp folders under /private (/private/tmp, /private/var/folders).
+ * That "private" belongs to the system, not to a secret folder, so drop it and
+ * check the rest of the path. A .env or a key file in a temp folder still blocks.
+ */
+function secretPathToCheck(target) {
+  return target.replace(/^\/private(?=\/(tmp|var)\/)/, "");
+}
+
+function isSecretPath(target) {
+  const rest = secretPathToCheck(target);
+  return SECRET_GLOBS.some((re) => re.test(rest));
+}
 
 function readPayload() {
   try {
@@ -40,9 +55,7 @@ const target = input.file_path ?? input.target_path ?? input.path ?? "";
 if (!target) process.exit(0);
 
 const allow = process.env.RECAP_ALLOW_SECRET_WRITE === "1";
-// macOS temp dirs live under /private/tmp, which is not a secret location.
-const isTempDir = target.startsWith("/private/tmp/");
-const blocked = !isTempDir && SECRET_GLOBS.some((re) => re.test(target));
+const blocked = isSecretPath(target);
 
 if (blocked && !allow) {
   process.stderr.write(

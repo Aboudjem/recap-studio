@@ -33,8 +33,8 @@ Page: 49.8 KB, 0 script tags, all CSS inlined. Score: 9.7/10, 0 blocker(s).
 
 Next:
 - Open the file with a double-click. It works offline.
-- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.
-- Score it before you send it: `recap validate content.json --fail-under 8`.
+- Make your own: `npx -y github:Aboudjem/recap-studio example -o content.json`, edit it, then `npx -y github:Aboudjem/recap-studio render content.json`.
+- Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
 <img alt="A rendered Recap Studio page: dark hero, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
@@ -50,6 +50,8 @@ claude plugin install recap-studio@10x
 
 Then type `/recap "What is React Server Components"` in any project.
 
+`claude plugin list` may show "The packages it lists were not installed". It is harmless: the plugin runs from one bundled file and needs no packages.
+
 **Any other agent.** The five skills install with the skills CLI:
 
 ```bash
@@ -61,6 +63,8 @@ npx skills add Aboudjem/recap-studio
 ```bash
 npx -y github:Aboudjem/recap-studio render content.json
 ```
+
+In this README and the docs, `recap` is short for `npx -y github:Aboudjem/recap-studio`. The CLI prints its hints in the form you used to start it.
 
 **An MCP client.** Paste this into your client's MCP config:
 
@@ -110,7 +114,7 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 | Skills and agents  | Write files under `artifacts/` in your project. Research uses your agent's own web search, when it has one.                    |
 | CLI and MCP server | Write the page you ask for. No network call. 11 MCP tools, listed in [docs/mcp-tools.md](docs/mcp-tools.md). |
 | Plugin hooks       | Act only in a recap-studio project. They block secret writes, destructive git and unchecked deploys there.   |
-| Deploy and email   | Off. They need a config opt-in, a key, and your explicit yes.                                                |
+| Deploy and email   | Never run by the plugin. The MCP deploy tool returns a command to run yourself. The email tool returns a draft.  |
 
 ## What you get
 
@@ -138,7 +142,7 @@ Each number below comes from a command you can run in a clone.
 
 | Claim                               | Number  | Command                                                                           |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------------- |
-| Tests pass                          | 105     | `npm test 2>&1 \| grep -E "^# tests\|Tests "`                                     |
+| Tests pass                          | 109     | `npm run test:count` (runs `npm test`, prints the total)                          |
 | Script tags in a rendered page      | 0       | `node bin/recap.mjs demo`                                                         |
 | Demo page size                      | 49.8 KB | `node bin/recap.mjs demo`                                                         |
 | Heuristic score of the demo content | 9.7/10  | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json`               |
@@ -168,7 +172,8 @@ It does not need it. The CLI is one file with no dependency, so `npx -y github:A
 - The score is a heuristic. It checks shape, not truth. Read the sources before you share a page.
 - Research quality depends on your agent. The CLI renders the content you give it; it does not research.
 - Mermaid diagrams do not draw offline. The page shows their source. Use `kind: "svg"` diagrams for a fully visual page.
-- Screenshot, accessibility and Lighthouse tools are stubs. They answer `skipped` because no browser ships with the server.
+- Five MCP tools are stubs. Screenshot, accessibility and Lighthouse answer `skipped`: no browser ships with the server.
+- The deploy and email tools never deploy or send. Deploy returns a shell command to run yourself. Email returns the draft to paste into your mail client.
 - Codex may block the write tools. In a `codex exec` run, its approval review blocked `render_recap_html`. Read tools worked.
 
 ## Learn more

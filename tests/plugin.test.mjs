@@ -165,6 +165,33 @@ test("recap example writes a starter file and refuses to overwrite it", () => {
   }
 });
 
+test("printed hints name a command the user can paste back", () => {
+  // An npx user has no `recap` on PATH. The hints must repeat how the CLI was started.
+  const base = realpathSync(mkdtempSync(join(tmpdir(), "recap-hints-")));
+  try {
+    const cases = [
+      [join(base, "_npx", "abc", "node_modules", ".bin", "recap-studio"), "npx -y github:Aboudjem/recap-studio"],
+      [join(base, "bin", "recap"), "recap"],
+      [join(base, "bin", "recap.mjs"), "node bin/recap.mjs"],
+    ];
+    for (const [script, self] of cases) {
+      mkdirSync(dirname(script), { recursive: true });
+      cpSync(join(root, "bin/recap.mjs"), script);
+      const demo = node([script, "demo", "-o", "out.html"], { cwd: base });
+      assert.equal(demo.status, 0, demo.stderr);
+      assert.ok(demo.stdout.includes("`" + self + " example -o content.json`"), demo.stdout);
+      assert.ok(demo.stdout.includes("`" + self + " render content.json`"), demo.stdout);
+      assert.ok(demo.stdout.includes("`" + self + " validate content.json --fail-under 8`"), demo.stdout);
+      const help = node([script, "--help"], { cwd: base });
+      assert.ok(help.stdout.includes("  " + self + " render <content.json>"), help.stdout);
+      const bad = node([script, "nope"], { cwd: base });
+      assert.ok(bad.stderr.includes("`" + self + " --help`"), bad.stderr);
+    }
+  } finally {
+    rmSync(base, { recursive: true, force: true });
+  }
+});
+
 test("every manifest carries the same version", () => {
   const v = json("package.json").version;
   for (const p of [

@@ -33,8 +33,8 @@ Page: 49.8 KB, 0 script tags, all CSS inlined. Score: 9.7/10, 0 blocker(s).
 
 Next:
 - Open the file with a double-click. It works offline.
-- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.
-- Score it before you send it: `recap validate content.json --fail-under 8`.
+- Make your own: `npx -y github:Aboudjem/recap-studio example -o content.json`, edit it, then `npx -y github:Aboudjem/recap-studio render content.json`.
+- Score it before you send it: `npx -y github:Aboudjem/recap-studio validate content.json --fail-under 8`.
 ```
 
 <img alt="Recap Studio で生成したページ: ダークなヒーロー、一文の答え、5 ステップの読み順" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
@@ -110,7 +110,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 | スキルとエージェント | プロジェクト内の `artifacts/` にファイルを書きます。調査にはエージェント自身の Web 検索を使います（ある場合）。 |
 | CLI と MCP サーバー | 依頼されたページを書きます。ネットワーク通信なし。MCP ツールは 11 個で、[docs/mcp-tools.md](../docs/mcp-tools.md) に一覧があります。 |
 | プラグインのフック | recap-studio プロジェクト内でのみ動作します。そこではシークレットの書き込み、破壊的な git、未確認のデプロイを止めます。 |
-| デプロイとメール | オフです。設定での有効化、キー、そしてあなたの明示的な許可が必要です。 |
+| デプロイとメール | プラグインは実行しません。MCP のデプロイツールはコマンドを返し、メールツールは下書きを返します。 |
 
 ## 得られるもの
 
@@ -138,7 +138,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 
 | 主張 | 数値 | コマンド |
 |:--|:--|:--|
-| 成功するテスト | 105 | `npm test 2>&1 \| grep -E "^# tests\|Tests "` |
+| 成功するテスト | 109 | `npm run test:count` |
 | 生成ページ内の script タグ | 0 | `node bin/recap.mjs demo` |
 | デモページのサイズ | 49.8 KB | `node bin/recap.mjs demo` |
 | デモ内容のヒューリスティックスコア | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
@@ -169,6 +169,7 @@ CI は push とプルリクエストのたびに Node 20 と 22 でテストを�
 - 調査の質はエージェント次第です。CLI は渡された内容を描画するだけで、調査はしません。
 - Mermaid 図はオフラインでは描画されません。ページにはソースが表示されます。完全に視覚的なページには `kind: "svg"` の図を使ってください。
 - スクリーンショット、アクセシビリティ、Lighthouse のツールは未実装です。サーバーにブラウザが含まれないため `skipped` を返します。
+- デプロイとメールのツールは、デプロイも送信もしません。デプロイは自分で実行するコマンドを返し、メールは下書きを返します。
 - Codex は書き込みツールをブロックすることがあります。`codex exec` の実行では承認レビューが `render_recap_html` をブロックしました。読み取りツールは動きました。
 
 ## 詳しく

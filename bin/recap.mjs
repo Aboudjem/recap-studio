@@ -8,7 +8,7 @@ var __export = (target, all) => {
 
 // packages/cli/src/index.ts
 import { readFileSync as readFileSync3, writeFileSync as writeFileSync2, mkdirSync as mkdirSync3, existsSync as existsSync4 } from "node:fs";
-import { dirname as dirname3, resolve as resolve3, basename } from "node:path";
+import { dirname as dirname3, resolve as resolve3, basename, relative as relative2 } from "node:path";
 
 // packages/mcp-server/src/index.ts
 import { createInterface } from "node:readline";
@@ -5959,7 +5959,7 @@ var tools = [
   },
   {
     name: "deploy_vercel_preview",
-    description: "Deploy the recap-web app as a Vercel preview. Refuses unless confirmed: true and VERCEL_TOKEN is set.",
+    description: "(stub) Never deploys. Checks that confirmed: true and VERCEL_TOKEN are set, then returns the shell command that deploys a Vercel preview, for you to run yourself.",
     input: DeployVercelPreview,
     inputSchema: {
       type: "object",
@@ -5975,13 +5975,14 @@ var tools = [
       }
       return {
         ok: true,
-        next: "run `bash scripts/deploy-preview.sh` from the repo root"
+        deployed: false,
+        next: "run `bash scripts/deploy-preview.sh` from the root of a recap-studio checkout"
       };
     }
   },
   {
     name: "send_email_draft",
-    description: "Compose an email draft for the latest Recap. Refuses to send unless confirmed: true and RESEND_API_KEY is set.",
+    description: "(stub) Never sends email. Returns the draft (to, subject, first 200 characters of the body) for you to paste into your mail client.",
     input: SendEmailDraft,
     inputSchema: {
       type: "object",
@@ -5994,15 +5995,14 @@ var tools = [
       required: ["to", "subject", "body", "confirmed"]
     },
     handler: ({ to, subject, body, confirmed }) => {
-      if (!confirmed) {
-        return { ok: false, draftOnly: true, to, subject, preview: body.slice(0, 200) };
-      }
-      if (!process.env.RESEND_API_KEY) {
-        return { ok: false, reason: "RESEND_API_KEY missing in env" };
-      }
       return {
-        ok: true,
-        nextStep: "scripts/send-email.sh implements the actual send when wired up"
+        ok: false,
+        sent: false,
+        draftOnly: true,
+        to,
+        subject,
+        preview: body.slice(0, 200),
+        nextStep: confirmed ? "Recap Studio does not send email. Paste this draft into your mail client and send it there." : "Draft only. Recap Studio does not send email; paste the draft into your mail client."
       };
     }
   },
@@ -6050,7 +6050,7 @@ var tools = [
 ];
 
 // packages/mcp-server/src/index.ts
-var SERVER_VERSION = "0.6.0";
+var SERVER_VERSION = "0.6.1";
 var PROTOCOL_VERSIONS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 function listTools() {
   return {
@@ -6134,7 +6134,7 @@ async function runServer() {
 }
 
 // packages/cli/src/index.ts
-var VERSION = "0.6.0";
+var VERSION = "0.6.1";
 function exampleContent() {
   if (true) return `{
   "slug": "latest-ai-models",
@@ -6595,18 +6595,33 @@ function exampleContent() {
 `;
   return readFileSync3(new URL("../../../fixtures/topics/latest-ai-models.json", import.meta.url), "utf8");
 }
+function invocation(scriptPath = process.argv[1] ?? "", cwd = process.cwd()) {
+  const p = scriptPath.replace(/\\/g, "/");
+  if (p.includes("/_npx/")) return "npx -y github:Aboudjem/recap-studio";
+  const base = p.split("/").pop() ?? "";
+  if (base === "recap" || base === "recap-studio") return base;
+  const rel = relative2(cwd, scriptPath);
+  const shown = rel && !rel.startsWith("..") ? rel : scriptPath;
+  return `node ${/\s/.test(shown) ? JSON.stringify(shown) : shown}`;
+}
+var SELF = invocation();
 var HELP = `recap ${VERSION}: self-contained dark-mode explainer pages.
 
 USAGE
-  recap demo [-o out.html]                Render the built-in example and score it.
-                                          The first page, with no input and no network.
-  recap example [-o content.json]         Write the built-in example content JSON,
-                                          a starting point to edit (default: stdout)
-  recap render <content.json> [options]   Render to HTML, Markdown or plain text
-  recap validate <content.json> [options] Score content with the deterministic checks
-  recap mcp                               Serve the MCP tools over stdio
-  recap --help                            Show this help
-  recap --version                         Print version
+  ${SELF} demo [-o out.html]
+      Render the built-in example and score it.
+      The first page, with no input and no network.
+  ${SELF} example [-o content.json]
+      Write the built-in example content JSON, a starting point to edit
+      (default: stdout).
+  ${SELF} render <content.json> [options]
+      Render to HTML, Markdown or plain text.
+  ${SELF} validate <content.json> [options]
+      Score content with the deterministic checks.
+  ${SELF} mcp
+      Serve the MCP tools over stdio.
+  ${SELF} --help | --version
+      Show this help, or print the version.
 
 RENDER OPTIONS
   -o, --out <file>      Output path (default: <content-basename>.<ext>)
@@ -6693,7 +6708,7 @@ var EXT = { html: ".html", md: ".md", txt: ".txt" };
 function cmdRender(args) {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
-  if (!input) fail("render needs a content JSON path. See `recap --help`.", 2);
+  if (!input) fail(`render needs a content JSON path. See \`${SELF} --help\`.`, 2);
   const format = typeof flags.format === "string" && flags.format ? flags.format : "html";
   if (!EXT[format]) fail(`--format must be html|md|txt (got "${format}")`, 2);
   const theme = typeof flags.theme === "string" && flags.theme ? flags.theme : "dark";
@@ -6723,7 +6738,7 @@ var HONESTY_NOTE = "\nNote: these are deterministic heuristic checks (structure,
 function cmdValidate(args) {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
-  if (!input) fail("validate needs a content JSON path. See `recap --help`.", 2);
+  if (!input) fail(`validate needs a content JSON path. See \`${SELF} --help\`.`, 2);
   const asJson = flags.json === true;
   const failUnder = parseFailUnder(flags.failUnder);
   let content;
@@ -6762,7 +6777,7 @@ function cmdExample(args) {
     writeFileSync2(out, body, "utf8");
     process.stdout.write(
       `recap: wrote ${out}
-Next: edit it, then run \`recap validate ${flags.out}\` and \`recap render ${flags.out}\`.
+Next: edit it, then run \`${SELF} validate ${flags.out}\` and \`${SELF} render ${flags.out}\`.
 `
     );
     return;
@@ -6787,8 +6802,8 @@ function cmdDemo(args) {
       "",
       "Next:",
       "- Open the file with a double-click. It works offline.",
-      "- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.",
-      "- Score it before you send it: `recap validate content.json --fail-under 8`.",
+      `- Make your own: \`${SELF} example -o content.json\`, edit it, then \`${SELF} render content.json\`.`,
+      `- Score it before you send it: \`${SELF} validate content.json --fail-under 8\`.`,
       ""
     ].join("\n")
   );
@@ -6808,6 +6823,6 @@ async function main(argv) {
   if (cmd === "demo") return cmdDemo(rest);
   if (cmd === "example") return cmdExample(rest);
   if (cmd === "mcp") return runServer();
-  fail(`unknown command "${cmd}". See \`recap --help\`.`, 2);
+  fail(`unknown command "${cmd}". See \`${SELF} --help\`.`, 2);
 }
 void main(process.argv.slice(2));

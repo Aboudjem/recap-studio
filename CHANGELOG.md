@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-11-17
+
+Fixes from an independent review of 0.6.0. The tools now say exactly what they do.
+
+### Changed
+
+- **Deploy and email MCP tools describe themselves as stubs.** `deploy_vercel_preview` never
+  deploys: it returns the shell command to run yourself. `send_email_draft` never sends: it
+  returns the draft, even with `confirmed: true` and a key. The old hint named a
+  `scripts/send-email.sh` that does not exist; it is gone.
+- **CLI hints work for npx users.** `demo`, `example`, `--help` and error messages print the
+  command you used, such as `npx -y github:Aboudjem/recap-studio render content.json`, instead of
+  a bare `recap` that is not on your PATH.
+- **`block-secret-writes` checks temp paths too.** macOS temp folders under `/private/tmp` and
+  `/private/var` are allowed, but a `.env`, `.pem`, `.key` or SSH key file there is still blocked.
+  `.key` files are now blocked everywhere.
+
+### Added
+
+- **`npm run test:count`** runs `npm test` and prints the total test count, for the README proof row.
+- **README:** a note on the harmless "packages not installed" line in `claude plugin list`, and
+  one line on what `recap` stands for.
+
 ## [0.6.0] - 2026-11-17
 
 The plugin now works in any project with nothing to build. The MCP server starts from an
