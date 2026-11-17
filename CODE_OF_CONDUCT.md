@@ -25,7 +25,8 @@ defined in the Contributor Covenant are not tolerated.
 
 If you experience or witness unacceptable behavior, report it privately to the maintainer:
 
-- **Email:** adam@integralayer.com
+- **Sensitive reports:** use the private form at https://github.com/Aboudjem/recap-studio/security/advisories/new (Security tab, "Report a vulnerability").
+- **Other reports:** contact the maintainer through the GitHub profile https://github.com/Aboudjem.
 
 All reports will be reviewed and investigated promptly and fairly, and the reporter's privacy will
 be respected. Maintainers who do not follow or enforce the Code of Conduct in good faith may face
