@@ -27,7 +27,7 @@ runs.
 ## Can I use it in VS Code, Cursor, or Codex?
 
 Yes, two ways. The five skills install into any agent that reads a skills directory with
-`npx skills add Aboudjem/recap-studio`. Separately, the local MCP server exposes
+`npx skills add Aboudjem/recap-studio -g -a <agent> -y` (for all your projects). Separately, the local MCP server exposes
 `render_recap_html`, `validate_content` and nine more tools to any MCP-capable client. Per-editor snippets are in
 [editors.md](editors.md).
 

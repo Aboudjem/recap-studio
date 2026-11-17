@@ -26,7 +26,7 @@ Recap Studio は、コーディングセッションやトピックから HTML �
 |:--|:--|:--|
 | `/recap session` が git の差分とコミットを読み、1 ページを書きます。 | HTML ファイル 1 つ、script タグ 0、CSS はすべて中に。下のデモが両方を表示します。 | 7 つのチェックがモデルなしで採点します。`--fail-under 8` で弱いページを拒否します。 |
 
-**対応:** skills を読めるすべてのエージェントと、すべての MCP クライアント。テスト済み: Claude Code、Codex CLI。ページ生成にモデルは不要で、文章はあなたのエージェントのモデルが書きます。
+**対応:** skills を読めるすべてのエージェントと、すべての MCP クライアント(テスト済み: Claude Code、Codex CLI)。ページ生成にモデルは不要で、文章はあなたのエージェントのモデルが書きます。
 
 今すぐ試せます。必要なのは Node 20 以降だけです。
 
@@ -48,18 +48,23 @@ Next:
 
 <img alt="Recap Studio が作ったページ: 暗い上部バナー、一文の答え、5 ステップの読み進め方" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
+**何か:** コーディングセッションやトピックを 1 つの HTML ページにするツールです。
+
+**いつ使うか:** 今週何が変わったか、あるトピックが何か、と聞かれたとき。
+
+**得られるもの:** メールで送れて、プルリクエストに添付できる 1 ファイル。オフラインで開き、JavaScript もネットワーク通信もありません。
+
 スコアが見るのは形で、正しさではありません。共有する前にソースを読んでください。
-
-## いつ使うか
-
-リーダーに今週何が変わったか聞かれます。手元には 40 件のコミットとチャットの記録だけ。送れるページはありません。
-あるいは、あるトピックについて聞かれて、リンクを 10 個送ることになります。
-Recap Studio なら 1 つのファイルで済みます。JavaScript はなく、ネットワーク通信もしません。
-メールで送る、プルリクエストに添付する、機内で開く、どれでもできます。
 
 ## インストール
 
-**Claude Code。** 10x マーケットプレイスを一度追加し、プラグインをインストールします:
+**エージェントを選ぶ。** どのコマンドも、すべてのプロジェクト向けにインストールします。
+
+[![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#claude-code) [![Codex](https://img.shields.io/badge/Codex-000000?style=for-the-badge)](#codex) [![Cursor](https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logo=cursor&logoColor=white)](#cursor) [![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](#gemini-cli) [![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-24292F?style=for-the-badge&logo=githubcopilot&logoColor=white)](#github-copilot) [![OpenCode](https://img.shields.io/badge/OpenCode-333333?style=for-the-badge&logo=opencode&logoColor=white)](#opencode)
+
+### Claude Code
+
+テスト済み。プラグイン、スキル、MCP サーバー。
 
 ```bash
 claude plugin marketplace add Aboudjem/10x
@@ -68,11 +73,47 @@ claude plugin install recap-studio@10x
 
 その後、任意のプロジェクトで `/recap "What is React Server Components"` と入力します。
 
-**その他のエージェント。** 5 つのスキルは skills CLI でインストールできます:
+### Codex
+
+テスト済み: MCP 呼び出し。スキル: インストール確認済み。
 
 ```bash
-npx skills add Aboudjem/recap-studio
+npx skills add Aboudjem/recap-studio -g -a codex -y
 ```
+
+### Cursor
+
+インストール確認済み。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a cursor -y
+```
+
+### Gemini CLI
+
+インストール確認済み。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a gemini-cli -y
+```
+
+### GitHub Copilot
+
+インストール確認済み。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a github-copilot -y
+```
+
+### OpenCode
+
+インストール確認済み。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a opencode -y
+```
+
+このプロジェクトだけ: `-g` を外します。別のエージェント: `-a` の後にその名前を入れます。
 
 **CLI のみ。** エージェントは不要です。npm ではなく GitHub から実行します:
 
@@ -99,8 +140,8 @@ Claude Code プラグインはこのサーバーを自動で起動します。�
 <summary>その他のインストール方法</summary>
 
 ```bash
-# Pick the agent explicitly
-npx skills add Aboudjem/recap-studio -a codex
+# This project only, for the agents the skills CLI finds
+npx skills add Aboudjem/recap-studio
 
 # The repo's own installer, which calls the same skills CLI
 curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
@@ -146,9 +187,9 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 |:--|:--|:--|
 | Claude Code 2.1.326 | `--plugin-dir` でプラグインを読み込み、無関係なフォルダから MCP サーバーが `Connected` と表示 | 2026-11-17 |
 | Codex CLI 0.169.0 | `codex exec` が MCP ツール `validate_content` を呼び、判定を返した | 2026-11-17 |
-| Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` が 5 つのスキルを `.agents/skills/` にコピーした | 2026-11-17 |
+| Codex, Gemini CLI, OpenCode, Cursor, GitHub Copilot | `npx skills@1.9.0 add -g` が 5 つのスキルを `~/.agents/skills/` にコピーした(全プロジェクト向け) | 2026-11-17 |
 
-ドキュメントのみ、未テスト: VS Code (Copilot)、Windsurf、Continue、Zed、その他 skills CLI が対応するエージェント。設定例は [docs/editors.md](../docs/editors.md) にあります。
+ドキュメントのみ、未テスト: Windsurf、Continue、Zed、その他 skills CLI が対応するエージェント。設定例は [docs/editors.md](../docs/editors.md) にあります。
 
 ## Proof
 
@@ -156,7 +197,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 
 | 主張 | 数値 | コマンド |
 |:--|:--|:--|
-| 成功するテスト | 113 | `npm run test:count` |
+| 成功するテスト | 115 | `npm run test:count` |
 | 生成ページ内の script タグ | 0 | `node bin/recap.mjs demo` |
 | デモページのサイズ | 49.8 KB | `node bin/recap.mjs demo` |
 | デモ内容のスコア | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
@@ -186,8 +227,8 @@ CI は push とプルリクエストのたびに Node 20 と 22 でテストを�
 - スコアはおおまかなチェック(ヒューリスティック)です。形式を確認するだけで、真偽は確認しません。共有前に情報源を読んでください。
 - 調査の質はエージェント次第です。CLI は渡された内容を描画するだけで、調査はしません。
 - オフラインでは、Mermaid 図(テキストで書くグラフ)はテキストのまま表示されます。代わりに SVG 図を使ってください: `kind: "svg"`。
-- 5 つの MCP ツールは全部の仕事はしません(スタブです)。`render_page_screenshot`、`run_accessibility_scan`、`run_lighthouse_summary` は、サーバーにブラウザが含まれないため `skipped` を返します。`deploy_vercel_preview` は自分で実行するコマンドを返します。`send_email_draft` は下書きを返します。
-- デプロイとメールのツールは、デプロイも送信もしません。デプロイは自分で実行するコマンドを返し、メールは下書きを返します。
+- 5 つの MCP ツールは全部の仕事はしません(スタブです)。`render_page_screenshot`、`run_accessibility_scan`、`run_lighthouse_summary` は、サーバーにブラウザが含まれないため `skipped` を返します。
+- デプロイとメールのツールは、デプロイも送信もしません。`deploy_vercel_preview` は自分で実行するシェルコマンドを返します。`send_email_draft` はメールに貼る下書きを返します。
 - Codex は書き込みツールをブロックすることがあります。`codex exec` の実行では承認レビューが `render_recap_html` をブロックしました。読み取りツールは動きました。
 
 ## 詳しく

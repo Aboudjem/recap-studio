@@ -19,15 +19,15 @@
  * scripts/build-bundle.mjs. That file is what an installed plugin, the .mcpb
  * bundle and `npx github:Aboudjem/recap-studio` all run.
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
-import { dirname, resolve, basename, relative } from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from "node:fs";
+import { dirname, resolve, basename, relative, join } from "node:path";
 import { runServer } from "@recap-studio/mcp-server";
 import { renderFromJson, serializeFromJson } from "@recap-studio/html-renderer";
 import { parseRecapPageContent } from "@recap-studio/content-pipeline";
 import { runValidation, reportMarkdown, reportJson, reportPasses } from "@recap-studio/validation";
 
 /** Kept equal to the repo version by a test. */
-const VERSION = "0.6.3";
+const VERSION = "0.6.4";
 
 /** The bundler inlines the example content here. Unbundled, it is read from the repo. */
 declare const __RECAP_EXAMPLE__: string | undefined;
@@ -57,7 +57,7 @@ const SELF = invocation();
 const HELP = `recap ${VERSION}: self-contained dark-mode explainer pages.
 
 USAGE
-  ${SELF} demo [-o out.html]
+  ${SELF} demo [-o out.html | -o folder/]
       Render the built-in example and score it.
       The first page, with no input and no network.
   ${SELF} example [-o content.json]
@@ -167,6 +167,17 @@ function parseFailUnder(raw: string | true | undefined): number | null {
 
 const EXT: Record<string, string> = { html: ".html", md: ".md", txt: ".txt" };
 
+/**
+ * Resolve an output path. When `-o` names a folder (one that exists, or a path
+ * ending with a slash), write `fileName` inside it instead of failing with EISDIR.
+ */
+function resolveOut(flag: unknown, fileName: string): string {
+  if (typeof flag !== "string" || !flag) return resolve(fileName);
+  const out = resolve(flag);
+  const isDir = /[\\/]$/.test(flag) || (existsSync(out) && statSync(out).isDirectory());
+  return isDir ? join(out, fileName) : out;
+}
+
 function cmdRender(args: string[]): void {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
@@ -196,10 +207,7 @@ function cmdRender(args: string[]): void {
     return fail(`content failed schema validation:\n${(e as Error).message}`, 2);
   }
 
-  const out =
-    typeof flags.out === "string" && flags.out
-      ? resolve(flags.out)
-      : resolve(basename(input!).replace(/\.json$/i, "") + EXT[format]);
+  const out = resolveOut(flags.out, basename(input!).replace(/\.json$/i, "") + EXT[format]);
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, body, "utf8");
   const kb = (Buffer.byteLength(body, "utf8") / 1024).toFixed(1);
@@ -273,7 +281,7 @@ function cmdDemo(args: string[]): void {
   const html = renderFromJson(json, { theme: "dark" });
   const content = parseRecapPageContent(json);
   const report = runValidation(content);
-  const out = resolve(typeof flags.out === "string" && flags.out ? flags.out : `recap-${content.slug}.html`);
+  const out = resolveOut(flags.out, `recap-${content.slug}.html`);
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, html, "utf8");
   const kb = (Buffer.byteLength(html, "utf8") / 1024).toFixed(1);
@@ -295,6 +303,11 @@ function cmdDemo(args: string[]): void {
 async function main(argv: string[]): Promise<void> {
   const [cmd, ...rest] = argv;
   if (!cmd || cmd === "--help" || cmd === "-h" || cmd === "help") {
+    process.stdout.write(HELP);
+    return;
+  }
+  // `recap <command> --help` prints the help and never runs the command.
+  if (rest.some((a) => a === "--help" || a === "-h")) {
     process.stdout.write(HELP);
     return;
   }

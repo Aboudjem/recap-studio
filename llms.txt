@@ -1,6 +1,6 @@
 # Recap Studio
 
-> Understand what changed, in one page you can send. Recap Studio makes one HTML page from your coding session or a topic. It opens with a double-click, offline. Claude Code plugin, CLI and MCP server. Works with any agent that reads skills and any MCP client; the writing uses your agent's model. Version 0.6.3, MIT.
+> Understand what changed, in one page you can send. Recap Studio makes one HTML page from your coding session or a topic. It opens with a double-click, offline. Claude Code plugin, CLI and MCP server. Works with any agent that reads skills and any MCP client; the writing uses your agent's model. Version 0.6.4, MIT.
 
 The page is one file: all CSS inlined, zero JavaScript, zero external requests.
 Seven offline checks score it before you share it. The score checks shape, not truth, so read the sources first.
@@ -10,7 +10,7 @@ Nothing is published to npm; `npx -y github:Aboudjem/recap-studio` runs it from 
 ## Install
 
 - Claude Code: `claude plugin marketplace add Aboudjem/10x` then `claude plugin install recap-studio@10x`
-- Any agent with a skills directory: `npx skills add Aboudjem/recap-studio`
+- Any agent with a skills directory, for all your projects: `npx skills add Aboudjem/recap-studio -g -a <agent> -y` (drop `-g` for this project only)
 - CLI, no install: `npx -y github:Aboudjem/recap-studio demo`
 - MCP server (stdio): command `npx`, args `["-y", "github:Aboudjem/recap-studio", "mcp"]`
 

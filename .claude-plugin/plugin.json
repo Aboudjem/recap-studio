@@ -2,8 +2,8 @@
   "$schema": "https://schemas.anthropic.com/claude-code/plugin.schema.json",
   "name": "recap-studio",
   "displayName": "Recap Studio",
-  "version": "0.6.3",
-  "description": "Understand what was done: makes one HTML page from your git session or a topic. Double-click to open, works offline, no JavaScript.",
+  "version": "0.6.4",
+  "description": "Understand what was done: one HTML page from your git session or a topic. Double-click to open. Works offline, no JavaScript.",
   "author": {
     "name": "Adam Boudjemaa",
     "url": "https://github.com/Aboudjem"

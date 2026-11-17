@@ -7,8 +7,8 @@ var __export = (target, all) => {
 };
 
 // packages/cli/src/index.ts
-import { readFileSync as readFileSync3, writeFileSync as writeFileSync2, mkdirSync as mkdirSync3, existsSync as existsSync4 } from "node:fs";
-import { dirname as dirname3, resolve as resolve3, basename, relative as relative2 } from "node:path";
+import { readFileSync as readFileSync3, writeFileSync as writeFileSync2, mkdirSync as mkdirSync3, existsSync as existsSync4, statSync as statSync2 } from "node:fs";
+import { dirname as dirname3, resolve as resolve3, basename, relative as relative2, join as join4 } from "node:path";
 
 // packages/mcp-server/src/index.ts
 import { createInterface } from "node:readline";
@@ -6050,7 +6050,7 @@ var tools = [
 ];
 
 // packages/mcp-server/src/index.ts
-var SERVER_VERSION = "0.6.3";
+var SERVER_VERSION = "0.6.4";
 var PROTOCOL_VERSIONS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 function listTools() {
   return {
@@ -6134,7 +6134,7 @@ async function runServer() {
 }
 
 // packages/cli/src/index.ts
-var VERSION = "0.6.3";
+var VERSION = "0.6.4";
 function exampleContent() {
   if (true) return `{
   "slug": "latest-ai-models",
@@ -6608,7 +6608,7 @@ var SELF = invocation();
 var HELP = `recap ${VERSION}: self-contained dark-mode explainer pages.
 
 USAGE
-  ${SELF} demo [-o out.html]
+  ${SELF} demo [-o out.html | -o folder/]
       Render the built-in example and score it.
       The first page, with no input and no network.
   ${SELF} example [-o content.json]
@@ -6705,6 +6705,12 @@ function parseFailUnder(raw) {
   return n;
 }
 var EXT = { html: ".html", md: ".md", txt: ".txt" };
+function resolveOut(flag, fileName) {
+  if (typeof flag !== "string" || !flag) return resolve3(fileName);
+  const out = resolve3(flag);
+  const isDir = /[\\/]$/.test(flag) || existsSync4(out) && statSync2(out).isDirectory();
+  return isDir ? join4(out, fileName) : out;
+}
 function cmdRender(args) {
   const { positional, flags } = parseFlags(args);
   const input = positional[0];
@@ -6726,7 +6732,7 @@ function cmdRender(args) {
     return fail(`content failed schema validation:
 ${e.message}`, 2);
   }
-  const out = typeof flags.out === "string" && flags.out ? resolve3(flags.out) : resolve3(basename(input).replace(/\.json$/i, "") + EXT[format]);
+  const out = resolveOut(flags.out, basename(input).replace(/\.json$/i, "") + EXT[format]);
   mkdirSync3(dirname3(out), { recursive: true });
   writeFileSync2(out, body, "utf8");
   const kb = (Buffer.byteLength(body, "utf8") / 1024).toFixed(1);
@@ -6790,7 +6796,7 @@ function cmdDemo(args) {
   const html = renderFromJson(json, { theme: "dark" });
   const content = parseRecapPageContent(json);
   const report = runValidation(content);
-  const out = resolve3(typeof flags.out === "string" && flags.out ? flags.out : `recap-${content.slug}.html`);
+  const out = resolveOut(flags.out, `recap-${content.slug}.html`);
   mkdirSync3(dirname3(out), { recursive: true });
   writeFileSync2(out, html, "utf8");
   const kb = (Buffer.byteLength(html, "utf8") / 1024).toFixed(1);
@@ -6811,6 +6817,10 @@ function cmdDemo(args) {
 async function main(argv) {
   const [cmd, ...rest] = argv;
   if (!cmd || cmd === "--help" || cmd === "-h" || cmd === "help") {
+    process.stdout.write(HELP);
+    return;
+  }
+  if (rest.some((a) => a === "--help" || a === "-h")) {
     process.stdout.write(HELP);
     return;
   }

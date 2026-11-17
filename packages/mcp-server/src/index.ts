@@ -21,7 +21,7 @@ import { createInterface } from "node:readline";
 import { tools, type ToolCall } from "./tools.js";
 
 /** Reported in `initialize`. Kept equal to the repo version by a test. */
-export const SERVER_VERSION = "0.6.3";
+export const SERVER_VERSION = "0.6.4";
 
 /** Protocol revisions this server speaks, newest first. */
 const PROTOCOL_VERSIONS = ["2025-06-18", "2025-03-26", "2024-11-05"];

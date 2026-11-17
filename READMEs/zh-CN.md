@@ -26,7 +26,7 @@ Recap Studio 用你的编码会话或一个主题生成一个 HTML 页面。
 |:--|:--|:--|
 | `/recap session` 读取你的 git diff 和提交，然后写出一个页面。 | 一个 HTML 文件，0 个 script 标签，CSS 全在文件里。下面的演示会打印这两项。 | 七项检查不用模型给页面打分；`--fail-under 8` 会拒绝弱页面。 |
 
-**兼容：** 任何能读取 skills 的智能体，以及任何 MCP 客户端。已测试：Claude Code、Codex CLI。生成页面不需要模型，写作用的是你的智能体的模型。
+**兼容：** 任何能读取 skills 的智能体，以及任何 MCP 客户端（已测试：Claude Code、Codex CLI）。生成页面不需要模型；写作用的是你的智能体的模型。
 
 现在就试试。你只需要 Node 20 或更高版本。
 
@@ -48,18 +48,23 @@ Next:
 
 <img alt="Recap Studio 生成的页面：深色顶部横幅、一句话答案、五步阅读路径" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
+**它是什么：** 一个把你的编码会话或一个主题变成一个 HTML 页面的工具。
+
+**什么时候用：** 有人问这周改了什么，或者某个主题是什么意思。
+
+**你会得到：** 一个可以发邮件或附到拉取请求的文件。它离线打开，没有 JavaScript，也没有网络请求。
+
 分数检查的是形式，不是真假，所以分享前请先读来源。
-
-## 什么时候用
-
-你的负责人问这周改了什么。你有 40 个提交和一段聊天记录，却没有可以发送的页面。
-或者有人问起一个主题，你发了十个链接。
-Recap Studio 给你一个文件。它没有 JavaScript，也不发任何网络请求。
-可以发邮件、附到拉取请求里，或在飞机上打开。
 
 ## 安装
 
-**Claude Code。** 先添加一次 10x 插件市场，再安装插件：
+**选择你的智能体。** 每条命令都会为你的所有项目安装。
+
+[![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#claude-code) [![Codex](https://img.shields.io/badge/Codex-000000?style=for-the-badge)](#codex) [![Cursor](https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logo=cursor&logoColor=white)](#cursor) [![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](#gemini-cli) [![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-24292F?style=for-the-badge&logo=githubcopilot&logoColor=white)](#github-copilot) [![OpenCode](https://img.shields.io/badge/OpenCode-333333?style=for-the-badge&logo=opencode&logoColor=white)](#opencode)
+
+### Claude Code
+
+已测试。插件、技能和 MCP 服务器。
 
 ```bash
 claude plugin marketplace add Aboudjem/10x
@@ -68,11 +73,47 @@ claude plugin install recap-studio@10x
 
 然后在任意项目中输入 `/recap "What is React Server Components"`。
 
-**其他智能体。** 五个技能通过 skills CLI 安装：
+### Codex
+
+已测试：MCP 调用。技能：已测试安装。
 
 ```bash
-npx skills add Aboudjem/recap-studio
+npx skills add Aboudjem/recap-studio -g -a codex -y
 ```
+
+### Cursor
+
+已测试安装。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a cursor -y
+```
+
+### Gemini CLI
+
+已测试安装。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a gemini-cli -y
+```
+
+### GitHub Copilot
+
+已测试安装。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a github-copilot -y
+```
+
+### OpenCode
+
+已测试安装。
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a opencode -y
+```
+
+只装到当前项目：去掉 `-g`。其他智能体：把它的名字放在 `-a` 后面。
 
 **只用 CLI。** 不需要智能体。它从 GitHub 运行，而不是 npm：
 
@@ -99,8 +140,8 @@ Claude Code 插件会自动启动这个服务器。每个编辑器的配置见 [
 <summary>其他安装方式</summary>
 
 ```bash
-# Pick the agent explicitly
-npx skills add Aboudjem/recap-studio -a codex
+# This project only, for the agents the skills CLI finds
+npx skills add Aboudjem/recap-studio
 
 # The repo's own installer, which calls the same skills CLI
 curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
@@ -146,9 +187,9 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 |:--|:--|:--|
 | Claude Code 2.1.326 | 用 `--plugin-dir` 加载插件；在无关文件夹中其 MCP 服务器显示 `Connected` | 2026-11-17 |
 | Codex CLI 0.169.0 | `codex exec` 调用了 MCP 工具 `validate_content` 并返回结论 | 2026-11-17 |
-| Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` 把五个技能复制到 `.agents/skills/` | 2026-11-17 |
+| Codex, Gemini CLI, OpenCode, Cursor, GitHub Copilot | `npx skills@1.9.0 add -g` 把五个技能复制到 `~/.agents/skills/`，对所有项目生效 | 2026-11-17 |
 
-有文档但未测试：VS Code (Copilot)、Windsurf、Continue、Zed，以及 skills CLI 支持的其他智能体。配置示例见 [docs/editors.md](../docs/editors.md)。
+有文档但未测试：Windsurf、Continue、Zed，以及 skills CLI 支持的其他智能体。配置示例见 [docs/editors.md](../docs/editors.md)。
 
 ## Proof
 
@@ -156,7 +197,7 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 
 | 论断 | 数字 | 命令 |
 |:--|:--|:--|
-| 通过的测试 | 113 | `npm run test:count` |
+| 通过的测试 | 115 | `npm run test:count` |
 | 渲染页面中的 script 标签 | 0 | `node bin/recap.mjs demo` |
 | 演示页面大小 | 49.8 KB | `node bin/recap.mjs demo` |
 | 演示内容的分数 | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
@@ -186,8 +227,8 @@ CI 在每次 push 和 pull request 时于 Node 20 和 22 上运行测试。渲�
 - 分数是粗略检查（启发式）。它检查形式，不检查真伪。分享页面前请阅读来源。
 - 研究质量取决于你的智能体。CLI 只渲染你提供的内容，不做研究。
 - 离线时，Mermaid 图（用文字写的图表）只显示为文字。请改用 SVG 图：`kind: "svg"`。
-- 五个 MCP 工具不做完整的工作（只是占位）。`render_page_screenshot`、`run_accessibility_scan` 和 `run_lighthouse_summary` 返回 `skipped`：服务器不附带浏览器。`deploy_vercel_preview` 返回一条由你自己运行的命令。`send_email_draft` 返回草稿。
-- 部署和邮件工具不会部署，也不会发送。部署工具返回一条由你自己运行的命令，邮件工具返回草稿。
+- 五个 MCP 工具不做完整的工作（只是占位）。`render_page_screenshot`、`run_accessibility_scan` 和 `run_lighthouse_summary` 返回 `skipped`：服务器不附带浏览器。
+- 部署和邮件工具从不部署或发送。`deploy_vercel_preview` 返回一条由你自己运行的 shell 命令。`send_email_draft` 返回一份可粘贴到邮件客户端的草稿。
 - Codex 可能会阻止写入类工具。在一次 `codex exec` 运行中，它的审批检查阻止了 `render_recap_html`。读取类工具正常。
 
 ## 了解更多

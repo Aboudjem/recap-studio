@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.4] - 2026-11-17
+
+Pick your agent, install for all your projects, and two CLI fixes.
+
+### Fixed
+
+- **`recap demo -o <folder>` writes the page inside the folder.** It used to crash with `EISDIR`.
+  `render -o <folder>` gets the same fix. A path that ends with `/` also counts as a folder.
+- **`recap <command> --help` prints the help.** `recap demo --help` used to write the demo page
+  instead. New tests for both in `packages/cli/src/cli.test.ts`.
+
+### Changed
+
+- **Install starts with "Pick your agent".** One row of agent badges (Claude Code, Codex, Cursor,
+  Gemini CLI, GitHub Copilot, OpenCode), each linked to its one command and its test status.
+- **Global install by default.** The skills commands use `npx skills add Aboudjem/recap-studio
+  -g -a <agent> -y`, which installs for all your projects. Drop `-g` for one project. Checked in
+  an empty home folder for all five skills agents.
+- **Shorter first screen.** Three short answers: what it is, when to use it, what you get.
+- **`docs/editors.md`:** the install folders for Codex, Cursor, GitHub Copilot, Gemini CLI and
+  OpenCode now match what `skills@1.9.0 add -g` does: `~/.agents/skills/`.
+- **Descriptions** rewritten to be shorter and clearer.
+
 ## [0.6.3] - 2026-11-17
 
 A first screen that shows what you get. No change to how the tool behaves.

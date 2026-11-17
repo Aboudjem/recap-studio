@@ -1,8 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
-import { readFileSync, existsSync, rmSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync, existsSync, rmSync, mkdtempSync, readdirSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -188,4 +189,30 @@ test("recap render rejects an unknown format and html-only flags on md or txt", 
   assert.equal(run(["render", fixture, "--format", "md", "--print"]).status, 2, "--print on md");
   assert.equal(run(["render", fixture, "--format", "txt", "--theme", "light"]).status, 2, "--theme on txt");
   assert.equal(run(["render", fixture, "--format", "html", "--theme", "light", "-o", "/dev/null"]).status, 0);
+});
+
+test("recap demo -o <folder> writes the page inside the folder", () => {
+  const dir = mkdtempSync(join(tmpdir(), "recap-demo-dir-"));
+  try {
+    const { stdout, status } = run(["demo", "-o", dir]);
+    assert.equal(status, 0, stdout);
+    const page = join(dir, "recap-latest-ai-models.html");
+    assert.ok(existsSync(page), "wrote recap-<slug>.html inside the folder");
+    assert.match(stdout, /Verdict: PASS/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("recap demo --help prints the help and writes no page", () => {
+  const dir = mkdtempSync(join(tmpdir(), "recap-demo-help-"));
+  try {
+    const r = spawnSync("node", ["--import", import.meta.resolve("tsx"), entry, "demo", "--help"], { encoding: "utf8", cwd: dir });
+    assert.equal(r.status, 0, r.stderr);
+    assert.match(r.stdout, /USAGE/);
+    assert.doesNotMatch(r.stdout, /Verdict:/);
+    assert.deepEqual(readdirSync(dir), [], "no file written");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

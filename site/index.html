@@ -95,8 +95,8 @@ claude plugin install recap-studio@10x</code></pre>
 
     <section>
       <h2>Use it anywhere (CLI and MCP)</h2>
-      <p>Link the skills into any AI CLI with the one-line installer, or run the local MCP server as the universal fallback. The CLI runs straight from GitHub with npx: no clone, no build.</p>
-      <pre><code>curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex</code></pre>
+      <p>Install the skills for all your projects with one command. Put your agent after <code>-a</code>; drop <code>-g</code> for this project only. Or run the local MCP server. The CLI runs straight from GitHub with npx: no clone, no build.</p>
+      <pre><code>npx skills add Aboudjem/recap-studio -g -a codex -y</code></pre>
       <pre><code>npx -y github:Aboudjem/recap-studio demo
 npx -y github:Aboudjem/recap-studio render content.json</code></pre>
     </section>

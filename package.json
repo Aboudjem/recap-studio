@@ -1,8 +1,8 @@
 {
   "name": "recap-studio",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "private": true,
-  "description": "Understand what was done: makes one HTML page from your git session or a topic. Double-click to open, works offline, no JavaScript.",
+  "description": "Understand what was done: one HTML page from your git session or a topic. Double-click to open. Works offline, no JavaScript.",
   "license": "MIT",
   "repository": {
     "type": "git",

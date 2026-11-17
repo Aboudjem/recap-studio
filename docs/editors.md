@@ -15,29 +15,26 @@ The `recap` CLI works on its own with neither of those. See [cli.md](cli.md) if 
 ## 1. Install the skills
 
 ```bash
-npx skills add Aboudjem/recap-studio
+npx skills add Aboudjem/recap-studio -g -a codex -y
 ```
 
-That is the whole thing. The [`skills` CLI](https://github.com/vercel-labs/skills) detects the
-agents on your machine and installs into each. To target one agent, pass `-a`:
-
-```bash
-npx skills add Aboudjem/recap-studio -a codex
-npx skills add Aboudjem/recap-studio -a cursor -g     # -g installs for your user, not this project
-npx skills add Aboudjem/recap-studio -a gemini-cli -y # -y skips the confirmation prompt
-```
+This installs for all your projects. Put your agent's code after `-a` (table below).
+Only this project: drop `-g`. With no `-a`, the [`skills` CLI](https://github.com/vercel-labs/skills)
+finds the agents on your machine and asks which ones to use. `-y` skips the questions.
 
 Agent codes, verified against the
 [supported-agents table](https://github.com/vercel-labs/skills#supported-agents):
 
-| Agent | `-a` code | Where the skills land (user scope) |
+The first six folders were checked on 2026-11-17: `skills@1.9.0 add -g` run into an empty home folder.
+
+| Agent | `-a` code | Where the skills land with `-g` |
 | --- | --- | --- |
 | Claude Code | `claude-code` | `~/.claude/skills/` |
-| Cursor | `cursor` | `~/.cursor/skills/` |
-| Codex | `codex` | `~/.codex/skills/` |
-| GitHub Copilot (and VS Code) | `github-copilot` | `~/.copilot/skills/` |
-| Gemini CLI | `gemini-cli` | `~/.gemini/skills/` |
-| OpenCode | `opencode` | `~/.config/opencode/skills/` |
+| Cursor | `cursor` | `~/.agents/skills/` |
+| Codex | `codex` | `~/.agents/skills/` |
+| GitHub Copilot (and VS Code) | `github-copilot` | `~/.agents/skills/` |
+| Gemini CLI | `gemini-cli` | `~/.agents/skills/` |
+| OpenCode | `opencode` | `~/.agents/skills/` |
 | Windsurf | `windsurf` | `~/.codeium/windsurf/skills/` |
 | Zed | `zed` | `~/.agents/skills/` |
 | Kimi Code CLI | `kimi-code-cli` | `~/.agents/skills/` |

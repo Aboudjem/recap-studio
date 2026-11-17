@@ -26,7 +26,7 @@ Recap Studio makes one HTML page from your coding session or a topic.
 |:--|:--|:--|
 | `/recap session` reads your git diff and commits, then writes one page. | One HTML file, 0 script tags, all CSS inside. The demo below prints both. | Seven checks score the page with no model; `--fail-under 8` refuses a weak page. |
 
-**Works with:** any agent that reads skills, and any MCP client. Tested: Claude Code, Codex CLI. The page builder needs no model, and the writing uses your agent's model.
+**Works with:** any agent that reads skills, and any MCP client (tested: Claude Code, Codex CLI). The page builder needs no model; the writing uses your agent's model.
 
 Try it now. You only need Node 20 or later.
 
@@ -48,18 +48,23 @@ Next:
 
 <img alt="A page made by Recap Studio: dark top banner, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
+**What it is:** a tool that turns your coding session or a topic into one HTML page.
+
+**When to use it:** someone asks what changed this week, or what a topic means.
+
+**What you get:** one file to email or attach to a pull request. It opens offline, with no JavaScript and no network request.
+
 The score checks shape, not truth, so read the sources before you share.
-
-## When to use it
-
-Your lead asks what changed this week. You have 40 commits and a chat log. You have no page to send.
-Or someone asks about a topic, and you send ten links.
-Recap Studio gives you one file instead. It has no JavaScript and makes no network request.
-Email it, attach it to a pull request, or open it on a plane.
 
 ## Install
 
-**Claude Code.** Add the 10x marketplace once, then install the plugin:
+**Pick your agent.** Each command installs for all your projects.
+
+[![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#claude-code) [![Codex](https://img.shields.io/badge/Codex-000000?style=for-the-badge)](#codex) [![Cursor](https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logo=cursor&logoColor=white)](#cursor) [![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](#gemini-cli) [![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-24292F?style=for-the-badge&logo=githubcopilot&logoColor=white)](#github-copilot) [![OpenCode](https://img.shields.io/badge/OpenCode-333333?style=for-the-badge&logo=opencode&logoColor=white)](#opencode)
+
+### Claude Code
+
+Tested. Plugin, skills and MCP server.
 
 ```bash
 claude plugin marketplace add Aboudjem/10x
@@ -67,14 +72,49 @@ claude plugin install recap-studio@10x
 ```
 
 Then type `/recap "What is React Server Components"` in any project.
+`claude plugin list` may say "The packages it lists were not installed". You can ignore it: the plugin needs no packages.
 
-`claude plugin list` may show "The packages it lists were not installed". It is harmless: the plugin runs from one bundled file and needs no packages.
+### Codex
 
-**Any other agent.** The five skills install with the skills CLI:
+Tested: MCP call. Skills: install tested.
 
 ```bash
-npx skills add Aboudjem/recap-studio
+npx skills add Aboudjem/recap-studio -g -a codex -y
 ```
+
+### Cursor
+
+Install tested.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a cursor -y
+```
+
+### Gemini CLI
+
+Install tested.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a gemini-cli -y
+```
+
+### GitHub Copilot
+
+Install tested.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a github-copilot -y
+```
+
+### OpenCode
+
+Install tested.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a opencode -y
+```
+
+Only this project: drop `-g`. Another agent: put its name after `-a`.
 
 **The CLI alone.** No agent needed. It runs from GitHub, not npm:
 
@@ -103,8 +143,8 @@ The Claude Code plugin starts this server for you. Setup for each editor is in [
 <summary>Other ways in</summary>
 
 ```bash
-# Pick the agent explicitly
-npx skills add Aboudjem/recap-studio -a codex
+# This project only, for the agents the skills CLI finds
+npx skills add Aboudjem/recap-studio
 
 # The repo's own installer, which calls the same skills CLI
 curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
@@ -150,9 +190,9 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 | :---------------------------------- | :---------------------------------------------------------------------------------------------- | :--------- |
 | Claude Code 2.1.326                 | Plugin loaded with `--plugin-dir`; its MCP server reported `Connected` from an unrelated folder | 2026-11-17 |
 | Codex CLI 0.169.0                   | `codex exec` called the `validate_content` MCP tool and returned the verdict                    | 2026-11-17 |
-| Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` copied all five skills into `.agents/skills/`                            | 2026-11-17 |
+| Codex, Gemini CLI, OpenCode, Cursor, GitHub Copilot | `npx skills@1.9.0 add -g` copied all five skills into `~/.agents/skills/`, for all projects | 2026-11-17 |
 
-Documented, not tested: VS Code (Copilot), Windsurf, Continue, Zed and the other agents the skills CLI supports. Setup steps are in [docs/editors.md](docs/editors.md).
+Documented, not tested: Windsurf, Continue, Zed and the other agents the skills CLI supports. Setup steps are in [docs/editors.md](docs/editors.md).
 
 ## Proof
 
@@ -160,7 +200,7 @@ Each number below comes from a command you can run in a clone.
 
 | Claim                               | Number  | Command                                                                           |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------------- |
-| Tests pass                          | 113     | `npm run test:count` (runs `npm test`, prints the total)                          |
+| Tests pass                          | 115     | `npm run test:count` (runs `npm test`, prints the total)                          |
 | Script tags in a rendered page      | 0       | `node bin/recap.mjs demo`                                                         |
 | Demo page size                      | 49.8 KB | `node bin/recap.mjs demo`                                                         |
 | Score of the demo content           | 9.7/10  | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json`               |
@@ -190,8 +230,8 @@ It does not need it. The CLI is one file with no dependency, so `npx -y github:A
 - The score is a rough check (a heuristic). It checks shape, not truth. Read the sources before you share a page.
 - Research quality depends on your agent. The CLI renders the content you give it; it does not research.
 - Offline, Mermaid diagrams (text-based charts) show as text. Use SVG diagrams instead: `kind: "svg"`.
-- Five MCP tools do not do the full job (they are stubs). `render_page_screenshot`, `run_accessibility_scan` and `run_lighthouse_summary` answer `skipped`: no browser ships with the server. `deploy_vercel_preview` returns a command to run yourself. `send_email_draft` returns a draft.
-- The deploy and email tools never deploy or send. Deploy returns a shell command to run yourself. Email returns the draft to paste into your mail client.
+- Five MCP tools do not do the full job (they are stubs). `render_page_screenshot`, `run_accessibility_scan` and `run_lighthouse_summary` answer `skipped`: no browser ships with the server.
+- The deploy and email tools never deploy or send. `deploy_vercel_preview` returns a shell command to run yourself. `send_email_draft` returns a draft to paste into your mail client.
 - Codex may block the write tools. In a `codex exec` run, its approval review blocked `render_recap_html`. Read tools worked.
 
 ## Learn more

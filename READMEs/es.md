@@ -26,7 +26,7 @@ Recap Studio hace una página HTML a partir de tu sesión de código o de un tem
 |:--|:--|:--|
 | `/recap session` lee tu diff de git y tus commits, y escribe una página. | Un archivo HTML, 0 etiquetas script, todo el CSS dentro. La demo de abajo imprime ambos. | Siete comprobaciones puntúan la página sin modelo; `--fail-under 8` rechaza una página débil. |
 
-**Funciona con:** cualquier agente que lea skills, y cualquier cliente MCP. Probado: Claude Code, Codex CLI. El generador de páginas no necesita modelo, y la escritura usa el modelo de tu agente.
+**Funciona con:** cualquier agente que lea skills, y cualquier cliente MCP (probado: Claude Code, Codex CLI). El generador de páginas no necesita modelo; la escritura usa el modelo de tu agente.
 
 Pruébalo ahora. Solo necesitas Node 20 o posterior.
 
@@ -48,18 +48,23 @@ Next:
 
 <img alt="Una página hecha por Recap Studio: banda oscura arriba, una respuesta en una frase y un recorrido de lectura de cinco pasos" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
+**Qué es:** una herramienta que convierte tu sesión de código o un tema en una sola página HTML.
+
+**Cuándo usarlo:** alguien pregunta qué cambió esta semana, o qué significa un tema.
+
+**Qué obtienes:** un archivo para enviar por correo o adjuntar a una pull request. Se abre sin conexión, sin JavaScript y sin peticiones de red.
+
 La puntuación revisa la forma, no la verdad: lee las fuentes antes de compartir.
-
-## Cuándo usarlo
-
-Tu lead pregunta qué cambió esta semana. Tienes 40 commits y un historial de chat. No tienes ninguna página para enviar.
-O alguien pregunta por un tema, y envías diez enlaces.
-Recap Studio te da un solo archivo. No tiene JavaScript y no hace ninguna petición de red.
-Envíalo por correo, adjúntalo a una pull request o ábrelo en el avión.
 
 ## Instalación
 
-**Claude Code.** Añade el marketplace 10x una vez y luego instala el plugin:
+**Elige tu agente.** Cada comando instala para todos tus proyectos.
+
+[![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#claude-code) [![Codex](https://img.shields.io/badge/Codex-000000?style=for-the-badge)](#codex) [![Cursor](https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logo=cursor&logoColor=white)](#cursor) [![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](#gemini-cli) [![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-24292F?style=for-the-badge&logo=githubcopilot&logoColor=white)](#github-copilot) [![OpenCode](https://img.shields.io/badge/OpenCode-333333?style=for-the-badge&logo=opencode&logoColor=white)](#opencode)
+
+### Claude Code
+
+Probado. Plugin, skills y servidor MCP.
 
 ```bash
 claude plugin marketplace add Aboudjem/10x
@@ -68,11 +73,47 @@ claude plugin install recap-studio@10x
 
 Después escribe `/recap "What is React Server Components"` en cualquier proyecto.
 
-**Cualquier otro agente.** Las cinco skills se instalan con la CLI skills:
+### Codex
+
+Probado: llamada MCP. Skills: instalación probada.
 
 ```bash
-npx skills add Aboudjem/recap-studio
+npx skills add Aboudjem/recap-studio -g -a codex -y
 ```
+
+### Cursor
+
+Instalación probada.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a cursor -y
+```
+
+### Gemini CLI
+
+Instalación probada.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a gemini-cli -y
+```
+
+### GitHub Copilot
+
+Instalación probada.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a github-copilot -y
+```
+
+### OpenCode
+
+Instalación probada.
+
+```bash
+npx skills add Aboudjem/recap-studio -g -a opencode -y
+```
+
+Solo este proyecto: quita `-g`. Otro agente: pon su nombre después de `-a`.
 
 **Solo la CLI.** No hace falta un agente. Se ejecuta desde GitHub, no desde npm:
 
@@ -99,8 +140,8 @@ El plugin de Claude Code inicia este servidor por ti. La configuración de cada 
 <summary>Otras formas de instalarlo</summary>
 
 ```bash
-# Pick the agent explicitly
-npx skills add Aboudjem/recap-studio -a codex
+# This project only, for the agents the skills CLI finds
+npx skills add Aboudjem/recap-studio
 
 # The repo's own installer, which calls the same skills CLI
 curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
@@ -146,9 +187,9 @@ La CLI y el servidor MCP son un único archivo versionado, `bin/recap.mjs`, sin 
 |:--|:--|:--|
 | Claude Code 2.1.326 | Plugin cargado con `--plugin-dir`; su servidor MCP indicó `Connected` desde una carpeta ajena | 2026-11-17 |
 | Codex CLI 0.169.0 | `codex exec` llamó a la herramienta MCP `validate_content` y devolvió el veredicto | 2026-11-17 |
-| Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` copió las cinco skills en `.agents/skills/` | 2026-11-17 |
+| Codex, Gemini CLI, OpenCode, Cursor, GitHub Copilot | `npx skills@1.9.0 add -g` copió las cinco skills en `~/.agents/skills/`, para todos los proyectos | 2026-11-17 |
 
-Documentados, sin probar: VS Code (Copilot), Windsurf, Continue, Zed y los demás agentes que admite la CLI skills. Los pasos de configuración están en [docs/editors.md](../docs/editors.md).
+Documentados, sin probar: Windsurf, Continue, Zed y los demás agentes que admite la CLI skills. Los pasos de configuración están en [docs/editors.md](../docs/editors.md).
 
 ## Pruebas
 
@@ -156,7 +197,7 @@ Cada número de abajo sale de un comando que puedes ejecutar en un clon.
 
 | Afirmación | Número | Comando |
 |:--|:--|:--|
-| Tests que pasan | 113 | `npm run test:count` |
+| Tests que pasan | 115 | `npm run test:count` |
 | Etiquetas script en una página renderizada | 0 | `node bin/recap.mjs demo` |
 | Tamaño de la página de demo | 49.8 KB | `node bin/recap.mjs demo` |
 | Puntuación del contenido de demo | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
@@ -186,8 +227,8 @@ No hace falta. La CLI es un solo archivo sin dependencias, así que `npx -y gith
 - La puntuación es una comprobación aproximada (una heurística). Comprueba la forma, no la verdad. Lee las fuentes antes de compartir una página.
 - La calidad de la investigación depende de tu agente. La CLI renderiza el contenido que le das; no investiga.
 - Sin conexión, los diagramas Mermaid (gráficos escritos como texto) se ven como texto. Usa diagramas SVG en su lugar: `kind: "svg"`.
-- Cinco herramientas MCP no hacen todo el trabajo (son esbozos). `render_page_screenshot`, `run_accessibility_scan` y `run_lighthouse_summary` responden `skipped`: el servidor no incluye un navegador. `deploy_vercel_preview` devuelve un comando para ejecutarlo usted. `send_email_draft` devuelve un borrador.
-- Las herramientas de despliegue y de correo no despliegan ni envían nada. La primera devuelve un comando para ejecutarlo usted; la segunda devuelve el borrador.
+- Cinco herramientas MCP no hacen todo el trabajo (son esbozos). `render_page_screenshot`, `run_accessibility_scan` y `run_lighthouse_summary` responden `skipped`: el servidor no incluye un navegador.
+- Las herramientas de despliegue y correo nunca despliegan ni envían. `deploy_vercel_preview` devuelve un comando de shell para ejecutar tú. `send_email_draft` devuelve un borrador para pegar en tu cliente de correo.
 - Codex puede bloquear las herramientas de escritura. En una ejecución de `codex exec`, su revisión de aprobación bloqueó `render_recap_html`. Las de lectura funcionaron.
 
 ## Más información

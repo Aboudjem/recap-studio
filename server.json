@@ -3,7 +3,7 @@
   "name": "io.github.Aboudjem/recap-studio",
   "title": "Recap Studio",
   "description": "Render and score one HTML page that explains your work or a topic. Opens offline, no JavaScript.",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "repository": {
     "url": "https://github.com/Aboudjem/recap-studio",
     "source": "github"
@@ -12,8 +12,8 @@
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/Aboudjem/recap-studio/releases/download/v0.6.3/recap-studio.mcpb",
-      "fileSha256": "4370ec64a8fab265464a4dec59c604452f77b4701d3998eac0b453896a269f2b",
+      "identifier": "https://github.com/Aboudjem/recap-studio/releases/download/v0.6.4/recap-studio.mcpb",
+      "fileSha256": "aed2473c6a548dfd64d6e534a2cbd8b3636d2aa841f399f3391720a788946848",
       "transport": {
         "type": "stdio"
       }
