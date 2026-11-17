@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Something broke — rendering, validation, a skill, or the MCP server
+about: Something broke: rendering, validation, a skill, or the MCP server
 title: "bug: <short description>"
 labels: bug
 assignees: Aboudjem
@@ -28,9 +28,9 @@ assignees: Aboudjem
 
 | Field | Value |
 |---|---|
-| Recap Studio version | <!-- e.g. v0.3.1 — run `git describe --tags` --> |
+| Recap Studio version | <!-- e.g. v0.3.1 (run `git describe --tags`) --> |
 | Node version | <!-- `node -v` --> |
-| pnpm version | <!-- `pnpm -v` --> |
+| npm version | <!-- `npm -v` --> |
 | OS | <!-- e.g. macOS 15, Ubuntu 24.04, Windows 11 --> |
 | Host CLI (if using a skill) | <!-- e.g. Claude Code, Cursor, Codex --> |
 | Track affected | <!-- offline HTML / CLI / MCP server / skill / Next.js hosted track --> |

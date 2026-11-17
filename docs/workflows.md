@@ -3,10 +3,10 @@
 ## Quick start
 
 ```bash
-pnpm install
-pnpm demo:latest-ai-models
-pnpm validate:demo
-pnpm --filter recap-web dev
+npm install
+npm run demo:latest-ai-models
+npm run validate:demo
+npm run dev --workspace=apps/recap-web
 ```
 
 ## /recap topic
@@ -23,7 +23,7 @@ pnpm --filter recap-web dev
 4. visual-story-designer adds `VisualPlan`.
 5. frontend-builder writes `apps/recap-web/src/content/<slug>.json`.
 6. Validation board runs in parallel; failing dimensions trigger patches.
-7. Build (if local pnpm install succeeded). Otherwise the run completes
+7. Build (if local npm install succeeded). Otherwise the run completes
    with a documented blocker.
 8. Final report prints (see template below).
 
@@ -62,14 +62,14 @@ Print this block at the end of every `/recap` run:
   - apps/recap-web/src/app/page.tsx (touched? yes/no)
   - <other paths>
 - Commands run:
-  - pnpm demo:latest-ai-models  (exit 0/1)
-  - pnpm validate:demo          (exit 0/1)
-  - pnpm --filter recap-web build (exit 0/1 or blocked)
+  - npm run demo:latest-ai-models  (exit 0/1)
+  - npm run validate:demo          (exit 0/1)
+  - npm run build --workspace=apps/recap-web (exit 0/1 or blocked)
 - Validation scores:
   | dim | score | target | status |
   ...
 - Blockers (if any):
-- Demo command: `pnpm demo:latest-ai-models`
+- Demo command: `npm run demo:latest-ai-models`
 - Deploy: see `docs/vercel-deployment.md`. Off by default.
 - Email: see `docs/configuration.md`. Off by default.
 - Env vars consulted: VERCEL_TOKEN (no), RESEND_API_KEY (no), ...

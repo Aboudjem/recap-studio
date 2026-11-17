@@ -1,6 +1,6 @@
 ---
 name: recap-topic
-description: Use when the user types /recap, /recap topic, /recap "<subject>", or asks Recap Studio to "make a one-page explainer", "summarize a topic", or "build a visual page about X". Routes to /recap session when the input is "session", "repo", or empty inside a git repo with uncommitted changes.
+description: Use when the user types /recap topic, /recap "<subject>", or asks Recap Studio to "make a one-page explainer", "summarize a topic", or "build a visual page about X". Writes a cited content JSON, scores it and renders one offline HTML page in the current project.
 arguments:
   - name: topic
     description: Free-text topic to recap. Wrap in quotes for multi-word topics.
@@ -36,8 +36,8 @@ production one-page educational website backed by a typed
 
 ## Routing
 
-If the user types `/recap` alone or `/recap session`/`/recap repo`, hand off
-to the `recap-session` skill. If they pass a topic, continue here.
+The `recap` skill routes bare `/recap`. If the input here is `session` or
+`repo`, hand off to the `recap-session` skill. If it is a topic, continue.
 
 ## Workflow
 
@@ -45,8 +45,8 @@ Run this pipeline. Each step is delegated to a subagent; pass **summaries**
 between steps, not raw dumps.
 
 1. **Parse intent.** Topic, audience, depth, style, animation. Defaults come
-   from `recap-studio.config.ts` via `loadConfig()` in
-   `packages/content-pipeline`.
+   from `recap-studio.config.ts` when it exists, otherwise the safe defaults
+   listed in the `recap-setup` skill.
 2. **Plan research.** Decide intensity (`fast | balanced | deep`). In
    `economy` cost mode, prefer fixtures if they exist.
 3. **research-scout**: collect 5–12 reliable primary sources. Read-only.
@@ -58,51 +58,46 @@ between steps, not raw dumps.
 6. **visual-story-designer**: define visual concept, section rhythm,
    diagrams (Mermaid or SVG), comparisons, timeline.
 
-### Target repo resolution (do this BEFORE step 7)
+### Where files go (do this BEFORE step 7)
 
-The skill must resolve a writable repo root before any file write.
-Resolution order:
+Work in the user's current project. No clone of recap-studio is needed.
 
-1. `$RECAP_STUDIO_ROOT` if set and contains a `package.json` named
-   `"recap-studio"`.
-2. `~/projects/recap-studio` if it is a git checkout of the recap-studio
-   repo.
-3. `process.cwd()` if it looks like a recap-studio checkout (has
-   `apps/recap-web/package.json`).
-4. **Fallback only:** the plugin cache at
-   `~/.claude/plugins/cache/10x/recap-studio/<version>/`. If this is
-   the chosen target, the final report MUST contain a one-line warning:
-   "wrote to plugin cache, content is ephemeral; clone the fork to
-   persist".
+- Content: `artifacts/<slug>/content.json` in the working directory.
+- Page: `artifacts/<slug>/recap-<slug>.html` in the working directory.
 
-Echo the resolved root in the final report so future drift is visible
-in the transcript. See `docs/known-issues.md#plugin-cache-write-target`.
+Use the plugin's MCP tools when they are connected. Otherwise use the bundled CLI:
 
-7. **frontend-builder**: emit `<root>/apps/recap-web/src/content/<slug>.json`
-   AND update `<root>/apps/recap-web/src/lib/active-content.json` so the
-   page renders the new slug. Both writes must happen in the same step;
-   writing only the content file leaves the renderer pointed at the
-   previous slug and the silent-fallback bug at
-   `docs/known-issues.md#active-slug-silent-fallback` reappears.
+| Step | MCP tool | CLI fallback |
+| --- | --- | --- |
+| Save content | `create_run_artifact` (`slug`, `filename: "content.json"`, `content`) | write the file yourself |
+| Score | `validate_content` (`slug`) | `node "${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs" validate artifacts/<slug>/content.json` |
+| Render | `render_recap_html` (`slug`) | `node "${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs" render artifacts/<slug>/content.json -o artifacts/<slug>/recap-<slug>.html` |
+
+When `${CLAUDE_PLUGIN_ROOT}` does not resolve, replace `node "${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs"`
+with `npx -y github:Aboudjem/recap-studio`. Run `... example` to see a valid content file.
+
+Inside a checkout of recap-studio itself, the same paths work. The hosted Next.js
+track (`apps/recap-web`) is optional and only for that checkout.
+
+7. **frontend-builder**: emit the `RecapPageContent` JSON and save it as
+   `artifacts/<slug>/content.json` (table above).
 8. **Validation board (parallel):** fact-checker, beginner-reviewer,
    accessibility-reviewer, ux-design-reviewer, performance-reviewer,
-   security-privacy-reviewer, skeptical-reviewer.
+   security-privacy-reviewer, skeptical-reviewer. Also run the deterministic
+   score (`validate_content`). It is a heuristic, not an LLM, and does not fetch sources.
 9. **Aggregate scores.** If any dimension is under target (see below),
    patch and re-run only the failing reviewers. Cap at 3 iterations and
    document any blocker honestly.
-10. **Render the self-contained page.** Run `node scripts/render-html.mjs <slug>`
-    (or `pnpm render <slug>`). This writes `artifacts/<slug>/recap-<slug>.html`,
-    ONE dark-mode HTML file with all CSS inlined and zero JavaScript that opens
-    with a double-click, offline. Prefer diagrams with `kind: "svg"` (hand-authored
+10. **Render the self-contained page** (table above). The page is ONE dark-mode
+    HTML file with all CSS inlined and zero JavaScript. It opens with a
+    double-click, offline. Prefer diagrams with `kind: "svg"` (hand-authored
     inline SVG) over `kind: "mermaid"` so the standalone file is fully visual.
-    Optionally also run `pnpm --filter recap-web build` for the hosted/Vercel track.
 11. **Open it, then ask about deploy.** Open the file for the user
-    (`open` on macOS, `xdg-open` on Linux, `start` on Windows). THEN check whether
-    Vercel is configured, a `vercel`/`.vercel` dir, a `VERCEL_TOKEN` in env, or
-    `deploymentMode !== "disabled"` in `recap-studio.config.ts`. If configured,
-    ask: **"Deploy to Vercel?"**, on an explicit yes, run `pnpm deploy:preview`;
-    otherwise skip cleanly. **Never deploy without an explicit yes.** If Vercel is
-    not configured, do not mention deploy.
+    (`open` on macOS, `xdg-open` on Linux, `start` on Windows). Only inside a
+    recap-studio checkout with Vercel configured (`.vercel`, `VERCEL_TOKEN`, or
+    `deploymentMode !== "disabled"` in `recap-studio.config.ts`), ask:
+    **"Deploy to Vercel?"** On an explicit yes, run `npm run deploy:preview`.
+    **Never deploy without an explicit yes.** Otherwise do not mention deploy.
 12. **Report.** Finish with the Final report block (below). State the HTML path,
     the scores, and the deploy decision.
 
@@ -121,5 +116,5 @@ demo command, scores, deploy/email instructions, env vars, known limits.
 
 ## Demo
 
-`pnpm demo:latest-ai-models` regenerates the offline fixture for
-"Latest AI models" and revalidates it without any network call.
+`node "${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs" demo` renders the built-in
+"Latest AI models" example and scores it, without any network call.

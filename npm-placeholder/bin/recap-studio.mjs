@@ -34,10 +34,10 @@ Then in any Claude Code session:
 Prefer to run it locally? Clone the repo:
 
   git clone ${REPO}
-  cd recap-studio && pnpm install
-  pnpm -w demo:latest-ai-models    # generate the offline demo
-  pnpm -w validate:demo            # heuristic quality checks
-  pnpm --filter recap-web dev      # http://localhost:3000
+  cd recap-studio && npm install
+  npm run demo:latest-ai-models    # generate the offline demo
+  npm run validate:demo            # heuristic quality checks
+  npm run dev --workspace=apps/recap-web      # http://localhost:3000
 
 Marketplace:  ${MARKETPLACE}
 Repo:         ${REPO}

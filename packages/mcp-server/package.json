@@ -1,23 +1,24 @@
 {
   "name": "@recap-studio/mcp-server",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "type": "module",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "recap-studio-mcp": "./dist/index.js"
+    "recap-studio-mcp": "./dist/bin.js"
   },
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "start": "node dist/index.js",
+    "start": "node dist/bin.js",
     "test": "node --test --import tsx src/*.test.ts",
     "lint": "echo 'mcp-server: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "workspace:*",
-    "@recap-studio/html-renderer": "workspace:*",
-    "@recap-studio/validation": "workspace:*",
+    "@recap-studio/content-pipeline": "*",
+    "@recap-studio/html-renderer": "*",
+    "@recap-studio/validation": "*",
     "zod": "^3.23.0"
   },
   "devDependencies": {

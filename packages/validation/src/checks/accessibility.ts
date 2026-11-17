@@ -13,7 +13,7 @@ export function checkAccessibility(
   if (content.keyIdeas.length > 7) {
     findings.push({
       severity: "medium",
-      message: "more than 7 key ideas — chunk into sub-groups",
+      message: "more than 7 key ideas: chunk them into sub-groups",
       path: "keyIdeas",
     });
   }

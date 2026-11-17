@@ -8,32 +8,32 @@ A Claude Code plugin (also a CLI and an optional MCP server) that turns any topi
 
 ### Constraints
 
-- **Tech stack**: TypeScript, Node.js 20+, pnpm 10 monorepo (`apps/` + `packages/`).
+- **Tech stack**: TypeScript, Node.js 20+, npm workspaces monorepo (`apps/` + `packages/`).
 - **Hosted track**: Next.js 15 App Router in `apps/recap-web` (deployed to Vercel).
 - **Offline track**: `@recap-studio/html-renderer` emits a single self-contained HTML string.
 - **Safe by default**: no network, no deploys, no emails, no secret writes, no destructive git, all off until explicit opt-in.
 - **Distribution**: Claude Code plugin via the [Aboudjem/10x](https://github.com/Aboudjem/10x) marketplace; CLI and MCP server for every other editor.
-- **Honest figures**: 73 tests across six workspace projects (`design-system` ships none), 13 specialist agents, self-contained offline HTML output. Never inflate a count.
+- **Honest figures**: re-derive test counts from a fresh `npm test`, never carry one forward. 13 specialist agents, self-contained offline HTML output. Never inflate a count.
 
 ## Build, test, validate
 
-Run from the repo root. All commands need pnpm 10 and Node 20+.
+Run from the repo root. All commands need npm (it ships with Node) and Node 20+.
 
 ```bash
-pnpm install            # install workspace deps (node_modules is usually present)
-pnpm -w build           # build all packages
-pnpm -r --if-present run test   # 73 tests, 0 fail, six workspace projects
-pnpm typecheck          # TypeScript strict across packages
-pnpm lint               # lint across packages
-pnpm render:demo        # render the demo topic to artifacts/latest-ai-models/
-pnpm validate:demo      # deterministic heuristic score (NOT an LLM)
+npm install            # install workspace deps (node_modules is usually present)
+npm run build           # build all packages
+npm test               # builds the packages, then every workspace suite, hooks, plugin and bundle tests
+npm run typecheck          # TypeScript strict across packages
+npm run lint               # lint across packages
+npm run render:demo        # render the demo topic to artifacts/latest-ai-models/
+npm run validate:demo      # deterministic heuristic score (NOT an LLM)
 ```
 
-Before any release, all of `pnpm lint`, `pnpm typecheck`, `pnpm -w build`, and the test command above must be green.
+Before any release, all of `npm run lint`, `npm run typecheck`, `npm run build`, and the test command above must be green.
 
 ## Honesty rule: the validation score
 
-The composite score from `pnpm validate:demo` / `recap validate` is produced by **deterministic heuristics** (structure, citation presence, word counts, secret and fluff scans). It does NOT fetch sources and does NOT call an LLM. The 13 specialist agents run only at skill runtime inside Claude Code via `/recap`. Every surface that shows a score must repeat this caveat.
+The composite score from `npm run validate:demo` / `recap validate` is produced by **deterministic heuristics** (structure, citation presence, word counts, secret and fluff scans). It does NOT fetch sources and does NOT call an LLM. The 13 specialist agents run only at skill runtime inside Claude Code via `/recap`. Every surface that shows a score must repeat this caveat.
 
 ## Contributor notes (portability and discoverability layer)
 
@@ -45,7 +45,7 @@ The 13 agent prompt files in `agents/` carry only `name`, `description`, and `to
 
 ### Multi-CLI installer target directories
 
-`install.sh` and `install.ps1` symlink the four skills (`recap-topic`, `recap-session`, `recap-setup`, `recap-validate`) into a CLI's skills directory. Current map:
+`install.sh` and `install.ps1` symlink the five skills (`recap`, `recap-topic`, `recap-session`, `recap-setup`, `recap-validate`) into a CLI's skills directory. Current map:
 
 | Platform | Directory | Style |
 |:--|:--|:--|
@@ -58,7 +58,7 @@ The 13 agent prompt files in `agents/` carry only `name`, `description`, and `to
 | hermes, cline, kimi | `~/.<cli>/skills` | folder |
 
 That table is now the **`--legacy`** path only. `install.sh`'s default path delegates to
-`npx --yes skills@1.5.23 add Aboudjem/recap-studio -a <agent> -g -y`, mapping the 13 platform ids
+`npx --yes skills@1.9.0 add Aboudjem/recap-studio -a <agent> -g -y`, mapping the 13 platform ids
 to the skills-CLI agent codes in `agent_code()`: gemini to `gemini-cli`, vibe to `mistral-vibe`,
 vscode and copilot to `github-copilot`, hermes to `hermes-agent`, kimi to `kimi-code-cli`, and the
 rest to themselves. Every code was checked against
@@ -68,7 +68,7 @@ gemini's in `~/.gemini/skills/`, where the legacy table still writes both to `~/
 
 Keep `platform_target()` (and `install.ps1`'s `Get-PlatformTarget`) working anyway, because
 `--legacy` is the offline and no-npx path. The MCP server
-(`node packages/mcp-server/dist/index.js`) is the universal fallback and is unaffected by either
+(`node bin/recap.mjs mcp`) is the universal fallback and is unaffected by either
 path. Per-editor snippets live in `docs/editors.md`; `docs/multi-editor.md` is a stub pointing
 there.
 
@@ -78,15 +78,17 @@ Three plugin manifests must stay aligned on `name`, `version`, and `description`
 
 ### Version-bump checklist
 
-When cutting a release, bump the version in exactly these files, then add a `CHANGELOG.md` entry:
+When cutting a release, bump the version in every file below. `tests/plugin.test.mjs` fails when one drifts.
 
-- `package.json` (ROOT only; never bump sub-package versions in `packages/*` or `apps/*`)
-- `.claude-plugin/plugin.json`
-- `.cursor-plugin/plugin.json`
-- `.copilot-plugin/plugin.json`
+- `package.json` (root), `packages/cli/package.json`, `packages/mcp-server/package.json`
+- `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json`, `.copilot-plugin/plugin.json`
+- `VERSION` in `packages/cli/src/index.ts` and `SERVER_VERSION` in `packages/mcp-server/src/index.ts`, then `npm run build:packages && npm run bundle`
+- `server.json`: run `npm run pack:mcpb -- --write` (version, release URL and sha256 of the `.mcpb`)
 - `CHANGELOG.md`
 
-Do NOT bump versions inside `packages/*/package.json` or `apps/*/package.json`. They are workspace-internal and use `workspace:*` references.
+`bin/recap.mjs` is generated by `scripts/build-bundle.mjs` and committed. Rebuild it after any change
+under `packages/`; `npm test` fails on drift. The release workflow rebuilds the `.mcpb`, checks its
+sha256 against `server.json`, and attaches it to the GitHub release.
 
 ### GitHub Pages vs Vercel (why both)
 
@@ -97,12 +99,9 @@ Recap Studio uses two distinct hosting surfaces, on purpose:
 
 The decision: keep Vercel for the live app, add Pages only as a static demo. The two never share state and never deploy each other. Pages must be set to deploy from GitHub Actions in the repo settings.
 
-### npm gap (known, intentional for now)
+### Distribution without npm
 
-There is no `release.yml`, and the npm package is stuck at 0.2.0. Monorepo npm publishing is deliberately NOT wired up in this release. Releases are cut as GitHub Releases only. `@recap-studio/cli` and `@recap-studio/html-renderer` are not yet published; the README clone path is the way to run the CLI today.
-
-## Git identity
-
-- All commits are attributed to **Adam Boudjemaa** (`boudjemaa.adam@gmail.com`, GitHub: Aboudjem).
-- If the local `.git/config` has overridden `user.name` or `user.email`, unset the override: `git config --unset user.name && git config --unset user.email`.
-- Never use `-c user.name=...` or `-c user.email=...` on `git commit`. Never commit as `autoresearch`, `Claude`, or any other handle.
+Nothing is published to npm from this repo (the `recap-studio` name on npm is an old placeholder).
+The CLI and the MCP server ship as `bin/recap.mjs`: in the plugin, through
+`npx -y github:Aboudjem/recap-studio`, and as `recap-studio.mcpb` on each GitHub release, which
+`server.json` lists for the official MCP registry.

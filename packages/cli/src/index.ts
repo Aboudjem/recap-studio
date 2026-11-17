@@ -8,23 +8,45 @@
  * CLI renders and checks it.
  *
  * Usage:
+ *   recap demo                       first page in one command, no input needed
+ *   recap example [-o content.json]  a starter content JSON to edit
  *   recap render <content.json> [-o out.html] [--theme dark|light|auto]
  *   recap validate <content.json>
+ *   recap mcp                        serve the MCP tools over stdio
  *   recap --help | --version
+ *
+ * The repo ships this CLI as one dependency-free file, bin/recap.mjs, built by
+ * scripts/build-bundle.mjs. That file is what an installed plugin, the .mcpb
+ * bundle and `npx github:Aboudjem/recap-studio` all run.
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, resolve, basename } from "node:path";
+import { runServer } from "@recap-studio/mcp-server";
 import { renderFromJson, serializeFromJson } from "@recap-studio/html-renderer";
 import { parseRecapPageContent } from "@recap-studio/content-pipeline";
 import { runValidation, reportMarkdown, reportJson, reportPasses } from "@recap-studio/validation";
 
-const VERSION = "0.3.0";
+/** Kept equal to the repo version by a test. */
+const VERSION = "0.6.0";
+
+/** The bundler inlines the example content here. Unbundled, it is read from the repo. */
+declare const __RECAP_EXAMPLE__: string | undefined;
+
+function exampleContent(): string {
+  if (typeof __RECAP_EXAMPLE__ === "string") return __RECAP_EXAMPLE__;
+  return readFileSync(new URL("../../../fixtures/topics/latest-ai-models.json", import.meta.url), "utf8");
+}
 
 const HELP = `recap ${VERSION}: self-contained dark-mode explainer pages.
 
 USAGE
+  recap demo [-o out.html]                Render the built-in example and score it.
+                                          The first page, with no input and no network.
+  recap example [-o content.json]         Write the built-in example content JSON,
+                                          a starting point to edit (default: stdout)
   recap render <content.json> [options]   Render to HTML, Markdown or plain text
   recap validate <content.json> [options] Score content with the deterministic checks
+  recap mcp                               Serve the MCP tools over stdio
   recap --help                            Show this help
   recap --version                         Print version
 
@@ -187,7 +209,7 @@ function cmdValidate(args: string[]): void {
     process.stdout.write(JSON.stringify(reportJson(report, { version: VERSION, failUnder }), null, 2) + "\n");
     process.stderr.write(HONESTY_NOTE);
   } else {
-    process.stdout.write(reportMarkdown(report) + "\n");
+    process.stdout.write(reportMarkdown(report, failUnder) + "\n");
     if (failUnder !== null) {
       // The Markdown table reports the threshold rule. Say which rule actually
       // decided the exit code, or a PASSED table next to exit 1 looks like a bug.
@@ -200,7 +222,55 @@ function cmdValidate(args: string[]): void {
   process.exit(passed ? 0 : 1);
 }
 
-function main(argv: string[]): void {
+/** Write the built-in example content, to a file or to stdout. */
+function cmdExample(args: string[]): void {
+  const { flags } = parseFlags(args);
+  const body = exampleContent();
+  if (typeof flags.out === "string" && flags.out) {
+    const out = resolve(flags.out);
+    if (existsSync(out) && flags.force !== true) {
+      fail(`${out} already exists. Pass --force to overwrite it.`, 2);
+    }
+    mkdirSync(dirname(out), { recursive: true });
+    writeFileSync(out, body, "utf8");
+    process.stdout.write(
+      `recap: wrote ${out}\nNext: edit it, then run \`recap validate ${flags.out}\` and \`recap render ${flags.out}\`.\n`,
+    );
+    return;
+  }
+  process.stdout.write(body.endsWith("\n") ? body : body + "\n");
+}
+
+/**
+ * The shortest path to a first page: render the built-in example and score it.
+ * No input file, no network, no model. Verdict first, then what to do next.
+ */
+function cmdDemo(args: string[]): void {
+  const { flags } = parseFlags(args);
+  const json = JSON.parse(exampleContent()) as unknown;
+  const html = renderFromJson(json, { theme: "dark" });
+  const content = parseRecapPageContent(json);
+  const report = runValidation(content);
+  const out = resolve(typeof flags.out === "string" && flags.out ? flags.out : `recap-${content.slug}.html`);
+  mkdirSync(dirname(out), { recursive: true });
+  writeFileSync(out, html, "utf8");
+  const kb = (Buffer.byteLength(html, "utf8") / 1024).toFixed(1);
+  const scripts = (html.match(/<script/gi) ?? []).length;
+  process.stdout.write(
+    [
+      `Verdict: ${report.passedThresholds ? "PASS" : "FAIL"}. Wrote ${out}`,
+      `Page: ${kb} KB, ${scripts} script tags, all CSS inlined. Score: ${report.overall}/10, ${report.blockers.length} blocker(s).`,
+      "",
+      "Next:",
+      "- Open the file with a double-click. It works offline.",
+      "- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.",
+      "- Score it before you send it: `recap validate content.json --fail-under 8`.",
+      "",
+    ].join("\n"),
+  );
+}
+
+async function main(argv: string[]): Promise<void> {
   const [cmd, ...rest] = argv;
   if (!cmd || cmd === "--help" || cmd === "-h" || cmd === "help") {
     process.stdout.write(HELP);
@@ -212,7 +282,10 @@ function main(argv: string[]): void {
   }
   if (cmd === "render") return cmdRender(rest);
   if (cmd === "validate") return cmdValidate(rest);
+  if (cmd === "demo") return cmdDemo(rest);
+  if (cmd === "example") return cmdExample(rest);
+  if (cmd === "mcp") return runServer();
   fail(`unknown command "${cmd}". See \`recap --help\`.`, 2);
 }
 
-main(process.argv.slice(2));
+void main(process.argv.slice(2));

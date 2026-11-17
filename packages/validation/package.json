@@ -18,7 +18,7 @@
     "lint": "echo 'validation: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "workspace:*",
+    "@recap-studio/content-pipeline": "*",
     "zod": "^3.23.0"
   },
   "devDependencies": {

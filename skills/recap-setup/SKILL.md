@@ -1,7 +1,7 @@
 ---
 name: recap-setup
 user-invocable: false
-description: Use when the user types /recap setup, /recap config, or asks Recap Studio to "configure", "initialize", or "set defaults". Writes recap-studio.config.ts with safe defaults and validates env.
+description: Use when the user types /recap setup, /recap config, or asks Recap Studio to "configure", "initialize", or "set defaults". Writes recap-studio.config.ts (in a recap-studio checkout) or recap-studio.config.json (anywhere else) with safe defaults and checks env.
 arguments:
   - name: preset
     description: economy | balanced | premium (sets costMode and modelRouting defaults)
@@ -15,12 +15,13 @@ You configure Recap Studio. Safe defaults are picked so that side effects
 
 ## What you do
 
-1. If `recap-studio.config.ts` does not exist, create it by copying
-   `recap-studio.config.example.ts` from the repo root (or call
-   `renderConfigSource(DEFAULT_CONFIG)` from `@recap-studio/content-pipeline/config`)
-   and write to the repo root. The file is gitignored, so local opt-ins never
-   ship.
-2. Validate the file with `RecapStudioConfig` (zod schema).
+1. Pick the file. Inside a checkout of recap-studio, use `recap-studio.config.ts`
+   (copy `recap-studio.config.example.ts`; the file is gitignored). In any other
+   project, write `recap-studio.config.json` with the same keys as the template
+   below, as plain JSON. If either file exists, keep it (see Hard rules).
+   Writing this file marks the folder as a recap-studio project: the plugin's
+   safety hooks only act in such folders. Tell the user that in one line.
+2. Check every key against the allowed values in the template below.
 3. Check env. List which optional keys are present without printing their
    values. Never log secrets.
 4. Print a "what's enabled" summary:
@@ -59,5 +60,5 @@ export default config;
 - Never write `.env` files. Print which env keys the user can set instead.
 - Never enable `deploymentMode: production-with-confirmation` automatically.
 - Never enable `emailMode: send-with-confirmation` automatically.
-- Always preserve any existing `recap-studio.config.ts`, write a `.next`
-  diff file and ask the user to merge if changes are needed.
+- Always preserve an existing config file. Show the change you would make
+  and ask the user to apply it.

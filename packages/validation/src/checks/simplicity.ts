@@ -53,7 +53,7 @@ export function checkSimplicity(content: RecapPageContent): Omit<DimensionResult
     }
   }
 
-  // Glossary noise — too many terms loses meaning.
+  // Glossary noise: too many terms loses meaning.
   if (content.glossary.length > 18) {
     findings.push({
       severity: "low",

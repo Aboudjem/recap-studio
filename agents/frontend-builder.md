@@ -42,7 +42,7 @@ specified.
 
 ## Hard rules
 
-- Never run `pnpm install` without confirmation.
+- Never run `npm install` without confirmation.
 - Never write outside `apps/recap-web/` and `packages/design-system/`
   unless the architect explicitly asks.
 - Never inline a secret. Never read `.env` directly; use `process.env.*`

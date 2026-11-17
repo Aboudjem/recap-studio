@@ -4,11 +4,25 @@
  *
  * When Claude Code stops, look for the last artifacts/<slug>/validation.json
  * and print a compact summary. Never fails the run.
+ *
+ * Scope: acts only inside a recap-studio project (see lib/scope.mjs). An
+ * `artifacts/` folder in any other project is left alone.
  */
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { hookProjectRoot } from "./lib/scope.mjs";
 
-const repoRoot = process.cwd();
+function readPayload() {
+  try {
+    const raw = readFileSync(0, "utf8");
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+const repoRoot = hookProjectRoot(readPayload());
+if (!repoRoot) process.exit(0);
 const artifactsDir = join(repoRoot, "artifacts");
 if (!existsSync(artifactsDir)) process.exit(0);
 

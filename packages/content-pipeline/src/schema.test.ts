@@ -8,7 +8,7 @@ import { resolveConfig, renderConfigSource } from "./config.js";
 import { slugify } from "./slugify.js";
 
 // Resolve fixture relative to this test file so the test is CWD-independent
-// (pnpm runs scripts in the package directory, not the repo root).
+// (npm runs workspace scripts in the package directory, not the repo root).
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), "..", "..", "..");
 const fixturePath = resolve(repoRoot, "fixtures", "topics", "latest-ai-models.json");

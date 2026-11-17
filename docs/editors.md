@@ -2,11 +2,11 @@
 
 Two ways in, and they are independent.
 
-1. **The skills.** Four skills (`recap-topic`, `recap-session`, `recap-setup`, `recap-validate`)
+1. **The skills.** Five skills (`recap`, `recap-topic`, `recap-session`, `recap-setup`, `recap-validate`)
    that your agent reads and follows. One command installs them into any of 70+ agents.
 2. **The MCP server.** An optional local server that gives an MCP-capable client the artifact store,
-   source cache, diagram render, screenshot and preview helpers. It runs from a built clone, so it
-   needs two commands first.
+   source cache, diagram render, screenshot and preview helpers. It is one file with no
+   build step, run with `npx` or from a clone.
 
 The `recap` CLI works on its own with neither of those. See [cli.md](cli.md) if that is all you want.
 
@@ -82,13 +82,57 @@ edit. `--project` installs into the current directory instead of your user direc
 
 ## 2. Add the MCP server
 
+The MCP server is one committed file, `bin/recap.mjs`, with no dependency and no build step.
+It runs locally over stdio and makes no network call. Two ways to start it:
+
+- **No clone:** `npx -y github:Aboudjem/recap-studio mcp`. npx fetches the repo once and caches it.
+- **From a clone:** `node /ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs mcp`. Use this offline, or to pin a checkout.
+
+The snippets below use the clone path. Replace `/ABSOLUTE/PATH/TO/recap-studio` with the output
+of `pwd` from the repo root. MCP clients spawn the server with an undefined working directory, so
+a relative path fails with "Cannot find module". To use npx instead, set the command to `npx` and
+the args to `["-y", "github:Aboudjem/recap-studio", "mcp"]`.
+
+The Claude Code plugin already starts this server for you. Add it by hand only in other clients,
+or in Claude Code without the plugin.
+
+### Claude Code
+
+Claude Code can also take the whole plugin, hooks and MCP declaration included, from the 10x
+marketplace:
+
+```bash
+claude plugin marketplace add Aboudjem/10x
+claude plugin install recap-studio@10x
+```
+
+### `install.sh`
+
+The repo also carries an installer. Its default path now delegates to the same `skills` CLI, which
+keeps the install directories current without a hand-maintained table:
+
+```bash
+./install.sh codex          # runs: npx skills add Aboudjem/recap-studio -a codex -g -y
+./install.sh all            # every platform it knows
+./install.sh codex --legacy # the old behavior: symlink skills/ directly, no npx, works offline
+./install.sh codex --uninstall
+./install.sh --help
+```
+
+Use `--legacy` when you have no network, no npx, or you want the skills symlinked to a checkout you
+edit. `--project` installs into the current directory instead of your user directory.
+
+---
+
+## 2. Add the MCP server
+
 The MCP server is **local**. Unlike a published package you can reach with `npx`, it runs from a
 built clone, so do this once:
 
 ```bash
 git clone https://github.com/Aboudjem/recap-studio.git
 cd recap-studio
-pnpm install && pnpm -w build
+npm install && npm run build
 ```
 
 That produces `packages/mcp-server/dist/index.js`. `dist/` is gitignored, so a fresh clone has no
@@ -102,12 +146,14 @@ spawn the server with an undefined working directory, so a relative path will fa
 
 ```bash
 claude mcp add recap-studio-tools \
-  -- node /ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js
+  -- node /ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs mcp
 ```
 
+Or, with no clone: `claude mcp add recap-studio-tools -- npx -y github:Aboudjem/recap-studio mcp`.
+
 Add `--scope project` to write it to a shared `.mcp.json` instead of your user config. Recap Studio
-does not ship a `.mcp.json`; the server is declared as an optional entry in
-`.claude-plugin/plugin.json`, so a marketplace install offers it and never requires it.
+does not ship a `.mcp.json`; the plugin manifest `.claude-plugin/plugin.json` declares the server,
+so a marketplace install starts it with no extra step.
 
 ### Cursor
 
@@ -118,7 +164,7 @@ does not ship a `.mcp.json`; the server is declared as an optional entry in
   "mcpServers": {
     "recap-studio-tools": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"]
     }
   }
 }
@@ -135,7 +181,7 @@ here that spells it that way.
     "recap-studio-tools": {
       "type": "stdio",
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"]
     }
   }
 }
@@ -148,11 +194,11 @@ here that spells it that way.
 ```toml
 [mcp_servers.recap-studio-tools]
 command = "node"
-args = ["/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"]
+args = ["/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"]
 startup_timeout_sec = 15
 ```
 
-Or `codex mcp add recap-studio-tools -- node /ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js`.
+Or `codex mcp add recap-studio-tools -- node /ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs mcp`.
 
 ### Gemini CLI
 
@@ -163,7 +209,7 @@ Or `codex mcp add recap-studio-tools -- node /ABSOLUTE/PATH/TO/recap-studio/pack
   "mcpServers": {
     "recap-studio-tools": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"],
+      "args": ["/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"],
       "cwd": "/ABSOLUTE/PATH/TO/recap-studio"
     }
   }
@@ -182,7 +228,7 @@ their variables explicitly in an `env` map; otherwise omit `env` entirely.
   "mcpServers": {
     "recap-studio-tools": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"]
     }
   }
 }
@@ -197,7 +243,8 @@ mcpServers:
   - name: recap-studio-tools
     command: node
     args:
-      - /ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js
+      - /ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs
+      - mcp
     cwd: /ABSOLUTE/PATH/TO/recap-studio
 ```
 
@@ -213,7 +260,7 @@ Continue only fires MCP tools in agent mode.
   "mcp": {
     "recap-studio-tools": {
       "type": "local",
-      "command": ["node", "/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"],
+      "command": ["node", "/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"],
       "enabled": true
     }
   }
@@ -229,7 +276,7 @@ Continue only fires MCP tools in agent mode.
   "context_servers": {
     "recap-studio-tools": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/recap-studio/packages/mcp-server/dist/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/recap-studio/bin/recap.mjs", "mcp"]
     }
   }
 }
@@ -260,7 +307,7 @@ Continue only fires MCP tools in agent mode.
 npx skills list
 
 # CLI, no editor involved
-node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json
+node bin/recap.mjs validate fixtures/topics/latest-ai-models.json
 
 # MCP, Claude Code
 claude mcp list      # recap-studio-tools should appear
@@ -271,11 +318,12 @@ comes back.
 
 ## When it does not
 
-**The server never starts.** Run `pnpm install && pnpm -w build`. `dist/` is not committed.
+**The server never starts.** Check `node --version` (20 or later), then run the command by hand:
+`node bin/recap.mjs mcp` should wait for input with no error. Press Ctrl+C to stop it.
 
 **"Cannot find module".** The path in `args` is relative. Use the absolute one.
 
-**Tools return nothing in Cursor, VS Code, Codex or Continue.** Rebuild. Server builds before 0.3
+**Tools return nothing in Cursor, VS Code, Codex or Continue.** Update the clone. Server builds before 0.3
 returned a non-standard `type: "json"` content block.
 
 **Continue does nothing at all.** Switch it to agent mode. Ask and chat modes never call MCP tools.

@@ -7,9 +7,8 @@
 #   3. Vercel CLI installed and logged in (`vercel login`)
 #
 # Strategy: build LOCALLY then `vercel deploy --prebuilt`.
-# Why: Vercel's remote builder defaults to `npm install`, which fails on this
-# repo's pnpm workspace (`workspace:*` deps in apps/recap-web/package.json).
-# Local `vercel build` runs the existing pnpm setup, then `--prebuilt`
+# Why: the app needs the workspace packages built first. Local `vercel build`
+# reuses the installed npm workspace and its build, then `--prebuilt`
 # uploads the finished .vercel/output/ without touching install on the remote.
 # See docs/known-issues.md#vercel-monorepo-pnpm.
 

@@ -8,7 +8,6 @@
   <a href="https://github.com/Aboudjem/recap-studio/releases"><img src="https://img.shields.io/github/v/tag/Aboudjem/recap-studio?color=5B9DFF&label=version&style=flat-square" alt="version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-5B9DFF?style=flat-square" alt="License"></a>
   <a href="https://github.com/Aboudjem/recap-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Aboudjem/recap-studio/ci.yml?style=flat-square&label=CI" alt="CI"></a>
-  <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=5B9DFF" alt="Stars"></a>
 </p>
 
 <p align="center">
@@ -19,47 +18,64 @@
   <a href="READMEs/fr.md">Français</a>
 </p>
 
-<p align="center"><b>Turn any topic or coding session into a dark-mode, mobile-first explainer you can double-click to open.</b><br><sub>No server, no internet, no dependencies.</sub></p>
+Recap Studio turns a topic or a coding session into one HTML page you open with a double-click.
+The page works offline. It has no JavaScript and makes no network request.
 
-<p align="center">
-  <a href="#what-it-does">What it does</a> ·
-  <a href="#install">Install</a> ·
-  <a href="#use-it">Use it</a> ·
-  <a href="#works-in-your-editor">Works in your editor</a> ·
-  <a href="#learn-more">Learn more</a>
-</p>
+Try it now, with no clone and no install. This is real output from 2026-11-17, with the path shortened:
 
 ```bash
-claude plugin marketplace add Aboudjem/10x
-claude plugin install recap-studio@10x
+npx -y github:Aboudjem/recap-studio demo
 ```
 
-## What it does
+```text
+Verdict: PASS. Wrote /tmp/try/recap-latest-ai-models.html
+Page: 49.8 KB, 0 script tags, all CSS inlined. Score: 9.7/10, 0 blocker(s).
 
-You ask a question, or you finish a messy afternoon of commits. You want one thing you can read later, or send to a colleague, without a login, a hosted doc, or a build step.
-
-Recap Studio takes a topic (`"Latest AI models"`) or a coding session (`git diff` plus commits) and writes **one HTML file**. Every style is inlined, there is no JavaScript, and the page makes no external request. Double-click it in Finder or Explorer and it opens, offline.
-
-- **A page you can read in about five minutes**: a one-sentence answer, the points that actually matter, an inline SVG concept map, key ideas, misconceptions, a glossary, and cited sources.
-- **A score you can put in CI**: seven deterministic checks over structure, citations, word counts, and secret scans.
-- **A file you can email**: no server to keep alive, no link that rots.
+Next:
+- Open the file with a double-click. It works offline.
+- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.
+- Score it before you send it: `recap validate content.json --fail-under 8`.
+```
 
 <img alt="A rendered Recap Studio page: dark hero, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
 ## Install
 
+**Claude Code.** Add the 10x marketplace once, then install the plugin:
+
 ```bash
 claude plugin marketplace add Aboudjem/10x
 claude plugin install recap-studio@10x
 ```
 
-`10x` is a plugin marketplace, a list Claude Code can install from. Adding it once makes `recap-studio` and its sibling tools available.
+Then type `/recap "What is React Server Components"` in any project.
 
-For any other agent, the four skills install through the skills CLI:
+**Any other agent.** The five skills install with the skills CLI:
 
 ```bash
 npx skills add Aboudjem/recap-studio
 ```
+
+**The CLI alone.** No agent needed. It runs from GitHub, not npm:
+
+```bash
+npx -y github:Aboudjem/recap-studio render content.json
+```
+
+**An MCP client.** Paste this into your client's MCP config:
+
+```json
+{
+  "mcpServers": {
+    "recap-studio": {
+      "command": "npx",
+      "args": ["-y", "github:Aboudjem/recap-studio", "mcp"]
+    }
+  }
+}
+```
+
+The Claude Code plugin starts this server for you. Per-editor snippets are in [docs/editors.md](docs/editors.md).
 
 <details>
 <summary>Other ways in</summary>
@@ -68,108 +84,96 @@ npx skills add Aboudjem/recap-studio
 # Pick the agent explicitly
 npx skills add Aboudjem/recap-studio -a codex
 
-# Or use the repo's own installer, which delegates to the same CLI
+# The repo's own installer, which calls the same skills CLI
 curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
 
-# --legacy copies the skills by hand, for machines without npx
-bash install.sh codex --legacy
+# From a clone, with no network after the clone
+git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
+node bin/recap.mjs demo
 ```
 
-`install.sh --update` refreshes an install, `install.sh --uninstall` removes it. Windows uses `install.ps1 <platform>` from a checkout.
+Each release also ships `recap-studio.mcpb`, a one-file bundle for MCP clients that install bundles.
 </details>
 
-## Use it
+## How it works
 
-**1. Ask for a page.** In any Claude Code session:
+1. You ask. `/recap "<topic>"` researches a topic. `/recap session` reads your git diff and commits.
+2. Agents write the content. 13 specialist agents find sources, write a five-minute reading path, and check each claim.
+3. The agent saves the content as JSON in `artifacts/<slug>/content.json`, in your project.
+4. A checker scores it. Seven deterministic checks: structure, citations, word counts, secret scan. No model, no network.
+5. The renderer writes one file, `artifacts/<slug>/recap-<slug>.html`. All CSS is inlined.
 
-```
-/recap "What is React Server Components"
-```
+The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no dependency.
 
-Recap Studio researches the topic, checks every claim against the sources it found, renders the page, and opens it. `/recap session` does the same for your last stretch of commits.
-
-**2. Or render content you already have.** From a clone, with the CLI:
-
-```bash
-pnpm install && pnpm -w build
-node packages/cli/dist/index.js render fixtures/topics/latest-ai-models.json
-```
-
-```
-recap: wrote latest-ai-models.html (49.8 KB, self-contained, double-click to open)
-```
-
-**3. Score it before you send it.**
-
-```bash
-node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json --fail-under 8
-```
-
-```
-| Dimension          | Score  | Target | Status   | Top finding |
-| facts              | 10/10 |  9 | PASS    | none |
-| beginner           | 10/10 |  9 | PASS    | none |
-| accessibility      | 10/10 |  9 | PASS    | none |
-... four more rows ...
-
-Overall: 9.7/10, thresholds PASSED
-Gate: --fail-under 8, overall 9.7/10, blockers 0. Result: PASS
-```
-
-Add `--json` and the same run prints one JSON document on stdout, so a CI job can read it with `jq`.
+| What runs          | Side effect                                                                                                  |
+| :----------------- | :----------------------------------------------------------------------------------------------------------- |
+| Skills and agents  | Write files under `artifacts/` in your project. Research uses your agent's own web search, when it has one.                    |
+| CLI and MCP server | Write the page you ask for. No network call. 11 MCP tools, listed in [docs/mcp-tools.md](docs/mcp-tools.md). |
+| Plugin hooks       | Act only in a recap-studio project. They block secret writes, destructive git and unchecked deploys there.   |
+| Deploy and email   | Off. They need a config opt-in, a key, and your explicit yes.                                                |
 
 ## What you get
 
-| Artifact | What it is |
-|:--|:--|
-| `recap-<slug>.html` | One self-contained page. All CSS inlined, zero JavaScript, zero external requests. |
-| `--format md` or `txt` | The same page as a Markdown or plain-text file, for a pull request body or a commit note. |
-| `--print` | A paper render: white ground, black text, page breaks kept sane, source URLs spelled out. |
-| A validation report | Seven scored dimensions, a list of blockers, and an exit code. |
-| `--fail-under <score>` | Exit 1 when the overall score is below your gate. A blocker fails the run whatever the score. |
+| Output                 | What it is                                                                                  |
+| :--------------------- | :------------------------------------------------------------------------------------------ |
+| `recap-<slug>.html`    | One self-contained page. All CSS inlined, zero JavaScript, zero external requests.          |
+| `--format md` or `txt` | The same page as Markdown or plain text, for a pull request or a note.                      |
+| `--print`              | A paper version: white ground, black text, source URLs spelled out.                         |
+| `recap validate`       | A report that opens with the verdict, then up to three fixes, then seven scored dimensions. |
+| `--fail-under <score>` | Exit 1 below your gate. A blocker fails the run whatever the score.                         |
 
-## Works in your editor
+## Works with
 
-Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, and 70+ other agents through `npx skills add`.
+| Agent                               | What was tested                                                                                 | Tested     |
+| :---------------------------------- | :---------------------------------------------------------------------------------------------- | :--------- |
+| Claude Code 2.1.326                 | Plugin loaded with `--plugin-dir`; its MCP server reported `Connected` from an unrelated folder | 2026-11-17 |
+| Codex CLI 0.169.0                   | `codex exec` called the `validate_content` MCP tool and returned the verdict                    | 2026-11-17 |
+| Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` copied all five skills into `.agents/skills/`                            | 2026-11-17 |
 
-| Agent | One-line install |
-|:--|:--|
-| Claude Code | `claude plugin install recap-studio@10x` |
-| Any of 70+ agents | `npx skills add Aboudjem/recap-studio` |
-| Codex, Gemini, OpenCode, Pi | `bash install.sh <agent>` |
-| VS Code (Copilot) | `bash install.sh copilot` |
-| Everything else | see [docs/editors.md](docs/editors.md) |
+Documented, not tested: VS Code (Copilot), Windsurf, Continue, Zed and the other agents the skills CLI supports. Snippets are in [docs/editors.md](docs/editors.md).
 
-<details>
-<summary>Add it as an MCP server instead</summary>
+## Proof
 
-The MCP server is local, so it needs a built clone first:
+Each number below comes from a command you can run in a clone.
 
-```bash
-git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
-pnpm install && pnpm -w build
-claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
-```
+| Claim                               | Number  | Command                                                                           |
+| :---------------------------------- | :------ | :-------------------------------------------------------------------------------- |
+| Tests pass                          | 105     | `npm test 2>&1 \| grep -E "^# tests\|Tests "`                                     |
+| Script tags in a rendered page      | 0       | `node bin/recap.mjs demo`                                                         |
+| Demo page size                      | 49.8 KB | `node bin/recap.mjs demo`                                                         |
+| Heuristic score of the demo content | 9.7/10  | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json`               |
+| MCP tools                           | 11      | `echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \| node bin/recap.mjs mcp` |
 
-There is no `.mcp.json` in this repo. Cursor, VS Code, Codex, Gemini CLI, Windsurf, Continue, OpenCode and Zed each want the same command in their own shape; every snippet is in [docs/editors.md](docs/editors.md).
-</details>
+CI runs the suite on Node 20 and 22 on every push and pull request. It also fails if a rendered page holds a `<script>` tag.
 
-## Good to know
+## FAQ
 
-> [!IMPORTANT]
-> Every side effect is off by default. No network calls, no deploys, no emails, no secret writes, no destructive git. `RECAP_STUDIO_FIXTURE_ONLY=1` is the starting state, so the demo runs from fixtures and nothing phones home.
+**Do I need Claude Code to use it?**
+No. The CLI and the MCP server run anywhere Node 20 runs. Claude Code adds the research agents behind `/recap`.
 
-- **The rendered page carries no JavaScript.** CI asserts it on every push: the rendered HTML has no `<script>` tag and no `/_next/` reference.
-- **The score is a heuristic, not a review.** `validate` runs seven deterministic checks. It does not fetch sources and does not call a model. The 13 specialist agents run only inside Claude Code, through `/recap`.
-- **73 tests pass** across six workspace projects, on Node 20 and 22. Only a placeholder redirect package sits on npm, so the CLI runs from a clone.
+**Does the page call home when I open it?**
+No. It has no JavaScript and no external link to load. CI checks every render for a `<script>` tag.
 
-> [!CAUTION]
-> A "9.7 out of 10" you may see in older docs came from that heuristic checker, not from reviewers. Read it as a structural signal, not a peer review.
+**Is the 9.7/10 score a review by a model?**
+No. It is a set of deterministic checks over structure, citations and word counts. It does not read the sources.
+
+**Will the hooks change my other projects?**
+No. They act only in a folder with a `recap-studio.config.*` file, a `.recap-studio/` folder, or this repo. `RECAP_HOOKS_EVERYWHERE=1` turns them on everywhere.
+
+**Why not publish the CLI to npm?**
+It does not need it. The CLI is one file with no dependency, so `npx -y github:Aboudjem/recap-studio` runs it directly.
+
+## Limits
+
+- The score is a heuristic. It checks shape, not truth. Read the sources before you share a page.
+- Research quality depends on your agent. The CLI renders the content you give it; it does not research.
+- Mermaid diagrams do not draw offline. The page shows their source. Use `kind: "svg"` diagrams for a fully visual page.
+- Screenshot, accessibility and Lighthouse tools are stubs. They answer `skipped` because no browser ships with the server.
+- Codex may block the write tools. In a `codex exec` run, its approval review blocked `render_recap_html`. Read tools worked.
 
 ## Learn more
 
-- [Editor setup](docs/editors.md), every agent and every MCP snippet
-- [CLI reference](docs/cli.md), every command and flag
+- [Editor setup](docs/editors.md), [CLI reference](docs/cli.md), [MCP tools](docs/mcp-tools.md)
 - [FAQ](docs/faq.md) and [how it compares](docs/comparison.md)
 - [Architecture](docs/architecture.md), [agent system](docs/agent-system.md), [security and privacy](docs/security-and-privacy.md)
 - [Changelog](CHANGELOG.md) and [contributing](CONTRIBUTING.md)

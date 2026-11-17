@@ -14,22 +14,18 @@ jobs:
         node-version: [20, 22]
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: pnpm
+          cache: npm
       - name: Install (strict lockfile)
-        run: pnpm install --frozen-lockfile
-      - name: Build packages
-        # Downstream workspace packages need built dist/ for typecheck to resolve imports.
-        run: pnpm -r --if-present run build
+        run: npm ci
+      - name: Test (builds the packages, then every workspace suite, the hooks, the plugin and the bundle checks)
+        run: npm test
       - name: Lint
-        run: pnpm -r --if-present run lint
+        run: npm run lint
       - name: Typecheck
-        run: pnpm -r --if-present run typecheck
-      - name: Test
-        run: pnpm -r --if-present run test
+        run: npm run typecheck
       - name: Demo + validation
         run: |
           node scripts/demo-latest-ai-models.mjs
@@ -42,11 +38,11 @@ jobs:
           if grep -q "/_next/" "$F"; then echo "FAIL: absolute /_next/ path in standalone HTML"; exit 1; fi
           if grep -qi "<script" "$F"; then echo "FAIL: <script> in standalone HTML"; exit 1; fi
           echo "ok: standalone HTML is self-contained (no /_next/, no <script>)"
-      - name: CLI smoke
+      - name: Bundled CLI smoke (what a plugin install and npx run)
         run: |
-          node packages/cli/dist/index.js --version
-          node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json
-          node packages/cli/dist/index.js render fixtures/topics/latest-ai-models.json -o /tmp/cli-out.html
+          node bin/recap.mjs --version
+          node bin/recap.mjs validate fixtures/topics/latest-ai-models.json --fail-under 8
+          node bin/recap.mjs render fixtures/topics/latest-ai-models.json -o /tmp/cli-out.html
           test -f /tmp/cli-out.html && echo "ok: recap CLI render + validate"
 
   secrets-scan:
@@ -61,7 +57,7 @@ jobs:
           if grep -rnEI "$PATTERN" . \
               --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist \
               --exclude-dir=.next --exclude-dir=out \
-              --exclude=pnpm-lock.yaml \
+              --exclude=package-lock.json --exclude=recap.mjs \
               --exclude=validate.mjs \
               --exclude=security-privacy.ts \
               --exclude=block-secret-writes.mjs ; then

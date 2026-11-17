@@ -65,7 +65,35 @@ export function runValidation(
   };
 }
 
-export function reportMarkdown(report: ValidationReport): string {
+const SEVERITY_RANK: Record<string, number> = { blocker: 0, high: 1, medium: 2, low: 3, info: 4 };
+
+/**
+ * The few things to do next, worst first. Blockers lead, then the findings of
+ * every dimension that is not at "pass". At most `limit` lines, so the report
+ * stays readable; the table below still shows every dimension.
+ */
+export function reportActions(report: ValidationReport, limit = 3): string[] {
+  return report.dimensions
+    .filter((d) => d.status !== "pass")
+    .flatMap((d) => d.findings.map((f) => ({ d, f })))
+    .sort((x, y) => (SEVERITY_RANK[x.f.severity] ?? 9) - (SEVERITY_RANK[y.f.severity] ?? 9))
+    .slice(0, limit)
+    .map(({ d, f }) => `Fix ${d.name} (${d.score}/10, target ${d.target}): ${f.message}${f.hint ? ` Hint: ${f.hint}` : ""}`);
+}
+
+/**
+ * The human report. The order is fixed: the verdict, then what to do next,
+ * then the detail. A tired reader gets the answer in the first three lines.
+ *
+ * `failUnder` is the active `--fail-under` gate, when there is one, so the
+ * verdict states the rule that decides the exit code.
+ */
+export function reportMarkdown(report: ValidationReport, failUnder?: number | null): string {
+  const passed = reportPasses(report, failUnder);
+  const rule =
+    failUnder === undefined || failUnder === null
+      ? "every dimension at its target"
+      : `overall at least ${failUnder} and no blocker`;
   const rows = report.dimensions
     .map(
       (d) =>
@@ -76,16 +104,28 @@ export function reportMarkdown(report: ValidationReport): string {
     report.blockers.length > 0
       ? report.blockers.map((b) => `- ${b}`).join("\n")
       : "_none_";
+  const actions = reportActions(report);
+  const next =
+    actions.length > 0
+      ? actions.map((a) => `- ${a}`)
+      : passed
+        ? ["- Nothing to fix. Render the page and send it."]
+        : ["- Raise the lowest scores in the table below, then run validate again."];
 
   return [
     `## Validation report: ${report.slug}`,
+    "",
+    `Verdict: ${passed ? "PASS" : "FAIL"}. Overall ${report.overall}/10, ${report.blockers.length} blocker(s). Rule: ${rule}.`,
+    "",
+    "Next:",
+    ...next,
     "",
     "| Dimension          | Score  | Target | Status   | Top finding |",
     "| ------------------ | ------ | ------ | -------- | ----------- |",
     rows,
     "",
     `Overall: **${report.overall}/10**, thresholds ${
-      report.passedThresholds ? "PASSED ✅" : "NOT PASSED ⚠️"
+      report.passedThresholds ? "PASSED" : "NOT PASSED"
     }`,
     "",
     "**Blockers**",

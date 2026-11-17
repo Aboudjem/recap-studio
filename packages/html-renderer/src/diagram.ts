@@ -51,6 +51,6 @@ export function renderDiagram(d: DiagramLike): string {
     <p class="recap-muted">${cap}</p>
     <details><summary class="recap-eyebrow">Diagram source</summary><pre>${esc(d.code)}</pre></details>
   </div>
-  <figcaption class="recap-figcap">Diagram — open the source above, or view the hosted version for the rendered graphic.</figcaption>
+  <figcaption class="recap-figcap">Diagram source above. Open it, or view the hosted version for the rendered graphic.</figcaption>
 </figure>`;
 }

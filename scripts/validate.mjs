@@ -9,7 +9,7 @@
  * Writes artifacts/<slug>/validation.json and prints a Markdown report.
  *
  * Designed to run BEFORE the workspace is installed by using a standalone
- * embedded copy of the deterministic checks. Once `pnpm install` succeeds,
+ * embedded copy of the deterministic checks. Once `npm install` succeeds,
  * the same checks live in @recap-studio/validation and the agents call them.
  */
 import { readFileSync, mkdirSync, writeFileSync, existsSync } from "node:fs";
@@ -77,13 +77,13 @@ const missing = REQUIRED.filter((k) =>
 if (!content || typeof content !== "object" || missing.length) {
   console.error(
     `recap-studio: ${inputPath} is not a valid RecapPageContent — missing/invalid: ${missing.join(", ") || "(not an object)"}.\n` +
-      `Generate one with /recap "<topic>" (or pnpm demo:latest-ai-models), then validate.`,
+      `Generate one with /recap "<topic>" (or npm run demo:latest-ai-models), then validate.`,
   );
   process.exit(2);
 }
 
 // --- Embedded deterministic checks (subset of @recap-studio/validation). ----
-// Keeps `pnpm validate:demo` runnable before `pnpm install`.
+// Keeps `npm run validate:demo` runnable before `npm install`.
 
 const TARGETS = {
   facts: 9,

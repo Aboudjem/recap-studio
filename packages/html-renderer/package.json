@@ -23,7 +23,7 @@
     "lint": "echo 'html-renderer: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "workspace:*"
+    "@recap-studio/content-pipeline": "*"
   },
   "devDependencies": {
     "tsx": "^4.16.0",

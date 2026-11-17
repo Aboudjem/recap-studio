@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-17
+
+The plugin now works in any project with nothing to build. The MCP server starts from an
+installed plugin, the hooks stay out of unrelated projects, and the CLI runs with one `npx` line.
+
+### Added
+
+- **`bin/recap.mjs`**: the CLI and the MCP server in one committed, dependency-free file, built
+  by `scripts/build-bundle.mjs`. `npm test` fails when it drifts from the sources.
+- **`npx -y github:Aboudjem/recap-studio`** runs the CLI with no clone and no npm package.
+- **`recap demo`**: a first page in one command, no input, no network. Verdict first.
+- **`recap example`**: writes the built-in content JSON as a starting file. Refuses to overwrite.
+- **`recap mcp`**: serves the MCP tools over stdio.
+- **`/recap` router skill**: picks topic or session mode, or runs the demo.
+- **`server.json`** (`io.github.Aboudjem/recap-studio`) and a `recap-studio.mcpb` bundle on each
+  release, built byte for byte the same on every machine. The release workflow checks its sha256.
+- **`docs/mcp-tools.md`**, generated from the server's own `tools/list` and checked by a test.
+- **`tests/plugin.test.mjs`**: copies the plugin to an empty folder and drives it from there.
+- **`.claude-plugin/icon.png`**.
+
+### Changed
+
+- **The plugin's MCP entry now starts.** It pointed at an unbuilt `dist/` file with a relative path.
+  It now runs `${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs mcp`.
+- **Hooks act only in a recap-studio project**: a folder (or parent) with a
+  `recap-studio.config.*` file, a `.recap-studio/` folder, or this repo. Elsewhere they exit at
+  once. `RECAP_HOOKS_EVERYWHERE=1` restores the old behavior. Prettier only formats files inside
+  that project, and never downloads itself.
+- **Skills work in any project.** They write `artifacts/<slug>/content.json` and render with the
+  MCP tools or the bundled CLI, instead of needing a clone of this repo.
+- **`validate_content` and `render_recap_html` work outside this repo.** They read
+  `artifacts/<slug>/content.json` first. The artifact tools refuse a path that leaves `artifacts/`.
+- **`recap validate` prints the verdict first**, then up to three things to fix, then the table.
+  `--json` keeps its shape.
+- **npm workspaces replace pnpm.** One package manager, `npm test` runs every suite.
+- Validator messages and the diagram caption no longer use em dashes.
+
+### Removed
+
+- The author email in `.claude-plugin/plugin.json`.
+
 ## [0.5.2] - 2026-10-15
 
 The git guard is no longer all-or-nothing: you can let Claude push while history-rewriting

@@ -4,10 +4,10 @@
   Recap Studio multi-CLI installer (PowerShell mirror of install.sh).
 
 .DESCRIPTION
-  Symlinks Recap Studio's skills (/recap-topic, /recap-session, /recap-setup,
+  Symlinks Recap Studio's skills (/recap, /recap-topic, /recap-session, /recap-setup,
   /recap-validate) into a target AI coding CLI's skills directory. The optional
-  local MCP server (node packages/mcp-server/dist/index.js) is the universal
-  fallback for every MCP-capable client; build it once with pnpm -w build.
+  local MCP server (node bin/recap.mjs mcp) is the universal
+  fallback for every MCP-capable client; no build needed.
 
   Creating symlinks on Windows needs Developer Mode enabled or an elevated
   shell. If symlink creation fails, use the MCP path shown at the end.
@@ -35,7 +35,7 @@ $ErrorActionPreference = 'Stop'
 
 $RepoUrl  = 'https://github.com/Aboudjem/recap-studio.git'
 $CloneDir = if ($env:RECAP_STUDIO_HOME) { $env:RECAP_STUDIO_HOME } else { Join-Path $HOME '.recap-studio' }
-$Skills   = @('recap-topic', 'recap-session', 'recap-setup', 'recap-validate')
+$Skills   = @('recap', 'recap-topic', 'recap-session', 'recap-setup', 'recap-validate')
 $AllIds   = @('gemini','codex','opencode','pi','vibe','vscode','copilot','trae','openclaw','antigravity','hermes','cline','kimi')
 
 function Show-Usage {
@@ -55,9 +55,9 @@ Options:
   -NoMcp      skip the MCP-server hint
   -Help       show this help
 
-The local MCP server works in every MCP-capable client (build it first with pnpm -w build):
+The local MCP server works in every MCP-capable client (no build needed):
   claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
-  # generic: node packages/mcp-server/dist/index.js
+  # generic: node bin/recap.mjs mcp
 "@ | Write-Output
 }
 
@@ -126,9 +126,9 @@ function Uninstall-One($Spec) {
 
 function Show-McpHint {
   Write-Output ''
-  Write-Output 'Local MCP server (works in every MCP-capable client; run pnpm -w build first):'
+  Write-Output 'Local MCP server (works in every MCP-capable client; no build needed):'
   Write-Output '  claude mcp add recap-studio node -- packages/mcp-server/dist/index.js'
-  Write-Output '  generic: node packages/mcp-server/dist/index.js'
+  Write-Output '  generic: node bin/recap.mjs mcp'
 }
 
 if ($Help -or -not $Platform) { Show-Usage; if ($Help) { exit 0 } else { exit 1 } }

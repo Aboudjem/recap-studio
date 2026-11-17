@@ -1,49 +1,38 @@
 # Recap Studio
 
-> Claude Code plugin: turn any topic or git diff into a cited, mobile-first, dark-mode one-page explainer in under 5 minutes.
+> Turn a topic or a coding session into one dark-mode HTML explainer you double-click and read offline in about five minutes. Claude Code plugin, CLI and MCP server. Version 0.6.0, MIT.
+
+The page is one file: all CSS inlined, zero JavaScript, zero external requests.
+The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no dependency.
+Nothing is published to npm; `npx -y github:Aboudjem/recap-studio` runs it from GitHub.
 
 ## Install
 
-### Marketplace (recommended)
-```
-claude plugin install recap-studio@10x
-```
+- Claude Code: `claude plugin marketplace add Aboudjem/10x` then `claude plugin install recap-studio@10x`
+- Any agent with a skills directory: `npx skills add Aboudjem/recap-studio`
+- CLI, no install: `npx -y github:Aboudjem/recap-studio demo`
+- MCP server (stdio): command `npx`, args `["-y", "github:Aboudjem/recap-studio", "mcp"]`
 
-### CLI (any terminal, no Claude Code required)
-The `@recap-studio/cli` npm package is NOT yet published. Today, run it from a
-built clone:
-```
-node packages/cli/dist/index.js render content.json -o out.html
-node packages/cli/dist/index.js validate content.json
-# Planned (not yet on npm): npx @recap-studio/cli render content.json -o out.html
-```
+## Docs
 
-## Key files / packages
+- [README](https://github.com/Aboudjem/recap-studio/blob/main/README.md): install, how it works, proof, FAQ, limits
+- [CLI reference](https://github.com/Aboudjem/recap-studio/blob/main/docs/cli.md): `demo`, `example`, `render`, `validate`, `mcp`
+- [MCP tools](https://github.com/Aboudjem/recap-studio/blob/main/docs/mcp-tools.md): the 11 tools, their arguments and side effects
+- [Editor setup](https://github.com/Aboudjem/recap-studio/blob/main/docs/editors.md): skills and MCP snippets per agent
+- [Security and privacy](https://github.com/Aboudjem/recap-studio/blob/main/docs/security-and-privacy.md): what the hooks block, what stays off
+- [Changelog](https://github.com/Aboudjem/recap-studio/blob/main/CHANGELOG.md)
+- [Releases](https://github.com/Aboudjem/recap-studio/releases): each one ships `recap-studio.mcpb`
 
-- `README.md`: overview, install, commands, quality bar
-- `skills/`: `recap-topic`, `recap-session`, `recap-setup`, `recap-validate` (Claude Code skill orchestrators)
-- `packages/html-renderer/` (`@recap-studio/html-renderer`): `renderToHtml(content, {theme})` -> one self-contained dark-mode HTML string; all CSS inlined, zero JavaScript, opens offline via `file://`
-- `packages/cli/` (`@recap-studio/cli`): `recap render` / `recap validate` commands; works in any editor or terminal
-- `packages/mcp-server/` (`@recap-studio/mcp-server`): MCP server exposing `render_recap_html` tool; compatible with Cursor, VS Code, Codex, Continue
-- `packages/content-pipeline/` (`@recap-studio/content-pipeline`): schema definitions, content loader, subpath `@recap-studio/content-pipeline/load-config` for safe imports
-- `packages/validation/`: deterministic heuristic scorer (see IMPORTANT note below)
-- `agents/`: 13 specialist agent prompt files (fact-checker, structure-reviewer, citation-validator, etc.); invoked at skill runtime, not during static validation
+## Validation scores are heuristics
 
-## IMPORTANT: validation scores
+`recap validate` and the MCP tool `validate_content` run seven deterministic checks: structure,
+citations, word counts, secret and fluff scans. They do not fetch sources and do not call a model.
+The 13 specialist agents run only inside an agent session, through `/recap`.
 
-Scores produced by `pnpm validate:demo` (and displayed as "9.7 / 10") are **deterministic heuristics** (word counts, sourceId presence, secret-pattern regex) executed by `scripts/validate.mjs` in Node.js.
+## Skills
 
-- They do **not** involve LLM calls.
-- They do **not** fetch or verify cited sources.
-- LLM agent reviews (the 13 specialist agents) run at **skill invocation time** inside Claude Code, not during static demo validation.
-
-Any mention of "7 reviewers in parallel" refers to 7 heuristic dimensions running concurrently, not 7 concurrent LLM agents during `pnpm validate:demo`.
-
-## Links
-
-- Repository: https://github.com/Aboudjem/recap-studio
-- npm (plugin): https://www.npmjs.com/package/recap-studio (placeholder; canonical install is via 10x marketplace)
-- npm (CLI): @recap-studio/cli (planned; not yet published)
-- npm (html-renderer): @recap-studio/html-renderer (planned; not yet published)
-- License: MIT
-- Author: Adam Boudjemaa (https://github.com/Aboudjem)
+- `recap`: router for `/recap` (topic, session, or demo)
+- `recap-topic`: a cited explainer on a topic
+- `recap-session`: an explainer of a git diff and its commits
+- `recap-setup`: writes a config with every side effect off
+- `recap-validate`: runs the review board and the deterministic score

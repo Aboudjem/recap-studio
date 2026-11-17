@@ -6,17 +6,17 @@ quality, so a few rules keep the bar high.
 ## Quick start
 
 ```bash
-pnpm install
-pnpm -w demo:latest-ai-models
-pnpm -w validate:demo
-pnpm --filter recap-web dev   # http://localhost:3000
+npm install
+npm run demo:latest-ai-models
+npm run validate:demo
+npm run dev --workspace=apps/recap-web   # http://localhost:3000
 ```
 
 ## How to contribute
 
 1. Fork the repo and create a branch: `git checkout -b fix/short-summary`
 2. Make your change in small, reviewable commits.
-3. Run the full check: `pnpm lint && pnpm typecheck && pnpm test && pnpm build`
+3. Run the full check: `npm run lint && npm run typecheck && npm test && npm run build`
 4. Run the demo + validation: `node scripts/demo-latest-ai-models.mjs && node scripts/validate.mjs`. All thresholds must still pass.
 5. Open a PR with a clear title and a short "why".
 
@@ -52,7 +52,7 @@ Open an issue with:
 - What you expected.
 - What happened instead.
 - Steps to reproduce.
-- Your environment (OS, Node version, pnpm version).
+- Your environment (OS, Node version, npm version).
 - A screenshot if it is visual.
 
 ## Reporting security issues

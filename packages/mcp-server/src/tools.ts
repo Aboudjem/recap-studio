@@ -1,5 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { z } from "zod";
 import {
   appendSource,
@@ -29,6 +29,46 @@ function artifactsRoot(): string {
 
 function ensureDir(path: string): void {
   mkdirSync(dirname(path), { recursive: true });
+}
+
+/**
+ * Resolve artifacts/<slug>/<filename> and refuse anything that lands outside
+ * the artifacts folder. A slug or filename with `..` or an absolute path must
+ * never let a tool call read or write elsewhere on disk.
+ */
+export function artifactPath(slug: string, filename: string): string {
+  const root = artifactsRoot();
+  const path = resolve(root, slug, filename);
+  const rel = relative(root, path);
+  if (!rel || rel.startsWith("..") || isAbsolute(rel)) {
+    throw new Error(`refused: ${join(slug, filename)} resolves outside artifacts/`);
+  }
+  return path;
+}
+
+/**
+ * Find the content JSON for a slug. The first match wins:
+ *   1. an explicit `path` (relative to the working directory)
+ *   2. artifacts/<slug>/content.json   (any project: where the skills write)
+ *   3. apps/recap-web/src/content/<slug>.json   (a recap-studio checkout)
+ *   4. fixtures/topics/<slug>.json              (a recap-studio checkout)
+ */
+export function resolveContentPath(slug: string, path?: string): string {
+  const cwd = process.cwd();
+  const candidates = [
+    ...(path ? [resolve(cwd, path)] : []),
+    join(artifactsRoot(), slug, "content.json"),
+    join(cwd, "apps", "recap-web", "src", "content", `${slug}.json`),
+    join(cwd, "fixtures", "topics", `${slug}.json`),
+  ];
+  const found = candidates.find((c) => existsSync(c));
+  if (!found) {
+    throw new Error(
+      `no content for slug "${slug}". Looked in: ${candidates.map((c) => relative(cwd, c) || c).join(", ")}. ` +
+        `Save the content JSON with create_run_artifact as artifacts/${slug}/content.json first.`,
+    );
+  }
+  return found;
 }
 
 const CreateArtifact = z.object({
@@ -82,10 +122,12 @@ const SendEmailDraft = z.object({
 
 const ValidateContent = z.object({
   slug: z.string().min(1),
+  path: z.string().min(1).optional(),
 });
 
 const RenderRecapHtml = z.object({
   slug: z.string().min(1),
+  path: z.string().min(1).optional(),
   theme: z.enum(["dark", "light", "auto"]).default("dark"),
 });
 
@@ -105,7 +147,7 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
       required: ["slug", "filename", "content"],
     },
     handler: ({ slug, filename, content }) => {
-      const path = join(artifactsRoot(), slug, filename);
+      const path = artifactPath(slug, filename);
       ensureDir(path);
       writeFileSync(path, content, "utf8");
       return { ok: true, path };
@@ -124,7 +166,7 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
       required: ["slug", "filename"],
     },
     handler: ({ slug, filename }) => {
-      const path = join(artifactsRoot(), slug, filename);
+      const path = artifactPath(slug, filename);
       if (!existsSync(path)) {
         throw new Error(`artifact not found: ${path}`);
       }
@@ -303,53 +345,44 @@ export const tools: Array<ToolDef<z.ZodTypeAny>> = [
   {
     name: "validate_content",
     description:
-      "Run the deterministic validation suite against a stored content artifact and return a Markdown report.",
+      "Run the deterministic validation suite against a content JSON and return a Markdown report, verdict first. Reads artifacts/<slug>/content.json, or the optional path.",
     input: ValidateContent,
     inputSchema: {
       type: "object",
-      properties: { slug: { type: "string" } },
+      properties: {
+        slug: { type: "string" },
+        path: { type: "string", description: "Optional path to the content JSON, relative to the working directory." },
+      },
       required: ["slug"],
     },
-    handler: ({ slug }) => {
-      const file = join(
-        resolve(process.cwd(), "apps", "recap-web", "src", "content"),
-        `${slug}.json`,
-      );
-      const fallback = join(resolve(process.cwd(), "fixtures", "topics"), `${slug}.json`);
-      const path = existsSync(file) ? file : fallback;
-      const content = parseRecapPageContent(JSON.parse(readFileSync(path, "utf8")));
+    handler: ({ slug, path }) => {
+      const file = resolveContentPath(slug, path);
+      const content = parseRecapPageContent(JSON.parse(readFileSync(file, "utf8")));
       const report = runValidation(content);
-      return { ok: true, report, markdown: reportMarkdown(report) };
+      return { ok: true, source: file, report, markdown: reportMarkdown(report) };
     },
   },
   {
     name: "render_recap_html",
     description:
-      "Render a stored RecapPageContent (by slug) into ONE self-contained, dark-mode HTML file: inlined CSS, zero JavaScript, opens with a double-click offline. Writes artifacts/<slug>/recap-<slug>.html. This is the cross-editor way to turn content into a shareable page — no Claude Code required.",
+      "Render a RecapPageContent JSON into ONE self-contained, dark-mode HTML file: inlined CSS, zero JavaScript, opens with a double-click offline. Reads artifacts/<slug>/content.json (or the optional path) and writes artifacts/<slug>/recap-<slug>.html. Works in any project and any MCP client.",
     input: RenderRecapHtml,
     inputSchema: {
       type: "object",
       properties: {
         slug: { type: "string" },
+        path: { type: "string", description: "Optional path to the content JSON, relative to the working directory." },
         theme: { type: "string", enum: ["dark", "light", "auto"] },
       },
       required: ["slug"],
     },
-    handler: ({ slug, theme }) => {
-      const live = join(
-        resolve(process.cwd(), "apps", "recap-web", "src", "content"),
-        `${slug}.json`,
-      );
-      const fixture = join(resolve(process.cwd(), "fixtures", "topics"), `${slug}.json`);
-      const path = existsSync(live) ? live : fixture;
-      if (!existsSync(path)) {
-        throw new Error(`no content for slug "${slug}" (looked in apps/recap-web/src/content and fixtures/topics)`);
-      }
-      const html = renderFromJson(JSON.parse(readFileSync(path, "utf8")), { theme });
-      const outPath = join(artifactsRoot(), slug, `recap-${slug}.html`);
+    handler: ({ slug, path, theme }) => {
+      const file = resolveContentPath(slug, path);
+      const html = renderFromJson(JSON.parse(readFileSync(file, "utf8")), { theme });
+      const outPath = artifactPath(slug, `recap-${slug}.html`);
       ensureDir(outPath);
       writeFileSync(outPath, html, "utf8");
-      return { ok: true, path: outPath, bytes: Buffer.byteLength(html, "utf8"), selfContained: true };
+      return { ok: true, source: file, path: outPath, bytes: Buffer.byteLength(html, "utf8"), selfContained: true };
     },
   },
 ];

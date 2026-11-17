@@ -83,4 +83,4 @@ console.log(`recap-studio: wrote ${outFile} (${kb} KB, self-contained, opens wit
 console.log("");
 console.log("Next:");
 console.log(`  • Open it:   open "${outFile}"   (macOS) — or double-click the file`);
-console.log("  • Deploy?    only if Vercel is configured (vercel / .vercel / VERCEL_TOKEN): pnpm deploy:preview");
+console.log("  • Deploy?    only if Vercel is configured (vercel / .vercel / VERCEL_TOKEN): npm run deploy:preview");

@@ -3,11 +3,16 @@
  * Recap Studio hook: format-after-edit
  *
  * Best-effort Prettier formatting of the file Claude Code just wrote.
- * Never fails the run — failures log to stderr and exit 0.
+ * Never fails the run: failures log to stderr and exit 0.
+ *
+ * Scope: acts only inside a recap-studio project (see lib/scope.mjs), and only
+ * on a file that sits inside that project. It never formats a file of another
+ * project, and never downloads Prettier (`npx --no-install`).
  */
 import { readFileSync, existsSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { extname } from "node:path";
+import { hookProjectRoot, isInside } from "./lib/scope.mjs";
 
 const FORMATTABLE = new Set([
   ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs",
@@ -29,10 +34,14 @@ const file =
   payload?.tool_response?.file_path ??
   "";
 
+const root = hookProjectRoot(payload);
+if (!root) process.exit(0);
 if (!file || !existsSync(file)) process.exit(0);
+if (!isInside(root, file, payload.cwd || process.cwd())) process.exit(0);
 if (!FORMATTABLE.has(extname(file))) process.exit(0);
 
 const result = spawnSync("npx", ["--no-install", "prettier", "--write", file], {
+  cwd: root,
   stdio: ["ignore", "ignore", "pipe"],
   timeout: 10_000,
 });

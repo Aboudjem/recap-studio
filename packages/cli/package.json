@@ -1,13 +1,16 @@
 {
   "name": "@recap-studio/cli",
-  "version": "0.3.0",
+  "version": "0.6.0",
   "description": "The `recap` CLI: turn a RecapPageContent JSON into a self-contained dark-mode HTML page, or score it. Works in any editor/terminal, no Claude required.",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
     "recap": "./dist/index.js"
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -15,9 +18,10 @@
     "lint": "echo 'cli: no lint configured yet'"
   },
   "dependencies": {
-    "@recap-studio/content-pipeline": "workspace:*",
-    "@recap-studio/html-renderer": "workspace:*",
-    "@recap-studio/validation": "workspace:*"
+    "@recap-studio/content-pipeline": "*",
+    "@recap-studio/html-renderer": "*",
+    "@recap-studio/validation": "*",
+    "@recap-studio/mcp-server": "*"
   },
   "devDependencies": {
     "tsx": "^4.16.0",

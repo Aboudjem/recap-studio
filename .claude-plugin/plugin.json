@@ -2,11 +2,10 @@
   "$schema": "https://schemas.anthropic.com/claude-code/plugin.schema.json",
   "name": "recap-studio",
   "displayName": "Recap Studio",
-  "version": "0.5.2",
-  "description": "Turn a topic or a coding session into a beautiful, dark-mode, mobile-first one-page explainer: one self-contained HTML file you can double-click and read offline in ~5 minutes.",
+  "version": "0.6.0",
+  "description": "Turn a topic or a coding session into one dark-mode HTML explainer you double-click and read offline in about five minutes.",
   "author": {
     "name": "Adam Boudjemaa",
-    "email": "boudjemaa.adam@gmail.com",
     "url": "https://github.com/Aboudjem"
   },
   "homepage": "https://github.com/Aboudjem/recap-studio",
@@ -14,9 +13,12 @@
   "keywords": [
     "claude-code",
     "plugin",
-    "education",
     "recap",
-    "nextjs",
+    "explainer",
+    "self-contained-html",
+    "mcp",
+    "cli",
+    "education",
     "accessibility",
     "mobile-first"
   ],
@@ -25,9 +27,11 @@
   "mcpServers": {
     "recap-studio-tools": {
       "command": "node",
-      "args": ["packages/mcp-server/dist/index.js"],
-      "description": "Optional local MCP server: artifact store, source cache, diagram render, screenshot, a11y/lighthouse summaries, Vercel preview helper, email draft helper. Side effects gated behind config + confirmation.",
-      "optional": true
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs",
+        "mcp"
+      ]
     }
-  }
+  },
+  "repository": "https://github.com/Aboudjem/recap-studio"
 }

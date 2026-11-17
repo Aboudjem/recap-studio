@@ -44,7 +44,7 @@ export function checkBeginner(content: RecapPageContent): Omit<DimensionResult, 
         severity: "low",
         message: "key idea body exceeds 60 words",
         path: `keyIdeas.${k.id}`,
-        hint: "split or trim — mobile-first chunking",
+        hint: "split or trim it for mobile-first chunking",
       });
     }
   }

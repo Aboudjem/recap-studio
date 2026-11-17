@@ -31,15 +31,17 @@ recap-studio/
 │   ├── design-system/      # Shared tokens (colors, spacing, typography, all sans-serif)
 │   ├── validation/         # Deterministic heuristic scorer (NOT LLM; see Honesty Rule below)
 │   ├── html-renderer/      # renderToHtml(content, {theme}) → self-contained dark-mode HTML string
-│   ├── cli/                # `recap` CLI: render and validate without Claude Code
-│   └── mcp-server/         # MCP server exposing render_recap_html and validate tools
+│   ├── cli/                # `recap` CLI: demo, example, render, validate, mcp
+│   └── mcp-server/         # MCP server: 11 tools (docs/mcp-tools.md)
+├── bin/recap.mjs           # Generated: CLI + MCP server in one file (scripts/build-bundle.mjs)
 ├── skills/
+│   ├── recap/              # SKILL.md: /recap router (topic, session or demo)
 │   ├── recap-topic/        # SKILL.md: /recap <topic>
 │   ├── recap-session/      # SKILL.md: /recap session (git diff -> session recap)
 │   ├── recap-setup/        # SKILL.md: one-time config wizard
 │   └── recap-validate/     # SKILL.md: validate a content JSON file
 ├── agents/                 # 13 specialist agent prompt files (Markdown frontmatter)
-├── hooks/                  # Claude Code hooks (MJS) + hooks.json manifest
+├── hooks/                  # Claude Code hooks (MJS) + hooks.json; act only in a recap-studio project
 ├── scripts/                # Dev scripts (render-html.mjs, validate.mjs, demo-*.mjs, etc.)
 ├── fixtures/               # Sample content JSON files for testing and demos
 ├── templates/              # Scaffold templates for new content types
@@ -58,40 +60,39 @@ Run these commands from the repo root. All require `pnpm` (v10) and Node ≥ 20.
 
 ```bash
 # Install all workspace dependencies
-pnpm install
+npm install
 
 # Build all packages (run after any package change)
-pnpm -w build
-# or: pnpm build
+npm run build
 
-# Run all tests across all packages (73 tests, six workspace projects)
-pnpm -w test
-# or: pnpm test
+# Run every suite: builds the packages, then each workspace, the hooks,
+# the plugin and the bundle checks (105 tests on 2026-11-17)
+npm test
 
 # TypeScript strict check across all packages
-pnpm typecheck
+npm run typecheck
 
 # Lint
-pnpm lint
+npm run lint
 
 # Render the demo topic to a self-contained HTML file
-pnpm render:demo
+npm run render:demo
 # Output: artifacts/latest-ai-models/recap-latest-ai-models.html
 
 # Render an arbitrary content JSON
-pnpm render -- <path/to/content.json>
+npm run render -- <path/to/content.json>
 
 # Run the deterministic validation suite against the demo
-pnpm validate:demo
+npm run validate:demo
 
 # Validate an arbitrary content JSON
-pnpm validate -- <path/to/content.json>
+npm run validate -- <path/to/content.json>
 ```
 
 **Before opening a PR, all of the following must be green:**
 
 ```bash
-pnpm typecheck && pnpm test && pnpm -w build && pnpm validate:demo
+npm run typecheck && npm test && npm run build && npm run validate:demo
 ```
 
 The validation gate must return a composite score of **9.7/10 or better** on the demo fixture. See the Honesty Rule section for what that score actually means.
@@ -141,7 +142,7 @@ Hooks run automatically inside Claude Code sessions. They are listed in `hooks/h
 |---|---|---|
 | `block-secret-writes.mjs` | Before any file write | Writes containing API keys, tokens, or secret patterns |
 | `block-destructive-git.mjs` | Before any shell command | Any `git push` (plain pushes allowed with `RECAP_ALLOW_GIT_PUSH=1`), force/delete pushes, `git reset --hard`, `rebase`, branch deletion |
-| `validate-before-deploy.mjs` | Before deploy scripts execute | Deployment if `pnpm validate:demo` returns below threshold |
+| `validate-before-deploy.mjs` | Before deploy scripts execute | Deployment if `npm run validate:demo` returns below threshold |
 | `format-after-edit.mjs` | After any TypeScript/JS/JSON file edit | (runs `prettier`; does not block, reformats) |
 | `qa-summary-on-stop.mjs` | When the Claude Code session stops | (prints QA summary; does not block) |
 
@@ -153,7 +154,7 @@ Do not remove or disable hooks without a documented reason. CI smoke-tests the f
 
 **The 9.7/10 composite score is produced by deterministic heuristics, not LLM agents.**
 
-`packages/validation/` contains word-count checks, `sourceId` presence checks, secret-pattern regex, and structure validators. `pnpm validate:demo` runs these checks; it does NOT call any LLM and does NOT fetch sources.
+`packages/validation/` contains word-count checks, `sourceId` presence checks, secret-pattern regex, and structure validators. `npm run validate:demo` runs these checks; it does NOT call any LLM and does NOT fetch sources.
 
 The 13 specialist agents listed above are invoked at **skill runtime** (when a user runs `/recap` or `/recap session` in Claude Code). They are not part of the static validation suite.
 
@@ -188,14 +189,14 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 - `recap-studio.config.ts` holds `VERCEL_TOKEN` by reference to env; keep it that way.
 
 ### Git Identity
-- All commits must be attributed to **Adam Boudjemaa** (`boudjemaa.adam@gmail.com`, GitHub: Aboudjem).
+- All commits must be attributed to **Adam Boudjemaa** (GitHub: Aboudjem), through the global git config.
 - If the local repo's `.git/config` has overridden `user.name` or `user.email`, unset the local override so the global identity is used: `git config --unset user.name && git config --unset user.email`.
 - Never use `-c user.name=...` flags on `git commit`. Never commit as `autoresearch`, `Claude`, or any other handle.
 
 ### Commit Protocol
 - Commits go to feature branches; never push directly to `main` (or the active rebuild branch).
 - Commit messages describe the *why*, not the *what*. Keep subject line under 72 characters.
-- Run `pnpm typecheck && pnpm test` before committing.
+- Run `npm run typecheck && npm test` before committing.
 
 ---
 
@@ -204,7 +205,7 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 | Issue | Cause | Fix |
 |---|---|---|
 | Next.js "Critical dependency" warning | `load-config` imported from the content-pipeline barrel | Use `@recap-studio/content-pipeline/load-config` subpath |
-| `file://` broken when opening `apps/recap-web/out/` | Next.js static export uses absolute paths | Use `artifacts/` output from `pnpm render:demo` instead |
+| `file://` broken when opening `apps/recap-web/out/` | Next.js static export uses absolute paths | Use `artifacts/` output from `npm run render:demo` instead |
 | MCP tool results rejected by some editors | Old transport returned `"json"` content type | Fixed in v0.3; content type is now `"text"` per MCP spec |
 | `validate.mjs` exits with TypeError on malformed input | Guard was missing | Fixed; script now exits cleanly with code 2 |
 | Theme defaults to `"auto"` | Was `"auto"` in older config | Default is now `"dark"`; change in `recap-studio.config.ts` |
@@ -231,14 +232,17 @@ Every place that surfaces a score (README, generated HTML, skill output, any age
 
 | Package | Exports | Tests |
 |---|---|---|
-| `@recap-studio/content-pipeline` | `RecapPageContent` schema, loaders, `loadConfig` (subpath) | yes |
-| `@recap-studio/design-system` | Design tokens, Tailwind config | no |
-| `@recap-studio/validation` | `validateContent()`, dimension scores (deterministic heuristics) | yes |
-| `@recap-studio/html-renderer` | `renderToHtml()`, `renderFromJson()`, `getBaseStyles()` | 9 tests |
-| `@recap-studio/cli` | `recap render` and `recap validate` commands | 6 tests |
-| `@recap-studio/mcp-server` | MCP server with `render_recap_html` + `validate` tools | 9 tests |
+| `@recap-studio/content-pipeline` | `RecapPageContent` schema, loaders, `loadConfig` (subpath) | 17 tests |
+| `@recap-studio/design-system` | Design tokens, Tailwind config | none |
+| `@recap-studio/validation` | `runValidation()`, `reportMarkdown()`, dimension scores (deterministic heuristics) | 5 tests |
+| `@recap-studio/html-renderer` | `renderToHtml()`, `renderFromJson()`, `getBaseStyles()` | 26 tests |
+| `@recap-studio/mcp-server` | MCP server, 11 tools (see `docs/mcp-tools.md`) | 9 tests |
+| `@recap-studio/cli` | `recap demo`, `example`, `render`, `validate`, `mcp` | 15 tests |
+| `apps/recap-web` | Hosted Next.js track | 1 test |
+| repo (`hooks/*.test.mjs`, `tests/*.test.mjs`) | Hooks, installed-plugin, bundle and manifest checks | 32 tests |
 
-Total: 73 tests across six workspace projects (`design-system` ships no tests; it is consumed by `recap-web`).
+Total: 105 tests on 2026-11-17. Re-print the counts with
+`npm test 2>&1 | grep -E "^# tests|Tests "`.
 
 ---
 

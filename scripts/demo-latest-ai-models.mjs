@@ -52,5 +52,5 @@ console.log(`recap-studio: wrote ${contentPath.replace(repoRoot + "/", "")}`);
 console.log(`recap-studio: active slug -> latest-ai-models`);
 console.log("");
 console.log("Next steps:");
-console.log("  pnpm validate:demo          # deterministic quality report");
-console.log("  pnpm --filter recap-web dev # preview locally on http://localhost:3000");
+console.log("  npm run validate:demo          # deterministic quality report");
+console.log("  npm run dev --workspace=apps/recap-web # preview locally on http://localhost:3000");

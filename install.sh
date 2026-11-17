@@ -2,21 +2,21 @@
 #
 # Recap Studio multi-CLI installer.
 #
-# Installs Recap Studio's four skills (/recap-topic, /recap-session,
+# Installs Recap Studio's five skills (/recap, /recap-topic, /recap-session,
 # /recap-setup, /recap-validate) into a target AI coding CLI.
 #
 # By default this delegates to the Vercel skills CLI:
 #
-#   npx --yes skills@1.5.23 add Aboudjem/recap-studio -a <agent> -g -y
+#   npx --yes skills@1.9.0 add Aboudjem/recap-studio -a <agent> -g -y
 #
 # That CLI tracks each agent's current skills directory, so the install path
 # stays right as agents move theirs. --legacy keeps the original behaviour:
 # symlink this checkout's skills/ into a hardcoded per-platform directory, no
 # network and no npx.
 #
-# The optional local MCP server (node packages/mcp-server/dist/index.js) is the
-# universal fallback for any MCP-capable client; build it once with
-# `pnpm install && pnpm -w build`. See docs/editors.md.
+# The optional local MCP server (node bin/recap.mjs mcp) is the
+# universal fallback for any MCP-capable client. It needs no build step.
+# See docs/editors.md.
 #
 # Usage:
 #   ./install.sh <platform> [--legacy] [--project] [--update | --uninstall] [--no-mcp]
@@ -29,9 +29,9 @@ set -euo pipefail
 
 REPO_URL="https://github.com/Aboudjem/recap-studio.git"
 REPO_SLUG="Aboudjem/recap-studio"
-SKILLS_PKG="skills@1.5.23"
+SKILLS_PKG="skills@1.9.0"
 CLONE_DIR="${RECAP_STUDIO_HOME:-$HOME/.recap-studio}"
-SKILLS=(recap-topic recap-session recap-setup recap-validate)
+SKILLS=(recap recap-topic recap-session recap-setup recap-validate)
 ALL_IDS=(gemini codex opencode pi vibe vscode copilot trae openclaw antigravity hermes cline kimi)
 
 c_red=""; c_grn=""; c_dim=""; c_rst=""
@@ -67,10 +67,9 @@ Options:
 Default path (needs npx):
   npx --yes $SKILLS_PKG add $REPO_SLUG -a <agent> -g -y
 
-The local MCP server works in every MCP-capable client (build it first with
-pnpm install && pnpm -w build):
-  claude mcp add recap-studio-tools -- node packages/mcp-server/dist/index.js
-  # generic: node packages/mcp-server/dist/index.js
+The local MCP server works in every MCP-capable client (no build needed):
+  claude mcp add recap-studio-tools -- node bin/recap.mjs mcp
+  # generic: node bin/recap.mjs mcp
 EOF
 }
 
@@ -190,9 +189,9 @@ skills_remove() {
 
 mcp_hint() {
   info ""
-  info "${c_dim}Local MCP server (works in every MCP-capable client; run pnpm install && pnpm -w build first):${c_rst}"
-  info "  claude mcp add recap-studio-tools -- node packages/mcp-server/dist/index.js"
-  info "  ${c_dim}generic:${c_rst} node packages/mcp-server/dist/index.js"
+  info "${c_dim}Local MCP server (works in every MCP-capable client; no build needed):${c_rst}"
+  info "  claude mcp add recap-studio-tools -- node bin/recap.mjs mcp"
+  info "  ${c_dim}generic:${c_rst} node bin/recap.mjs mcp"
   info "  ${c_dim}per-editor snippets:${c_rst} docs/editors.md"
 }
 

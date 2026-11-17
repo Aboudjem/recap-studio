@@ -52,7 +52,7 @@ mkdirSync(dirname(outFile), { recursive: true });
 writeFileSync(outFile, JSON.stringify({ generatedAt: new Date().toISOString(), rows }, null, 2) + "\n", "utf8");
 
 if (rows.length === 0) {
-  console.log("recap-studio history: no recaps yet. Run `pnpm -w demo:latest-ai-models` first.");
+  console.log("recap-studio history: no recaps yet. Run `npm run demo:latest-ai-models` first.");
   process.exit(0);
 }
 

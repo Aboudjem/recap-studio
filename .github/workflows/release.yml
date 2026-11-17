@@ -42,14 +42,27 @@ jobs:
           fi
           echo "Tag $GITHUB_REF_NAME matches plugin.json."
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - uses: actions/setup-node@v4
         with:
-          tag_name: v${{ steps.version.outputs.value }}
-          name: v${{ steps.version.outputs.value }}
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+          node-version: 22
+
+      - name: Build the .mcpb bundle and check it against server.json
+        # The bundle is built from the committed bin/recap.mjs with fixed bytes,
+        # so its sha256 must equal the one server.json gives the MCP registry.
+        run: |
+          node scripts/pack-mcpb.mjs --check
+          node scripts/pack-mcpb.mjs
+
+      - name: Create the release, or attach the bundle to the one that exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v${{ steps.version.outputs.value }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/recap-studio.mcpb --clobber
+          else
+            gh release create "$TAG" dist/recap-studio.mcpb --title "$TAG" --generate-notes
+          fi
 
   sync-10x:
     name: Sync 10x marketplace

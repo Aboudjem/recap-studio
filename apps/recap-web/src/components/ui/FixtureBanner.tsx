@@ -12,7 +12,7 @@ export function FixtureBanner() {
       <span className="font-semibold">Fixture data.</span>{" "}
       This page was generated from an offline-safe fixture. Re-run{" "}
       <code className="rounded bg-white/60 px-1.5 py-0.5 font-mono text-xs">
-        pnpm demo:latest-ai-models
+        npm run demo:latest-ai-models
       </code>{" "}
       after wiring research keys to see live sources.
     </div>

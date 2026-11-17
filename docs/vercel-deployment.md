@@ -18,13 +18,11 @@ The deploy scripts run `vercel build` **locally** then upload the result
 with `vercel deploy --prebuilt`. They do **not** ask Vercel to build the
 repo on its own servers. Why:
 
-- This repo is a **pnpm workspace** (`apps/recap-web/package.json` declares
-  `workspace:*` deps on `@recap-studio/content-pipeline` and friends).
-- Vercel's remote builder does not auto-detect that. With
-  `vercel.json -> installCommand: null` it defaults to `npm install`, which
-  fails on `workspace:*` URIs.
-- Running `vercel build` locally reuses your already-installed pnpm
-  workspace, then `--prebuilt` uploads `.vercel/output/` as a finished
+- This repo is an **npm workspace**. `apps/recap-web` imports
+  `@recap-studio/content-pipeline` and friends, which must be built first.
+  `vercel.json` says so (`npm ci`, then `npm run build:packages`, then the app).
+- Running `vercel build` locally reuses your already-installed workspace
+  and your local build, then `--prebuilt` uploads `.vercel/output/` as a finished
   artifact. The remote skips install entirely.
 
 If you ever switch this app off the workspace, you can revert to a plain
@@ -36,9 +34,9 @@ history.
 ## Preview
 
 ```bash
-pnpm demo:latest-ai-models
-pnpm validate:demo
-RECAP_USER_CONFIRMED_PREVIEW=1 pnpm deploy:preview
+npm run demo:latest-ai-models
+npm run validate:demo
+RECAP_USER_CONFIRMED_PREVIEW=1 npm run deploy:preview
 ```
 
 This calls `scripts/deploy-preview.sh`, which:
@@ -56,7 +54,7 @@ an explicit confirmation env var and a config flag in the same commit so
 the intent is auditable.
 
 ```bash
-RECAP_USER_CONFIRMED_PROD_DEPLOY=1 pnpm deploy:prod
+RECAP_USER_CONFIRMED_PROD_DEPLOY=1 npm run deploy:prod
 ```
 
 Same prebuilt flow as preview, with `--prod`.

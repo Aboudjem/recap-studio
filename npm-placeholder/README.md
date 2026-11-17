@@ -27,10 +27,10 @@ Then in any Claude Code session:
 
 ```bash
 git clone https://github.com/Aboudjem/recap-studio
-cd recap-studio && pnpm install
-pnpm -w demo:latest-ai-models    # offline demo
-pnpm -w validate:demo            # heuristic quality checks
-pnpm --filter recap-web dev      # http://localhost:3000
+cd recap-studio && npm install
+npm run demo:latest-ai-models    # offline demo
+npm run validate:demo            # heuristic quality checks
+npm run dev --workspace=apps/recap-web      # http://localhost:3000
 ```
 
 ## What does `npx recap-studio` do?

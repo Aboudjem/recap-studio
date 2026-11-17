@@ -1,22 +1,58 @@
 {
   "name": "recap-studio",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "private": true,
-  "description": "Turn a topic or coding session into a beautiful, dark-mode, mobile-first one-page explainer: one self-contained HTML file you double-click to read offline in ~5 minutes. Claude Code plugin + CLI + MCP server.",
+  "description": "Turn a topic or a coding session into one dark-mode HTML explainer you double-click and read offline in about five minutes. Claude Code plugin, CLI and MCP server.",
   "license": "MIT",
-  "packageManager": "pnpm@10.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aboudjem/recap-studio.git"
+  },
+  "homepage": "https://github.com/Aboudjem/recap-studio#readme",
+  "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "mcp",
+    "mcp-server",
+    "agent-skills",
+    "explainer",
+    "recap",
+    "self-contained-html",
+    "offline",
+    "cli"
+  ],
+  "bin": {
+    "recap-studio": "bin/recap.mjs",
+    "recap": "bin/recap.mjs"
+  },
+  "files": [
+    "bin/recap.mjs",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "packages/content-pipeline",
+    "packages/design-system",
+    "packages/validation",
+    "packages/html-renderer",
+    "packages/mcp-server",
+    "packages/cli",
+    "apps/recap-web"
   ],
   "scripts": {
-    "lint": "pnpm -r --if-present run lint",
-    "typecheck": "pnpm -r --if-present run typecheck",
-    "test": "pnpm -r --if-present run test",
-    "build": "pnpm -r --if-present run build",
+    "build": "npm run build --workspaces --if-present",
+    "build:packages": "npm run build --workspace=packages --if-present",
+    "bundle": "node scripts/build-bundle.mjs",
+    "bundle:check": "node scripts/build-bundle.mjs --check",
+    "pack:mcpb": "node scripts/pack-mcpb.mjs",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run build:packages && npm run test:workspaces && npm run test:repo",
+    "test:workspaces": "npm run test --workspaces --if-present",
+    "test:repo": "node --test hooks/*.test.mjs tests/*.test.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md}\"",
     "demo:latest-ai-models": "node scripts/demo-latest-ai-models.mjs",
     "render": "node scripts/render-html.mjs",
@@ -30,10 +66,11 @@
     "clean": "rimraf node_modules apps/*/node_modules packages/*/node_modules"
   },
   "devDependencies": {
-    "@recap-studio/content-pipeline": "workspace:*",
-    "@recap-studio/html-renderer": "workspace:*",
-    "@recap-studio/validation": "workspace:*",
+    "@recap-studio/content-pipeline": "*",
+    "@recap-studio/html-renderer": "*",
+    "@recap-studio/validation": "*",
     "@types/node": "^20.14.0",
+    "esbuild": "^0.24.2",
     "prettier": "^3.3.0",
     "rimraf": "^5.0.0",
     "typescript": "^5.5.0"

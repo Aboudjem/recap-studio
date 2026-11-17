@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * @recap-studio/mcp-server
  *
@@ -11,12 +10,21 @@
  * present AND the caller passes `confirmed: true`.
  *
  * MCP transport is intentionally minimal: a JSON-RPC line-delimited reader
- * over stdio that responds to `tools/list` and `tools/call`. Real consumers
- * should plug a full @modelcontextprotocol/sdk transport — this scaffold
- * gives them a working contract until the SDK is installed.
+ * over stdio that answers `initialize`, `ping`, `tools/list` and `tools/call`.
+ * It has no dependency beyond zod, so the whole server bundles into the one
+ * file the plugin ships (bin/recap.mjs, started with `recap mcp`).
+ *
+ * This module only exports. Importing it never starts a server: the entry
+ * points are src/bin.ts (this package) and `recap mcp` (the CLI).
  */
 import { createInterface } from "node:readline";
 import { tools, type ToolCall } from "./tools.js";
+
+/** Reported in `initialize`. Kept equal to the repo version by a test. */
+export const SERVER_VERSION = "0.6.0";
+
+/** Protocol revisions this server speaks, newest first. */
+const PROTOCOL_VERSIONS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 
 interface RpcRequest {
   jsonrpc: "2.0";
@@ -63,16 +71,21 @@ async function handle(req: RpcRequest): Promise<RpcResponse | null> {
   if (isNotification && req.method.startsWith("notifications/")) return null;
   try {
     switch (req.method) {
-      case "initialize":
+      case "initialize": {
+        // Echo the client's revision when we speak it, else offer our newest.
+        const asked = (req.params as { protocolVersion?: unknown } | undefined)?.protocolVersion;
+        const protocolVersion =
+          typeof asked === "string" && PROTOCOL_VERSIONS.includes(asked) ? asked : PROTOCOL_VERSIONS[0];
         return {
           jsonrpc: "2.0",
           id,
           result: {
-            protocolVersion: "2025-06-18",
-            serverInfo: { name: "recap-studio-mcp", version: "0.3.0" },
+            protocolVersion,
+            serverInfo: { name: "recap-studio-mcp", version: SERVER_VERSION },
             capabilities: { tools: { listChanged: false } },
           },
         };
+      }
       case "notifications/initialized":
         return null;
       case "ping":
@@ -106,7 +119,8 @@ async function handle(req: RpcRequest): Promise<RpcResponse | null> {
   }
 }
 
-async function main() {
+/** Serve MCP over stdio until stdin closes. */
+export async function runServer(): Promise<void> {
   const rl = createInterface({ input: process.stdin });
   for await (const line of rl) {
     const trimmed = line.trim();
@@ -120,10 +134,6 @@ async function main() {
     const res = await handle(req);
     if (res !== null) process.stdout.write(JSON.stringify(res) + "\n");
   }
-}
-
-if (import.meta.url === `file://${process.argv[1]}`) {
-  void main();
 }
 
 export { tools, handle };

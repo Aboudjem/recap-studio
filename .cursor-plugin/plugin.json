@@ -1,7 +1,7 @@
 {
   "name": "recap-studio",
-  "version": "0.5.2",
-  "description": "Turn a topic or a coding session into a beautiful, dark-mode, mobile-first one-page explainer: one self-contained HTML file you can double-click and read offline in ~5 minutes.",
+  "version": "0.6.0",
+  "description": "Turn a topic or a coding session into one dark-mode HTML explainer you double-click and read offline in about five minutes.",
   "author": {
     "name": "Adam Boudjemaa",
     "url": "https://github.com/Aboudjem"
@@ -21,9 +21,18 @@
     "cli",
     "education"
   ],
-  "skills": ["recap-topic", "recap-session", "recap-setup", "recap-validate"],
+  "skills": [
+    "recap",
+    "recap-topic",
+    "recap-session",
+    "recap-setup",
+    "recap-validate"
+  ],
   "mcp": {
     "command": "node",
-    "args": ["packages/mcp-server/dist/index.js"]
+    "args": [
+      "bin/recap.mjs",
+      "mcp"
+    ]
   }
 }

@@ -14,6 +14,9 @@
  *
  * With neither set, every `git push` is refused, as in 0.5.1 and earlier.
  *
+ * Scope: acts only inside a recap-studio project (see lib/scope.mjs). In any
+ * other project every command is allowed without being read.
+ *
  * Matching is per shell segment (split on ;, &&, ||, |, newlines), and git's
  * global options are skipped, so `cd x && git -C dir push --force` is caught.
  * Text inside quotes is ignored, so `git commit -m "then git push"` is not a push,
@@ -23,6 +26,7 @@
  */
 import { readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
+import { hookProjectRoot } from "./lib/scope.mjs";
 
 // git global options that may sit between `git` and the subcommand.
 const GIT = String.raw`\bgit(?:\s+(?:-C\s+\S+|-c\s+\S+|--(?:git-dir|work-tree|namespace|exec-path|config-env)(?:=\S+|\s+\S+)|--no-pager|--paginate|-p|-P|--bare|--no-replace-objects|--literal-pathspecs|--no-optional-locks))*\s+`;
@@ -162,7 +166,9 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
-  const cmd = readPayload()?.tool_input?.command ?? "";
+  const payload = readPayload();
+  if (!hookProjectRoot(payload)) process.exit(0);
+  const cmd = payload?.tool_input?.command ?? "";
   const result = evaluate(cmd);
   if (result.block) {
     process.stderr.write(result.reason);

@@ -58,9 +58,9 @@ export function checkPerformance(
   } else {
     findings.push({
       severity: "info",
-      message: "no .next build found — performance score is static-only",
+      message: "no .next build found, so the performance score is static-only",
       path: "build",
-      hint: "run `pnpm --filter recap-web build` to get bundle data",
+      hint: "run `npm run build --workspace=apps/recap-web` to get bundle data",
     });
   }
 

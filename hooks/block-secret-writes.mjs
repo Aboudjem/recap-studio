@@ -5,8 +5,12 @@
  * Refuses writes to secret-like paths. Exits 0 (allow) or 2 (block) per the
  * Claude Code hook contract. The hook payload arrives on stdin as JSON; we
  * only inspect `tool_input.file_path` / `tool_input.target_path`.
+ *
+ * Scope: acts only inside a recap-studio project (see lib/scope.mjs). In any
+ * other project it allows the write without looking at it.
  */
 import { readFileSync } from "node:fs";
+import { hookProjectRoot } from "./lib/scope.mjs";
 
 const SECRET_GLOBS = [
   /(^|\/)\.env(\..*)?$/i,
@@ -29,6 +33,7 @@ function readPayload() {
 }
 
 const payload = readPayload();
+if (!hookProjectRoot(payload)) process.exit(0);
 const input = payload.tool_input ?? {};
 const target = input.file_path ?? input.target_path ?? input.path ?? "";
 

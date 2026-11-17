@@ -5,18 +5,32 @@ CI, or a cron job.
 
 ## Getting the binary
 
-The package is called `@recap-studio/cli` and its binary is `recap`. **It is not published to npm
-yet.** The `recap-studio` name on npm holds a placeholder redirect at 0.2.0, not this CLI. Until
-the real package ships, run it from a built clone:
+The CLI is one committed file, `bin/recap.mjs`, with no dependency and no build step. It is not
+on npm. Run it straight from GitHub:
+
+```bash
+npx -y github:Aboudjem/recap-studio --help
+```
+
+Or from a clone, with no install:
 
 ```bash
 git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
-pnpm install && pnpm -w build
-node packages/cli/dist/index.js --help
+node bin/recap.mjs --help
 ```
 
-Every example below writes `node packages/cli/dist/index.js`. Once the package is published, the
-same commands work as `npx @recap-studio/cli` or, from a global install, as `recap`.
+Every example below writes `recap`. Replace it with `npx -y github:Aboudjem/recap-studio` or
+`node bin/recap.mjs`.
+
+## `recap demo` and `recap example`
+
+`recap demo` renders the built-in example page and scores it. It needs no input and no network.
+`recap example -o content.json` writes the same content as a starting file to edit. It refuses to
+overwrite a file unless you pass `--force`.
+
+## `recap mcp`
+
+Serves the MCP tools over stdio. The tool list is in [mcp-tools.md](mcp-tools.md).
 
 ## `recap render`
 
@@ -36,7 +50,7 @@ neither format carries styling.
 A real run:
 
 ```
-$ node packages/cli/dist/index.js render fixtures/topics/latest-ai-models.json
+$ recap render fixtures/topics/latest-ai-models.json
 recap: wrote latest-ai-models.html (49.8 KB, self-contained, double-click to open)
 ```
 
@@ -60,7 +74,7 @@ Values outside 0 to 10, empty values, and non-numbers exit 2. `0` is valid.
 A gate in CI:
 
 ```bash
-node packages/cli/dist/index.js validate content.json --json --fail-under 8 > report.json
+recap validate content.json --json --fail-under 8 > report.json
 jq -r '.overall, .ok' report.json
 ```
 
@@ -71,15 +85,15 @@ workspace root".
 
 | Command | What it does |
 |:--|:--|
-| `pnpm -w render` | Render the demo content |
-| `pnpm -w render:demo` | Write `artifacts/<slug>/recap-<slug>.html` |
-| `pnpm -w validate:demo` | Score the active page with the same heuristic checks |
-| `pnpm -w history` | List every recap in `artifacts/` with its score |
-| `pnpm -w auto-refresh -- <slug>` | Re-validate a stored recap on demand |
-| `pnpm --filter recap-web dev` | Preview the hosted Next.js track on localhost:3000 |
-| `pnpm --filter recap-web build` | Build the hosted static site |
-| `pnpm deploy:preview` | Vercel preview deploy, gated by config and env |
-| `pnpm deploy:prod` | Vercel production deploy, double-gated |
+| `npm run render` | Render the demo content |
+| `npm run render:demo` | Write `artifacts/<slug>/recap-<slug>.html` |
+| `npm run validate:demo` | Score the active page with the same heuristic checks |
+| `npm run history` | List every recap in `artifacts/` with its score |
+| `npm run auto-refresh -- <slug>` | Re-validate a stored recap on demand |
+| `npm run dev --workspace=apps/recap-web` | Preview the hosted Next.js track on localhost:3000 |
+| `npm run build --workspace=apps/recap-web` | Build the hosted static site |
+| `npm run deploy:preview` | Vercel preview deploy, gated by config and env |
+| `npm run deploy:prod` | Vercel production deploy, double-gated |
 
 ## Content JSON
 

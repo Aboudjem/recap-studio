@@ -62,16 +62,14 @@ A blocker, such as a secret-shaped string in the content, fails the run at any s
 ## Install
 
 ```bash
-# Published (ships with the recap-studio 0.3.0 release):
-npm i -g @recap-studio/cli   # then: recap render content.json
-npx @recap-studio/cli render content.json
+# No clone, no install: the CLI is one committed file, bin/recap.mjs
+npx -y github:Aboudjem/recap-studio render content.json
 
-# Until then, from a clone of the monorepo:
-pnpm install && pnpm -w build
-node packages/cli/dist/index.js render content.json
+# From a clone of the monorepo
+node bin/recap.mjs render content.json
 ```
 
-> Note: the `npx`/`npm i -g` paths require `@recap-studio/cli` to be published to npm, which happens as part of the 0.3.0 release. The from-source path works today.
+This package is not published to npm. The repo bundles it into `bin/recap.mjs`.
 
 ## License
 

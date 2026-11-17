@@ -127,5 +127,5 @@
   <text class="mono eyebrow" x="96" y="258">ONE-FILE EXPLAINERS</text>
   <text class="disp head" x="96" y="416">Any topic, one file you can double-click.</text>
   <text class="disp sub" x="96" y="458">Dark-mode, mobile-first, reads offline in about five minutes.</text>
-  <text class="mono tag" x="96" y="604">github.com/Aboudjem/recap-studio</text>
+  <text class="mono tag" x="96" y="604">npx -y github:Aboudjem/recap-studio demo</text>
 </svg>

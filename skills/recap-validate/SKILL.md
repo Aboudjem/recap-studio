@@ -4,7 +4,7 @@ user-invocable: false
 description: Use when the user types /recap validate, asks Recap Studio to "score the page", "run validation", "qa the recap", or wants the multi-agent quality report regenerated. Dispatches the validation board and writes a structured report.
 arguments:
   - name: content
-    description: Path to a RecapPageContent JSON. Default = apps/recap-web/src/content/active.json
+    description: Path to a RecapPageContent JSON, or a slug. Default = the newest artifacts/<slug>/content.json
     required: false
   - name: only
     description: Comma-separated reviewer ids (skips others). Useful for fast re-runs after a patch.
@@ -17,11 +17,13 @@ You run the validation board and emit a structured quality report.
 
 ## Inputs
 
-- A `RecapPageContent` JSON (loaded via
-  `packages/content-pipeline/src/load.ts`).
-- The rendered Next.js page output (built tree under `apps/recap-web/.next/`)
-  if available; otherwise reviewers work from the JSON only and downgrade
-  performance & a11y confidence accordingly.
+- A `RecapPageContent` JSON, usually `artifacts/<slug>/content.json`.
+- The rendered page `artifacts/<slug>/recap-<slug>.html` if it exists;
+  otherwise reviewers work from the JSON only and downgrade
+  performance and a11y confidence accordingly.
+- The deterministic score: MCP tool `validate_content` (`slug`), or
+  `node "${CLAUDE_PLUGIN_ROOT}/bin/recap.mjs" validate <content.json>`.
+  It is a heuristic, not an LLM. Report it next to the reviewer scores, labeled as such.
 
 ## Reviewers (parallel, isolated)
 

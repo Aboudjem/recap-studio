@@ -5,7 +5,9 @@
 If you find a security vulnerability in Recap Studio, please report it
 responsibly. **Do not open a public issue.**
 
-Email **boudjemaa.adam@gmail.com** with:
+Open a private report at
+<https://github.com/Aboudjem/recap-studio/security/advisories/new>
+(GitHub, Security tab, "Report a vulnerability") with:
 
 - Description of the vulnerability
 - Steps to reproduce

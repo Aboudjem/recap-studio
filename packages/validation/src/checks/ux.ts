@@ -17,7 +17,7 @@ export function checkUx(content: RecapPageContent): Omit<DimensionResult, "targe
     if (actualPrefix[i] !== ORDER_PREFIX[i]) {
       findings.push({
         severity: "low",
-        message: `section order deviates at index ${i}: expected ${ORDER_PREFIX[i]}, got ${actualPrefix[i] ?? "—"}`,
+        message: `section order deviates at index ${i}: expected ${ORDER_PREFIX[i]}, got ${actualPrefix[i] ?? "none"}`,
         path: "visualSections",
       });
       break;
@@ -27,7 +27,7 @@ export function checkUx(content: RecapPageContent): Omit<DimensionResult, "targe
   if (content.diagrams.length === 0) {
     findings.push({
       severity: "low",
-      message: "no diagrams — page risks being a wall of text",
+      message: "no diagrams: the page risks being a wall of text",
       path: "diagrams",
     });
   }

@@ -26,17 +26,16 @@ runs.
 
 ## Can I use it in VS Code, Cursor, or Codex?
 
-Yes, two ways. The four skills install into any agent that reads a skills directory with
-`npx skills add Aboudjem/recap-studio`. Separately, the local MCP server exposes a
-`render_recap_html` tool to any MCP-capable client. Per-editor snippets are in
+Yes, two ways. The five skills install into any agent that reads a skills directory with
+`npx skills add Aboudjem/recap-studio`. Separately, the local MCP server exposes
+`render_recap_html`, `validate_content` and nine more tools to any MCP-capable client. Per-editor snippets are in
 [editors.md](editors.md).
 
 ## Why is the CLI not on npm?
 
-The monorepo root is private by design and npm publishing is deliberately not wired into the
-release workflow, which cuts GitHub Releases only. The package name is `@recap-studio/cli` and its
-binary is `recap`; until it ships, run it from a built clone. The `recap-studio` name on npm holds
-a placeholder redirect at 0.2.0 whose only job is to print these instructions. See [cli.md](cli.md).
+It does not need to be. The CLI is one committed file with no dependency, so
+`npx -y github:Aboudjem/recap-studio` runs it straight from GitHub. The `recap-studio` name on npm
+holds an old placeholder at 0.2.0, not this CLI. See [cli.md](cli.md).
 
 ## Does it deploy anywhere automatically?
 
@@ -45,7 +44,7 @@ say yes to an explicit prompt.
 
 ## Is there a hosted web version?
 
-Yes, the Next.js track in `apps/recap-web`, run with `pnpm --filter recap-web dev`. The hosted
+Yes, the Next.js track in `apps/recap-web`, run with `npm run dev --workspace=apps/recap-web`. The hosted
 track and the offline single-file track render the same content through different surfaces.
 
 ## What stops it from touching my repo or my secrets?

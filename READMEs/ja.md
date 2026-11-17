@@ -1,14 +1,13 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: どんなテーマでも、ダブルクリックで開ける1つのファイルに" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio: any topic, one file you can double-click" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
   <a href="https://github.com/Aboudjem/recap-studio/releases"><img src="https://img.shields.io/github/v/tag/Aboudjem/recap-studio?color=5B9DFF&label=version&style=flat-square" alt="version"></a>
-  <a href="../LICENSE"><img src="https://img.shields.io/badge/license-MIT-5B9DFF?style=flat-square" alt="License"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-5B9DFF?style=flat-square" alt="License"></a>
   <a href="https://github.com/Aboudjem/recap-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Aboudjem/recap-studio/ci.yml?style=flat-square&label=CI" alt="CI"></a>
-  <a href="https://github.com/Aboudjem/recap-studio/stargazers"><img src="https://img.shields.io/github/stars/Aboudjem/recap-studio?style=flat-square&color=5B9DFF" alt="Stars"></a>
 </p>
 
 <p align="center">
@@ -19,160 +18,165 @@
   <a href="fr.md">Français</a>
 </p>
 
-<p align="center"><b>どんなテーマでも、コーディングセッションでも、ダブルクリックで開けるダークモードでモバイルファーストの解説ページに変えます。</b><br><sub>サーバー不要、インターネット不要、依存関係なし。</sub></p>
+Recap Studio は、トピックやコーディングセッションを、ダブルクリックで開ける 1 つの HTML ページに変えます。
+ページはオフラインで動きます。JavaScript を含まず、ネットワーク通信もしません。
 
-<p align="center">
-  <a href="#何をするツールか">何をするツールか</a> ·
-  <a href="#インストール">インストール</a> ·
-  <a href="#使い方">使い方</a> ·
-  <a href="#お使いのエディタで">お使いのエディタで</a> ·
-  <a href="#さらに詳しく">さらに詳しく</a>
-</p>
+クローンもインストールも不要で今すぐ試せます。2026-11-17 の実際の出力です（パスは短縮）:
 
 ```bash
-claude plugin marketplace add Aboudjem/10x
-claude plugin install recap-studio@10x
+npx -y github:Aboudjem/recap-studio demo
 ```
 
-## 何をするツールか
+```text
+Verdict: PASS. Wrote /tmp/try/recap-latest-ai-models.html
+Page: 49.8 KB, 0 script tags, all CSS inlined. Score: 9.7/10, 0 blocker(s).
 
-疑問が浮かんだとき、あるいは雑然としたコミットの午後を終えたとき。あとで読み返せる、あるいは同僚に送れるものが1つだけ欲しくなります。ログインも、ホスティングされたドキュメントも、ビルド手順も抜きで。
+Next:
+- Open the file with a double-click. It works offline.
+- Make your own: `recap example -o content.json`, edit it, then `recap render content.json`.
+- Score it before you send it: `recap validate content.json --fail-under 8`.
+```
 
-Recap Studio はテーマ (`"Latest AI models"`) またはコーディングセッション (`git diff` とコミット) を受け取り、**HTML ファイルを1つ**書き出します。すべてのスタイルは埋め込まれ、JavaScript は一切なく、ページは外部リクエストを行いません。Finder やエクスプローラーでダブルクリックすれば、オフラインで開きます。
-
-- **約5分で読めるページ**: 1文の答え、本当に大事な要点、埋め込み SVG のコンセプトマップ、主要なアイデア、よくある誤解、用語集、引用元の一覧。
-- **CI に組み込めるスコア**: 構造、引用、語数、シークレット検出にわたる7つの決定的なチェック。
-- **メールで送れるファイル**: 維持するサーバーも、切れるリンクもありません。
-
-<img alt="レンダリングされた Recap Studio のページ: ダークなヒーロー、1文の答え、番号付きの5ステップの読み進めガイド" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+<img alt="Recap Studio で生成したページ: ダークなヒーロー、一文の答え、5 ステップの読み順" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
 
 ## インストール
 
+**Claude Code。** 10x マーケットプレイスを一度追加し、プラグインをインストールします:
+
 ```bash
 claude plugin marketplace add Aboudjem/10x
 claude plugin install recap-studio@10x
 ```
 
-`10x` はプラグインのマーケットプレイス、つまり Claude Code がインストール元にできる一覧です。一度追加すれば `recap-studio` と姉妹ツールが使えるようになります。
+その後、任意のプロジェクトで `/recap "What is React Server Components"` と入力します。
 
-他のエージェントでは、4つのスキルを skills CLI からインストールします。
+**その他のエージェント。** 5 つのスキルは skills CLI でインストールできます:
 
 ```bash
 npx skills add Aboudjem/recap-studio
 ```
 
+**CLI のみ。** エージェントは不要です。npm ではなく GitHub から実行します:
+
+```bash
+npx -y github:Aboudjem/recap-studio render content.json
+```
+
+**MCP クライアント。** クライアントの MCP 設定に次を貼り付けます:
+
+```json
+{
+  "mcpServers": {
+    "recap-studio": {
+      "command": "npx",
+      "args": ["-y", "github:Aboudjem/recap-studio", "mcp"]
+    }
+  }
+}
+```
+
+Claude Code プラグインはこのサーバーを自動で起動します。エディタ別の設定例は [docs/editors.md](../docs/editors.md) にあります。
+
 <details>
-<summary>そのほかのインストール方法</summary>
+<summary>その他のインストール方法</summary>
 
 ```bash
 # Pick the agent explicitly
 npx skills add Aboudjem/recap-studio -a codex
 
-# Or use the repo's own installer, which delegates to the same CLI
+# The repo's own installer, which calls the same skills CLI
 curl -fsSL https://raw.githubusercontent.com/Aboudjem/recap-studio/main/install.sh | bash -s codex
 
-# --legacy copies the skills by hand, for machines without npx
-bash install.sh codex --legacy
-```
-
-`install.sh --update` は既存のインストールを更新し、`install.sh --uninstall` は削除します。Windows ではクローンから `install.ps1 <platform>` を実行します。
-</details>
-
-## 使い方
-
-**1. ページを依頼する。** 任意の Claude Code セッションで:
-
-```
-/recap "What is React Server Components"
-```
-
-Recap Studio はテーマを調べ、見つけた出典と照らして各主張を検証し、ページを生成して開きます。`/recap session` は直近のコミット群に対して同じことを行います。
-
-**2. すでにある内容からページを作る。** クローンから CLI を使う場合:
-
-```bash
-pnpm install && pnpm -w build
-node packages/cli/dist/index.js render fixtures/topics/latest-ai-models.json
-```
-
-```
-recap: wrote latest-ai-models.html (49.8 KB, self-contained, double-click to open)
-```
-
-**3. 送る前に採点する。**
-
-```bash
-node packages/cli/dist/index.js validate fixtures/topics/latest-ai-models.json --fail-under 8
-```
-
-```
-| Dimension          | Score  | Target | Status   | Top finding |
-| facts              | 10/10 |  9 | PASS    | none |
-| beginner           | 10/10 |  9 | PASS    | none |
-| accessibility      | 10/10 |  9 | PASS    | none |
-... four more rows ...
-
-Overall: 9.7/10, thresholds PASSED
-Gate: --fail-under 8, overall 9.7/10, blockers 0. Result: PASS
-```
-
-`--json` を付けると同じ実行が JSON ドキュメントを1つ標準出力に書き出すので、CI ジョブが `jq` で読み取れます。
-
-## 手に入るもの
-
-| 成果物 | 内容 |
-|:--|:--|
-| `recap-<slug>.html` | 自己完結したページ。CSS はすべて埋め込み、JavaScript ゼロ、外部リクエストゼロ。 |
-| `--format md` または `txt` | 同じページを Markdown またはプレーンテキストのファイルとして。プルリクエストの本文やコミットメモ向け。 |
-| `--print` | 紙向けのレンダリング: 白地に黒文字、改ページを整え、出典 URL を書き出します。 |
-| 検証レポート | 7つの採点済みディメンション、ブロッカーの一覧、終了コード。 |
-| `--fail-under <score>` | 総合スコアがしきい値を下回ると終了コード 1。ブロッカーはスコアにかかわらず実行を失敗させます。 |
-
-## お使いのエディタで
-
-Claude Code、Cursor、Codex、Copilot、Gemini CLI、そして `npx skills add` を通じて70を超える他のエージェントで動作します。
-
-| エージェント | 1行インストール |
-|:--|:--|
-| Claude Code | `claude plugin install recap-studio@10x` |
-| 70以上のエージェントのいずれか | `npx skills add Aboudjem/recap-studio` |
-| Codex, Gemini, OpenCode, Pi | `bash install.sh <agent>` |
-| VS Code (Copilot) | `bash install.sh copilot` |
-| それ以外すべて | [docs/editors.md](../docs/editors.md) を参照 |
-
-<details>
-<summary>代わりに MCP サーバーとして追加する</summary>
-
-MCP サーバーはローカルで動くため、先にビルド済みのクローンが必要です。
-
-```bash
+# From a clone, with no network after the clone
 git clone https://github.com/Aboudjem/recap-studio && cd recap-studio
-pnpm install && pnpm -w build
-claude mcp add recap-studio node -- packages/mcp-server/dist/index.js
+node bin/recap.mjs demo
 ```
 
-このリポジトリに `.mcp.json` はありません。Cursor、VS Code、Codex、Gemini CLI、Windsurf、Continue、OpenCode、Zed はいずれも同じコマンドをそれぞれの形式で求めます。すべてのスニペットは [docs/editors.md](../docs/editors.md) にあります。
+各リリースには `recap-studio.mcpb` も含まれます。バンドルをインストールできる MCP クライアント向けの 1 ファイル形式です。
 </details>
 
-## 知っておきたいこと
+## 仕組み
 
-> [!IMPORTANT]
-> 副作用はすべて既定で無効です。ネットワーク呼び出しなし、デプロイなし、メール送信なし、シークレットの書き込みなし、破壊的な git 操作なし。`RECAP_STUDIO_FIXTURE_ONLY=1` が初期状態なので、デモはフィクスチャで動き、外部には何も送られません。
+1. 依頼する。`/recap "<topic>"` はトピックを調べます。`/recap session` は git の差分とコミットを読みます。
+2. エージェントが内容を書く。13 の専門エージェントが情報源を探し、5 分で読める構成を書き、各主張を確認します。
+3. エージェントが内容を JSON としてプロジェクト内の `artifacts/<slug>/content.json` に保存します。
+4. チェッカーが採点する。構造、引用、語数、シークレット検出の 7 つの決定的チェックです。モデルもネットワークも使いません。
+5. レンダラーが 1 つのファイル `artifacts/<slug>/recap-<slug>.html` を書き出します。CSS はすべて埋め込みです。
 
-- **生成されたページに JavaScript は含まれません。** CI が push のたびに確認します。レンダリングされた HTML に `<script>` タグも `/_next/` 参照もありません。
-- **スコアはヒューリスティックであって、レビューではありません。** `validate` は7つの決定的なチェックを実行します。出典を取得することも、モデルを呼ぶこともありません。13の専門エージェントは Claude Code の `/recap` 経由でのみ動きます。
-- **73件のテストが通ります**。ワークスペースの6プロジェクト、Node 20 と 22 で。npm にはリダイレクト用のプレースホルダーしかないため、CLI はクローンから実行します。
+CLI と MCP サーバーは、依存関係のない 1 つのコミット済みファイル `bin/recap.mjs` です。
 
-> [!CAUTION]
-> 古いドキュメントで見かけるかもしれない「10点満点で9.7」は、レビュアーではなくこのヒューリスティックなチェッカーが出した数値です。査読ではなく構造上のシグナルとして読んでください。
+| 動くもの | 副作用 |
+|:--|:--|
+| スキルとエージェント | プロジェクト内の `artifacts/` にファイルを書きます。調査にはエージェント自身の Web 検索を使います（ある場合）。 |
+| CLI と MCP サーバー | 依頼されたページを書きます。ネットワーク通信なし。MCP ツールは 11 個で、[docs/mcp-tools.md](../docs/mcp-tools.md) に一覧があります。 |
+| プラグインのフック | recap-studio プロジェクト内でのみ動作します。そこではシークレットの書き込み、破壊的な git、未確認のデプロイを止めます。 |
+| デプロイとメール | オフです。設定での有効化、キー、そしてあなたの明示的な許可が必要です。 |
 
-## さらに詳しく
+## 得られるもの
 
-- [エディタ設定](../docs/editors.md)、各エージェントと各 MCP スニペット
-- [CLI リファレンス](../docs/cli.md)、全コマンドと全オプション
+| 出力 | 内容 |
+|:--|:--|
+| `recap-<slug>.html` | 自己完結した 1 ページ。CSS はすべて埋め込み、JavaScript ゼロ、外部リクエストゼロ。 |
+| `--format md` または `txt` | 同じページを Markdown またはプレーンテキストで。プルリクエストやメモ用です。 |
+| `--print` | 印刷用: 白い背景、黒い文字、情報源の URL を明記。 |
+| `recap validate` | 判定から始まり、最大 3 つの修正点、7 つの採点項目が続くレポート。 |
+| `--fail-under <score>` | しきい値を下回ると終了コード 1。ブロッカーがあればスコアに関係なく失敗します。 |
+
+## 対応エージェント
+
+| Agent | テスト内容 | Tested |
+|:--|:--|:--|
+| Claude Code 2.1.326 | `--plugin-dir` でプラグインを読み込み、無関係なフォルダから MCP サーバーが `Connected` と表示 | 2026-11-17 |
+| Codex CLI 0.169.0 | `codex exec` が MCP ツール `validate_content` を呼び、判定を返した | 2026-11-17 |
+| Codex, Gemini CLI, OpenCode, Cursor | `npx skills@1.9.0 add` が 5 つのスキルを `.agents/skills/` にコピーした | 2026-11-17 |
+
+ドキュメントのみ、未テスト: VS Code (Copilot)、Windsurf、Continue、Zed、その他 skills CLI が対応するエージェント。設定例は [docs/editors.md](../docs/editors.md) にあります。
+
+## Proof
+
+以下の数値はすべて、クローン内で実行できるコマンドの出力です。
+
+| 主張 | 数値 | コマンド |
+|:--|:--|:--|
+| 成功するテスト | 105 | `npm test 2>&1 \| grep -E "^# tests\|Tests "` |
+| 生成ページ内の script タグ | 0 | `node bin/recap.mjs demo` |
+| デモページのサイズ | 49.8 KB | `node bin/recap.mjs demo` |
+| デモ内容のヒューリスティックスコア | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |
+| MCP ツール | 11 | `echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \| node bin/recap.mjs mcp` |
+
+CI は push とプルリクエストのたびに Node 20 と 22 でテストを実行します。生成ページに `<script>` タグがあっても失敗します。
+
+## FAQ
+
+**使うのに Claude Code は必要ですか?**
+いいえ。CLI と MCP サーバーは Node 20 が動く環境ならどこでも動きます。Claude Code は `/recap` の調査エージェントを追加します。
+
+**ページを開くと外部と通信しますか?**
+いいえ。JavaScript も読み込む外部リンクもありません。CI は毎回の出力で `<script>` タグがないことを確認します。
+
+**9.7/10 のスコアはモデルの評価ですか?**
+いいえ。構造、引用、語数に対する決定的なチェックの集まりです。情報源は読みません。
+
+**フックは他のプロジェクトに影響しますか?**
+いいえ。`recap-studio.config.*` ファイル、`.recap-studio/` フォルダ、またはこのリポジトリがあるフォルダでのみ動きます。`RECAP_HOOKS_EVERYWHERE=1` で全体に有効化できます。
+
+**なぜ CLI を npm に公開しないのですか?**
+その必要がないからです。CLI は依存関係のない 1 ファイルなので、`npx -y github:Aboudjem/recap-studio` で直接実行できます。
+
+## Limits
+
+- スコアはヒューリスティックです。形式を確認するだけで、真偽は確認しません。共有前に情報源を読んでください。
+- 調査の質はエージェント次第です。CLI は渡された内容を描画するだけで、調査はしません。
+- Mermaid 図はオフラインでは描画されません。ページにはソースが表示されます。完全に視覚的なページには `kind: "svg"` の図を使ってください。
+- スクリーンショット、アクセシビリティ、Lighthouse のツールは未実装です。サーバーにブラウザが含まれないため `skipped` を返します。
+- Codex は書き込みツールをブロックすることがあります。`codex exec` の実行では承認レビューが `render_recap_html` をブロックしました。読み取りツールは動きました。
+
+## 詳しく
+
+- [エディタ設定](../docs/editors.md)、[CLI リファレンス](../docs/cli.md)、[MCP ツール](../docs/mcp-tools.md)
 - [FAQ](../docs/faq.md) と [比較](../docs/comparison.md)
-- [アーキテクチャ](../docs/architecture.md)、[エージェントシステム](../docs/agent-system.md)、[セキュリティとプライバシー](../docs/security-and-privacy.md)
-- [変更履歴](../CHANGELOG.md) と [コントリビュート](../CONTRIBUTING.md)
+- [アーキテクチャ](../docs/architecture.md)、[エージェント構成](../docs/agent-system.md)、[セキュリティとプライバシー](../docs/security-and-privacy.md)
+- [Changelog](../CHANGELOG.md) と [コントリビュート](../CONTRIBUTING.md)
 
 ---
 
