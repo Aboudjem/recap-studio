@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: any topic, one file you can double-click" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio: one page you can email, attach to a PR, or read on a plane" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,8 +18,9 @@
   <a href="READMEs/fr.md">Français</a>
 </p>
 
+**One page you can email, attach to a PR, or read on a plane.**
+
 Recap Studio turns a topic or a coding session into one HTML page you open with a double-click.
-The page works offline. It has no JavaScript and makes no network request.
 
 Try it now, with no clone and no install. This is real output from 2026-11-17, with the path shortened:
 
@@ -38,6 +39,18 @@ Next:
 ```
 
 <img alt="A rendered Recap Studio page: dark hero, a one-sentence answer, and a numbered five-step reading path" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+
+Your lead asks what changed this week. You have 40 commits, a chat log, and no page you can just send.
+Or someone asks what a topic means, and you paste ten links.
+Recap Studio gives you one file instead. It has no JavaScript and makes no network request.
+
+## Why use it
+
+- **Opens anywhere.** One file, 0 script tags, all CSS inlined. The demo above prints both.
+- **Checked before you send it.** Seven offline checks score the page, with no model. Add `--fail-under 8` to refuse a weak page.
+- **Recaps your own work.** `/recap session` reads your git diff and commits and turns them into a page your team can read.
+
+The score checks shape, not truth, so read the sources first. Mermaid diagrams show as source offline; use SVG diagrams instead.
 
 ## Install
 
@@ -113,7 +126,7 @@ The CLI and the MCP server are one committed file, `bin/recap.mjs`, with no depe
 | :----------------- | :----------------------------------------------------------------------------------------------------------- |
 | Skills and agents  | Write files under `artifacts/` in your project. Research uses your agent's own web search, when it has one.                    |
 | CLI and MCP server | Write the page you ask for. No network call. 11 MCP tools, listed in [docs/mcp-tools.md](docs/mcp-tools.md). |
-| Plugin hooks       | Act only in a recap-studio project. They block secret writes, destructive git and unchecked deploys there.   |
+| Plugin hooks       | Act only in a recap-studio project. They block writes and edits to secret files, destructive git and unchecked deploys there. |
 | Deploy and email   | Never run by the plugin. The MCP deploy tool returns a command to run yourself. The email tool returns a draft.  |
 
 ## What you get
@@ -142,7 +155,7 @@ Each number below comes from a command you can run in a clone.
 
 | Claim                               | Number  | Command                                                                           |
 | :---------------------------------- | :------ | :-------------------------------------------------------------------------------- |
-| Tests pass                          | 109     | `npm run test:count` (runs `npm test`, prints the total)                          |
+| Tests pass                          | 113     | `npm run test:count` (runs `npm test`, prints the total)                          |
 | Script tags in a rendered page      | 0       | `node bin/recap.mjs demo`                                                         |
 | Demo page size                      | 49.8 KB | `node bin/recap.mjs demo`                                                         |
 | Heuristic score of the demo content | 9.7/10  | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json`               |

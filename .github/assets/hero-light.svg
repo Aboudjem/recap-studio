@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none" role="img"
-     aria-label="recap-studio, one-file explainers: any topic, one file you can double-click">
+     aria-label="recap-studio, one-file explainers: explain it in one file. Any topic or coding session, as one page that opens offline.">
   <title>recap-studio</title>
   <defs>
     <linearGradient id="rc-ground" x1="0" y1="0" x2="0.4" y2="1">
@@ -111,9 +111,9 @@
   <line x1="500" y1="100" x2="500" y2="300" stroke="url(#rc-rule)" stroke-width="1.5"/>
   <g transform="translate(544,0)">
     <text class="mono eyebrow" x="0" y="134">ONE-FILE EXPLAINERS</text>
-    <text class="disp head" x="0" y="168">Any topic, one file</text>
-    <text class="disp head" x="0" y="206">you can double-click</text>
-    <text class="disp sub" x="0" y="242">Dark-mode, mobile-first, reads offline in about five minutes.</text>
+    <text class="disp head" x="0" y="168">Explain it in</text>
+    <text class="disp head" x="0" y="206">one file.</text>
+    <text class="disp sub" x="0" y="242">Any topic or coding session, as one page that opens offline.</text>
     <g transform="translate(0,285)"><g class="rcp1"><circle cx="0" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp2"><circle cx="22" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp3"><circle cx="44" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp4"><circle cx="66" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp5"><circle cx="88" cy="0" r="4.5" fill="#0959D1"/></g><g class="rcp6"><circle cx="110" cy="0" r="4.5" fill="#0959D1"/></g><text class="mono tag" x="146" y="4">SELF-CONTAINED HTML</text></g>
   </g>
   <text class="mono tag" x="76" y="352">no server  &#183;  no internet  &#183;  zero JS in the page</text>

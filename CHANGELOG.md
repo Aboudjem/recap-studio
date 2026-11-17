@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-11-17
+
+A clearer first screen, true wording, and one hook fix.
+
+### Fixed
+
+- **`block-secret-writes` now guards edits, not only new files.** The hook was wired to the
+  `Write` tool only, so an `Edit` of an existing `.env` in a recap project went through. It now
+  runs on `Write`, `Edit`, `MultiEdit` and `NotebookEdit`, and reads `notebook_path` too. It
+  stays silent outside a recap-studio project. New tests in `hooks/block-secret-writes.test.mjs`.
+
+### Changed
+
+- **README first screen says why.** A tagline, the situation it solves, and a "Why use it" block
+  with three benefits and their proof. The score and Mermaid limits now sit next to the promise.
+  The four translations match.
+- **Descriptions.** The plugin manifests, `package.json`, `server.json`, `llms.txt`, `AGENTS.md`
+  and the Pages site say the same thing: one page you can email, attach to a PR, or read offline.
+  `AGENTS.md` no longer promises a page "in under 5 minutes".
+- **Visuals.** The hero SVGs and the social preview carry the new headline. The architecture
+  diagram shows the current test count.
+
+No change to rendering, scoring, the CLI or the MCP tools.
+
 ## [0.6.1] - 2026-11-17
 
 Fixes from an independent review of 0.6.0. The tools now say exactly what they do.

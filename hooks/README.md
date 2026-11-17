@@ -6,7 +6,7 @@ official contract.
 
 | Hook                     | When                | Purpose                                                   |
 | ------------------------ | ------------------- | --------------------------------------------------------- |
-| `block-secret-writes`    | `PreToolUse(Write)` | Refuse writes to `.env*`, `secrets/**`, keys, PEMs        |
+| `block-secret-writes`    | `PreToolUse` on Write, Edit, MultiEdit, NotebookEdit | Refuse writes and edits to `.env*`, `secrets/**`, keys, PEMs        |
 | `block-destructive-git`  | `PreToolUse(Bash)`  | Refuse `git push`, `reset --hard`, `rebase`, `clean -fdx` |
 | `validate-before-deploy` | `PreToolUse(Bash)`  | Block `vercel --prod` unless config + confirmation        |
 | `format-after-edit`      | `PostToolUse(W/E)`  | Best-effort Prettier on the touched file                  |

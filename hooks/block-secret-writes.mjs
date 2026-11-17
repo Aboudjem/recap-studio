@@ -2,9 +2,10 @@
 /**
  * Recap Studio hook: block-secret-writes
  *
- * Refuses writes to secret-like paths. Exits 0 (allow) or 2 (block) per the
- * Claude Code hook contract. The hook payload arrives on stdin as JSON; we
- * only inspect `tool_input.file_path` / `tool_input.target_path`.
+ * Refuses writes and edits to secret-like paths. hooks.json wires it to
+ * Write, Edit, MultiEdit and NotebookEdit. Exits 0 (allow) or 2 (block) per
+ * the Claude Code hook contract. The payload arrives on stdin as JSON; we only
+ * inspect the target path in `tool_input`.
  *
  * Scope: acts only inside a recap-studio project (see lib/scope.mjs). In any
  * other project it allows the write without looking at it.
@@ -50,7 +51,13 @@ function readPayload() {
 const payload = readPayload();
 if (!hookProjectRoot(payload)) process.exit(0);
 const input = payload.tool_input ?? {};
-const target = input.file_path ?? input.target_path ?? input.path ?? "";
+// Write, Edit and MultiEdit send `file_path`; NotebookEdit sends `notebook_path`.
+const target =
+  input.file_path ??
+  input.notebook_path ??
+  input.target_path ??
+  input.path ??
+  "";
 
 if (!target) process.exit(0);
 

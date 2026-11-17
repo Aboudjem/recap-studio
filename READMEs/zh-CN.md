@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: any topic, one file you can double-click" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio：一个可以发邮件、附到 PR 上或在飞机上阅读的页面" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,8 +18,9 @@
   <a href="fr.md">Français</a>
 </p>
 
+**一个页面：可以发邮件、附到 PR 上，或在飞机上阅读。**
+
 Recap Studio 把一个主题或一次编码会话变成一个双击即可打开的 HTML 页面。
-页面可离线使用。它没有 JavaScript，也不发出任何网络请求。
 
 无需克隆或安装，现在就能试。以下是 2026-11-17 的真实输出（路径已缩短）：
 
@@ -38,6 +39,18 @@ Next:
 ```
 
 <img alt="Recap Studio 渲染出的页面：深色头图、一句话答案和五步阅读路径" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+
+你的负责人问这周改了什么。你有 40 个提交、一段聊天记录，却没有一个可以直接发出去的页面。
+或者有人问某个主题是什么意思，你贴了十个链接。
+Recap Studio 给你的是一个文件。它没有 JavaScript，也不发出任何网络请求。
+
+## 为什么用它
+
+- **到处都能打开。** 一个文件，0 个 script 标签，CSS 全部内联。上面的演示会打印这两项。
+- **发出去之前先检查。** 七项离线检查给页面打分，不用模型。加上 `--fail-under 8` 可以拒绝质量差的页面。
+- **总结你自己的工作。** `/recap session` 读取你的 git diff 和提交，把它们变成团队能读的页面。
+
+分数检查的是结构，不是真假，所以请先读来源。离线时 Mermaid 图只显示源码；请改用 SVG 图。
 
 ## 安装
 
@@ -109,7 +122,7 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 |:--|:--|
 | 技能和智能体 | 在你项目的 `artifacts/` 下写文件。研究使用你的智能体自带的网页搜索（如果有）。 |
 | CLI 和 MCP 服务器 | 写出你要求的页面。不联网。共 11 个 MCP 工具，列在 [docs/mcp-tools.md](../docs/mcp-tools.md)。 |
-| 插件钩子 | 只在 recap-studio 项目中生效。在那里它们阻止写入密钥、破坏性 git 操作和未经检查的部署。 |
+| 插件钩子 | 只在 recap-studio 项目中生效。在那里它们阻止写入和编辑密钥文件、破坏性 git 操作和未经检查的部署。 |
 | 部署和邮件 | 插件从不执行。MCP 部署工具返回一条命令，邮件工具返回草稿。 |
 
 ## 你会得到什么
@@ -138,7 +151,7 @@ CLI 和 MCP 服务器是同一个已提交的文件 `bin/recap.mjs`，没有任�
 
 | 论断 | 数字 | 命令 |
 |:--|:--|:--|
-| 通过的测试 | 109 | `npm run test:count` |
+| 通过的测试 | 113 | `npm run test:count` |
 | 渲染页面中的 script 标签 | 0 | `node bin/recap.mjs demo` |
 | 演示页面大小 | 49.8 KB | `node bin/recap.mjs demo` |
 | 演示内容的启发式分数 | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |

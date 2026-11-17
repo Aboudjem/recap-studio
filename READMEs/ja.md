@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: any topic, one file you can double-click" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio: メールで送れて、PR に添付できて、飛行機の中でも読める 1 ページ" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,8 +18,9 @@
   <a href="fr.md">Français</a>
 </p>
 
+**メールで送れて、PR に添付できて、飛行機の中でも読める 1 ページ。**
+
 Recap Studio は、トピックやコーディングセッションを、ダブルクリックで開ける 1 つの HTML ページに変えます。
-ページはオフラインで動きます。JavaScript を含まず、ネットワーク通信もしません。
 
 クローンもインストールも不要で今すぐ試せます。2026-11-17 の実際の出力です（パスは短縮）:
 
@@ -38,6 +39,18 @@ Next:
 ```
 
 <img alt="Recap Studio で生成したページ: ダークなヒーロー、一文の答え、5 ステップの読み順" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+
+リードに今週何が変わったかと聞かれます。手元には 40 件のコミットとチャットログがあるだけで、そのまま送れるページはありません。
+あるいは、あるトピックの意味を聞かれて、リンクを 10 個貼ることになります。
+Recap Studio なら 1 つのファイルで済みます。JavaScript を含まず、ネットワーク通信もしません。
+
+## 使う理由
+
+- **どこでも開けます。** 1 ファイル、script タグ 0 個、CSS はすべてインライン。上のデモが両方を表示します。
+- **送る前にチェックされます。** 7 つのオフラインチェックがモデルなしでページを採点します。`--fail-under 8` を付けると弱いページを拒否します。
+- **自分の作業もまとめられます。** `/recap session` が git の diff とコミットを読み、チームが読めるページにします。
+
+スコアが見るのは形で、正しさではありません。先にソースを読んでください。オフラインでは Mermaid 図はソースのまま表示されるので、SVG 図を使ってください。
 
 ## インストール
 
@@ -109,7 +122,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 |:--|:--|
 | スキルとエージェント | プロジェクト内の `artifacts/` にファイルを書きます。調査にはエージェント自身の Web 検索を使います（ある場合）。 |
 | CLI と MCP サーバー | 依頼されたページを書きます。ネットワーク通信なし。MCP ツールは 11 個で、[docs/mcp-tools.md](../docs/mcp-tools.md) に一覧があります。 |
-| プラグインのフック | recap-studio プロジェクト内でのみ動作します。そこではシークレットの書き込み、破壊的な git、未確認のデプロイを止めます。 |
+| プラグインのフック | recap-studio プロジェクト内でのみ動作します。そこではシークレットファイルへの書き込みと編集、破壊的な git、未確認のデプロイを止めます。 |
 | デプロイとメール | プラグインは実行しません。MCP のデプロイツールはコマンドを返し、メールツールは下書きを返します。 |
 
 ## 得られるもの
@@ -138,7 +151,7 @@ CLI と MCP サーバーは、依存関係のない 1 つのコミット済み�
 
 | 主張 | 数値 | コマンド |
 |:--|:--|:--|
-| 成功するテスト | 109 | `npm run test:count` |
+| 成功するテスト | 113 | `npm run test:count` |
 | 生成ページ内の script タグ | 0 | `node bin/recap.mjs demo` |
 | デモページのサイズ | 49.8 KB | `node bin/recap.mjs demo` |
 | デモ内容のヒューリスティックスコア | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |

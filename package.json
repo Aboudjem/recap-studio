@@ -1,8 +1,8 @@
 {
   "name": "recap-studio",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": true,
-  "description": "Turn a topic or a coding session into one dark-mode HTML explainer you double-click and read offline in about five minutes. Claude Code plugin, CLI and MCP server.",
+  "description": "Turns a topic or your git session into one HTML explainer. Double-click to open, works offline, no JavaScript. One file to attach or send. Claude Code plugin, CLI and MCP server.",
   "license": "MIT",
   "repository": {
     "type": "git",

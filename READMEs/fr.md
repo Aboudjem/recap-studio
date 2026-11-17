@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-light.svg">
-  <img alt="Recap Studio: any topic, one file you can double-click" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
+  <img alt="Recap Studio : une page à envoyer par e-mail, à joindre à une PR ou à lire dans l'avion" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/hero-dark.svg" width="100%">
 </picture>
 
 <p align="center">
@@ -18,8 +18,9 @@
   <b>Français</b>
 </p>
 
+**Une page à envoyer par e-mail, à joindre à une PR ou à lire dans l'avion.**
+
 Recap Studio transforme un sujet ou une session de code en une page HTML qui s'ouvre d'un double-clic.
-La page fonctionne hors ligne. Elle n'a pas de JavaScript et ne fait aucune requête réseau.
 
 Essayez maintenant, sans clone ni installation. Sortie réelle du 2026-11-17, chemin raccourci :
 
@@ -38,6 +39,18 @@ Next:
 ```
 
 <img alt="Une page Recap Studio rendue : en-tête sombre, une réponse en une phrase et un parcours de lecture en cinq étapes" src="https://raw.githubusercontent.com/Aboudjem/recap-studio/main/.github/assets/page-preview.png" width="100%">
+
+Votre lead demande ce qui a changé cette semaine. Vous avez 40 commits, un historique de chat, et aucune page à envoyer.
+Ou quelqu'un demande ce que veut dire un sujet, et vous collez dix liens.
+Recap Studio vous donne un seul fichier à la place. Il n'a pas de JavaScript et ne fait aucune requête réseau.
+
+## Pourquoi l'utiliser
+
+- **Elle s'ouvre partout.** Un fichier, 0 balise script, tout le CSS en ligne. La démo ci-dessus affiche les deux.
+- **Elle est vérifiée avant de partir.** Sept contrôles hors ligne notent la page, sans modèle. Ajoutez `--fail-under 8` pour refuser une page faible.
+- **Elle résume votre propre travail.** `/recap session` lit votre diff git et vos commits et en fait une page que votre équipe peut lire.
+
+La note vérifie la forme, pas la vérité : lisez d'abord les sources. Hors ligne, les diagrammes Mermaid s'affichent en code source ; utilisez des diagrammes SVG.
 
 ## Installation
 
@@ -109,7 +122,7 @@ La CLI et le serveur MCP sont un seul fichier versionné, `bin/recap.mjs`, sans 
 |:--|:--|
 | Skills et agents | Écrivent des fichiers sous `artifacts/` dans votre projet. La recherche utilise la recherche web de votre agent, s'il en a une. |
 | CLI et serveur MCP | Écrivent la page demandée. Aucun appel réseau. 11 outils MCP, listés dans [docs/mcp-tools.md](../docs/mcp-tools.md). |
-| Hooks du plugin | N'agissent que dans un projet recap-studio. Ils y bloquent l'écriture de secrets, le git destructif et les déploiements non vérifiés. |
+| Hooks du plugin | N'agissent que dans un projet recap-studio. Ils y bloquent l'écriture et la modification de fichiers secrets, le git destructif et les déploiements non vérifiés. |
 | Déploiement et e-mail | Jamais lancés par le plugin. L'outil MCP de déploiement renvoie une commande ; celui d'e-mail renvoie un brouillon. |
 
 ## Ce que vous obtenez
@@ -138,7 +151,7 @@ Chaque nombre ci-dessous sort d'une commande que vous pouvez lancer dans un clon
 
 | Affirmation | Nombre | Commande |
 |:--|:--|:--|
-| Tests qui passent | 109 | `npm run test:count` |
+| Tests qui passent | 113 | `npm run test:count` |
 | Balises script dans une page rendue | 0 | `node bin/recap.mjs demo` |
 | Taille de la page de démo | 49.8 KB | `node bin/recap.mjs demo` |
 | Score heuristique du contenu de démo | 9.7/10 | `node bin/recap.mjs validate fixtures/topics/latest-ai-models.json` |

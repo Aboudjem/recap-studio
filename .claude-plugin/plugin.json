@@ -2,8 +2,8 @@
   "$schema": "https://schemas.anthropic.com/claude-code/plugin.schema.json",
   "name": "recap-studio",
   "displayName": "Recap Studio",
-  "version": "0.6.1",
-  "description": "Turn a topic or a coding session into one dark-mode HTML explainer you double-click and read offline in about five minutes.",
+  "version": "0.6.2",
+  "description": "Turns a topic or your git session into one HTML explainer. Double-click to open, works offline, no JavaScript. One file to attach or send.",
   "author": {
     "name": "Adam Boudjemaa",
     "url": "https://github.com/Aboudjem"

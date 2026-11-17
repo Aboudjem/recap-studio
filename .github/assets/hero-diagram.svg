@@ -127,5 +127,5 @@
   <g filter="url(#rs-hg-glowsm)">
     <g class="p4"><circle cx="44" cy="296" r="4.5" fill="#3DFFAB"/></g>
   </g>
-  <text class="mono tag" x="60" y="300">105 tests pass</text>
+  <text class="mono tag" x="60" y="300">113 tests pass</text>
 </svg>

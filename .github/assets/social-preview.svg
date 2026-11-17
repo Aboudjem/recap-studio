@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" fill="none" role="img"
-     aria-label="recap-studio: Any topic, one file you can double-click.">
+     aria-label="recap-studio: Explain it in one file. Any topic or coding session, as one page that opens offline.">
   <title>recap-studio</title>
   <defs>
     <linearGradient id="rc-ground" x1="0" y1="0" x2="0.4" y2="1">
@@ -125,7 +125,7 @@
     </g>
   </g>
   <text class="mono eyebrow" x="96" y="258">ONE-FILE EXPLAINERS</text>
-  <text class="disp head" x="96" y="416">Any topic, one file you can double-click.</text>
-  <text class="disp sub" x="96" y="458">Dark-mode, mobile-first, reads offline in about five minutes.</text>
+  <text class="disp head" x="96" y="416">Explain it in one file.</text>
+  <text class="disp sub" x="96" y="458">Any topic or coding session, as one page that opens offline.</text>
   <text class="mono tag" x="96" y="604">npx -y github:Aboudjem/recap-studio demo</text>
 </svg>
